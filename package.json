@@ -1,0 +1,15 @@
+{
+  "name": "TeamZoneDemo",
+  "version": "0.0.0",
+  "description": "TeamZoneDemo",
+  "main": "app.js",
+  "author": {
+    "name": "nickz",
+    "email": ""
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "jade": "*",
+    "stylus": "*"
+  }
+}

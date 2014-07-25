@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>ExpressApp7</Name>
+    <RootNamespace>ExpressApp7</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>83aac9f6-1094-40fc-8ce9-2ca0fe8ccbac</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>app.js</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <NodejsPort>1337</NodejsPort>
+    <StartWebBrowser>true</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="app.js" />
+    <Compile Include="feature-test\steps\AddPlayer.js" />
+    <Compile Include="feature-test\steps\testAddPlayer.js" />
+    <Compile Include="feature-test\steps\testAll.js" />
+    <Compile Include="lib\PlayerManagementService - Copy.js" />
+    <Compile Include="lib\PlayerManagementService.js" />
+    <Compile Include="lib\test\PlayerManagementServiceTests.js">
+      <TestFramework>Default</TestFramework>
+    </Compile>
+    <Compile Include="lib\test\spike-require.js" />
+    <Compile Include="routes\index.js" />
+    <Compile Include="routes\test\indexTests.js" />
+    <Compile Include="routes\user.js" />
+    <Compile Include="ui-test\DI\steps\AddPlayer.js" />
+    <Compile Include="ui-test\DI\steps\testAddPlayer.js" />
+    <Compile Include="ui-test\fakes\steps\AddPlayer.js" />
+    <Compile Include="ui-test\fakes\steps\fake\PlayerManagementService.js" />
+    <Compile Include="ui-test\fakes\steps\testAddPlayer.js" />
+    <Compile Include="ui-test\full\steps\AddPlayer.js" />
+    <Compile Include="ui-test\full\steps\testAddPlayer.js" />
+    <Content Include="feature-test\features\AddPlayer.feature" />
+    <Content Include="package.json" />
+    <Content Include="public\stylesheets\style.styl" />
+    <Content Include="README.md" />
+    <Content Include="ui-test\DI\features\AddPlayer.feature" />
+    <Content Include="ui-test\DI\steps\screenshots\and_the_form_should_appear_as_prior_to_the_submission_ready_for_the_user_to_try_again.png" />
+    <Content Include="ui-test\DI\steps\screenshots\given_as_a_coach_or_administrator_who_wants_to_add_players_.png" />
+    <Content Include="ui-test\DI\steps\screenshots\then_the_user_should_be_notified_with_the_message_a_failure_occurred_whilst_saving_the_player_please_try_again_.png" />
+    <Content Include="ui-test\DI\steps\screenshots\when_an_error_occurs_when_submitting_these_valid_player_details_mark_viduka_3_dec_1974_1_edensor_street_edensor_park_2101_0424_299_281_marko_wk_com_au_.png" />
+    <Content Include="ui-test\fakes\features\AddPlayer.feature" />
+    <Content Include="ui-test\fakes\steps\screenshots\and_the_form_should_appear_as_prior_to_the_submission_ready_for_the_user_to_try_again.png" />
+    <Content Include="ui-test\fakes\steps\screenshots\given_as_a_coach_or_administrator_who_wants_to_add_players_.png" />
+    <Content Include="ui-test\fakes\steps\screenshots\then_the_user_should_be_notified_with_the_message_a_failure_occurred_whilst_saving_the_player_please_try_again_.png" />
+    <Content Include="ui-test\fakes\steps\screenshots\when_an_error_occurs_when_submitting_these_valid_player_details_mark_viduka_3_dec_1974_1_edensor_street_edensor_park_2101_0424_299_281_marko_wk_com_au_.png" />
+    <Content Include="ui-test\full\features\AddPlayer.feature" />
+    <Content Include="views\addPlayer.jade" />
+    <Content Include="views\index.jade" />
+    <Content Include="views\layout.jade" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="feature-test\" />
+    <Folder Include="feature-test\features\" />
+    <Folder Include="feature-test\steps\" />
+    <Folder Include="lib\" />
+    <Folder Include="lib\test\" />
+    <Folder Include="routes\test\" />
+    <Folder Include="ui-test\" />
+    <Folder Include="public\" />
+    <Folder Include="public\images\" />
+    <Folder Include="public\javascripts\" />
+    <Folder Include="public\stylesheets\" />
+    <Folder Include="routes\" />
+    <Folder Include="ui-test\DI\features\" />
+    <Folder Include="ui-test\DI\steps\" />
+    <Folder Include="ui-test\DI\steps\screenshots\" />
+    <Folder Include="ui-test\fakes\" />
+    <Folder Include="ui-test\fakes\features\" />
+    <Folder Include="ui-test\fakes\steps\" />
+    <Folder Include="ui-test\fakes\steps\fake\" />
+    <Folder Include="ui-test\fakes\steps\screenshots\" />
+    <Folder Include="ui-test\full\" />
+    <Folder Include="ui-test\full\features\" />
+    <Folder Include="ui-test\full\steps\" />
+    <Folder Include="ui-test\full\steps\screenshots\" />
+    <Folder Include="ui-test\DI\" />
+    <Folder Include="views\" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
