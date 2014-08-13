@@ -9,7 +9,6 @@
     "express-validator": "*",
     "jade": "*",
     "stylus": "*",
-    "leveldb": "*",
     "levelup": "*",
     "azureleveldown": "*",
     "level-sublevel": "*",
