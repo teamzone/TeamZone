@@ -20,7 +20,8 @@
     "async": "*"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "test-unit",
+    "test-unit": "mocha -R spec ./lib/test/PlayerManagementServiceTests.js"
   },
   "repository": {
     "type": "git",
