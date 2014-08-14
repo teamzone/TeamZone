@@ -1,7 +1,7 @@
 ﻿/* jslint node: true */
 "use strict";
 
-var Pms = require('../../lib/PlayerManagementService');
+var Pms = require('../../../lib/PlayerManagementService');
 var webdriver = require('selenium-webdriver');
 var assert = require('assert');
 var Yadda = require('yadda');

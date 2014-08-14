@@ -5,7 +5,7 @@
 var Yadda = require('yadda');
 Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
 
-var Pms = require('../../lib/PlayerManagementService');
+var Pms = require('../../../lib/PlayerManagementService');
 var library = require('./AddPlayer');
 var webdriver = require('selenium-webdriver');
 var fs = require('fs');
@@ -41,7 +41,7 @@ featureFile('../features/AddPlayer.feature', function(feature) {
         // we should be in a state of preparedness to make the refactoring if and when needed
         // maybe a feature request for Yadda here.  Maybe we pull down the Yadda code and submit a code change ourselves!
 
-        var Pms = require('../../lib/PlayerManagementService'); // The library that you wish to test
+        var Pms = require('../../../lib/PlayerManagementService'); // The library that you wish to test
         var pms = new Pms();
 	    pms.Open(null);	
         // Question: Do we really want such an API!!!

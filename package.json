@@ -20,10 +20,9 @@
     "async": "*"
   },
   "scripts": {
-    "test": "npm run test-unit && npm run goto-test-features",
+    "test": "npm run test-unit && npm run test-features",
     "test-unit": "mocha -R spec ./lib/test/PlayerManagementServiceTests.js",
-    "goto-test-features": "cd ./feature-test/steps && npm run test-features",
-    "test-features": "mocha -R spec testAddPlayer.js"
+    "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js"
   },
   "repository": {
     "type": "git",

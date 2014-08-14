@@ -1,13 +1,14 @@
 ﻿/* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
-
+var path = require('path');
 var Yadda = require('yadda');
 Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
 
-var Pms = require('../../lib/PlayerManagementService');
-
-featureFile('../features/AddPlayer.feature', function(feature) {
+//creating a path that works for locations, Yaddas calls is not as good as node's require and you need
+//to be in the folder itself
+var featureFilePath = path.resolve(__dirname, '../features/AddPlayer.feature');
+featureFile(featureFilePath, function(feature) {
 
     var library = require('./AddPlayer');
     var yadda = new Yadda.Yadda(library);
