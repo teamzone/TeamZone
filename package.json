@@ -17,12 +17,14 @@
   "devDependencies": {
     "mocha": "^1.20.1",
     "yadda": "0.10.14",
+    "selenium-webdriver": "*",
     "async": "*"
   },
   "scripts": {
-    "test": "npm run test-unit && npm run test-features",
+    "test": "npm run test-unit && npm run test-features && npm run test-ui",
     "test-unit": "mocha -R spec ./lib/test/PlayerManagementServiceTests.js",
-    "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js"
+    "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
+    "test-ui": "mocha -t 6000 -R spec ./ui-test/steps/testAddPlayer.js"
   },
   "repository": {
     "type": "git",

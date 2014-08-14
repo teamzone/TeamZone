@@ -3,15 +3,18 @@
 "use strict";
 
 var Yadda = require('yadda');
+var path = require('path');
 Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
 
-var Pms = require('../../../lib/PlayerManagementService');
 var library = require('./AddPlayer');
 var webdriver = require('selenium-webdriver');
 var fs = require('fs');
 var driver;
 
-featureFile('../features/AddPlayer.feature', function(feature) {
+//creating a path that works for locations, Yaddas calls is not as good as node's require and you need
+//to be in the folder itself
+var featureFilePath = path.resolve(__dirname, '../features/AddPlayer.feature');
+featureFile(featureFilePath, function(feature) {
 
     before(function(done) {
         driver = new webdriver.Builder().usingServer().withCapabilities({'browserName': 'firefox'}).build();
@@ -61,9 +64,10 @@ function executeInFlow(fn, done) {
 
 function takeScreenshotOnFailure(test) {
     if (test.status != 'passed') {
-        var path = 'screenshots/' + test.title.replace(/\W+/g, '_').toLowerCase() + '.png';
+        
+        var scrpath = path.resolve(__dirname, 'screenshots/') + test.title.replace(/\W+/g, '_').toLowerCase() + '.png';
         driver.takeScreenshot().then(function(data) {
-            fs.writeFileSync(path, data, 'base64');
+            fs.writeFileSync(scrpath, data, 'base64');
         });
     }
 }
