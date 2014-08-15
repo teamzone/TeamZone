@@ -22,9 +22,15 @@
   },
   "scripts": {
     "test": "npm run test-unit",
-    "test-unit": "mocha -R spec ./lib/test/PlayerManagementServiceTests.js",
+    "test-unit": "mocha -r blanket -R json-conv ./lib/test/PlayerManagementServiceTests.js",
     "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
     "test-ui": "sh seleniumRunner.sh"
+  },
+  "config": {
+  	"blanket": {
+  		"pattern": "lib",
+  		"data-cover-never": "node_modules"
+  	}
   },
   "repository": {
     "type": "git",
