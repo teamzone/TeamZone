@@ -21,7 +21,7 @@
     "async": "*"
   },
   "scripts": {
-    "test": "npm run test-unit && npm run test-features && npm run test-ui",
+    "test": "npm run test-unit && npm run test-ui",
     "test-unit": "mocha -R spec ./lib/test/PlayerManagementServiceTests.js",
     "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
     "test-ui": "seleniumRunner.sh"
