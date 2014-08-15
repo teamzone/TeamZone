@@ -24,7 +24,7 @@
     "test": "npm run test-unit && npm run test-ui",
     "test-unit": "mocha -R spec ./lib/test/PlayerManagementServiceTests.js",
     "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
-    "test-ui": "seleniumRunner.sh"
+    "test-ui": "sh seleniumRunner.sh"
   },
   "repository": {
     "type": "git",
