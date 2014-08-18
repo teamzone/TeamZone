@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
+// Get
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/AddPlayer', routes.addPlayer);
