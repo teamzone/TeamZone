@@ -9,7 +9,7 @@
     "express-validator": "*",
     "jade": "*",
     "stylus": "*",
-    "levelup": "*",
+    "levelup": "rvagg/node-levelup",
     "azureleveldown": "*",
     "level-sublevel": "*",
     "moment": "*"

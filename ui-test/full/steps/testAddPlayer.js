@@ -2,6 +2,11 @@
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
 
+// Temporary to use another DB for now until LevelDb hosting is sorted out
+var levelcache = require('level-cache');
+var sublevel = require('level-sublevel');
+///
+
 var Yadda = require('yadda');
 var path = require('path');
 Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
@@ -46,7 +51,7 @@ featureFile(featureFilePath, function(feature) {
 
         var Pms = require('../../../lib/PlayerManagementService'); // The library that you wish to test
         var pms = new Pms();
-	    pms.Open(null);	
+	    pms.Open(null);	    
         // Question: Do we really want such an API!!!
         pms.DeletePlayers(function(err) { 
             if (err) 
