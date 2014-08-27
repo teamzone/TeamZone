@@ -10,6 +10,8 @@
     "jade": "*",
     "stylus": "*",
     "levelup": "rvagg/node-levelup",
+    "redisdown": "*",
+    "redis": "*",
     "azureleveldown": "*",
     "level-sublevel": "*",
     "moment": "*"
