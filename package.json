@@ -23,6 +23,12 @@
     "selenium-webdriver": "*",
     "async": "*"
   },
+  "scripts": {
+ 	"test": "npm run test-unit",
+	"test-unit": "mocha -r blanket -R json-cov ./lib/test/PlayerManagementServiceTests.js",
+	"test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
+	"test-ui": "sh seleniumRunner.sh"
+  },
   "config": {
   	"blanket": {
   		"pattern": "lib",
