@@ -1,4 +1,5 @@
-﻿var assert = require('assert');
+﻿console.log('Loading required modules');
+var assert = require('assert');
 var English = require('yadda').localisation.English;
 var Pms = require('../../lib/PlayerManagementService'); // The library that you wish to test
 
@@ -7,6 +8,7 @@ module.exports = (function() {
   return English.library()
 	
 	.given("^we have a team called $teamname for the season $year with no players listed", function(teamname, year, next) {
+	       console.log('Given');	 
         this.ctx.teamname = teamname;
         this.ctx.year = year;
         next();

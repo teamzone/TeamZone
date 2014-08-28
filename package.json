@@ -24,7 +24,7 @@
     "blanket": "*"
   },
   "scripts": {
- 	"test": "npm run test-unit",
+ 	"test": "npm run test-unit && npm run test-features",
 	"test-unit": "mocha -r blanket -R json-cov ./lib/test/PlayerManagementServiceTests.js",
 	"test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
 	"test-ui": "sh seleniumRunner.sh"
