@@ -21,7 +21,6 @@ exports.AddPlayer = function(req, res) {
     pms.AddPlayer(req.body.TeamName, req.body.FirstName, req.body.Surname, req.body.DOB, req.body.Address, req.body.Suburb, req.body.PostCode, req.body.Phone, req.body.Email, 
         function(err, serviceResponse) {
             if (err) {
-            console.log('We got an error %s', err.message);
                 res.redirect('addPlayer', err);
             }
             else {

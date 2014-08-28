@@ -13,7 +13,6 @@
     "redisdown": "*",
     "url": "*",
     "redis": "*",
-    "azureleveldown": "*",
     "level-sublevel": "*",
     "moment": "*"
   },
@@ -21,7 +20,8 @@
     "mocha": "^1.20.1",
     "yadda": "0.10.14",
     "selenium-webdriver": "*",
-    "async": "*"
+    "async": "*",
+    "blanket": "*"
   },
   "scripts": {
  	"test": "npm run test-unit",
