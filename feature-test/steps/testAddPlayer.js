@@ -20,9 +20,9 @@ featureFile(featureFilePath, function(feature) {
     scenarios(feature.scenarios, function(scenario) {
         var scenario_context = { teamname: null, year: null, dob: null, firstname: null, surname: null, address: null, suburb: null, postcode: null, email: null, Error: null };
         steps(scenario.steps, function(step, done) {
-console.log('Running Feature Test');
+
             yadda.yadda(step, { ctx: scenario_context }, done);
-console.log('Completed Feature Test');
+
         });
     });
 

@@ -7,8 +7,7 @@ module.exports = (function() {
 	
   return English.library()
 	
-	.given("^we have a team called $teamname for the season $year with no players listed", function(teamname, year, next) {
-	       console.log('Given');	 
+	.given("^we have a team called $teamname for the season $year with no players listed", function(teamname, year, next) {	 
         this.ctx.teamname = teamname;
         this.ctx.year = year;
         next();
@@ -19,8 +18,6 @@ module.exports = (function() {
     })
 	
     .when("I enter vital details $firstName, $surname, $dob, $address, $suburb, $postcode, $phone, $email", function(firstname, surname, dob, address, suburb, postcode, phone, email, next) {
-	   
-       console.log('when');	 
        
        //save these to be checked later
 	   this.ctx.firstname = firstname;
