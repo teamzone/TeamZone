@@ -35,7 +35,7 @@ featureFile(featureFilePath, function(feature) {
 
         var Pms = require('../../lib/PlayerManagementService'); // The library that you wish to test
         var pms = new Pms();
-	    pms.Open(null);	
+	    pms.Open(null, null);	
         // Question: Do we really want such an API!!!
         pms.DeletePlayers(function(err) { 
             if (err) 

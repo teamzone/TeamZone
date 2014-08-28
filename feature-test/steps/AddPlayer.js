@@ -31,7 +31,7 @@ module.exports = (function() {
        this.ctx.email = email;
 
        var pms = new Pms();
-	   pms.Open(null);	   	
+	   pms.Open(null, null);	   	
        pms.AddPlayer(this.ctx.teamname, firstname, surname, dob, address, suburb, postcode, phone, email,
                  function (err, value) {
                     
@@ -64,7 +64,7 @@ module.exports = (function() {
         console.log('Getplayer to be called on %s %s %s', teamname, firstname, surname);
 
         var pms = new Pms();
-	    pms.Open(null);
+	    pms.Open(null, null);
         pms.GetPlayer(teamname, firstname, surname, 
                 function (err, value) {
                    
@@ -106,7 +106,7 @@ module.exports = (function() {
 
        //we are using our own API aware of the tradeoff here
        var pms = new Pms();
-	   pms.Open(null);	   	
+	   pms.Open(null, null);	   	
        pms.AddPlayer(this.ctx.teamname, firstname, surname, dob, address, suburb, postcode, phone, email,
                  function (err, value) {
                     
@@ -124,7 +124,7 @@ module.exports = (function() {
 
     .when("I enter those details again", function(next) {
        var pms = new Pms();
-	   pms.Open(null);	 
+	   pms.Open(null, null);	 
        ctx = this.ctx;
        pms.AddPlayer(this.ctx.teamname, this.ctx.firstname, this.ctx.surname, this.ctx.dob, this.ctx.address, this.ctx.suburb, this.ctx.postcode, this.ctx.phone, this.ctx.email,
                  function (err, value) {                    
@@ -157,7 +157,7 @@ module.exports = (function() {
 	   this.ctx.surname = surname;
        ctx = this.ctx;
        var pms = new Pms();
-	   pms.Open(null);	 
+	   pms.Open(null, null);	 
        pms.AddPlayer(this.ctx.teamname, firstname, surname, dob, address, suburb, postcode, phone, email,
                  function (err, value) {                    
 					if (err) 
@@ -173,7 +173,7 @@ module.exports = (function() {
         assert.equal(this.ctx.Error.message, 'The date is in an incorrect format', 'Incorrect error message');
 
         var pms = new Pms();
-	    pms.Open(null);
+	    pms.Open(null, null);
         console.log('Checking not row exists for %s %s %s', this.ctx.teamname, this.ctx.firstname, this.ctx.surname);
         pms.GetPlayer(this.ctx.teamname, this.ctx.firstname, this.ctx.surname, 
                 function (err, value) {
