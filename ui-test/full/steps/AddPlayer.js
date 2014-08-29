@@ -82,9 +82,10 @@ console.log('Got TeamName element');
 
        driver.findElement(webdriver.By.name('TeamName'))
             .then(function(teamNameElement) {
-console.log('Got TeamName element to start sending keystrokes');
                 driver.findElement(webdriver.By.name('TeamName')).sendKeys(teamname);
+console.log('Got TeamName element to start sending keystrokes');                
                 driver.findElement(webdriver.By.name('FirstName')).sendKeys(firstname);
+console.log('Got Firstname element to start sending keystrokes');                
                 driver.findElement(webdriver.By.name('Surname')).sendKeys(surname);
                 driver.findElement(webdriver.By.name('DOB')).sendKeys(dob);
                 driver.findElement(webdriver.By.name('Address')).sendKeys(address);
@@ -93,7 +94,7 @@ console.log('Got TeamName element to start sending keystrokes');
                 driver.findElement(webdriver.By.name('Phone')).sendKeys(phone);
                 driver.findElement(webdriver.By.name('Email')).sendKeys(email.trim());
                 driver.findElement(webdriver.By.name('Submit')).click();
-
+console.log('Got Submit button element to start sending keystrokes');
                 return true;
         })
         .then(null, function(err) {
