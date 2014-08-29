@@ -83,7 +83,7 @@ console.log('Got TeamName element');
        driver.findElement(webdriver.By.name('TeamName'))
             .then(function(teamNameElement) {
                 //var element = driver.findElement(webdriver.By.name('TeamName'));
-console.log('Got TeamName element to start sending keystrokes');                
+console.log('Got TeamName element to start sending keystrokes, sending %s', teamname);                
                 teamNameElement.sendKeys(teamname);
 console.log('Sent keystrokes to Teamname element');                
                 driver.findElement(webdriver.By.name('FirstName')).sendKeys(firstname);
