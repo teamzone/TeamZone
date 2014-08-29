@@ -70,7 +70,7 @@ module.exports = (function() {
     function StandardAddPlayerFormFill(driver, teamname, firstname, surname, dob, address, suburb, postcode, phone, email)
     {
        //TODO: Parameterize the URL
-       driver.get("http://localhost:3000/addPlayer");
+       driver.get(process.env.TEAMZONE_URL + '/addPlayer');
 
        //wait til fully loaded before attempting to locate items
        driver.wait(function() {
