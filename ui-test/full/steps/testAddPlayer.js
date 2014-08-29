@@ -2,11 +2,6 @@
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
 
-// Temporary to use another DB for now until LevelDb hosting is sorted out
-var levelcache = require('level-cache');
-var sublevel = require('level-sublevel');
-///
-
 var Yadda = require('yadda');
 var path = require('path');
 Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
@@ -22,7 +17,7 @@ var featureFilePath = path.resolve(__dirname, '../features/AddPlayer.feature');
 featureFile(featureFilePath, function(feature) {
 
     before(function(done) {
-        driver = new webdriver.Builder().usingServer().withCapabilities({'browserName': 'firefox'}).build();
+        driver = new webdriver.Builder().usingServer().withCapabilities({'browserName': 'chrome'}).build();
         driver.manage().timeouts().implicitlyWait(10000);
         done();
     });
@@ -31,7 +26,7 @@ featureFile(featureFilePath, function(feature) {
         steps(scenario.steps, function(step, done) {
             executeInFlow(function() {
 
-                var interpreter_context = { teamname: 'Test', year: null, driver: driver };
+                var interpreter_context = { teamname: 'Modri', year: null, driver: driver };
                 new Yadda.Yadda(library, interpreter_context).yadda(step);
             
             }, done);
@@ -51,7 +46,7 @@ featureFile(featureFilePath, function(feature) {
 
         var Pms = require('../../../lib/PlayerManagementService'); // The library that you wish to test
         var pms = new Pms();
-	    pms.Open(null);	    
+	    pms.Open(null, null);	    
         // Question: Do we really want such an API!!!
         pms.DeletePlayers(function(err) { 
             if (err) 
