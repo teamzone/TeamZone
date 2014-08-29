@@ -75,7 +75,11 @@ console.log('Got the site');
 
        //wait til fully loaded before attempting to locate items
        var isDisplayed = driver.wait(function() {
-            					return driver.findElement(webdriver.By.name('TeamName')).isDisplayed();
+            					var canSee = driver.findElement(webdriver.By.name('TeamName')).isDisplayed();
+            					console.log('canSee = ' + canSee);
+            					if (canSee)
+            						console.log('Can I definately see');
+            					return canSee;
        					 }, 10000);
 
 	   console.log('isDisplayed = %s', isDisplayed);
