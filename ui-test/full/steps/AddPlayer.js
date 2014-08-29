@@ -74,12 +74,12 @@ module.exports = (function() {
 console.log('Got the site');
 
        //wait til fully loaded before attempting to locate items
-       driver.wait(function() {
-            return driver.findElement(webdriver.By.name('TeamName')).then(function(element) { return element !== null});
-       }, 10000);
+       var isDisplayed = driver.wait(function() {
+            					return driver.findElement(webdriver.By.name('TeamName')).isDisplayed();
+       					 }, 10000);
 
-console.log('Got TeamName element');
-
+	   console.log('isDisplayed = %s', isDisplayed);
+	   
        driver.findElement(webdriver.By.name('TeamName'))
             .then(function(teamNameElement) {
                 //var element = driver.findElement(webdriver.By.name('TeamName'));
