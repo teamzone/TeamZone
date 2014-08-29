@@ -71,15 +71,18 @@ module.exports = (function() {
     {
        //TODO: Parameterize the URL
        driver.get(process.env.TEAMZONE_URL + '/addPlayer');
+console.log('Got the site');
 
        //wait til fully loaded before attempting to locate items
        driver.wait(function() {
             return driver.findElement(webdriver.By.name('TeamName')).then(function(element) { return element !== null});
        }, 10000);
 
+console.log('Got TeamName element');
+
        driver.findElement(webdriver.By.name('TeamName'))
             .then(function(teamNameElement) {
-
+console.log('Got TeamName element to start sending keystrokes');
                 driver.findElement(webdriver.By.name('TeamName')).sendKeys(teamname);
                 driver.findElement(webdriver.By.name('FirstName')).sendKeys(firstname);
                 driver.findElement(webdriver.By.name('Surname')).sendKeys(surname);
