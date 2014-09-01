@@ -5,6 +5,7 @@ var Pms = require('../../../lib/PlayerManagementService');
 var webdriver = require('selenium-webdriver');
 var assert = require('assert');
 var Yadda = require('yadda');
+var moment = require('moment');
 
 module.exports = (function() {
 
@@ -26,7 +27,7 @@ module.exports = (function() {
         
         var teamname = this.teamname;
         var pms = new Pms();
-	    pms.Open(null);
+	    pms.Open(null, null);
         pms.GetPlayer(teamname, firstname, surname, 
                 function (err, value) {
                    
@@ -39,15 +40,17 @@ module.exports = (function() {
                     {                                                                                                               				   
  				       assert(value != null, "No value returned");
 				   	
-                       assert.equal(teamname, value.teamname, "teamname does not match");
-                       assert.equal(firstname, value.firstname, "firstname does not match");
-                       assert.equal(surname, value.surname, "surname does not match");                                                                                           			   					   
-					   assert.equal(dob, value.dob, "dob does not match");
-					   assert.equal(address, value.address, "address does not match");
-					   assert.equal(suburb, value.suburb, "suburb does not match");
-					   assert.equal(postcode, value.postcode, "postcode does not match ");
-					   assert.equal(phone, value.phone, "phone does not match ");
-                       assert.equal(email, value.email, "email does not match ");					   
+                       assert.equal(value.teamname, teamname, "teamname does not match");
+                       assert.equal(value.firstname, firstname, "firstname does not match");
+                       assert.equal(value.surname, surname, "surname does not match"); 
+                       //why format the date?  because diffrent browsers will use diffrent formats for the same date
+                       //do we care how it's stored, no. The date just needs to be valid                                                                                          			   					   
+					   assert.equal(moment(value.dob).format('D MMM YYYY'), dob, "dob does not match");
+					   assert.equal(value.address, address, "address does not match");
+					   assert.equal(value.suburb, suburb, "suburb does not match");
+					   assert.equal(value.postcode, postcode, "postcode does not match ");
+					   assert.equal(value.phone, phone, "phone does not match ");
+                       assert.equal(value.email, email, "email does not match ");					   
 
                     }
 				});
@@ -93,7 +96,12 @@ console.log('Sent keystrokes to Teamname element');
                 driver.findElement(webdriver.By.name('FirstName')).sendKeys(firstname);
 console.log('Got Firstname element to start sending keystrokes');                
                 driver.findElement(webdriver.By.name('Surname')).sendKeys(surname);
-                driver.findElement(webdriver.By.name('DOB')).sendKeys(dob);
+console.log('Input DOB %s', dob);  
+				//really need to convert the DOB into a standard date for multiple browsers. Knowledge that the field is format
+				//dd/mm/yyyy has to be taken into account.  
+				var standardDate = moment(dob, 'DD MMM YYYY');  
+console.log('Send DOB %s', standardDate.format('MM/DD/YYYY'));  
+                driver.findElement(webdriver.By.name('DOB')).sendKeys(standardDate.format('MM/DD/YYYY'));
                 driver.findElement(webdriver.By.name('Address')).sendKeys(address);
                 driver.findElement(webdriver.By.name('Suburb')).sendKeys(suburb);
                 driver.findElement(webdriver.By.name('PostCode')).sendKeys(postcode);
