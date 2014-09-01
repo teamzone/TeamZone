@@ -72,35 +72,22 @@ module.exports = (function() {
 
     function StandardAddPlayerFormFill(driver, teamname, firstname, surname, dob, address, suburb, postcode, phone, email)
     {
-       //TODO: Parameterize the URL
        driver.get(process.env.TEAMZONE_URL + '/addPlayer');
-console.log('Got the site');
 
        //wait til fully loaded before attempting to locate items
        var isDisplayed = driver.wait(function() {
             					var canSee = driver.findElement(webdriver.By.name('TeamName')).isDisplayed();
-            					console.log('canSee = ' + canSee);
-            					if (canSee)
-            						console.log('Can I definately see');
             					return canSee;
        					 }, 10000);
-
-	   console.log('isDisplayed = %s', isDisplayed);
 	   
        driver.findElement(webdriver.By.name('TeamName'))
             .then(function(teamNameElement) {
-                //var element = driver.findElement(webdriver.By.name('TeamName'));
-console.log('Got TeamName element to start sending keystrokes, sending %s', teamname);                
                 teamNameElement.sendKeys(teamname);
-console.log('Sent keystrokes to Teamname element');                
                 driver.findElement(webdriver.By.name('FirstName')).sendKeys(firstname);
-console.log('Got Firstname element to start sending keystrokes');                
                 driver.findElement(webdriver.By.name('Surname')).sendKeys(surname);
-console.log('Input DOB %s', dob);  
 				//really need to convert the DOB into a standard date for multiple browsers. Knowledge that the field is format
 				//dd/mm/yyyy has to be taken into account.  
 				var standardDate = moment(dob, 'DD MMM YYYY');  
-console.log('Send DOB %s', standardDate.format('MM/DD/YYYY'));  
                 driver.findElement(webdriver.By.name('DOB')).sendKeys(standardDate.format('MM/DD/YYYY'));
                 driver.findElement(webdriver.By.name('Address')).sendKeys(address);
                 driver.findElement(webdriver.By.name('Suburb')).sendKeys(suburb);
@@ -108,7 +95,6 @@ console.log('Send DOB %s', standardDate.format('MM/DD/YYYY'));
                 driver.findElement(webdriver.By.name('Phone')).sendKeys(phone);
                 driver.findElement(webdriver.By.name('Email')).sendKeys(email.trim());
                 driver.findElement(webdriver.By.name('Submit')).click();
-console.log('Got Submit button element to start sending keystrokes');
                 return true;
         })
         .then(null, function(err) {
