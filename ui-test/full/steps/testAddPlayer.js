@@ -34,7 +34,7 @@ featureFile(featureFilePath, function(feature) {
     });
 
     afterEach(function() {
-        takeScreenshotOnFailure(this.currentTest);
+        //takeScreenshotOnFailure(this.currentTest);
     });
 
     after(function(done) {
