@@ -12,6 +12,8 @@ var expressValidator = require('express-validator');
 
 var app = express();
 
+console.log('IP is ', process.env.IP);
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));

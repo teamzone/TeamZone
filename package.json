@@ -22,6 +22,7 @@
     "selenium-webdriver": "*",
     "async": "*",
     "blanket": "*",
+    "jshint": "*",
     "level-cache": "*"
   },
   "scripts": {
