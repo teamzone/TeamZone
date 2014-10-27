@@ -124,7 +124,7 @@ module.exports = (function() {
     .when("I enter those details again", function(next) {
        var pms = new Pms();
 	   pms.Open(null, null);	 
-       ctx = this.ctx;
+       var ctx = this.ctx;
        pms.AddPlayer(this.ctx.teamname, this.ctx.firstname, this.ctx.surname, this.ctx.dob, this.ctx.address, this.ctx.suburb, this.ctx.postcode, this.ctx.phone, this.ctx.email,
                  function (err, value) {                    
 					if (err) 
