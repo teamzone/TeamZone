@@ -1,4 +1,4 @@
-﻿Feature:  Add a Player
+Feature:  Add a Player
 To be able to contact our players, as a coach I’d like to add player names and address details into the system
 
 Background:

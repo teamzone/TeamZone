@@ -1,4 +1,3 @@
-﻿console.log('Loading required modules');
 var assert = require('assert');
 var English = require('yadda').localisation.English;
 var Pms = require('../../lib/PlayerManagementService'); // The library that you wish to test
@@ -37,7 +36,7 @@ module.exports = (function() {
 					if (err) 
 					{
 						console.log('Ooops!', err) // some kind of I/O error
-						assert(1 == 0, "Error in AddPlayer");
+						assert(1 === 0, "Error in AddPlayer");
 					}
                     else
                     {	
@@ -70,7 +69,7 @@ module.exports = (function() {
 				    if (err) 
 				    {
 					    console.log('Ooops!', err) // some kind of I/O error
-					    assert(1 == 0, "Error in GetPlayer");
+					    assert(1 === 0, "Error in GetPlayer");
 				    }
 				   	else
                     {                                                                                                               				   
@@ -112,7 +111,7 @@ module.exports = (function() {
 					if (err) 
 					{
 						console.log('Ooops!', err) // some kind of I/O error
-						assert(1 == 0, "Error in AddPlayer");
+						assert(1 === 0, "Error in AddPlayer");
 					}
                     else
                     {		                       			   					   					   					   
@@ -135,7 +134,7 @@ module.exports = (function() {
 					}
                     else
                     {		
-                       assert(1 == 0, "Failed: Should have been an error");                        			   					   					   					   
+                       assert(1 === 0, "Failed: Should have been an error");                        			   					   					   					   
 				    }
                  });        
     })
