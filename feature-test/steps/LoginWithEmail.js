@@ -25,7 +25,9 @@ module.exports = (function() {
 	    //direct code to DB
 	    var usersDb = this.interpreter_context.usersDb;
         bcrypt.genSalt(10, function(err, salt) {
+            
             bcrypt.hash(password, salt, function(err, hashedPassword) {
+                console.log('hashing password ' + password + ' to ' + hashedPassword);
                 // Store hash in your password DB.
                 usersDb.put(email, { firstname: firstname, surname: surname, email: email, password: hashedPassword }, { sync: true }, 
             				        function (err) {
@@ -41,27 +43,27 @@ module.exports = (function() {
 				            
     })
     
-    .given("We are on on the home page", function(next) {
+    .given("We are on the home page", function(next) {
        next();
     })
 	
     .when("I enter $email into the login email field and $password in the password field", function(email, password, next) {
        
        var ctx = this.scenario_context;
-              ums.LoginUser(email, password,
-                 function (err, value) {
-                    
-					if (err) 
-					{
-						console.log('Ooops!', err) 
-						assert(1 === 0, "Error in LoginUser");
-					}
-                    else
-                    {	
-                       ctx.loggedInUser = value;
-					   next();
-				    }
-                 });
+       ums.LoginUser(email, password,
+         function (err, value) {
+            
+			if (err) 
+			{
+				console.log('Ooops!', err) 
+				assert(1 === 0, "Error in LoginUser");
+			}
+            else
+            {	
+               ctx.loggedInUser = value;
+			   next();
+		    }
+        });
   	   	   
     })
 
@@ -83,5 +85,30 @@ module.exports = (function() {
         next();
     })
 
-
+// Next scenario being tested
+    .given("We are back on the home page", function(next) {
+       next();
+    })
+    
+    .when("I enter $email into the login email field and incorrect password $password in the password field", function(email, incorrectpassword, next) {
+       
+       var ctx = this.scenario_context;
+       ums.LoginUser(email, incorrectpassword,
+         function (err, value) {
+            ctx.loginerror = err; 
+			next();
+		 })
+    })
+    
+    .then("he should not be logged in", function(next) {
+		next();
+    })
+	
+    .given("notified by error message 'Incorrect Login Details Entered, please check your email and/or password'", function(next) {
+        var ctx = this.scenario_context;
+        assert(ctx.loginerror.message === 'Incorrect Login Details Entered, please check your email and/or password', 'Should have an error message');
+        //assert.equal(this.scenario_context.teams[0], teamname, 'Team was not brought back');
+        next();
+    })
+    
 })();

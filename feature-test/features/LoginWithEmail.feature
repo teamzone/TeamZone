@@ -3,11 +3,19 @@ Our users (e.g. Coaches, Players, Admins, Managers, Vote Givers) will need to lo
 
 Background:
 
-	Given We visit the home page of the site and wish to login through the login area.  We are dependent on the user robdunn@aboutagile.com rob, dunn, exsocceroo being registered on the system.
+	Given We visit the home page of the site and wish to login through the login area.  We are dependent on the user robdunn@aboutagile.com rob, dunn, AussieInternational being registered on the system.
 	
 Scenario: The coach Rob Dunn needs to login to the website with a valid email and password
 
-	Given We are on on the home page
+	Given We are on the home page
 	When I enter robdunn@aboutagile.com into the login email field and AussieInternational in the password field
 	Then he should be logged in successfully
 	And be presented with the list of teams he coaches which is Western Knights 1st Team
+
+## This should be brough in after getting the first scenario working
+Scenario: The coach Rob Dunn tries to login to the website with an invalid password
+
+	Given We are back on the home page
+	When I enter robdunn@aboutagile.com into the login email field and incorrect password NotAnAussieInternational in the password field
+	Then he should not be logged in 
+	And  notified by error message 'Incorrect Login Details Entered, please check your email and/or password'	
