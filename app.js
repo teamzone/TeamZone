@@ -35,11 +35,13 @@ if ('development' == app.get('env')) {
 }
 // Get
 app.get('/', routes.index);
+app.get('/login', routes.login);
 app.get('/users', user.list);
 app.get('/AddPlayer', routes.addPlayer);
 
 // POST
 app.post('/AddPlayer', routes.AddPlayer);
+app.post('/login', routes.loginUser);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
