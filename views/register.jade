@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  form(method="POST", action="/Register", id="registerForm")
+    .form-group
+        label(for='Email') Email
+        input(type='text', name='Email', id='Email', placeholder='Email', required, data-required-msg='Email is required')
+    .form-group
+        label(for='Password') Password
+        input(type='password', name='Password', id='password1', placeholder='Password', required, data-required-msg='Password is required')
+    .form-group
+        label(for='Password2') Confirm Password
+        input(type='password', name='Password2', id='password1', placeholder='Password', required, data-required-msg='Confirmation of password is required')
+        
+    script(type='text/javascript').
+        window.onload = function () {
+            document.getElementById("password1").onchange = validatePassword;
+            document.getElementById("password2").onchange = validatePassword;
+        }
+        function validatePassword(){
+            var pass2=document.getElementById("password2").value;
+            var pass1=document.getElementById("password1").value;
+            if(pass1!=pass2)
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity('');  
+            //empty string means no validation error
+        }
