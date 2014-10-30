@@ -1,7 +1,7 @@
-﻿
 var playermanagementservice = require('../lib/PlayerManagementService');
 var usermanagementservice = require('../lib/UserManagementService');
-var databasefactory = require('../lib/common/databasefactory');
+var databasefactory = require('../lib/common/DatabaseFactory');
+var bcrypt = require('bcrypt');
 
 // place holder for messages to send to the UI
 var flash = {};
@@ -44,6 +44,14 @@ exports.login = function(req, res) {
 };
 
 /*
+ * GET register page.
+ */
+
+exports.register = function(req, res) {
+  res.render('register');
+};
+
+/*
  * Post loginUser
  */
 exports.loginUser = function(req, res) {
@@ -51,41 +59,86 @@ exports.loginUser = function(req, res) {
   // pull the form variables off the request body
   var username = req.body.username;
   var password = req.body.password;
-  //This will be injected 
-  var database = databasefactory.levelredis();
-  var ums = new usermanagementservice(null, database.userdb(database.leveldb));
+  //This will be injected eventually
+  var dbf = new databasefactory();
+  var database = dbf.levelredis();
+  var ums = new usermanagementservice(dbf.userdb(database.leveldb), bcrypt);
   
   // register the user with everlive
-  ums.LoginUser(username, password, function(err, res) {
+  ums.LoginUser(username, password, function(err, reslogin) {
     if (err) {
         // failure
-    
         flash.type = 'alert-danger';
         flash.messages = [{ msg: err.message }];
-        
         res.render('login', { flash: flash });
-        
     }
     else {
       // success
-
-      if (res.IsLoggedIn) {
+      if (reslogin.IsLoggedIn) {
       
         req.session.authenticated = true;
-        req.session.user = res;
+        req.session.user = reslogin;
 
         res.redirect('dashboard');
-      
-      } else {
-
+      } 
+      else {
         flash.type = 'alert-info';
         flash.messages = [{ msg: 'Login failed.  You may need to still verify your account or incorrect username/password was entered' }];
-
         res.render('login', { flash: flash });
-
       }
-
     }
   });
+};
   
+/*
+* POST register user.
+*/
+exports.registerUser = function(req, res) {
+      
+    // validate the input
+    req.checkBody('password', 'Password is required').notEmpty();
+    req.checkBody('email', 'Email is required').notEmpty();
+    req.checkBody('email', 'Email does not appear to be valid').isEmail();
+    
+    // check the validation object for errors
+    var errors = req.validationErrors();
+    
+    if (errors) {
+        
+      flash = { type: 'alert-danger', messages: errors };
+      res.redirect('register');
+      
+    } else {
+        
+        // pull the form variables off the request body
+        var username = req.body.email;
+        var password = req.body.password;
+
+        //This will be injected eventually
+        var dbf = new databasefactory();
+        var database = dbf.levelredis();
+        var ums = new usermanagementservice(dbf.userdb(database.leveldb), bcrypt);
+        ums.RegisterUser(username, password, function(err, resregister) {
+          if (err) {
+            // failure
+          
+            flash.type = 'alert-danger';
+            flash.messages = [{ msg: err.message }];
+    
+            res.render('register', { flash: flash });
+  
+          }
+          else {
+            // success
+          
+            flash.type = 'alert-success';
+            flash.messages = [{ msg: 'Please check your email to verify your registration. Then you will be ready to log in!' }];
+    
+            res.render('login', { flash: flash });
+    
+          }
+          
+        
+        });
+      }
 };

@@ -27,7 +27,6 @@ module.exports = (function() {
         bcrypt.genSalt(10, function(err, salt) {
             
             bcrypt.hash(password, salt, function(err, hashedPassword) {
-                console.log('hashing password ' + password + ' to ' + hashedPassword);
                 // Store hash in your password DB.
                 usersDb.put(email, { firstname: firstname, surname: surname, email: email, password: hashedPassword }, { sync: true }, 
             				        function (err) {
