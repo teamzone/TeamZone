@@ -25,6 +25,11 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.bodyParser());
 app.use(expressValidator([]));
+
+// add session support!
+app.use(express.cookieParser());
+app.use(express.session({ secret: 'sauce' }));
+  
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,12 +38,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+function restrict(req, res, next) {
+  if (req.session.authenticated) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+}
+
 // Get
 app.get('/', routes.index);
 app.get('/login', routes.login);
 app.get('/register', routes.register);
 app.get('/users', user.list);
 app.get('/AddPlayer', routes.addPlayer);
+app.get('/dashboard', restrict, routes.dashboard);
+app.get('/logout', routes.logout);
 
 // POST
 app.post('/AddPlayer', routes.AddPlayer);

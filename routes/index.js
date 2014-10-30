@@ -11,7 +11,7 @@ var flash = {};
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+  res.redirect('login');
 };
 
 exports.addPlayer = function(req, res){
@@ -35,12 +35,30 @@ exports.AddPlayer = function(req, res) {
 
 };
 
+exports.dashboard = function(req, res) {
+  res.render('dashboard', { user: req.session.user });
+};
+
 /*
  * GET login page.
  */
 
 exports.login = function(req, res) {
   res.render('login');
+};
+
+/* 
+ * GET logout
+ */
+
+exports.logout = function(req, res) {
+
+  // clear the session object
+  req.session.destroy();
+
+  // log the user out via via our API, but don't wait for it
+
+  res.redirect('login');
 };
 
 /*
@@ -74,7 +92,8 @@ exports.loginUser = function(req, res) {
     }
     else {
       // success
-      if (reslogin.IsLoggedIn) {
+      console.log(reslogin);
+      if (reslogin.loggedIn) {
       
         req.session.authenticated = true;
         req.session.user = reslogin;
