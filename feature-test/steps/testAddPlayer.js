@@ -42,8 +42,9 @@ featureFile(featureFilePath, function(feature) {
                 console.log('Error in deleting %s', err);
                 done();
             }
-            else 
+            else {
                 done();
+            }
         });
     });
 });
