@@ -32,7 +32,7 @@ featureFile(featureFilePath, function(feature) {
         // But we are enacting the principle: Simplicity -- the art of maximising the work not done
         // we should be in a state of preparedness to make the refactoring if and when needed
         // maybe a feature request for Yadda here.  Maybe we pull down the Yadda code and submit a code change ourselves!
-
+console.log('Processing after');
         var Pms = require('../../lib/PlayerManagementService'); // The library that you wish to test
         var pms = new Pms();
 	    pms.Open(null, null);	
