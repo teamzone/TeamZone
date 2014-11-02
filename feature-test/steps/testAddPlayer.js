@@ -40,6 +40,8 @@ console.log('Processing after');
         pms.DeletePlayers(function(err) { 
             if (err) 
                 console.log('Error in deleting %s', err);
+                
+                console.log('Processing done');
             done();
         });
     });
