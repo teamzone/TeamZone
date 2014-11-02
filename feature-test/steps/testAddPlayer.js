@@ -38,8 +38,10 @@ featureFile(featureFilePath, function(feature) {
 	    pms.Open(null, null);	
         // Question: Do we really want such an API!!!
         pms.DeletePlayers(function(err) { 
-            if (err) 
+            if (err) {
                 console.log('Error in deleting %s', err);
+                done();
+            }
             else 
                 done();
         });
