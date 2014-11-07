@@ -12,7 +12,6 @@ Scenario: The coach Rob Dunn needs to login to the website with a valid email an
 	Then he should be logged in successfully
 	And be presented with the list of teams he coaches which is Western Knights 1st Team
 
-## This should be brough in after getting the first scenario working
 Scenario: The coach Rob Dunn tries to login to the website with an invalid password
 
 	Given We are back on the home page
