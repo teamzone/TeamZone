@@ -3,13 +3,7 @@
 "use strict";
 var path = require('path');
 var Yadda = require('yadda');
-var levelup = require('levelup');
-var levelstore = require('redisdown');
-var sublevel = require('level-sublevel');
-var url = require('url');
-var redis = require('redis');
 var bcrypt = require('bcrypt');
-var assert = require('assert');
 var usermanagementservice = require('../../lib/UserManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
 

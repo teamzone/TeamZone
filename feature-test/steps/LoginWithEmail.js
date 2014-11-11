@@ -1,8 +1,6 @@
 var assert = require('assert');
 var English = require('yadda').localisation.English;
-var usermanagementservice = require('../../lib/UserManagementService'); // The library that you wish to test
-var bcrypt = require('bcrypt');
-var moment = require('moment');
+var dbhelpers = require('./common/DbHelpers');
 
 module.exports = (function() {
 	
@@ -11,35 +9,9 @@ module.exports = (function() {
   return English.library()
 	
 	.given("^We visit the home page of the site and wish to login through the login area.  We are dependent on the user $email $firstname, $surname, $password being registered on the system.", function(email, firstname, surname, password, next) {	
-        
-        this.interpreter_context.createdUsers[this.interpreter_context.createdUsers.length] = {
-                    email: email,
-                    firstname: firstname,
-                    surname: surname,
-                    password: password
-        };
-        
-	    //Set up the fake user - maybe this is in the runner. Going direct? Use Regsiter API?  With the API we needn't bother with hash
-	    
 	    ums = this.interpreter_context.ums;
-	    //direct code to DB
-	    var usersDb = this.interpreter_context.usersDb;
-        bcrypt.genSalt(10, function(err, salt) {
-            
-            bcrypt.hash(password, salt, function(err, hashedPassword) {
-                // Store hash in your password DB.
-                usersDb.put(email, { firstname: firstname, surname: surname, email: email, password: hashedPassword }, { sync: true }, 
-            				        function (err) {
-            					        if (err) 
-                                            next(err);
-                                        else
-                                            //it worked nothing to return
-                                            next();
-            			            });	    
-                
-            });
-        });
-				            
+	    var dbh = new dbhelpers();
+        dbh.CreateUser(this.interpreter_context.usersDb, this.interpreter_context.createdUsers, firstname, surname, password, email, '', true, next);
     })
     
     .given("We are on the home page", function(next) {
