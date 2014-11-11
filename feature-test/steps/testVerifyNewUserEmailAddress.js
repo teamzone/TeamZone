@@ -14,7 +14,7 @@ Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
 
 //creating a path that works for locations, Yaddas calls is not as good as node's require and you need
 //to be in the folder itself
-var featureFilePath = path.resolve(__dirname, '../features/RegisterUserWithEmail.feature');
+var featureFilePath = path.resolve(__dirname, '../features/VerifyNewUserEmailAddress.feature');
 var usersDb;
 var ums;
 var interpreter_context;
@@ -57,7 +57,7 @@ function checkforcompletion(userCount, done)
     }
 }
 
-var library = require('./RegisterUserWithEmail');
+var library = require('./VerifyNewUserEmailAddress');
 var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
     
 featureFile(featureFilePath, function(feature) {
@@ -76,14 +76,15 @@ function setupInterpreterContext()
 {
     var dbf = new databasefactory();
     var evs = new emailverifyservice();
-    database = dbf.levelredis();
-    usersDb = dbf.userdb(database.leveldb);
     
     token.defaults.secret = 'ZZVV';
     token.defaults.timeStep = 96 * 60 * 60; // 24h in seconds
     
+    database = dbf.levelredis();
+    usersDb = dbf.userdb(database.leveldb);
+    
     ums = new usermanagementservice(usersDb, bcrypt, token, evs);
     
-    interpreter_context = { ums: ums, usersDb: usersDb, createdUsers: []};
+    interpreter_context = { ums: ums, usersDb: usersDb, createdUsers: [], token: token};
 }
 

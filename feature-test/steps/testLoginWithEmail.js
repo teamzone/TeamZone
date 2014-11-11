@@ -3,11 +3,6 @@
 "use strict";
 var path = require('path');
 var Yadda = require('yadda');
-var levelup = require('levelup');
-var levelstore = require('redisdown');
-var sublevel = require('level-sublevel');
-var url = require('url');
-var redis = require('redis');
 var bcrypt = require('bcrypt');
 var assert = require('assert');
 var usermanagementservice = require('../../lib/UserManagementService'); // The library that you wish to test
@@ -33,17 +28,29 @@ after(function(done) {
     // ensure a clean environment
     // remove the user created going direct to DB rather than API
     for (var i = 0; i < interpreter_context.createdUsers.length; i++) { 
-        usersDb.del(interpreter_context.createdUsers[i].email, { sync: true }, checkforcompletion(i, done));
+        removeUser(i, done);
     }
 });
 
-function checkforcompletion(i, done)
+function removeUser(userCount, done)
 {
-    if (i === interpreter_context.createdUsers.length - 1) {
-        console.log('Finished deleting')
+     usersDb.del(interpreter_context.createdUsers[userCount].email, { sync: true }, function(err) {
+         if (err) {
+            console.log('Error whilst deleting');
+            assert.ifError(err);
+         }
+         else
+            checkforcompletion(userCount, done);
+     });
+}
+
+function checkforcompletion(userCount, done)
+{
+    if (userCount === interpreter_context.createdUsers.length - 1) {
      	if (database.redis)
      		database.redis.quit();
         database.leveldb.close();    
+        console.log('Completed cleanup');
         done();
     }
 }
