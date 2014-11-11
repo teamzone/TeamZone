@@ -29,7 +29,6 @@ function DbHelpers() {
                                                         confirmed: confirmed,
                                                         token: tokenHash
                                             };
-                                            console.log('User Created');
                                             callback();
                                         }
             			            });	    

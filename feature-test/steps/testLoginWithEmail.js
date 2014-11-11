@@ -4,6 +4,7 @@
 var path = require('path');
 var Yadda = require('yadda');
 var bcrypt = require('bcrypt');
+var assert = require('assert');
 var usermanagementservice = require('../../lib/UserManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
 
@@ -27,17 +28,24 @@ after(function(done) {
     // ensure a clean environment
     // remove the user created going direct to DB rather than API
     for (var i = 0; i < interpreter_context.createdUsers.length; i++) { 
-        usersDb.del(interpreter_context.createdUsers[i].email, { sync: true }, checkforcompletion(i, done));
+        var userCount = i;
+         usersDb.del(interpreter_context.createdUsers[i].email, { sync: true }, function(err) {
+             if (err) {
+                console.log('Error whilst deleting');
+                assert.ifError(err);
+             }
+             checkforcompletion(userCount, done);
+         });
     }
 });
 
-function checkforcompletion(i, done)
+function checkforcompletion(userCount, done)
 {
-    if (i === interpreter_context.createdUsers.length - 1) {
-        console.log('Finished deleting')
+    if (userCount === interpreter_context.createdUsers.length - 1) {
      	if (database.redis)
      		database.redis.quit();
         database.leveldb.close();    
+        console.log('Completed cleanup');
         done();
     }
 }
