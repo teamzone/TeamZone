@@ -30,16 +30,21 @@ after(function(done) {
     // ensure a clean environment
     // remove the user created going direct to DB rather than API
     for (var i = 0; i < interpreter_context.createdUsers.length; i++) { 
-        var userCount = i;
-         usersDb.del(interpreter_context.createdUsers[i].email, { sync: true }, function(err) {
-             if (err) {
-                console.log('Error whilst deleting');
-                assert.ifError(err);
-             }
-             checkforcompletion(userCount, done);
-         });
+        removeUser(i, done);
     }
 });
+
+function removeUser(userCount, done)
+{
+     usersDb.del(interpreter_context.createdUsers[userCount].email, { sync: true }, function(err) {
+         if (err) {
+            console.log('Error whilst deleting');
+            assert.ifError(err);
+         }
+         else
+            checkforcompletion(userCount, done);
+     });
+}
 
 function checkforcompletion(userCount, done)
 {
