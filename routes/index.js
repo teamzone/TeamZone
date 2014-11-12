@@ -1,7 +1,5 @@
 var playermanagementservice = require('../lib/PlayerManagementService');
-var usermanagementservice = require('../lib/UserManagementService');
-var databasefactory = require('../lib/common/DatabaseFactory');
-var bcrypt = require('bcrypt');
+var servicefactory = require('../lib/common/ServiceFactory');
 
 // place holder for messages to send to the UI
 var flash = {};
@@ -78,9 +76,8 @@ exports.loginUser = function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
   //This will be injected eventually
-  var dbf = new databasefactory();
-  var database = dbf.levelredis();
-  var ums = new usermanagementservice(dbf.userdb(database.leveldb), bcrypt);
+  var sf = new servicefactory();
+  var ums = sf.CreateUserManagementService();
   
   // register the user with everlive
   ums.LoginUser(username, password, function(err, reslogin) {
@@ -134,9 +131,9 @@ exports.registerUser = function(req, res) {
         var password = req.body.password;
 
         //This will be injected eventually
-        var dbf = new databasefactory();
-        var database = dbf.levelredis();
-        var ums = new usermanagementservice(dbf.userdb(database.leveldb), bcrypt);
+        var sf = new servicefactory();
+        var ums = sf.CreateUserManagementService();
+  
         ums.RegisterUser(username, password, function(err, resregister) {
           if (err) {
             // failure
