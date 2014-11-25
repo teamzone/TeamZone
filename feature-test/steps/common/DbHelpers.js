@@ -1,6 +1,8 @@
 var bcrypt = require('bcrypt');
 var token = require('token');
+var assert = require('assert');
 
+/// Using the back door to setup data for tests
 function DbHelpers() {
     
     ///
@@ -48,6 +50,29 @@ function DbHelpers() {
                     }
 	    });	    
                 
+    }
+
+    this.RemoverUser = function(context, userCount, done)
+    {
+         context.usersDb.del(context.createdUsers[userCount].email, { sync: true }, function(err) {
+             if (err) {
+                console.log('Error whilst deleting');
+                assert.ifError(err);
+             }
+             else
+                checkforcompletion(userCount, done);
+         });
+    }
+
+    function checkforcompletion(context, userCount, done)
+    {
+        if (userCount === context.createdUsers.length - 1) {
+         	if (context.database.redis)
+         		context.database.redis.quit();
+            context.database.leveldb.close();    
+            console.log('Completed cleanup');
+            done();
+        }
     }
 
 }

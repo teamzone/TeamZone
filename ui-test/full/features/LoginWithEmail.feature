@@ -1,22 +1,21 @@
 Feature:  Login to TeamZone with a email address and password
-
 Our users (e.g. Coaches, Players, Admins, Managers, Vote Givers) will need to login to the site in order to do tasks that normal viewers of the site can't do like
 add players and give votes.
 
 Background:
 
-	Given We visit the home page of the site and wish to login through the login area.  We are dependent on the user being registered on the system.
+	Given We use the login page to login to teamzone.  We are dependent on the user robdunn@aboutagile.com rob, dunn, AussieInternational being registered on the system.
 	
-Scenario: The coach Rob Dunn needs to login to the website with a valid email and password
+Scenario: The coach Rob Dunn needs to login to the website with a valid email and password. He will want ot manage his team Western Knights 1st Team
 
-	Given We are on on the home page
-	When I enter robdunn@aboutagile.com into the login email field and AussieInternational in the password field
+	Given Our user Rob Dunn is on the Login Page
+	When Enters robdunn@aboutagile.com into the login email field and AussieInternational in the password field
 	Then Rob Dunn should be logged in successfully
-	And by be presented with the list of teams he coaches which is Western Knights 1st Team
+	And be navigated away from the login page
 
 Scenario: The coach Rob Dunn tries to login to the website with an invalid email and password
 
-	Given We are on on the home page
-	When I enter robdunn@aboutagile.com into the login email field and NotAnAussieInternational in the password field
+	Given Our user Rob Dunn is on the Login Page
+	When Enters robdunn@aboutagile.com into the login email field and NotAnAussieInternational in the password field
 	Then Rob Dunn should not be logged in 
-	And by directed back to the home page with the login dialog showing error 'Incorrect Login Details Entered, please check your email and/or password'
+	And be directed back to the login page with the login dialog showing error 'Login failed.  You may need to still verify your account or incorrect username/password was entered'

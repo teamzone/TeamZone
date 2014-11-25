@@ -1,4 +1,4 @@
-﻿/* jslint node: true */
+/* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
 
@@ -40,6 +40,7 @@ featureFile(featureFilePath, function(feature) {
     after(function(done) {
         // ensure a clean environment
         // clear down the players storage using our API.  Let's try this out but I'm not feeling that great about this. 
+        // Known as going in through the front door
         // But we are enacting the principle: Simplicity -- the art of maximising the work not done
         // we should be in a state of preparedness to make the refactoring if and when needed
         // maybe a feature request for Yadda here.  Maybe we pull down the Yadda code and submit a code change ourselves!
