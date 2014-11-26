@@ -22,9 +22,15 @@
     "url": "*"
   },
   "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0",    
     "async": "*",
     "blanket": "*",
     "jshint": "*",
+    "karma": "^0.12.28",
+    "karma-typescript-preprocessor": "~0.1",
     "level-cache": "*",
     "mocha": "^1.20.1",
     "selenium-webdriver": "*",
@@ -33,7 +39,7 @@
   },
   "scripts": {
     "test": "npm run test-unit && npm run test-unit-cov && npm run test-features",
-    "test-unit": "mocha -r blanket -R spec ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceTests.js",
+    "test-unit": "mocha -r blanket -R spec ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceTests.js ./routes/test/userTests.js",
     "test-unit-cov": "mocha -r blanket -R html-cov ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceTests.js > Coverage.html",
     "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js ./feature-test/steps/testLoginWithEmail.js ./feature-test/steps/testVerifyNewUserEmailAddress.js",
     "test-VerifyUserEmailAddress": "mocha -t 6000 -R spec ./feature-test/steps/testVerifyNewUserEmailAddress.js",

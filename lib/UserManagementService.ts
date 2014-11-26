@@ -1,5 +1,8 @@
 /// <reference path='../typings/tsd.d.ts' />
 
+//////////////////////////////////////////////////////
+/// Services for User Management
+//////////////////////////////////////////////////////
 export interface IUserManagementService {
   LoginUser(name: string, password: string, callback: any);
 }
