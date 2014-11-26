@@ -35,7 +35,11 @@
     "mocha": "^1.20.1",
     "selenium-webdriver": "*",
     "tsd": "^0.5.7",
-    "yadda": "0.10.14"
+    "yadda": "0.10.14",
+    "sinon": "*",
+    "sinon-chai": "*",
+    "mocha-sinon": "*",
+    "chai": "*"
   },
   "scripts": {
     "test": "npm run test-unit && npm run test-unit-cov && npm run test-features",
