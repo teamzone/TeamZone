@@ -13,9 +13,11 @@ Scenario: The coach Rob Dunn needs to login to the website with a valid email an
 	Then Rob Dunn should be logged in successfully
 	And be navigated away from the login page
 
+###  Not ready for this yet
 Scenario: The coach Rob Dunn tries to login to the website with an invalid email and password
 
-	Given Our user Rob Dunn is on the Login Page
-	When Enters robdunn@aboutagile.com into the login email field and NotAnAussieInternational in the password field
+	Given Our user Rob Dunn is back on the Login Page
+	When Enters robdunn@aboutagile.com into the login email field and incorrect NotAnAussieInternational in the password field
 	Then Rob Dunn should not be logged in 
 	And be directed back to the login page with the login dialog showing error 'Login failed.  You may need to still verify your account or incorrect username/password was entered'
+###	

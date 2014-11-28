@@ -1,4 +1,5 @@
 var assert = require('assert');
+var webdriver = require('selenium-webdriver');
 var English = require('yadda').localisation.English;
 var dbHelpers = require('../../../feature-test/steps/common/DbHelpers');
 
@@ -7,77 +8,76 @@ module.exports = (function() {
 
   return English.library()
 	
-	.given("^We visit the home page of the site and wish to login through the login area.  We are dependent on the user $email $firstname, $surname, $password being registered on the system.", function(email, firstname, surname, password, next) {	
+	.given("^We use the login page to login to teamzone.  We are dependent on the user $email $firstname, $surname, $password being registered on the system.", function(email, firstname, surname, password) {	
 	    var dbh = new dbHelpers();
-        dbh.CreateUser(this.interpreter_context.usersDb, this.interpreter_context.createdUsers, firstname, surname, password, email, '', true, next);
+        dbh.CreateUser(this.interpreter_context.usersDb, this.interpreter_context.createdUsers, firstname, surname, password, email, '', true, 
+            function(err) {
+                assert.ifError(err);
+                console.log('User %s %s created', firstname, surname);
+        });
     })
     
-    .given("We are on the home page", function(next) {
-       next();
+    .given("Our user $firstname $surname is on the Login Page", function(firstname, surname) {
+       var driver = this.interpreter_context.driver;
+       driver.get(process.env.TEAMZONE_URL + '/login');
+       //wait til fully loaded before attempting to locate items
+       var isDisplayed = driver.wait(function() {
+            					var canSee = driver.findElement(webdriver.By.name('username')).isDisplayed();
+            					return canSee;
+       					 }, 10000);
+	   assert(isDisplayed, 'Page not displayed');
     })
 	
-    .when("I enter $email into the login email field and $password in the password field", function(email, password, next) {
-       
-       var ctx = this.scenario_context;
-       ums.LoginUser(email, password,
-         function (err, value) {
-            
-			if (err) 
-			{
-				console.log('Ooops!', err) 
-				assert(1 === 0, "Error in LoginUser");
-			}
-            else
-            {	
-               ctx.loggedInUser = value;
-			   next();
-		    }
+    .when("Enters $email into the login email field and $password in the password field", function(email, password) {
+
+       var driver = this.interpreter_context.driver;
+	   
+       driver.findElement(webdriver.By.name('username'))
+            .then(function(userNameElement) {
+                userNameElement.sendKeys(email);
+                driver.findElement(webdriver.By.name('password')).sendKeys(password);
+                driver.findElement(webdriver.By.name('Login')).click();
+                return true;
+        })
+        .then(null, function(err) {
+            console.error("An error was thrown! " + err);
+            assert.ifError(err);
         });
   	   	   
     })
 
-    .then("he should be logged in successfully", function(next) {
+    .then("$firstname $surname should be logged in successfully", function(firstname, surname) {
 
-        var ctx = this.scenario_context;
-        var createdUser = this.interpreter_context.createdUsers[this.interpreter_context.createdUsers.length - 1];
-
-        assert.equal(createdUser.firstname, ctx.loggedInUser.firstname, "firstname does not match with loggedIn user value");
-        assert.equal(createdUser.surname, ctx.loggedInUser.surname, "surname does not match with loggedIn user value");                                                                                           			   					   
-        assert.equal(createdUser.email, ctx.loggedInUser.email, "email does not match with loggedIn user value");					   
-        assert(ctx.loggedInUser.loggedIn, "Expecting to be logged in");
-                       
-		next();
     })
 	
-    .given("be presented with the list of teams he coaches which is $teamname", function(teamname, next) {
-        //assert.equal(this.scenario_context.teams[0], teamname, 'Team was not brought back');
-        next();
+    .given("be navigated away from the login page", function() {
+        var driver = this.interpreter_context.driver;
+        //var createdUser = this.interpreter_context.createdUsers[this.interpreter_context.createdUsers.length - 1];
+        //the next page should be the dasboard
+       var isDisplayed = driver.wait(function() {
+                                return driver.getCurrentUrl().then(function(currentUrl) {
+            					    var position = currentUrl.indexOf('dashboard');
+            					    return position > -1;
+                                });
+       					 }, 10000);
+	   assert(isDisplayed, 'Page not displayed');
     })
 
 // Next scenario being tested
-    .given("We are back on the home page", function(next) {
-       next();
+    .given("Our user $firstname $surname is back on the Login Page", function(firstname, surname) {
+      
     })
     
-    .when("I enter $email into the login email field and incorrect password $password in the password field", function(email, incorrectpassword, next) {
+    .when("Enters $email into the login email field and incorrect $password in the password field", function(email, password) {
        
-       var ctx = this.scenario_context;
-       ums.LoginUser(email, incorrectpassword,
-         function (err, value) {
-            ctx.loginerror = err; 
-			next();
-		 })
     })
     
-    .then("he should not be logged in", function(next) {
-		next();
+    .then("$firstname $surname should not be logged in ", function(firstname, surname) {
+
     })
 	
-    .given("notified by error message 'Incorrect Login Details Entered, please check your email and/or password'", function(next) {
-        var ctx = this.scenario_context;
-        assert(ctx.loginerror.message === 'Incorrect Login Details Entered, please check your email and/or password', 'Should have an error message');
-        //assert.equal(this.scenario_context.teams[0], teamname, 'Team was not brought back');
-        next();
+    .given("be directed back to the login page with the login dialog showing error 'Login failed.  You may need to still verify your account or incorrect username/password was entered'", function() {
+
     })
     
 })();

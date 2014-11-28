@@ -1,8 +1,10 @@
 /// <reference path='../typings/tsd.d.ts' />
 /// <reference path='../typings/express/express.d.ts' />
 /// <reference path='../typings/node/node.d.ts' />
+/// <reference path="../lib/UserManagementService.ts" />
+
 import express = require("express");
-import UserManagementService = require('../lib/UserManagementService');
+
 class Flash {
   type : string;
   messages : IFlashMessage[];
@@ -13,20 +15,20 @@ interface IFlashMessage {
 }
 
 export interface IUser {
-  Login(req: express.ExpressServerRequest, res: express.ExpressServerResponse);
+  Login(req: express.Request, res: express.Response);
 }
 
 export class User implements IUser {
   
-  private ums: IUserManagementService;
+  private ums: Service.IUserManagementService;
   
-  constructor(ums: IUserManagementService) { 
+  constructor(ums: Service.IUserManagementService) { 
     this.ums = ums;
   }
   /*
   * POST Login user.
   */
-  Login = (req: express.ExpressServerRequest, res: express.ExpressServerResponse) =>  {
+  Login = (req: express.Request, res: express.Response) =>  {
 
     var flash = new Flash();
     
@@ -34,7 +36,7 @@ export class User implements IUser {
     var username = req.body.username;
     var password = req.body.password;
 
-    ums.LoginUser(username, password, function(err, reslogin) {
+    this.ums.LoginUser(username, password, function(err, reslogin) {
       if (err) {
         flash.type = 'alert-danger';
         flash.messages = [{ msg: err.message }];

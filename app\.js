@@ -1,5 +1,5 @@
 /// <reference path='typings/tsd.d.ts' />
-// Import express with body parsers (for handling JSON)
+/// <reference path='typings/node/node.d.ts' />
 var express = require('express');
 var servicefactory = require('./lib/common/ServiceFactory');
 var sf = new servicefactory();
@@ -8,7 +8,6 @@ var routes = require('./routes');
 // user = require('./routes/user');
 var user = require('./routes/user');
 var u = new user(ums);
-var http = require('http');
 var path = require('path');
 var expressValidator = require('express-validator');
 var app = express();

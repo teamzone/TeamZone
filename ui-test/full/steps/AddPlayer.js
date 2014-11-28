@@ -1,4 +1,4 @@
-﻿/* jslint node: true */
+/* jslint node: true */
 "use strict";
 
 var Pms = require('../../../lib/PlayerManagementService');
@@ -9,23 +9,25 @@ var moment = require('moment');
 
 module.exports = (function() {
 
+    var _teamname;
+    var _year;
+    
     var library = new Yadda.localisation.English.library()
     
 	.given("^we have a team called $teamname for the season $year with no players listed", function(teamname, year) {
-        this.teamname = teamname;
-        this.year = year;
+        _teamname = teamname;
+        _year = year;
     })
 
     .given("I have an empty Player List", function() {
     })
 
     .when("I enter vital details $firstName, $surname, $dob, $address, $suburb, $postcode, $phone, $email", function(firstname, surname, dob, address, suburb, postcode, phone, email) {
-	   StandardAddPlayerFormFill(this.driver, this.teamname, firstname, surname, dob, address, suburb, postcode, phone, email);   
+	   StandardAddPlayerFormFill(this.driver, _teamname, firstname, surname, dob, address, suburb, postcode, phone, email);   
     })
 
     .then("The player list should have $firstName, $surname, $dob, $address, $suburb, $postcode, $phone, $email listed", function(firstname, surname, dob, address, suburb, postcode, phone, email) {
-        
-        var teamname = this.teamname;
+        var teamname = _teamname;
         var pms = new Pms();
 	    pms.Open(null, null);
         pms.GetPlayer(teamname, firstname, surname, 
@@ -63,7 +65,7 @@ module.exports = (function() {
     })
 
     .when("an error occurs when submitting these valid player details $firstName, $surname, $dob, $address, $suburb, $postcode, $phone, $email", function(firstname, surname, dob, address, suburb, postcode, phone, email) {
-        StandardAddPlayerFormFill(this.driver, this.teamname, firstname, surname, dob, address, suburb, postcode, phone, email);
+        StandardAddPlayerFormFill(this.driver, _teamname, firstname, surname, dob, address, suburb, postcode, phone, email);
     })
 
     .then("the user should be notified with the message 'A failure occurred whilst saving the player. Please try again'", function(next) {
@@ -79,6 +81,7 @@ module.exports = (function() {
             					var canSee = driver.findElement(webdriver.By.name('TeamName')).isDisplayed();
             					return canSee;
        					 }, 10000);
+	   assert(isDisplayed, 'Page not displayed');
 	   
        driver.findElement(webdriver.By.name('TeamName'))
             .then(function(teamNameElement) {

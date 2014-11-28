@@ -1,5 +1,4 @@
 var bcrypt = require('bcrypt');
-var token = require('token');
 var assert = require('assert');
 
 /// Using the back door to setup data for tests
@@ -8,8 +7,7 @@ function DbHelpers() {
     ///
     /// Helps create a user for the Feature Tests
     ///
-    this.CreateUser = function(usersDb, createdUsers, firstname, surname, password, email, tokenHash, confirmed, callback)
-    {
+    this.CreateUser = function(usersDb, createdUsers, firstname, surname, password, email, tokenHash, confirmed, callback) {
         
 	    //Set up the fake user - maybe this is in the runner. Going direct? Use Regsiter API?  With the API we needn't bother with hash
 	    
@@ -37,10 +35,9 @@ function DbHelpers() {
                 
             });
         });
-    }
+    };
 
-    this.GetUser = function(usersDb, email, callback)
-    {
+    this.GetUser = function(usersDb, email, callback) {
 	    //direct code to DB
         usersDb.get(email, function (err, res) {
 			        if (err) 
@@ -50,19 +47,20 @@ function DbHelpers() {
                     }
 	    });	    
                 
-    }
+    };
 
-    this.RemoverUser = function(context, userCount, done)
-    {
-         context.usersDb.del(context.createdUsers[userCount].email, { sync: true }, function(err) {
+    this.RemoveUser = function(context, userCount, done) {
+        var userEmail = context.createdUsers[userCount].email;
+        console.log('Removing User %s', userEmail);
+        context.usersDb.del(userEmail, { sync: true }, function(err) {
              if (err) {
-                console.log('Error whilst deleting');
+                console.log('Error whilst deleting %s', userEmail);
                 assert.ifError(err);
              }
              else
-                checkforcompletion(userCount, done);
-         });
-    }
+                checkforcompletion(context, userCount, done);
+        });
+    };
 
     function checkforcompletion(context, userCount, done)
     {
@@ -70,8 +68,8 @@ function DbHelpers() {
          	if (context.database.redis)
          		context.database.redis.quit();
             context.database.leveldb.close();    
-            console.log('Completed cleanup');
-            done();
+            if (done)
+                done();
         }
     }
 

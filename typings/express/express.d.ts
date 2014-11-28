@@ -414,7 +414,7 @@ declare module "express" {
 
         interface Send {
             (status: number, body?: any): Response;
-            (body: any): Response;
+            (body: any): Response;Fse
         }
 
         interface Response extends http.ServerResponse, Express.Response {

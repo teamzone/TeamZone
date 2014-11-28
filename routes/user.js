@@ -1,3 +1,7 @@
+/// <reference path='../typings/tsd.d.ts' />
+/// <reference path='../typings/express/express.d.ts' />
+/// <reference path='../typings/node/node.d.ts' />
+/// <reference path="../lib/UserManagementService.ts" />
 var Flash = (function () {
     function Flash() {
     }
@@ -5,6 +9,7 @@ var Flash = (function () {
 })();
 var User = (function () {
     function User(ums) {
+        var _this = this;
         /*
         * POST Login user.
         */
@@ -13,7 +18,7 @@ var User = (function () {
             // pull the form variables off the request body
             var username = req.body.username;
             var password = req.body.password;
-            ums.LoginUser(username, password, function (err, reslogin) {
+            _this.ums.LoginUser(username, password, function (err, reslogin) {
                 if (err) {
                     flash.type = 'alert-danger';
                     flash.messages = [{ msg: err.message }];

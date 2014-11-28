@@ -1,17 +1,33 @@
 /// <reference path='typings/tsd.d.ts' />
-// Import express with body parsers (for handling JSON)
-var express = require('express');
+/// <reference path='typings/node/node.d.ts' />
+/// <reference path='typings/express/express.d.ts' />
+/// <reference path='typings/express-validator/express-validator.d.ts' />
+/// <reference path='typings/body-parser/body-parser.d.ts' />
+/// <reference path='typings/cookie-parser/cookie-parser.d.ts' />
+/// <reference path='typings/express-session/express-session.d.ts' />
+/// <reference path='typings/errorhandler/errorhandler.d.ts' />
+/// <reference path='typings/morgan/morgan.d.ts' />
+/// <reference path='typings/method-override/method-override.d.ts' />
+
+import http = require('http');
+import express = require('express');
+import path = require('path');
+import expressValidator = require('express-validator');
+import bodyParser = require('body-parser');
+import cookieParser = require('cookie-parser');
+import expressSession = require('express-session');
+import errorHandler = require('errorhandler');
+import morgan = require('morgan');
+import methodOverride = require('method-override');
+
+var favicon = require('serve-favicon');
 var servicefactory = require('./lib/common/ServiceFactory');
 var sf = new servicefactory();
 var ums = sf.CreateUserManagementService();
 
 var routes = require('./routes');
-// user = require('./routes/user');
 var user = require('./routes/user');
 var u = new user(ums);
-var http = require('http');
-var path = require('path');
-var expressValidator = require('express-validator');
 
 var app = express();
 
@@ -19,29 +35,27 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(express.bodyParser());
+app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(methodOverride());
+app.use(bodyParser());
 app.use(expressValidator([]));
 
 // add session support!
-app.use(express.cookieParser());
-app.use(express.session({ secret: 'sauce' }));
+app.use(cookieParser());
+app.use(expressSession({ secret: 'sauce' }));
   
-app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Uncommend this line to demo basic auth
 // app.use(express.basicAuth((user, password) => user == "user2" && password == "password"));
 
-
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+  app.use(errorHandler());
 }
 
 function restrict(req, res, next) {
@@ -52,18 +66,27 @@ function restrict(req, res, next) {
   }
 }
 
-// Get
-app.get('/', routes.index);
-app.get('/login', routes.login);
-app.get('/register', routes.register);
-app.get('/AddPlayer', routes.addPlayer);
-app.get('/dashboard', restrict, routes.dashboard);
-app.get('/logout', routes.logout);
+app.route('/')
+  .get(routes.index);
+  
+app.route('/login')
+  .get(routes.login)
+  .post(u.Login);
+  
+app.route('/register')
+  .get(routes.register)
+  .post(routes.registerUser);
 
-// POST
-app.post('/AddPlayer', routes.AddPlayer);
-app.post('/login', u.Login);
-app.post('/register', routes.registerUser);
+app.route('/AddPlayer')
+  .get(routes.addPlayer)
+  .post(routes.AddPlayer);
+  
+app.route('/dashboard')
+  .get(restrict, routes.dashboard);
+  
+app.route('/logout')
+  .get(routes.logout);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
