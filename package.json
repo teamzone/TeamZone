@@ -26,12 +26,16 @@
     "async": "*",
     "blanket": "*",
     "jshint": "*",
-    "level-cache": "*"
+    "level-cache": "*",
+    "sinon": "*",
+    "sinon-chai": "*",
+    "mocha-sinon": "*",
+    "chai": "*"
   },
   "scripts": {
  	"test": "npm run test-unit && npm run test-unit-cov && npm run test-features",
-	"test-unit": "mocha -r blanket -R spec ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceTests.js",
-	"test-unit-cov": "mocha -r blanket -R html-cov ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceTests.js > Coverage.html",
+	"test-unit": "mocha -r blanket -R spec ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceTests.js ./routes/test/userTests.js",
+	"test-unit-cov": "mocha -r blanket -R html-cov ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceTests.js ./routes/test/userTests.js > Coverage.html",
 	"test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js ./feature-test/steps/testLoginWithEmail.js ./feature-test/steps/testVerifyNewUserEmailAddress.js",
 	"test-VerifyUserEmailAddress": "mocha -t 6000 -R spec ./feature-test/steps/testVerifyNewUserEmailAddress.js",
 	"test-AddPlayer": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
