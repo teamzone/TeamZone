@@ -27,7 +27,8 @@
     "blanket": "*",
     "jshint": "*",
     "level-cache": "*",
-    "sinon": "*"
+    "sinon": "*",
+    "sinon-chai": "*",
   },
   "scripts": {
  	"test": "npm run test-unit && npm run test-unit-cov && npm run test-features",
