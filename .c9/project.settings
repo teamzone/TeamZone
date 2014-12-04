@@ -2,9 +2,20 @@
     "run": {
         "@path": "/.c9/runners",
         "configs": {
-            "json()": {},
+            "json()": {
+                "testRegisterWithEmail": {
+                    "runner": "Mocha",
+                    "command": "feature-test/steps/testRegisterWithEmail.js --timeout 5000",
+                    "debug": false,
+                    "name": "testRegisterWithEmail",
+                    "env": {
+                        "REDISTOGO_URL": "redis://redistogo:cdc1c4f5a4f9ea8429387f63eadbccdf@hoki.redistogo.com:10765/"
+                    }
+                }
+            },
             "@inited": "true"
-        }
+        },
+        "@runner": "Mocha"
     },
     "share": {
         "@preview": false,
