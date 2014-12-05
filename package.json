@@ -5,19 +5,21 @@
   "main": "app.js",
   "author": "nickz",
   "dependencies": {
+    "bcrypt": "*",
+    "errno": "*",
     "express": "3.4.4",
     "express-validator": "*",
     "jade": "*",
-    "stylus": "*",
-    "levelup": "rvagg/node-levelup",
-    "redisdown": "*",
-    "url": "*",
-    "redis": "*",
     "level-sublevel": "*",
+    "levelup": "rvagg/node-levelup",
     "moment": "*",
-    "bcrypt": "*",
-    "errno": "*",
-    "token": "*"
+    "nodemailer": "^1.3.0",
+    "redis": "*",
+    "redisdown": "*",
+    "string-format": "^0.2.1",
+    "stylus": "*",
+    "token": "*",
+    "url": "*"
   },
   "devDependencies": {
     "mocha": "^1.20.1",
@@ -33,19 +35,22 @@
     "chai": "*"
   },
   "scripts": {
- 	"test": "npm run test-unit && npm run test-unit-cov && npm run test-features",
-	"test-unit": "mocha -r blanket -R spec ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceLoginTests.js ./lib/test/UserManagementServiceConfirmRegisterTests.js ./lib/test/UserManagementServiceRegisterTests.js ./routes/test/userTests.js",
-	"test-unit-cov": "mocha -r blanket -R html-cov ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceLoginTests.js ./lib/test/UserManagementServiceConfirmRegisterTests.js ./lib/test/UserManagementServiceRegisterTests.js ./routes/test/userTests.js > Coverage.html",
-	"test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js ./feature-test/steps/testLoginWithEmail.js ./feature-test/steps/testVerifyNewUserEmailAddress.js",
-	"test-VerifyUserEmailAddress": "mocha -t 6000 -R spec ./feature-test/steps/testVerifyNewUserEmailAddress.js",
-	"test-AddPlayer": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
-	"test-LoginWithEmail": "mocha -t 6000 -R spec ./feature-test/steps/testLoginWithEmail.js"
+    "test": "npm run test-unit && npm run test-unit-cov && npm run test-features",
+    "test-unit": "mocha -r blanket -R spec ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceLoginTests.js ./lib/test/UserManagementServiceConfirmRegisterTests.js ./lib/test/UserManagementServiceRegisterTests.js ./routes/test/userTests.js ./lib/test/MailGunEmailVerifyServiceTests.js",
+    "test-unit-cov": "mocha -r blanket -R html-cov ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceLoginTests.js ./lib/test/UserManagementServiceConfirmRegisterTests.js ./lib/test/UserManagementServiceRegisterTests.js ./routes/test/userTests.js ./lib/test/MailGunEmailVerifyServiceTests.js > Coverage.html",
+    "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js ./feature-test/steps/testLoginWithEmail.js ./feature-test/steps/testVerifyNewUserEmailAddress.js",
+    "test-VerifyUserEmailAddress": "mocha -t 6000 -R spec ./feature-test/steps/testVerifyNewUserEmailAddress.js",
+    "test-AddPlayer": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
+    "test-LoginWithEmail": "mocha -t 6000 -R spec ./feature-test/steps/testLoginWithEmail.js"
   },
   "config": {
-  	"blanket": {
-  		"pattern": "lib",
-  		"data-cover-never": ["node_modules", "test"]
-  	}
+    "blanket": {
+      "pattern": "lib",
+      "data-cover-never": [
+        "node_modules",
+        "test"
+      ]
+    }
   },
   "repository": {
     "type": "git",
