@@ -1,0 +1,11 @@
+{
+  "repositories": [
+    { "item": "../repositories/userrepository", "dependencies": [], "scope": "singleton" }
+  ],
+  "services": [
+    { "item": "./lib/UserManagementService", "dependencies": [ "../services/cacheservice", "../repositories/userrepository"], "scope": "webrequest" }
+  ],
+  "controllers": [
+    { "item": "./routes/user", "dependencies": [ "./lib/UserManagementService" ], "scope": "webrequest" }
+  ]
+}
