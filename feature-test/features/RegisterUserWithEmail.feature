@@ -6,6 +6,9 @@ Background:
 
 	Given We visit the register user page on the site. 
 	
+# Note for this scenario we will not be using a real mail server as it would be too slow and prone to error
+# Therefore the email sending is tested manually.  The verification of the url is handled via VerifyNewUserEmailAddress.feature at the feature level
+#
 Scenario: The administrator Mary Kovacs wants to register on the website. She will need to eventually be able to setup teams and add players.
 
 	Given We are on the register user page and choose to register with an email and a password
