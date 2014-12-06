@@ -1,3 +1,4 @@
+var user = require('../user');
 var sinon = require('sinon');
 var assert = require('assert');
 var usermanagementservice = require('../../lib/UserManagementService');
@@ -6,7 +7,6 @@ var chai = require("chai");
 var expect = chai.expect;
 chai.should();
 chai.use(sinonChai);
-var user = require('../user');
 require('mocha-sinon');
 
 describe("Testing of expressjs routes for UI function for user services like login and register", function() {
