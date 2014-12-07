@@ -1,0 +1,6 @@
+{
+    "routes": [
+        { "route": "/login", "method": "GET", "controller": "./routes/user" },
+        { "route": "/login", "method": "POST", "controller": "./routes/user" }
+    ]
+}
