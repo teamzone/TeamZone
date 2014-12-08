@@ -21,13 +21,15 @@ import morgan = require('morgan');
 import methodOverride = require('method-override');
 
 var favicon = require('serve-favicon');
-var servicefactory = require('./lib/common/ServiceFactory');
-var sf = new servicefactory();
-var ums = sf.CreateUserManagementService();
+//var servicefactory = require('./lib/common/ServiceFactory');
+//var sf = new servicefactory();
+//var ums = sf.CreateUserManagementService();
+
+
 
 var routes = require('./routes');
 var user = require('./routes/user');
-var u = new user(ums);
+//var u = new user(ums);
 
 var app = express();
 
@@ -66,12 +68,22 @@ function restrict(req, res, next) {
   }
 }
 
+
+var DiConfig = require('./DiConfig');
+var diConfig = new DiConfig(app);
+diConfig.configureDependencies();
+
+var RouteConfig = require('./RouteConfig');
+var routeConfig = new RouteConfig(app);
+routeConfig.registerRoutes();
+
 app.route('/')
   .get(routes.index);
   
-app.route('/login')
-  .get(routes.login)
-  .post(u.Login);
+//app.route('/login')
+  //.get(routes.login)
+  //.post(u.post)
+//  ;
   
 app.route('/register')
   .get(routes.register)

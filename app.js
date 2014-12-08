@@ -19,12 +19,12 @@ var errorHandler = require('errorhandler');
 var morgan = require('morgan');
 var methodOverride = require('method-override');
 var favicon = require('serve-favicon');
-var servicefactory = require('./lib/common/ServiceFactory');
-var sf = new servicefactory();
-var ums = sf.CreateUserManagementService();
+//var servicefactory = require('./lib/common/ServiceFactory');
+//var sf = new servicefactory();
+//var ums = sf.CreateUserManagementService();
 var routes = require('./routes');
 var user = require('./routes/user');
-var u = new user(ums);
+//var u = new user(ums);
 var app = express();
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -56,8 +56,17 @@ function restrict(req, res, next) {
         res.redirect('/');
     }
 }
+var DiConfig = require('./DiConfig');
+var diConfig = new DiConfig(app);
+diConfig.configureDependencies();
+var RouteConfig = require('./RouteConfig');
+var routeConfig = new RouteConfig(app);
+routeConfig.registerRoutes();
 app.route('/').get(routes.index);
-app.route('/login').get(routes.login).post(u.Login);
+//app.route('/login')
+//.get(routes.login)
+//.post(u.post)
+//  ;
 app.route('/register').get(routes.register).post(routes.registerUser);
 app.route('/AddPlayer').get(routes.addPlayer).post(routes.AddPlayer);
 app.route('/dashboard').get(restrict, routes.dashboard);
@@ -65,4 +74,3 @@ app.route('/logout').get(routes.logout);
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-//# sourceMappingURL=app.js.map

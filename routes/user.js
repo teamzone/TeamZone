@@ -1,5 +1,6 @@
 /// <reference path='../typings/tsd.d.ts' />
 /// <reference path='../typings/express/express.d.ts' />
+/// <reference path='../typings/express-session/express-session.d.ts' />
 /// <reference path='../typings/node/node.d.ts' />
 /// <reference path="../lib/UserManagementService.ts" />
 var Flash = (function () {
@@ -13,7 +14,7 @@ var User = (function () {
         /*
         * POST Login user.
         */
-        this.Login = function (req, res) {
+        this.post = function (req, res) {
             var flash = new Flash();
             // pull the form variables off the request body
             var username = req.body.username;
@@ -37,10 +38,15 @@ var User = (function () {
                 }
             });
         };
+        /*
+         * GET login page.
+         */
+        this.get = function (req, res) {
+            res.render('login');
+        };
         this.ums = ums;
     }
     return User;
 })();
 exports.User = User;
 module.exports = User;
-//# sourceMappingURL=user.js.map

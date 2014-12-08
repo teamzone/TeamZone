@@ -37,14 +37,6 @@ exports.dashboard = function(req, res) {
   res.render('dashboard', { user: req.session.user });
 };
 
-/*
- * GET login page.
- */
-
-exports.login = function(req, res) {
-  res.render('login');
-};
-
 /* 
  * GET logout
  */

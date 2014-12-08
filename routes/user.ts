@@ -1,5 +1,6 @@
 /// <reference path='../typings/tsd.d.ts' />
 /// <reference path='../typings/express/express.d.ts' />
+/// <reference path='../typings/express-session/express-session.d.ts' />
 /// <reference path='../typings/node/node.d.ts' />
 /// <reference path="../lib/UserManagementService.ts" />
 
@@ -15,7 +16,7 @@ interface IFlashMessage {
 }
 
 export interface IUser {
-  Login(req: express.Request, res: express.Response);
+  post(req: express.Request, res: express.Response);
 }
 
 export class User implements IUser {
@@ -28,7 +29,7 @@ export class User implements IUser {
   /*
   * POST Login user.
   */
-  Login = (req: express.Request, res: express.Response) =>  {
+  post = (req: express.Request, res: express.Response) =>  {
 
     var flash = new Flash();
     
@@ -55,6 +56,13 @@ export class User implements IUser {
       }
     });
         
+  }
+  
+  /*
+   * GET login page.
+   */
+  get = (req: express.Request, res: express.Response) => {
+    res.render('login');
   }
 }
 
