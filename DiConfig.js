@@ -32,7 +32,7 @@ var loadDiConfig = function() {
     }
   }
   catch(e) {
-    throw 'Unable to parse "lib/config/di.config.json": ' + e;
+    throw 'Unable to parse "di.config.json": ' + e;
   }
 
   return config;
