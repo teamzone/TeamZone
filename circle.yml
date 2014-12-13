@@ -3,4 +3,4 @@ machine:
     version: 0.10.30
     
   environment:
-    REDISTOGO_URL: redis://redistogo:b526d693f9adfc5c9364ff47e44e07f7@jack.redistogo.com:11077/
+    REDISTOGO_URL: redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750
