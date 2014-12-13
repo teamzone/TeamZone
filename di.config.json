@@ -1,10 +1,11 @@
 {
   "repositories": [
-    { "item": "./lib/UserRepository", "dependencies": [], "scope": "singleton" }
+    { "item": "./lib/UserRepository", "dependencies": [], "scope": "transient" }
   ],
   "services": [
-    { "item": "./lib/UserManagementService", "dependencies": [ "./lib/UserRepository", "./lib/CryptService", "./lib/TokenService", "./lib/EmailVerifyService"], "scope": "webrequest" },
-    { "item": "./lib/CryptService", "dependencies": [], "scope": "singleton" }
+    { "item": "./lib/UserManagementService", "dependencies": [ "./lib/UserRepository", "./lib/CryptService", "./lib/TokenService", "./lib/MailGunEmailVerifyService"], "scope": "webrequest" },
+    { "item": "./lib/CryptService", "dependencies": [], "scope": "transient" },
+    { "item": "./lib/MailGunEmailVerifyService", "dependencies": [ "", "", "./lib/diadaptor/MailGunSettingsAdaptor" ], "scope": "transient" }
   ],
   "controllers": [
     { "item": "./routes/user", "dependencies": [ "./lib/UserManagementService" ], "scope": "webrequest" }

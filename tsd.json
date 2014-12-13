@@ -10,6 +10,9 @@
     },
     "node/node.d.ts": {
       "commit": "7a31100a5aac155d9a3071eda99dcb47a10a5211"
+    },
+    "assert/assert.d.ts": {
+      "commit": "1fb0d8c3e30156e69a86271d0532d68d71e0735c"
     }
   }
 }

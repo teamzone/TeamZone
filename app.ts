@@ -21,16 +21,7 @@ import morgan = require('morgan');
 import methodOverride = require('method-override');
 
 var favicon = require('serve-favicon');
-//var servicefactory = require('./lib/common/ServiceFactory');
-//var sf = new servicefactory();
-//var ums = sf.CreateUserManagementService();
-
-
-
 var routes = require('./routes');
-var user = require('./routes/user');
-//var u = new user(ums);
-
 var app = express();
 
 // all environments
@@ -52,7 +43,7 @@ app.use(expressSession({ secret: 'sauce' }));
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Uncommend this line to demo basic auth
+// Uncomment this line to demo basic auth
 // app.use(express.basicAuth((user, password) => user == "user2" && password == "password"));
 
 // development only
@@ -68,7 +59,6 @@ function restrict(req, res, next) {
   }
 }
 
-
 var DiConfig = require('./DiConfig');
 var diConfig = new DiConfig(app);
 diConfig.configureDependencies();
@@ -79,11 +69,6 @@ routeConfig.registerRoutes();
 
 app.route('/')
   .get(routes.index);
-  
-//app.route('/login')
-  //.get(routes.login)
-  //.post(u.post)
-//  ;
   
 app.route('/register')
   .get(routes.register)

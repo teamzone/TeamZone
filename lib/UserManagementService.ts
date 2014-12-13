@@ -1,7 +1,7 @@
 /// <reference path='../typings/tsd.d.ts' />
 /// <reference path='../typings/bcrypt/bcrypt.d.ts' />
 
-module Service {
+export module Service {
 //////////////////////////////////////////////////////
 /// Services for User Management
 //////////////////////////////////////////////////////
@@ -28,26 +28,25 @@ module Service {
 	    
 	    	//workaround for embedded module variables in callbacks within typescript
 	    	var crypt = this.crypt;
-	    	
-				this.users.get(name, function (err, value) {
-					if (err) {
-				        callback(err);
-				    }
-				    else {
-				        if (!value.confirmed)
-				            callback(new Error('User has yet to be confirmed'));
-				        else {
-		        		    crypt.compare(password, value.password, function(err, res) {
-		        		        if(err) 
-		        	                callback(err);
-		        	            else if (res)
-		        		            callback(undefined, { firstname: value.firstname, surname: value.surname, email: name, loggedIn: true});
-		        		        else
-		        		        	callback(new Error('Incorrect Login Details Entered, please check your email and/or password'));
-		            	    });
-				        }
-				    }
-		    	});
+			this.users.get(name, function (err, value) {
+				if (err) {
+			        callback(err);
+			    }
+			    else {
+			        if (!value.confirmed)
+			            callback(new Error('User has yet to be confirmed'));
+			        else {
+	        		    crypt.compare(password, value.password, function(err, res) {
+	        		        if(err) 
+	        	                callback(err);
+	        	            else if (res)
+	        		            callback(undefined, { firstname: value.firstname, surname: value.surname, email: name, loggedIn: true});
+	        		        else
+	        		        	callback(new Error('Incorrect Login Details Entered, please check your email and/or password'));
+	            	    });
+			        }
+			    }
+	    	});
 	    }
 	    
 	    RegisterUser = (email: string, password: string, callback) => {
