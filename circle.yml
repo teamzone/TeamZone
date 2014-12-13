@@ -1,3 +1,6 @@
 machine:
   node:
     version: 0.10.30
+    
+environment:
+  REDISTOGO_URL=redis://redistogo:b526d693f9adfc5c9364ff47e44e07f7@jack.redistogo.com:11077/
