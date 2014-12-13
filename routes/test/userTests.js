@@ -53,7 +53,7 @@ describe("Testing of expressjs routes for UI function for user services like log
         //setup
         
         //exercise
-        u.Login(incomingExpressRequest, outgoingExpressResponse);
+        u.post(incomingExpressRequest, outgoingExpressResponse);
         
         //verify
         assertLoginVerifiedAndViewUpdated(true, outgoingExpressResponseSpy, 'dashboard');
@@ -72,7 +72,7 @@ describe("Testing of expressjs routes for UI function for user services like log
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
         
         //exercise
-        u.Login(incomingExpressRequest, outgoingExpressResponse);
+        u.post(incomingExpressRequest, outgoingExpressResponse);
 
         //verify
         assertLoginVerifiedAndViewUpdated(false, outgoingExpressResponseSpy, 'login', 'Login failed.  You may need to still verify your account or incorrect username/password was entered', 'alert-info');
@@ -90,7 +90,7 @@ describe("Testing of expressjs routes for UI function for user services like log
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
         
         //exercise
-        u.Login(incomingExpressRequest, outgoingExpressResponse);
+        u.post(incomingExpressRequest, outgoingExpressResponse);
         
         //verify
         assertLoginVerifiedAndViewUpdated(false, outgoingExpressResponseSpy, 'login', expectedErrorMessage, 'alert-danger');
