@@ -1,22 +1,38 @@
 /// <reference path='../typings/tsd.d.ts' />
+
 module EmailServices {
 
+	export class MailSettings {
+
+		public fromEmailAddress: string;
+		public baseUrl: string;
+		public mailServiceName: string;
+		public mailServiceUserName: string;
+		public mailServiceUserPassword: string;
+		
+		constructor(fromEmailAddress: string, baseUrl: string, mailServiceName?: string, mailServiceUserName?: string, mailServiceUserPassword?: string) {
+			this.fromEmailAddress = fromEmailAddress;
+			this.baseUrl = baseUrl;
+			this.mailServiceName = mailServiceName;
+			this.mailServiceUserName = mailServiceUserName;
+			this.mailServiceUserPassword = mailServiceUserPassword;
+		}
+	}
+	
 	export class MailGunEmailVerifyService {
 		private nodemailer: any;
 		private transport: any;
 		private fromEmailAddress: string;
 		private baseUrl: string;
 
-		constructor(nodemailer: any, transport: any, fromEmailAddress: string, baseUrl: string, mailServiceName?: string, mailServiceUserName?: string, mailServiceUserPassword?: string) {
+		constructor(nodemailer: any, transport: any, mailSettings: MailSettings) {
 			this.nodemailer = nodemailer;
 			this.transport = transport;
-			this.fromEmailAddress = fromEmailAddress;
-			this.baseUrl = baseUrl;
-			if (mailServiceName) {
+			this.fromEmailAddress = mailSettings.fromEmailAddress;
+			this.baseUrl = mailSettings.baseUrl;
+			if (mailSettings.mailServiceName) {
 				this.nodemailer = require('nodemailer');
-				this.transport = this.createTransport(mailServiceName, mailServiceUserName, mailServiceUserPassword);
-				this.fromEmailAddress = fromEmailAddress;
-				this.baseUrl = baseUrl;
+				this.transport = this.createTransport(mailSettings.mailServiceName, mailSettings.mailServiceUserName, mailSettings.mailServiceUserPassword);
 			}
 		}
 		
