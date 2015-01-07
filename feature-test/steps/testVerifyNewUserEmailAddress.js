@@ -1,3 +1,4 @@
+// Review: 90% similar to other steps files
 /* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
