@@ -1,3 +1,4 @@
+// Review: Appears to be 90% same as testRegister file: some potential for re-use/common fixture code.
 /* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
