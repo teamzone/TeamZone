@@ -1,6 +1,9 @@
 {
     "routes": [
-        { "route": "/login", "method": "GET", "controller": "./routes/user" },
-        { "route": "/login", "method": "POST", "controller": "./routes/user" }
+        { "route": "/login", "method": "GET", "controller": "./routes/userLogin" },
+        { "route": "/login", "method": "POST", "controller": "./routes/userLogin" },
+        { "route": "/register", "method": "GET", "controller": "./routes/userRegister" },
+        { "route": "/register", "method": "POST", "controller": "./routes/userRegister" },
+        { "route": "/verifyReg", "method": "GET", "controller": "./routes/userConfirm" }
     ]
 }
