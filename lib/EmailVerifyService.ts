@@ -10,7 +10,7 @@ export class EmailVerifyService implements email.IEmailVerifyService {
 	
     send = (toEmail: string, token: string, callback: any) => {
         console.log('Send email simulation');
-        this.messageArray.push(email);
+        this.messageArray.push(toEmail);
         callback();
     }
   
