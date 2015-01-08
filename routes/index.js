@@ -1,8 +1,5 @@
 var playermanagementservice = require('../lib/PlayerManagementService');
-var servicefactory = require('../lib/common/ServiceFactory');
 
-// place holder for messages to send to the UI
-var flash = {};
 
 /*
  * GET home page.
