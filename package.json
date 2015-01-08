@@ -53,7 +53,7 @@
   },
   "scripts": {
     "test": "npm run test-unit && npm run test-unit-cov && npm run test-features",
-    "test-unit": "mocha -r blanket -R spec ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceLoginTests.js ./lib/test/UserManagementServiceConfirmRegisterTests.js ./lib/test/UserManagementServiceRegisterTests.js ./routes/test/userConfirmTests.js ./routes/test/userRegisterTests.js ./routes/test/userLoginTests.js ./lib/test/MailGunAPIEmailVerifyServiceTests.js",
+    "test-unit": "mocha -r -R spec ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceLoginTests.js ./lib/test/UserManagementServiceConfirmRegisterTests.js ./lib/test/UserManagementServiceRegisterTests.js ./routes/test/userConfirmTests.js ./routes/test/userRegisterTests.js ./routes/test/userLoginTests.js ./lib/test/MailGunAPIEmailVerifyServiceTests.js",
     "test-unit-cov": "mocha -r blanket -R html-cov ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceLoginTests.js ./lib/test/UserManagementServiceConfirmRegisterTests.js ./lib/test/UserManagementServiceRegisterTests.js ./routes/test/userConfirmTests.js ./routes/test/userRegisterTests.js ./routes/test/userLoginTests.js ./lib/test/MailGunAPIEmailVerifyServiceTests.js > Coverage.html",
     "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js ./feature-test/steps/testLoginWithEmail.js ./feature-test/steps/testVerifyNewUserEmailAddress.js",
     "test-VerifyUserEmailAddress": "mocha -t 6000 -R spec ./feature-test/steps/testVerifyNewUserEmailAddress.js",
