@@ -4,6 +4,10 @@ machine:
     
   environment:
     REDISTOGO_URL: redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750
+
+general:
+  artifacts:
+    - "Coverage.html" 
     
 test:
   post:
@@ -16,4 +20,8 @@ deployment:
   dev:
     branch: master
     heroku:
-      appname: circleci-cibuild      
+      appname: circleci-cibuild
+  staging:
+      branch: staging
+      heroku:
+        appname: circleci-cibuild-staging      
