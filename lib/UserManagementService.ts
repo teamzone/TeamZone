@@ -77,9 +77,7 @@ export module Service {
 	    					var token: string;
 	    					try {
 	    						token = tokenizer.generate(email);
-	    						assert(tokenizer.verify(email, token), 'Should verify immediately');
 	    					} catch (err) {
-	    						console.log(err.message);
 	    						callback(new Error('An error occured generating the unique user token'));
 	    						return;
 	    					}
