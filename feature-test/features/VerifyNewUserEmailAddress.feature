@@ -12,9 +12,12 @@ Scenario: The player Luke Teal has registered on the website. He cannot gain ful
 	When the browser sends the request to TeamZone
 	Then Luke Teal is confirmed as a real user
 	And should be notified in the browser that they have successfully registered 
+# TODO: Implement or drop this requirement to get a confirmation email
 	And receive an email confirming this
+# Possibly this is duplicate of line 13 - to think about
 	And can now access the site
 
+# Un-comment the below and check if it works?
 ##Scenario: The player Luke Teal has already registered on the website. 
 ##
 ##	Given Luke Teal clicks on the link again and opens a browser to navigate to the link

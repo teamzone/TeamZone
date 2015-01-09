@@ -1,4 +1,5 @@
 /* jslint node: true */
+// Review: Is jslint being run?
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
 var path = require('path');
@@ -6,6 +7,7 @@ var Yadda = require('yadda');
 var bcrypt = require('bcrypt');
 var assert = require('assert');
 var usermanagementservice = require('../../lib/UserManagementService'); // The library that you wish to test
+// Review: Perhaps integrate this with our new DI work
 var databasefactory = require('../../lib/common/DatabaseFactory');
 var emailverifyservice = require('../../lib/EmailVerifyService');
 var token = require('token');
@@ -16,6 +18,7 @@ Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
 //to be in the folder itself
 var featureFilePath = path.resolve(__dirname, '../features/RegisterUserWithEmail.feature');
 var usersDb;
+// Review: Potentially not intention revealing - adjunct to this is consistency
 var ums;
 var interpreter_context;
 var database;
@@ -32,12 +35,15 @@ after(function(done) {
     for (var i = 0; i < interpreter_context.createdUsers.length; i++) { 
         removeUser(i, done);
     }
+    // Review: Maybe check if (since db call is synchronous) it makes sense to call done() here?
 });
 
 function removeUser(userCount, done)
 {
      usersDb.del(interpreter_context.createdUsers[userCount].email, { sync: true }, function(err) {
          if (err) {
+             // Review: Maybe use console.error?
+             // Review: Check if this log is needed
             console.log('Error whilst deleting');
             assert.ifError(err);
          }
@@ -80,7 +86,7 @@ function setupInterpreterContext()
     usersDb = dbf.userdb(database.leveldb);
     
     token.defaults.secret = 'ZZVV';
-    token.defaults.timeStep = 96 * 60 * 60; // 24h in seconds
+    token.defaults.timeStep = 96 * 60 * 60; // 96h in seconds
     
     ums = new usermanagementservice(usersDb, bcrypt, token, evs);
     

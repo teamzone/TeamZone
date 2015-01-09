@@ -3,10 +3,12 @@ Our users (e.g. Coaches, Players, Admins, Managers, Vote Givers) will need to lo
 
 Background:
 
+# Perhaps make the 2nd sentence a little more "english"?
 	Given We visit the home page of the site and wish to login through the login area.  We are dependent on the user robdunn@aboutagile.com rob, dunn, AussieInternational being registered on the system.
 	
 Scenario: The coach Rob Dunn needs to login to the website with a valid email and password
 
+# Note: This should match the flow of the website - hit login page first; there isn't a 'login area'
 	Given We are on the home page
 	When I enter robdunn@aboutagile.com into the login email field and AussieInternational in the password field
 	Then he should be logged in successfully
