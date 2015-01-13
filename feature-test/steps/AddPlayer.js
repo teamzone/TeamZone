@@ -155,7 +155,7 @@ module.exports = (function() {
 
        this.ctx.firstname = firstname;
 	   this.ctx.surname = surname;
-       ctx = this.ctx;
+       var ctx = this.ctx;
        var pms = new Pms();
 	   pms.Open(null, null);	 
        pms.AddPlayer(this.ctx.teamname, firstname, surname, dob, address, suburb, postcode, phone, email,
