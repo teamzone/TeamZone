@@ -11,18 +11,13 @@ Background:
 #
 Scenario: The administrator Mary Kovacs wants to register on the website. She will need to eventually be able to setup teams and add players.
 
-# Potentially duplicate with Background given?
-	Given We are on the register user page and choose to register with an email and a password
+	Given I choose to register with an email and a password
 	When I enter marykovacs@aboutagile.com into the email field and GoKnights in the password field and click the Register button
 	Then Mary Kovacs will be sent a validation email.  No other details are required until the email is validated.
 
-# Uncomment and see if this is working?
-##Scenario: The administrator Mary Kovacs is already registered on the website so should not be able to register again
-##
-##  # Duplicated with above step - can 'refactor' into a Background step?
-##	Given We are on on the register as a user page and choose to register with an email and a password
-##	When I enter marykovacs@aboutagile.com into the email field and GoKnights in the password field and click the Register button
-##	Then Mary Kovacs will be told that she is already registered.  She should be told to use the login button on the home page to login
+Scenario: The administrator Mary Kovacs is already registered on the website so should not be able to register again
+
+	Given Mary Kovacs is already registered on the website as marykovacs@aboutagile.com
+	When marykovacs@aboutagile.com is entered into the email field and GoKnights in the password field and click the Register button
+	Then Mary Kovacs will be told that she is already registered.  She should be told to use the login button on the home page to login
 	
-## Student's could work on the other scenarios we come up with or tey come up with ?
-##
