@@ -76,6 +76,7 @@ export module Service {
 	    				else {
 	    					var token: string;
 	    					try {
+	    						tokenizer = require('token');
 	    						token = tokenizer.generate(email);
 	    					} catch (err) {
 	    						callback(new Error('An error occured generating the unique user token for email address: ' + email + '. Error from tokenizer: ' + err.message));
@@ -126,12 +127,11 @@ export module Service {
 	    			callback(new Error('The user ' + email + ' is not present in the database'));
 	    		else if (err)
 	    			callback(new Error('A failure occurred trying to retrieve details for ' + email));
-	    			
+	    		else if (value.confirmed)
+	    			callback(new Error(email + ' is already registered. Please login to access to the site.'));
 	    		else {
 	    			var isValidToken: boolean = false; 
 	    			try {
-	    				console.log('verifying email: %s and token %s.', email, token);
-	    				console.log('The stored token is %s', value.token);
 	    				isValidToken = tokenizer.verify(email, token);
 	    			} catch (err) {
 	    				callback(new Error('Confirmation token has failed validation. Appears an error occurred.'));
