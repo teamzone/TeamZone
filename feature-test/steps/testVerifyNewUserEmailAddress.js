@@ -1,4 +1,3 @@
-// Review: 90% similar to other steps files
 /* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
@@ -28,11 +27,13 @@ before(function(done) {
 });
 
 after(function(done) {
-    // ensure a clean environment
+    console.log('Test: Clean Up by removing %s users', interpreter_context.createdUsers.length);
     // remove the user created going direct to DB rather than API
-    for (var i = 0; i < interpreter_context.createdUsers.length; i++) { 
-        removeUser(i, done);
-    }
+    if (interpreter_context.createdUsers.length > 0)
+        for (var i = 0; i < interpreter_context.createdUsers.length; i++) 
+            removeUser(i, done);
+    else
+        done();
 });
 
 function removeUser(userCount, done)
@@ -73,13 +74,12 @@ featureFile(featureFilePath, function(feature) {
 
 });
 
-function setupInterpreterContext()
-{
+function setupInterpreterContext() {
     var dbf = new databasefactory();
     var evs = new emailverifyservice();
     
     token.defaults.secret = 'ZZVV';
-    token.defaults.timeStep = 96 * 60 * 60; // 24h in seconds
+    token.defaults.timeStep = 96 * 60 * 60; // 96h in seconds
     
     database = dbf.levelredis();
     usersDb = dbf.userdb(database.leveldb);

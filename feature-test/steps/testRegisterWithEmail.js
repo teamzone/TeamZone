@@ -1,5 +1,4 @@
 /* jslint node: true */
-// Review: Is jslint being run?
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
 var path = require('path');
@@ -30,23 +29,20 @@ before(function(done) {
 });
 
 after(function(done) {
-    // ensure a clean environment
+    console.log('Test: Clean Up by removing %s users', interpreter_context.createdUsers.length);
     // remove the user created going direct to DB rather than API
-    for (var i = 0; i < interpreter_context.createdUsers.length; i++) { 
-        removeUser(i, done);
-    }
-    // Review: Maybe check if (since db call is synchronous) it makes sense to call done() here?
+    if (interpreter_context.createdUsers.length > 0)
+        for (var i = 0; i < interpreter_context.createdUsers.length; i++) 
+            removeUser(i, done);
+    else
+        done();
 });
 
 function removeUser(userCount, done)
 {
      usersDb.del(interpreter_context.createdUsers[userCount].email, { sync: true }, function(err) {
-         if (err) {
-             // Review: Maybe use console.error?
-             // Review: Check if this log is needed
-            console.log('Error whilst deleting');
+         if (err) 
             assert.ifError(err);
-         }
          else
             checkforcompletion(userCount, done);
      });
@@ -90,6 +86,6 @@ function setupInterpreterContext()
     
     ums = new usermanagementservice(usersDb, bcrypt, token, evs);
     
-    interpreter_context = { ums: ums, usersDb: usersDb, createdUsers: []};
+    interpreter_context = { ums: ums, usersDb: usersDb, createdUsers: [], evs: evs};
 }
 

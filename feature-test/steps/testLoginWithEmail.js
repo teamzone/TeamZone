@@ -1,4 +1,3 @@
-// Review: Appears to be 90% same as testRegister file: some potential for re-use/common fixture code.
 /* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
@@ -8,6 +7,8 @@ var bcrypt = require('bcrypt');
 var assert = require('assert');
 var usermanagementservice = require('../../lib/UserManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
+var emailverifyservice = require('../../lib/EmailVerifyService');
+var token = require('token');
 
 Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
 
@@ -26,23 +27,23 @@ before(function(done) {
 });
 
 after(function(done) {
-    // ensure a clean environment
+    console.log('Test: Clean Up by removing %s users', interpreter_context.createdUsers.length);
     // remove the user created going direct to DB rather than API
-    for (var i = 0; i < interpreter_context.createdUsers.length; i++) { 
-        removeUser(i, done);
-    }
+    if (interpreter_context.createdUsers.length > 0)
+        for (var i = 0; i < interpreter_context.createdUsers.length; i++) 
+            removeUser(i, done);
+    else
+        done();
 });
 
 function removeUser(userCount, done)
 {
-     usersDb.del(interpreter_context.createdUsers[userCount].email, { sync: true }, function(err) {
-         if (err) {
-            console.log('Error whilst deleting');
-            assert.ifError(err);
-         }
-         else
-            checkforcompletion(userCount, done);
-     });
+    var user = interpreter_context.createdUsers[userCount].email;
+    console.log('Test: Remove user %s', user);    
+    usersDb.del(user, { sync: true }, function(err) {
+        assert.ifError(err);
+        checkforcompletion(userCount, done);
+    });
 }
 
 function checkforcompletion(userCount, done)
@@ -74,11 +75,15 @@ featureFile(featureFilePath, function(feature) {
 function setupInterpreterContext()
 {
     var dbf = new databasefactory();
+    var evs = new emailverifyservice();
     database = dbf.levelredis();
     usersDb = dbf.userdb(database.leveldb);
     
-    ums = new usermanagementservice(usersDb, bcrypt);
+    token.defaults.secret = 'ZZVV';
+    token.defaults.timeStep = 96 * 60 * 60; // 96h in seconds
     
-    interpreter_context = { ums: ums, usersDb: usersDb, createdUsers: []};
+    ums = new usermanagementservice(usersDb, bcrypt, token, evs);
+    
+    interpreter_context = { ums: ums, usersDb: usersDb, createdUsers: [], evs: evs};
 }
 

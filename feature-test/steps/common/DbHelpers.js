@@ -8,34 +8,43 @@ function DbHelpers() {
     /// Helps create a user for the Feature Tests
     ///
     this.CreateUser = function(usersDb, createdUsers, firstname, surname, password, email, tokenHash, confirmed, callback) {
-        
-	    //Set up the fake user - maybe this is in the runner. Going direct? Use Regsiter API?  With the API we needn't bother with hash
-	    
+        console.log('Test: Creating test user - %s', email);
 	    //direct code to DB
-        bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(password, 10, function(err, hashedPassword) {
+            console.log('Test: Hashing password %s to - %s', password, hashedPassword);
+            // Store hashed password in DB and token as well - token is used to keep the user alive as well as something the user sends back to verify identity
+            usersDb.put(email, { firstname: firstname, surname: surname, email: email, password: hashedPassword, confirmed: confirmed, token: tokenHash }, { sync: true }, 
+                        function (err) {
+					        if (err) 
+                                callback(err);
+                            else {
+                                console.log('Test: sample user %s was added', email);
+                                createdUsers.push({
+                                            email: email,
+                                            firstname: firstname,
+                                            surname: surname,
+                                            password: password,
+                                            confirmed: confirmed,
+                                            token: tokenHash
+                                });
+                                callback();
+                            }
+			            });	    
             
-            bcrypt.hash(password, salt, function(err, hashedPassword) {
-                // Store hashed password in DB and token as well - token is used to keep the user alive as well as something the user sends back to verify identity
-                usersDb.put(email, { firstname: firstname, surname: surname, email: email, password: hashedPassword, confirmed: confirmed, token: tokenHash }, { sync: true }, 
-            				        function (err) {
-            					        if (err) 
-                                            callback(err);
-                                        else {
-                                            createdUsers[createdUsers.length] = {
-                                                        email: email,
-                                                        firstname: firstname,
-                                                        surname: surname,
-                                                        password: password,
-                                                        confirmed: confirmed,
-                                                        token: tokenHash
-                                            };
-                                            callback();
-                                        }
-            			            });	    
-                
-            });
         });
     };
+
+    this.UserExistsInArray = function userExistsInArray(users, email) {
+        if (users === undefined || users[0] === undefined)
+            return false;
+        var i = 0;
+        while (i < users.length) { 
+            if (users[i].email === email)
+                return true;
+            i++;
+        }
+        return false;
+    }
 
     this.GetUser = function(usersDb, email, callback) {
 	    //direct code to DB

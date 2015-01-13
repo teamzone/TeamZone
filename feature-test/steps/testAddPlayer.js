@@ -1,4 +1,4 @@
-﻿/* jslint node: true */
+/* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
 "use strict";
 var path = require('path');
@@ -20,9 +20,7 @@ featureFile(featureFilePath, function(feature) {
     scenarios(feature.scenarios, function(scenario) {
         var scenario_context = { teamname: null, year: null, dob: null, firstname: null, surname: null, address: null, suburb: null, postcode: null, email: null, Error: null };
         steps(scenario.steps, function(step, done) {
-
             yadda.yadda(step, { ctx: scenario_context }, done);
-
         });
     });
 

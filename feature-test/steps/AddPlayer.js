@@ -1,3 +1,5 @@
+/* jslint node: true */
+"use strict";
 var assert = require('assert');
 var English = require('yadda').localisation.English;
 var Pms = require('../../lib/PlayerManagementService'); // The library that you wish to test
