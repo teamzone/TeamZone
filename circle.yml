@@ -16,15 +16,13 @@ test:
   override:
     - grunt cibuild --force
     
-  post:
-    - >
-      if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
-        ./bin/run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
-      fi   
-      
 deployment:
   dev:
     branch: master
+    heroku:
+      appname: circleci-cibuild
+  uit:
+    branch: UIT
     heroku:
       appname: circleci-cibuild
   staging:
