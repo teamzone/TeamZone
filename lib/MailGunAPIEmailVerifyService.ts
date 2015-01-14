@@ -1,5 +1,4 @@
 /// <reference path='../typings/tsd.d.ts' />
-import mail = require('./MailSettings');
 import email = require('./IEmailVerifyService');
 import _ = require('underscore');
 

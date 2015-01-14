@@ -3,6 +3,5 @@ var Flash = (function () {
     }
     return Flash;
 })();
-
 module.exports = Flash;
 //# sourceMappingURL=flash.js.map
