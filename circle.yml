@@ -11,7 +11,7 @@ general:
     
 test:
   override:
-    - grunt cibuild --force
+    - grunt --force
     
   post:
     - >
