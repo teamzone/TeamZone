@@ -10,6 +10,9 @@ general:
     - "Coverage.html" 
     
 test:
+  override:
+    - grunt cibuild --force
+    
   post:
     - >
       if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
