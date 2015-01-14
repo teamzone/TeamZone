@@ -10,8 +10,11 @@ general:
     - "Coverage.html" 
     
 test:
+  pre:
+    - node install -g grunt-cli
+    
   override:
-    - grunt --force
+    - grunt cibuild --force
     
   post:
     - >
