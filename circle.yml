@@ -11,7 +11,7 @@ general:
     
 test:
   pre:
-    - node install -g grunt-cli
+    - npm install -g grunt-cli
     
   override:
     - grunt cibuild --force
