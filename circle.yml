@@ -20,7 +20,8 @@ test:
         background: true
         pwd: sc-*-linux
     # Wait for tunnel to be ready
-    - while [ ! -e ~/sc_ready ]; do sleep 1; done  
+    # - while [ ! -e ~/sc_ready ]; do sleep 1; done 
+    sleep 30
     - grunt uitbuild --force
 
 dependencies:
