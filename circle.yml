@@ -14,12 +14,6 @@ test:
     - npm install -g grunt-cli
     
   override:
-    - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
-        background: true
-        pwd: sc-*-linux
-    # Wait for tunnel to be ready
-    # - while [ ! -e ~/sc_ready ]; do sleep 1; done 
-    - sleep 30
     - grunt uitbuild --force
 
 dependencies:
