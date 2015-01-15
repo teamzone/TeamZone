@@ -127,6 +127,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['env', 'ts', 'jslint', 'mochaTest:test']);
   grunt.registerTask('devbuild', ['env', 'ts', 'jslint', 'mochaTest:devbuild']);
   grunt.registerTask('cibuild', ['env:cibuild', 'ts', 'jslint', 'mochaTest:cibuild']);
-  grunt.registerTask('uitbuild', ['env:cibuild', 'ts', 'jslint', 'mochaTest:uitbuild']);
+  grunt.registerTask('uitbuild', ['env:cibuild', 'ts', 'mochaTest:uitbuild']);
 
 };
