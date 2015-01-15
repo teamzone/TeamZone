@@ -14,8 +14,6 @@ test:
     - npm install -g grunt-cli
     
   override:
-test:
-  override:
     - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
         background: true
         pwd: sc-*-linux
