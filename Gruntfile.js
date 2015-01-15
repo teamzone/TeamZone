@@ -65,7 +65,19 @@ module.exports = function(grunt) {
           //require: 'coverage/blanket'
         },
         src: ['lib/test/*.js', 'routes/test/*.js', 'feature-test/steps/test*.js']
+      },
+      uitbuild: {
+        options: {
+          reporter: 'spec',
+          captureFile: 'cibuild-test-results.txt', // Optionally capture the reporter output to a file
+          quiet: false, // Optionally suppress output to standard out (defaults to false)
+          clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
+          timeout: 5200
+          //require: 'coverage/blanket'
+        },
+        src: ['ui-test/full/steps/test*.js']
       }
+      
     },
     coverage: {
       options: {
@@ -115,5 +127,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['env', 'ts', 'jslint', 'mochaTest:test']);
   grunt.registerTask('devbuild', ['env', 'ts', 'jslint', 'mochaTest:devbuild']);
   grunt.registerTask('cibuild', ['env:cibuild', 'ts', 'jslint', 'mochaTest:cibuild']);
+  grunt.registerTask('uitbuild', ['env:cibuild', 'ts', 'mochaTest:uitbuild']);
 
 };

@@ -21,7 +21,7 @@ if(!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY){
     throw new Error("Missing sauce credentials");
 }
 
-var desired = JSON.parse(process.env.DESIRED || '{browserName: "chrome"}');
+var desired = JSON.parse(process.env.DESIRED || '{"browserName": "chrome"}');
 desired.name = 'example with ' + desired.browserName;
 desired.tags = ['Add Player'];
 var driver;

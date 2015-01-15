@@ -14,17 +14,26 @@ test:
     - npm install -g grunt-cli
     
   override:
-    - grunt cibuild --force
-    
+    - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
+        background: true
+        pwd: sc-*-linux
+    # Wait for tunnel to be ready
+    # - while [ ! -e ~/sc_ready ]; do sleep 1; done 
+    - sleep 30
+    - grunt uitbuild --force
+
+dependencies:
   post:
-    - >
-      if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
-        ./bin/run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
-      fi   
-      
+    - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
+    - tar -xzf sc-latest-linux.tar.gz
+    
 deployment:
   dev:
     branch: master
+    heroku:
+      appname: circleci-cibuild
+  uit:
+    branch: UIT
     heroku:
       appname: circleci-cibuild
   staging:
