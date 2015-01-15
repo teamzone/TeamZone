@@ -75,7 +75,7 @@ module.exports = function(grunt) {
           timeout: 5200
           //require: 'coverage/blanket'
         },
-        src: ['lib/test/*.js', 'routes/test/*.js', 'feature-test/steps/test*.js', 'ui-test/full/steps/test*.js']
+        src: ['ui-test/full/steps/test*.js']
       }
       
     },
