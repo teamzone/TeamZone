@@ -26,9 +26,9 @@ deployment:
       appname: circleci-cibuild
   uit:
     branch: UIT
-    heroku:
-      appname: circleci-cibuild
     commands:
+      - git push git@heroku.com:circleci-cibuild.git $CIRCLE_SHA1:master
+      - heroku run rake db:migrate --app circleci-cibuild    
       - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
           background: true
           pwd: sc-*-linux
