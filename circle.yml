@@ -28,12 +28,7 @@ deployment:
     branch: UIT
     heroku:
       appname: circleci-cibuild
-  staging:
-      branch: staging
-      heroku:
-        appname: circleci-cibuild-staging  
-#Run tests after deployment in Heroku.  Other steps in the build pipeline take care of tests that run in the normal way        
-  post:
+    commands:
     - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
         background: true
         pwd: sc-*-linux
@@ -42,4 +37,10 @@ deployment:
 # Wait for app to be ready
     - curl --retry 10 --retry-delay 2 -v $TEAMZONE_URL    
     - grunt uitbuild --force
+    
+  staging:
+      branch: staging
+      heroku:
+        appname: circleci-cibuild-staging  
+
   
