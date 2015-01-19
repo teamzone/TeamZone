@@ -4,6 +4,7 @@ machine:
     
   environment:
     REDISTOGO_URL: redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750
+    TEAMZONE_URL: https://circleci-cibuild.herokuapp.com
 
 general:
   artifacts:
@@ -13,16 +14,6 @@ test:
   pre:
     - npm install -g grunt-cli
     
-  override:
-    - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
-        background: true
-        pwd: sc-*-linux
-    # Wait for tunnel to be ready
-    - while [ ! -e ~/sc_ready ]; do sleep 1; done 
-# Wait for app to be ready
-    - curl --retry 10 --retry-delay 2 -v http://localhost:3000    
-    - grunt uitbuild --force
-
 dependencies:
   post:
     - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
@@ -40,4 +31,15 @@ deployment:
   staging:
       branch: staging
       heroku:
-        appname: circleci-cibuild-staging      
+        appname: circleci-cibuild-staging  
+#Run tests after deployment in Heroku.  Other steps in the build pipeline take care of tests that run in the normal way        
+  post:
+    - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
+        background: true
+        pwd: sc-*-linux
+    # Wait for tunnel to be ready
+    - while [ ! -e ~/sc_ready ]; do sleep 1; done 
+# Wait for app to be ready
+    - curl --retry 10 --retry-delay 2 -v $TEAMZONE_URL    
+    - grunt uitbuild --force
+  
