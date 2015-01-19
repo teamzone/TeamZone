@@ -29,14 +29,14 @@ deployment:
     heroku:
       appname: circleci-cibuild
     commands:
-    - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
-        background: true
-        pwd: sc-*-linux
-    # Wait for tunnel to be ready
-    - while [ ! -e ~/sc_ready ]; do sleep 1; done 
-# Wait for app to be ready
-    - curl --retry 10 --retry-delay 2 -v $TEAMZONE_URL    
-    - grunt uitbuild --force
+      - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
+          background: true
+          pwd: sc-*-linux
+      # Wait for tunnel to be ready
+      - while [ ! -e ~/sc_ready ]; do sleep 1; done 
+      # Wait for app to be ready
+      - curl --retry 10 --retry-delay 2 -v $TEAMZONE_URL    
+      - grunt uitbuild --force
     
   staging:
       branch: staging
