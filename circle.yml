@@ -15,16 +15,16 @@ test:
     - npm install -g grunt-cli
     
   override:
-    - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
-        background: true
-        pwd: sc-*-linux
-    # Wait for tunnel to be ready
-    - while [ ! -e ~/sc_ready ]; do sleep 1; done 
     # build/compile the typescript
     - grunt tsbuild --force
     # start the app
     - node app:
       background: true
+    - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
+        background: true
+        pwd: sc-*-linux
+    # Wait for tunnel to be ready
+    - while [ ! -e ~/sc_ready ]; do sleep 1; done 
     # Wait for app to be ready
     - curl --retry 10 --retry-delay 2 -v http://localhost:3000    
     # Run the UI tests only
