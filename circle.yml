@@ -4,7 +4,7 @@ machine:
     
   environment:
     REDISTOGO_URL: redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750
-    TEAMZONE_URL: https://circleci-cibuild.herokuapp.com
+    TEAMZONE_URL: htttp://localhost:3000
 
 general:
   artifacts:
@@ -14,6 +14,21 @@ test:
   pre:
     - npm install -g grunt-cli
     
+  override:
+    - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
+        background: true
+        pwd: sc-*-linux
+    # Wait for tunnel to be ready
+    - while [ ! -e ~/sc_ready ]; do sleep 1; done 
+    # build/compile the typescript
+    - grunt tsbuild --force
+    # start the app
+    - node app
+    # Wait for app to be ready
+    - curl --retry 10 --retry-delay 2 -v http://localhost:3000    
+    # Run the UI tests only
+    - grunt uitbuild --force
+
 dependencies:
   post:
     - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
@@ -26,21 +41,9 @@ deployment:
       appname: circleci-cibuild
   uit:
     branch: UIT
-    commands:
-      - git push -f git@heroku.com:circleci-cibuild.git $CIRCLE_SHA1:master
-      - heroku run rake db:migrate --app circleci-cibuild    
-      - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
-          background: true
-          pwd: sc-*-linux
-      # Wait for tunnel to be ready
-      - while [ ! -e ~/sc_ready ]; do sleep 1; done 
-      # Wait for app to be ready
-      - curl --retry 10 --retry-delay 2 -v $TEAMZONE_URL    
-      - grunt uitbuild --force
-    
+    heroku:
+      appname: circleci-cibuild
   staging:
       branch: staging
       heroku:
         appname: circleci-cibuild-staging  
-
-  
