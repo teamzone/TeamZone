@@ -18,8 +18,8 @@ test:
     # build/compile the typescript
     - grunt tsbuild --force
     # start the app
-    - node app:
-      background: true
+    - nohup bash -c "node app &"
+    # start the tunnel to saucelabs
     - ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f ~/sc_ready:
         background: true
         pwd: sc-*-linux
