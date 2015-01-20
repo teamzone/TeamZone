@@ -24,6 +24,7 @@ test:
     - grunt tsbuild --force
     # start the app
     - node app
+      background: true
     # Wait for app to be ready
     - curl --retry 10 --retry-delay 2 -v http://localhost:3000    
     # Run the UI tests only
