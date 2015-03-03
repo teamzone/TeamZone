@@ -77,8 +77,8 @@ app.route('/')
   .get(routes.index);
   
 app.route('/AddPlayer')
-  .get(routes.addPlayer)
-  .post(routes.AddPlayer);
+  .get(restrict, routes.addPlayer)
+  .post(restrict, routes.AddPlayer);
   
 app.route('/dashboard')
   .get(restrict, routes.dashboard);

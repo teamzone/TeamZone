@@ -4,6 +4,10 @@
         { "route": "/login", "method": "POST", "controller": "./routes/userLogin" },
         { "route": "/register", "method": "GET", "controller": "./routes/userRegister" },
         { "route": "/register", "method": "POST", "controller": "./routes/userRegister" },
-        { "route": "/verifyReg", "method": "GET", "controller": "./routes/userConfirm" }
+        { "route": "/verifyReg", "method": "GET", "controller": "./routes/userConfirm" },
+        { "route": "/createClub", "method": "POST", "controller": "./routes/createClub" },
+        { "route": "/createClub", "method": "GET", "controller": "./routes/createClub" },
+        { "route": "/manageClub", "method": "POST", "controller": "./routes/manageClub" },
+        { "route": "/manageClub", "method": "GET", "controller": "./routes/manageClub" }
     ]
 }
