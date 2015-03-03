@@ -98,6 +98,7 @@ module.exports = function(grunt) {
           'routes/*.js',
           'lib/test/*.js',
           'routes/test/*.js',
+          'feature-test/steps/common/test/*.js',
           'feature-test/steps/*.js'
         ],
         directives: { // example directives

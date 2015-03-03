@@ -67,4 +67,3 @@ function setupInterpreterContext(driver) {
     interpreter_context = { database: database, usersDb: usersDb, createdUsers: [], driver: driver};
     console.log('Interpreter context is setup');
 }
-

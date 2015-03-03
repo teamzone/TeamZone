@@ -4,6 +4,8 @@
 /// <reference path='../typings/node/node.d.ts' />
 /// <reference path="../lib/UserManagementService.ts" />
 
+'use strict';
+
 import express = require("express");
 import Flash = require("./flash");
 import Service = require("../lib/IUserManagementService");

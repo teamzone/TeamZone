@@ -57,13 +57,10 @@ describe("Testing of expressjs route for user register", function() {
 
     it("Registers a valid user", function(done) {
         //setup
-        
         //exercise
         u.post(incomingExpressRequest, outgoingExpressResponse);
-        
         //verify
         assertRegisterVerifiedAndViewUpdated('login', outgoingExpressResponseSpy, 'alert-success', [{ msg: 'Please check your email to verify your registration. Then you will be ready to log in!' }]);
-        
         //teardown
         done();
     });

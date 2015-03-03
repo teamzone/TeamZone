@@ -4,11 +4,11 @@ Having a squad allows players to be added and removed.  The concepts such as squ
 Starting a club means they automatically become the administrator.
 
 Background:
-
-	Given The user Mel Taylor-Gainsford is logged into the site.  
 	
+	Given The user Mel Taylor-Gainsford is logged into the site.  
+		
 Scenario: The user creates a club, they will become the administrator of that club.
-
+	
 	Given User gives the club name Western Knights located at Nash Field in the suburb of Mosman Park in the city of Perth
 	When the club is saved
 	Then the user will also be the administrator of the club

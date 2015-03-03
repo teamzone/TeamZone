@@ -55,7 +55,7 @@ export module Service {
 	    }
 
 		/**
-		* Will register a new user if the user doesn't a;ready exist.  
+		* Will register a new user if the user doesn't already exist.  
 		* @param {string} email - the unique email of the registering user. 
 		* @param {string} password - a password for the logging in user.
 		* @param {callback} callback - tell the caller if registered successfully or there was a failure
