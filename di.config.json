@@ -1,11 +1,12 @@
 {
   "repositories": [
     { "item": "./lib/UserRepository", "dependencies": [], "scope": "transient" },
-    { "item": "./lib/ClubRepository", "dependencies": [], "scope": "transient" }
+    { "item": "./lib/ClubRepository", "dependencies": [], "scope": "transient" },
+    { "item": "./lib/SquadRepository", "dependencies": [], "scope": "transient" }
   ],
   "services": [
     { "item": "./lib/UserManagementService", "dependencies": [ "./lib/UserRepository", "./lib/CryptService", "./lib/TokenService", "./lib/MailGunAPIEmailVerifyService"], "scope": "webrequest" },
-    { "item": "./lib/TeamManagementService", "dependencies": [ "./lib/ClubRepository"], "scope": "webrequest" },
+    { "item": "./lib/TeamManagementService", "dependencies": [ "./lib/ClubRepository", "./lib/SquadRepository"], "scope": "webrequest" },
     { "item": "./lib/CryptService", "dependencies": [], "scope": "transient" },
     { "item": "./lib/MailGunAPIEmailVerifyService", "dependencies": [ "info@aboutagile.com", "https://teamzone-teamzone.c9.io/verifyReg", "key-39bb09ee565759dda760855ad27eada1" ], "scope": "webrequest" }
   ],
@@ -13,6 +14,7 @@
     { "item": "./routes/userLogin", "dependencies": [ "./lib/UserManagementService" ], "scope": "webrequest" },
     { "item": "./routes/userRegister", "dependencies": [ "./lib/UserManagementService" ], "scope": "webrequest" },
     { "item": "./routes/userConfirm", "dependencies": [ "./lib/UserManagementService" ], "scope": "webrequest" },
-    { "item": "./routes/createClub", "dependencies": [ "./lib/TeamManagementService" ], "scope": "webrequest" }
+    { "item": "./routes/createClub", "dependencies": [ "./lib/TeamManagementService" ], "scope": "webrequest" },
+    { "item": "./routes/createSquad", "dependencies": [ "./lib/TeamManagementService" ], "scope": "webrequest" }
   ]
 }

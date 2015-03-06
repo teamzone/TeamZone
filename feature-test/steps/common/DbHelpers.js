@@ -115,9 +115,9 @@ function DbHelpers() {
     };
 
 	/**
-	* Returns a team object from database via clubname and cityname.  These are keys as we expect
+	* Returns a club object from database via clubname and cityname.  These are keys as we expect
 	* a club cannot exist more than once in the same city
-	* @param {teamsdb} teamsdb - datastore for teams.
+	* @param {clubsdb} clubsdb - datastore for clubs.
 	* @param {string} clubname - first part of the key
 	* @param {string} cityname - second part of the key
 	* @param {Retrieve~callback} callback - handles the response from leveldb
@@ -132,10 +132,46 @@ function DbHelpers() {
     };
 
 	/**
+	* Creates a club in the datastore.  
+	* @param {clubsdb} clubsdb - datastore for clubs.
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key
+	* @param {string} fieldname - the main ground it plays at
+    * @param {string} suburbname - the suburb in which it plays
+	* @param {string} adminemail - the administrator of the club
+	* @param {Retrieve~callback} callback - handles the response from leveldb
+	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
+	*                                            because it probably part of bigger workflow.
+	**/
+    this.CreateClub = function(clubsdb, createdClubs, clubname, cityname, fieldname, suburbname, adminemail, callback, callbackCalledOnSuccess) {
+        clubsdb.put(clubname + '~' + cityname, { field: fieldname, suburb: suburbname, admin: adminemail }, { sync: true }, 
+            function (err) {
+		        if (err) 
+                    callback(err);
+                else {
+                    console.log('Test: sample club %s was added', clubname);
+                    createdClubs.push({
+                                club: clubname,
+                                city: cityname,
+                                field: fieldname,
+                                suburb: suburbname,
+                                admin: adminemail
+                    });
+                    if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
+                        callback();
+                    else if (!callbackCalledOnSuccess && callbackCalledOnSuccess === false)
+                        console.log('No need to do the callback');
+                    else
+                        callback();
+                }
+            });	    
+    };
+    
+	/**
 	* Removes a club from the datastore.  
-	* @param {object} context - a javascript object containing properties for the database and the user array.
-	* @param {Number} userCount - the total number of users to be deleted, used to check for completion
-	* @param {callback} done - notify the caller when done
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key 
+	* @param {callback} callback - notify the caller when done
 	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
 	*                                            because it probably part of bigger workflow.
 	**/
@@ -144,6 +180,53 @@ function DbHelpers() {
         clubsdb.del(clubname + '~' + cityname, { sync: true }, function(err) {
              if (err) {
                 console.log('Error whilst deleting %s', clubname);
+                callback(err);
+             }
+             else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
+                callback();
+             else if (!callbackCalledOnSuccess && callbackCalledOnSuccess === false)
+                console.log('No need to do the callback');
+             else
+                callback();
+        });
+    };
+
+	/**
+	* Returns a squad object from database via clubname and cityname.  These are keys as we expect
+	* a club cannot exist more than once in the same city
+	* @param {squadsDb} squadsDb - datastore for squads.
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key
+	* @param {string} squadname - third part of the key
+	* @param {string} season - fourth part of the key
+	* @param {Retrieve~callback} callback - handles the response from leveldb
+	**/
+    this.GetSquad = function(squadsDb, clubname, cityname, squadname, season, callback) {
+        squadsDb.get(clubname + '~' + cityname + '~' + squadname + '~' + season, function (err, res) {
+	        if (err) 
+                callback(err);
+            else 
+                callback(null, res); //easy via a stub to fool this into being correct - does it matter - the key would have already been supplied so the data is there!
+	    });	    
+    };
+
+	/**
+	* Removes a squad from the datastore.  
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key
+    * @param {string} squadname - third part of the key  
+    * @param {string} season - fourth part of the key  
+	* @param {object} context - a javascript object containing properties for the database and the user array.
+	* @param {Number} userCount - the total number of users to be deleted, used to check for completion
+	* @param {callback} callback - notify the caller when done
+	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
+	*                                            because it probably part of bigger workflow.
+	**/
+    this.RemoveSquad = function(squadsDb, clubname, cityname, squadname, season, callback, callbackCalledOnSuccess) {
+        console.log('Removing squad %s for season %s in the club %s in the city %s', squadname, season, clubname, cityname);
+        squadsDb.del(clubname + '~' + cityname + '~' + squadname + '~' + season, { sync: true }, function(err) {
+             if (err) {
+                console.log('Error whilst deleting %s', squadname);
                 callback(err);
              }
              else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)

@@ -8,6 +8,11 @@
         { "route": "/createClub", "method": "POST", "controller": "./routes/createClub" },
         { "route": "/createClub", "method": "GET", "controller": "./routes/createClub" },
         { "route": "/manageClub", "method": "POST", "controller": "./routes/manageClub" },
-        { "route": "/manageClub", "method": "GET", "controller": "./routes/manageClub" }
+        { "route": "/manageClub", "method": "GET", "controller": "./routes/manageClub" },
+        { "route": "/createSquad", "method": "POST", "controller": "./routes/createSquad" },
+        { "route": "/createSquad", "method": "GET", "controller": "./routes/createSquad" },
+        { "route": "/manageSquad", "method": "POST", "controller": "./routes/manageSquad" },
+        { "route": "/manageSquad", "method": "GET", "controller": "./routes/manageSquad" }
+        
     ]
 }
