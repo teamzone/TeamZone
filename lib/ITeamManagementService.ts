@@ -6,4 +6,5 @@
 **/
 export interface ITeamManagementService {
     CreateClub(clubname: string, fieldname: string, suburbname: string, cityname: string, adminemail: string, callback: any);
+    CreateSquad(clubname: string, cityname: string, squadname: string, season: string, agelimit: string, admin: string, callback: any);
 }

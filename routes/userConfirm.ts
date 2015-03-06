@@ -3,6 +3,8 @@
 /// <reference path='../typings/express-session/express-session.d.ts' />
 /// <reference path='../typings/node/node.d.ts' />
 
+'use strict';
+
 import express = require("express");
 import Flash = require("./flash");
 import Service = require("../lib/IUserManagementService");
