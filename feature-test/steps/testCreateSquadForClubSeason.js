@@ -27,23 +27,8 @@ before(function(done) {
 
 after(function(done) {
     var dbh = new dbhelpers();
-    console.log('Test: Clean Up by removing %s squads', interpreter_context.createdSquads.length);
-    if (interpreter_context.createdSquads.length > 0)
-        for (var i = 0; i < interpreter_context.createdSquads.length; i++) 
-            dbh.RemoveSquad(squadsDb, interpreter_context.createdSquads[i].clubname, interpreter_context.createdSquads[i].cityname, 
-                                      interpreter_context.createdSquads[i].squadname, interpreter_context.createdSquads[i].season, done, false);
-
-    console.log('Test: Clean Up by removing %s clubs', interpreter_context.createdClubs.length);
-    if (interpreter_context.createdClubs.length > 0)
-        for (var i = 0; i < interpreter_context.createdClubs.length; i++) 
-            dbh.RemoveClub(clubsDb, interpreter_context.createdClubs[i].club, interpreter_context.createdClubs[i].city, done, false);
-            
-    console.log('Test: Clean Up by removing %s users', interpreter_context.createdUsers.length);
-    if (interpreter_context.createdUsers.length > 0)
-        for (var i = 0; i < interpreter_context.createdUsers.length; i++) 
-            dbh.RemoveUser(interpreter_context, i, done);
-    else
-        done();
+    dbh.CascadeDelete({ squadsDb: squadsDb, clubsDb: clubsDb, usersDb: usersDb }, undefined, interpreter_context.createdSquads, 
+                      interpreter_context.createdClubs, interpreter_context.createdUsers, done);
 });
 
 var library = require('./CreateSquadForClubSeason');
