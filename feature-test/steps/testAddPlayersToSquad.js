@@ -3,6 +3,7 @@
 "use strict";
 var path = require('path');
 var Yadda = require('yadda');
+var assert = require('assert');
 var teammanagementservice = require('../../lib/TeamManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
 var dbhelpers = require('./common/DbHelpers');
@@ -15,7 +16,9 @@ var featureFilePath = path.resolve(__dirname, '../features/AddPlayersToSquad.fea
 var interpreter_context;
 var usersDb;
 var squadsDb;
+var squadplayersDb;
 var clubsDb;
+var playersDb;
 var database;
 var tms;
 
@@ -27,11 +30,13 @@ before(function(done) {
 
 after(function(done) {
     var dbh = new dbhelpers();
-    dbh.CascadeDelete({ squadsDb: squadsDb, clubsDb: clubsDb, usersDb: usersDb }, interpreter_context.createdPlayers, interpreter_context.createdSquads, 
+    //TODO: cleanup Players added to a squad
+    dbh.CascadeDelete({ playersDb: playersDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb, clubsDb: clubsDb, usersDb: usersDb }, 
+                      interpreter_context.createdPlayers, interpreter_context.createdSquads, interpreter_context.createdSquadPlayers,
                       interpreter_context.createdClubs, interpreter_context.createdUsers, done);
 });
 
-var library = require('./CreateSquadForClubSeason');
+var library = require('./AddPlayersToSquad');
 var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
     
 featureFile(featureFilePath, function(feature) {
@@ -41,7 +46,6 @@ featureFile(featureFilePath, function(feature) {
         steps(scenario.steps, function(step, done) {
             yadda.yadda(step, { scenario_context: scenario_context }, done);
         });
-        
     });
 
 });
@@ -52,6 +56,11 @@ function setupInterpreterContext() {
     usersDb = dbf.userdb(database.leveldb);
     clubsDb = dbf.clubdb(database.leveldb);
     squadsDb = dbf.squaddb(database.leveldb);
-    tms = new teammanagementservice(null, squadsDb);
-    interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, createdUsers: [], createdClubs: [], createdSquads: [] };
+    squadplayersDb = dbf.squadplayersdb(database.leveldb);
+    playersDb = dbf.playerdb(database.leveldb);
+    tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
+    interpreter_context = { tms: tms, database: database, 
+                            playerdb: playersDb, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb,
+                            createdPlayers: [], createdUsers: [], createdClubs: [], createdSquads: [], 
+                            createdSquadPlayers: [] };
 }

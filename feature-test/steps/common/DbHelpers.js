@@ -149,7 +149,7 @@ function DbHelpers() {
 		        if (err) 
                     callback(err);
                 else {
-                    console.log('Test: sample club %s was added', clubname);
+                    console.log('Test: sample club %s in city %s was added', clubname, cityname);
                     createdClubs.push({
                                 club: clubname,
                                 city: cityname,
@@ -218,6 +218,9 @@ function DbHelpers() {
 	**/
     this.RemoveClub = function(clubsdb, clubname, cityname, callback, callbackCalledOnSuccess) {
         console.log('Removing club %s in city %s', clubname, cityname);
+        assert(clubsdb, 'Missing the clubsdb');
+        assert(clubname, 'Missing the clubname');
+        assert(cityname, 'Missing the cityname');
         clubsdb.del(clubname + '~' + cityname, { sync: true }, function(err) {
              if (err) {
                 console.log('Error whilst deleting %s', clubname);
@@ -233,6 +236,47 @@ function DbHelpers() {
     };
 
 	/**
+	* Creates a squad, linked to a club, in the datastore.  
+	* @param {squadsdb} squadsdb - datastore for squads. It exists under clubs
+	* @param {string} clubname - name of the club used for information
+	* @param {string} cityname - name of the city the club is in and used for information
+	* @param {string} squadname - name of the squad and part of the key
+    * @param {string} season - the identifier for the season the squad plays in and part of the key
+    * @param {string} agelimit - used to help limit eligibility to play in the squad
+	* @param {string} adminemail - the administrator of the club
+	* @param {Retrieve~callback} callback - handles the response from leveldb
+	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
+	*                                            because it probably part of bigger workflow.
+	**/
+    this.CreateSquad = function(squadsdb, createdSquads, clubname, cityname, squadname, season, agelimit, adminemail, callback, callbackCalledOnSuccess) {
+        assert(squadsdb, 'Missing the squadsdb');
+        assert(squadname, 'Missing the squadname');
+        assert(season, 'Missing the season');
+        squadsdb.put(squadname + '~' + season, { agelimit: agelimit, admin: adminemail }, { sync: true }, 
+            function (err) {
+		        if (err) 
+                    callback(err);
+                else {
+                    console.log('Test: sample squad %s was added', squadname);
+                    createdSquads.push({
+                                club: clubname,
+                                city: cityname,
+                                squad: squadname,
+                                season: season,
+                                agelimit: agelimit,
+                                admin: adminemail
+                    });
+                    if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
+                        callback();
+                    else if (!callbackCalledOnSuccess && callbackCalledOnSuccess === false)
+                        console.log('No need to do the callback');
+                    else
+                        callback();
+                }
+            });	    
+    };
+
+	/**
 	* Returns a squad object from database via clubname and cityname.  These are keys as we expect
 	* a club cannot exist more than once in the same city
 	* @param {squadsDb} squadsDb - datastore for squads.
@@ -243,7 +287,7 @@ function DbHelpers() {
 	* @param {Retrieve~callback} callback - handles the response from leveldb
 	**/
     this.GetSquad = function(squadsDb, clubname, cityname, squadname, season, callback) {
-        squadsDb.get(clubname + '~' + cityname + '~' + squadname + '~' + season, function (err, res) {
+        squadsDb.get(squadname + '~' + season, function (err, res) {
 	        if (err) 
                 callback(err);
             else 
@@ -252,7 +296,8 @@ function DbHelpers() {
     };
 
 	/**
-	* Removes a squad from the datastore.  
+	* Removes a squad from the datastore. 
+	* @param {squadsDb} squadsDb - the datastore to be removing from
 	* @param {string} clubname - first part of the key
 	* @param {string} cityname - second part of the key
     * @param {string} squadname - third part of the key  
@@ -263,9 +308,35 @@ function DbHelpers() {
 	**/
     this.RemoveSquad = function(squadsDb, clubname, cityname, squadname, season, callback, callbackCalledOnSuccess) {
         console.log('Removing squad %s for season %s in the club %s in the city %s', squadname, season, clubname, cityname);
-        squadsDb.del(clubname + '~' + cityname + '~' + squadname + '~' + season, { sync: true }, function(err) {
+        squadsDb.del(squadname + '~' + season, { sync: true }, function(err) {
              if (err) {
                 console.log('Error whilst deleting %s', squadname);
+                callback(err);
+             }
+             else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
+                callback();
+             else if (!callbackCalledOnSuccess && callbackCalledOnSuccess === false)
+                console.log('No need to do the callback');
+             else
+                callback();
+        });
+    };
+
+	/**
+	* Removes a squad player from the datastore.  
+	* @param {squadPlayersDb} squadPlayersDb - the datastore to be removing from
+    * @param {string} squadname - first part of the key, the squad the player is playing in  
+    * @param {string} season - secobnd part of the key, the season the player is playing in  
+    * @param {string} email - third part of the key, the player's email
+	* @param {Delete~callback} callback - notify the caller when done
+	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
+	*                                            because it probably part of bigger workflow.
+	**/
+    this.RemoveSquadPlayer = function(squadPlayersDb, squadname, season, email, callback, callbackCalledOnSuccess) {
+        console.log('Removing player %s from squad %s for season %s', email, squadname, season);
+        squadPlayersDb.del(squadname + '~' + season + '~' + email, { sync: true }, function(err) {
+             if (err) {
+                console.log('Error whilst deleting %s', email);
                 callback(err);
              }
              else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
@@ -298,7 +369,22 @@ function DbHelpers() {
         });
     };
 
-    this.CascadeDelete = function(dbs, createdPlayers, createdSquads, createdClubs, createdUsers, callback) {
+	/**
+	* Removes all entities found in the arrays from the datastores.  
+	* @param {object} dbs - contains references to datastore objects.
+	* @param {createdPlayers} - array of players to remove. Can be undefined, which means it's skipped.
+	* @param {createdSquads} - array of squads to remove.  Can be undefined, which means it's skipped.
+	* @param {createdSquadPlayers} - array of squad players to remove. Can be undefined, which means it's skipped.
+	* @param {createdClubs} - array of clubs to remove. Can be undefined, which means it's skipped.
+	* @param {createdUsers} - array of users to remove. Can be undefined, which means it's skipped.
+	* @param {callback} callback - notify the caller when done
+	**/
+    this.CascadeDelete = function(dbs, createdPlayers, createdSquads, createdSquadPlayers, createdClubs, createdUsers, callback) {
+
+        if (createdSquadPlayers)
+            for (var i = 0; i < createdSquadPlayers.length; i++) 
+                this.RemoveSquadPlayer(dbs.squadPlayersDb, createdSquadPlayers[i].squadname, createdSquadPlayers[i].season, createdSquadPlayers[i].email, callback, false);
+
         if (createdPlayers)
             for (var i = 0; i < createdPlayers.length; i++) 
                 this.RemovePlayer(dbs.playersDb, createdPlayers[i].email, callback, false);
@@ -309,7 +395,7 @@ function DbHelpers() {
 
         if (createdClubs)            
             for (var i = 0; i < createdClubs.length; i++) 
-                this.RemoveClub(dbs.clubsDb, createdClubs[i].clubname, createdClubs[i].cityname, callback, false);
+                this.RemoveClub(dbs.clubsDb, createdClubs[i].club, createdClubs[i].city, callback, false);
 
         if (dbs && dbs.usersDb && createdUsers) {
             var context = { createdUsers: createdUsers, usersDb: dbs.usersDb };

@@ -1,7 +1,9 @@
 /// <reference path='../typings/tsd.d.ts' />
 
 import tms = require('./ITeamManagementService');
-var assert = require('assert');
+import assert = require('assert');
+var createError = require('errno').create;
+var AgeLimitError = createError('AgeLimitError');
 
 export module Service {
 
@@ -15,9 +17,11 @@ export module Service {
 		* Accepts the components that support team management like the data store.  
 		* @constructor
 		* @param {clubdb} _clubs - The storage of clubs.
-		* @param {_squadsdb} _squads - The storage of squads.
+		* @param {squadsdb} _squads - The storage of squads.
+		* @param {playersdb} _players - The storage of players.
+		* @param (squadplayers) _squadplayers - The storage that links players to a squad 
 		**/
-		constructor(private _clubs: any, private _squads: any) {
+		constructor(private _clubs: any, private _squads: any, private _players: any, private _squadplayers: any) {
 		}
 
 		/**
@@ -38,7 +42,7 @@ export module Service {
 			this.checkEmailAddress(adminemail, 'The admin email is invalid', callback);
 			var clubs = this._clubs;
 			var key = this.clubKeyMaker(clubname, cityname);
-	    	clubs.get(key, function(err, value) {
+	    	clubs.get(key, function(err) {
 	    		if(err && err.notFound) {
 					clubs.put(key, { field: fieldname, suburb: suburbname, admin: adminemail }, { sync: true }, function (err) {
 						if (err) {
@@ -57,8 +61,8 @@ export module Service {
 		
 		/**
 		* Will allow creation of the squad.  Supplied parameters are mandatory.  
-		* @param {string} clubname - the name of the club to be created (key).
-		* @param {string} cityname - the name of the city the club plays in (key).
+		* @param {string} clubname - the name of the club to be created (key), notionally used as squads are created under clubs anyway.
+		* @param {string} cityname - the name of the city the club plays in (key), notionally used as squads are created under clubs anyway.
 		* @param {string} squadname - the name of the squad (key)
 		* @param {string} season - a name for the season the squad is playing in (key).  
 		* 						   For example 2015, 2014/15 - this should map to a season dataset for further details about the season.
@@ -74,8 +78,8 @@ export module Service {
 			this.checkNotNullOrEmpty(admin, 'admin', callback);
 			this.checkEmailAddress(admin, 'The admin email is invalid', callback);
 			var squads = this._squads;
-			var key = this.squadKeyMaker(clubname, cityname, squadname, season);
-	    	squads.get(key, function(err, value) {
+			var key = this.squadKeyMaker(squadname, season);
+	    	squads.get(key, function(err) {
 	    		if(err && err.notFound) {
 					squads.put(key, { agelimit: agelimit, admin: admin }, { sync: true }, function (err) {
 						if (err) {
@@ -89,6 +93,43 @@ export module Service {
 			    } else {
 			    	callback(new Error('Squad in the same club and season cannot be created more than once'));
 			    }
+			});
+		}
+
+		/**
+		* Add a player to a squad.  
+		* @param {string} squadname - the name of the squad (key)
+		* @param {string} season - a name for the season the squad is playing in (key).  
+		* 						   For example 2015, 2014/15 - this should map to a season dataset for further details about the season.
+		* @param {string} playeremail - the email address of the player which will link to players under a club
+		* @param {callback} callback - tell the caller if squad created or there was a failure
+		**/
+		AddPlayerToSquad = (squadname: string, season: string, playeremail: string, callback: any)  => {
+			var squadplayers = this._squadplayers;
+
+			this.checkNotNullOrEmpty(squadname, 'squadname', callback);
+			this.checkNotNullOrEmpty(season, 'season', callback);
+			this.checkNotNullOrEmpty(playeremail, 'playeremail', callback);
+			this.checkEmailAddress(playeremail, 'The player email is invalid', callback);
+			this.checkPlayerAge(playeremail, squadname, season, function(err) {
+				if (err)
+					callback(err);
+				else {
+					var key = squadname + '~' + season + '~' + playeremail;
+			    	squadplayers.get(key, function(err) {
+			    		if(err && err.notFound) {
+							squadplayers.put(key, { }, { sync: true }, function (err) {
+								if (err) 
+									callback(err);
+								else 
+									callback();
+					    	});
+			    		} else if (err) 
+			    			callback(err);
+					    else 
+					    	callback(new Error('Cannot add the same player twice to a squad'));
+			    	});
+				}
 			});
 		}
 		
@@ -108,8 +149,8 @@ export module Service {
 		 * @param {string} squadname - the squad is the second part of the key
 		 * @param {string} season - the season is the fourth part of the key
 		 **/
-		squadKeyMaker(clubname: string, cityname: string, squadname: string, season: string) {
-			return this.clubKeyMaker(clubname, cityname) + '~'.concat(squadname, '~', season);
+		squadKeyMaker(squadname: string, season: string) {
+			return ''.concat(squadname, '~', season);
 		}
 		
 		/**
@@ -119,7 +160,7 @@ export module Service {
 		 * @param {callback} callback - will get called with the error if it exists
 		 **/
 	    checkNotNullOrEmpty(parametervalue: string, parametername: string, callback: any) {
-	    	if (parametervalue === null || parametervalue.trim().length === 0) {
+	    	if (parametervalue === undefined || parametervalue === null || parametervalue.trim().length === 0) {
 	    		callback(new Error('The argument ' + parametername + ' is a required argument'));
 	    	}
 	    }
@@ -136,6 +177,56 @@ export module Service {
     			callback(new Error(invalidMessage));
 	    }
 
+	    /**
+	     * Check the player is eligible to play for the team by checking the age requirement
+	     * @param {string} playeremail - the email address of the player which can be used to get player details involved in the checking
+	     * @param {string} squadname - use to get squad details to enable checking of details of the squad
+	     * @param {string} season - use to get squad details to enable checking of details of the squad
+	     * @param {callback} callback - notification of error or success
+	     **/
+		checkPlayerAge(playeremail: string, squadname: string, season: string, callback) {
+			//get player details from playerdb
+			var squads = this._squads;
+			this._players.get(playeremail, function(err, playervalue) {
+				if (err) 
+					callback(err);
+				else {
+					//squads are created unders clubs in sublevel, therefore the key need only include squadname and season
+					//as club is already in context and therefore no need to pass in the extra information that can make for more
+					//unwieldy parameter lists
+					var squad = squads.get(squadname + '~' + season, function(err, squadvalue) {
+						if (err)
+							callback(err);
+						else {
+							var prefix = 'over';
+							//when a player's age at the start of the year the season is in is less than an over value they get rejected
+							//seasons can be any notation that the user wishes to describe, so this makes the assumption using the current
+							//date and taking the start of the year for the current date
+							var currentyear = new Date(Date.now()).getFullYear();
+							var playerdob  = new Date(playervalue.dob);
+							var playerage = currentyear - playerdob.getFullYear();
+							if (squadvalue.agelimit.substring(0, prefix.length) === prefix) {
+								var ageLimitYears = Number(squadvalue.agelimit.substring(prefix.length).trim());
+								if (playerage < ageLimitYears) {
+									callback(new AgeLimitError('Player does not qualify for the squad due to being underaged'));
+									return;
+								}
+							} else {
+								prefix = 'under';
+								if (squadvalue.agelimit.substring(0, prefix.length) === prefix) {
+									var ageLimitYears = Number(squadvalue.agelimit.substring(prefix.length).trim());
+									if (playerage > ageLimitYears) {
+										callback(new AgeLimitError('Player does not qualify for the squad due to being over age'));
+										return;
+									}
+								}
+							}
+						}
+						callback();
+					});
+				} 
+			});
+		}
 	}
 }
 module.exports = Service.TeamManagementService;
