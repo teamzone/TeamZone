@@ -118,7 +118,7 @@ export module Service {
 					var key = squadname + '~' + season + '~' + playeremail;
 			    	squadplayers.get(key, function(err) {
 			    		if(err && err.notFound) {
-							squadplayers.put(key, { }, { sync: true }, function (err) {
+							squadplayers.put(key, { playeremail: playeremail }, { sync: true }, function (err) {
 								if (err) 
 									callback(err);
 								else 

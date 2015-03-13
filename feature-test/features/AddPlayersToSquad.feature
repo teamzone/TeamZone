@@ -7,15 +7,15 @@ Background:
 	
 	Given The coach Ken Court is logged into the site and is a coach for Western Knights in Perth and is looking after two squads First Team and Reserves for the 2015 season.  
 		
-Scenario: The coach wants to select players for his squad and there should not be an age limit except for being over 16 years of age.
+Scenario: The coach wants to select players for his squad and allow players over 16 years of age.
 	
-	Given A list of players playing at the club
-	When the coach selects players ([firstname], [surname], [dob], [address], [suburb], [postcode], [phone], [email])
+	Given A list of older players playing at the club
+	When the coach selects player [firstname], [surname], [dob], [email]
 	And chooses to add them to the First Team squad
-	Then the coach will only have Mile Jedinak listed as a player as he conforms to the age limit
-	
-Where:
-	 firstname	| surname	| dob			| address									| suburb			| postcode 		| phone			| email
-	 Mile		| Jedinak	| 3 Aug 1984	| Selhurst Park Stadium Whitehorse Lane 	| London 			| SE25 6PU		| 0404 099 081	| mile@wk.com.au
-	 Timmy		| Cahill 	| 3 Aug 2010	| Red Bull Arena Cape May St			 	| Harrison 			| NJ 07029		| 0404 099 133	| timmy@wk.com.au
+	Then the coach will have [firstname], [surname], [email] listed as players as they conform to the age limit
 
+	Where:
+
+	firstname	| surname	| dob			| email
+	Mile		| Jedinak	| 3 Aug 1984	| mile@wk.com.au
+	Tim 		| Cahill 	| 3 Aug 1985	| tim@wk.com.au

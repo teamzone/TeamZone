@@ -30,7 +30,6 @@ before(function(done) {
 
 after(function(done) {
     var dbh = new dbhelpers();
-    //TODO: cleanup Players added to a squad
     dbh.CascadeDelete({ playersDb: playersDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb, clubsDb: clubsDb, usersDb: usersDb }, 
                       interpreter_context.createdPlayers, interpreter_context.createdSquads, interpreter_context.createdSquadPlayers,
                       interpreter_context.createdClubs, interpreter_context.createdUsers, done);
@@ -60,7 +59,7 @@ function setupInterpreterContext() {
     playersDb = dbf.playerdb(database.leveldb);
     tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
     interpreter_context = { tms: tms, database: database, 
-                            playerdb: playersDb, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb,
+                            playersDb: playersDb, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb,
                             createdPlayers: [], createdUsers: [], createdClubs: [], createdSquads: [], 
                             createdSquadPlayers: [] };
 }
