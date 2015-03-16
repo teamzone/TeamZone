@@ -9,14 +9,14 @@ require('mocha-sinon');
 
 describe("Testing of expressjs route for user confirmation: ", function() {
 
-    var u;
-    var sandbox;
-    var stubConfirm;
-    var umsResponse;
-    var ums;
-    var incomingExpressRequest;
-    var outgoingExpressResponse;
-    var outgoingExpressRenderSpy;
+    var u,
+        sandbox,
+        stubConfirm,
+        umsResponse,
+        ums,
+        incomingExpressRequest,
+        outgoingExpressResponse,
+        outgoingExpressRenderSpy;
 
     before(function() {
     });

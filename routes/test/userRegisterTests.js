@@ -12,15 +12,15 @@ var expressValidator = require('express-validator')();
 
 describe("Testing of expressjs route for user register", function() {
 
-    var u;
-    var sandbox;
-    var stubRegister;
-    var umsResponse;
-    var ums;
-    var incomingExpressRequest;
-    var outgoingExpressResponse;
-    var outgoingExpressResponseSpy;
-    var requestValidator;
+    var u,
+        sandbox,
+        stubRegister,
+        umsResponse,
+        ums,
+        incomingExpressRequest,
+        outgoingExpressResponse,
+        outgoingExpressResponseSpy,
+        requestValidator;
     
     before(function() {
     });

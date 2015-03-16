@@ -11,14 +11,14 @@ require('mocha-sinon');
 
 describe("Testing of expressjs route for user login", function() {
 
-    var u;
-    var sandbox;
-    var stubLogin;
-    var umsResponse;
-    var ums;
-    var incomingExpressRequest;
-    var outgoingExpressResponse;
-    var outgoingExpressResponseSpy;
+    var u,
+        sandbox,
+        stubLogin,
+        umsResponse,
+        ums,
+        incomingExpressRequest,
+        outgoingExpressResponse,
+        outgoingExpressResponseSpy;
     
     before(function() {
     });

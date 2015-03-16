@@ -12,15 +12,15 @@ var expressValidator = require('express-validator')();
 
 describe("Testing of expressjs route for create a club", function() {
 
-    var cc;
-    var sandbox;
-    var stubCreateClub;
-    var tmsResponse;
-    var tms;
-    var incomingExpressRequest;
-    var outgoingExpressResponse;
-    var outgoingExpressResponseSpy;
-    var requestValidator;
+    var cc,
+        sandbox,
+        stubCreateClub,
+        tmsResponse,
+        tms,
+        incomingExpressRequest,
+        outgoingExpressResponse,
+        outgoingExpressResponseSpy,
+        requestValidator;
     
     before(function() {
     });
