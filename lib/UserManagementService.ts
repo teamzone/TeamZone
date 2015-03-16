@@ -1,6 +1,8 @@
 /// <reference path='../typings/tsd.d.ts' />
 /// <reference path='../typings/bcrypt/bcrypt.d.ts' />
 /*jslint nomen: true */
+'use strict';
+
 import ums = require('./IUserManagementService');
 var assert = require('assert');
 

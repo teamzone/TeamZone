@@ -17,33 +17,33 @@ import webRequest = require("./IWebRequest");
 **/
 export class ManageClub implements webRequest.IWebRequest {
   
-  /**
-  * Accepts the service component that will handle the creation of a new club in the database
-  * @constructor
-  * @param {ITeamManagementService} _tms - service to provide the ability to create a new club.
-  **/  
-  constructor(private _tms: Service.ITeamManagementService) { 
-  }
-  
-  /**
-  * Handles the incoming request by validating the incoming data and then asking the team management service to create the club
-  * @constructor
-  * @param {express.Request} req - incoming request object furnished by Express
-  * @param {express.Response} req - incoming response object furnished by Express
-  **/  
-  post = (req: express.Request, res: express.Response) => {
-  
-  }
-  
-  /**
-  * Renders the create club page when requested by a user
-  * @constructor
-  * @param {express.Request} req - incoming request object furnished by Express
-  * @param {express.Response} req - incoming response object furnished by Express
-  **/  
-  get = (req: express.Request, res: express.Response) => {
-    res.render('manageClub');
-  }
+    /**
+    * Accepts the service component that will handle the creation of a new club in the database
+    * @constructor
+    * @param {ITeamManagementService} _tms - service to provide the ability to create a new club.
+    **/  
+    constructor(private _tms: Service.ITeamManagementService) { 
+    }
+    
+    /**
+    * Handles the incoming request by validating the incoming data and then asking the team management service to create the club
+    * @constructor
+    * @param {express.Request} req - incoming request object furnished by Express
+    * @param {express.Response} req - incoming response object furnished by Express
+    **/  
+    post = (req: express.Request, res: express.Response) => {
+        res.write('Do be done');
+    }
+    
+    /**
+    * Renders the create club page when requested by a user
+    * @constructor
+    * @param {express.Request} req - incoming request object furnished by Express
+    * @param {express.Response} req - incoming response object furnished by Express
+    **/  
+    get = (req: express.Request, res: express.Response) => {
+        res.render('manageClub');
+    }
 }
 
 module.exports = ManageClub;

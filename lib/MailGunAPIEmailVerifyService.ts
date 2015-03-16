@@ -1,4 +1,7 @@
 /// <reference path='../typings/tsd.d.ts' />
+/*jslint nomen: true */
+'use strict';
+
 import email = require('./IEmailVerifyService');
 import _ = require('underscore');
 

@@ -1,5 +1,7 @@
 /// <reference path='../typings/tsd.d.ts' />
 /*jslint nomen: true */
+'use strict';
+
 import tms = require('./ITeamManagementService');
 import assert = require('assert');
 var createError = require('errno').create;
