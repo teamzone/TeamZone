@@ -1,4 +1,5 @@
 /*jslint nomen: true */
+/* global before, afterEach, after, describe, it */
 'use strict';
 
 var user = require('../userRegister');

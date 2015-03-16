@@ -1,3 +1,7 @@
+/*jslint nomen: true */
+/* global before, afterEach, after, describe, it */
+'use strict';
+
 var createsquad = require('../createSquad');
 var sinon = require('sinon');
 var assert = require('assert');
