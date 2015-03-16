@@ -2,7 +2,7 @@
 /// <reference path='../typings/express/express.d.ts' />
 /// <reference path='../typings/express-session/express-session.d.ts' />
 /// <reference path='../typings/node/node.d.ts' />
-
+/*jslint nomen: true */
 'use strict';
 
 import express = require("express");

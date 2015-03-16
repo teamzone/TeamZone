@@ -3,7 +3,7 @@
 /// <reference path='../typings/express-session/express-session.d.ts' />
 /// <reference path='../typings/node/node.d.ts' />
 /// <reference path="../lib/UserManagementService.ts" />
-
+/*jslint nomen: true */
 'use strict';
 
 import express = require("express");
