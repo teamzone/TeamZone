@@ -1,3 +1,6 @@
+/*jslint nomen: true */
+"use strict";
+
 var assert = require('assert');
 var English = require('yadda').localisation.English;
 var dbhelpers = require('./common/DbHelpers');

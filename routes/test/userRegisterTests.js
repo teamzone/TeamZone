@@ -1,3 +1,6 @@
+/*jslint nomen: true */
+'use strict';
+
 var user = require('../userRegister');
 var sinon = require('sinon');
 var assert = require('assert');

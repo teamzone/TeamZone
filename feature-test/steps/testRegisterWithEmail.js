@@ -1,6 +1,8 @@
 /* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
+/*jslint nomen: true */
 "use strict";
+
 var path = require('path');
 var Yadda = require('yadda');
 var bcrypt = require('bcrypt');
@@ -21,6 +23,20 @@ var usersDb;
 var ums;
 var interpreter_context;
 var database;
+
+function setupInterpreterContext() {
+    var dbf = new databasefactory();
+    var evs = new emailverifyservice();
+    database = dbf.levelredis();
+    usersDb = dbf.userdb(database.leveldb);
+    
+    token.defaults.secret = 'ZZVV';
+    token.defaults.timeStep = 96 * 60 * 60; // 96h in seconds
+    
+    ums = new usermanagementservice(usersDb, bcrypt, token, evs);
+    
+    interpreter_context = { ums: ums, usersDb: usersDb, createdUsers: [], evs: evs};
+}
 
 setupInterpreterContext();
 
@@ -73,19 +89,4 @@ featureFile(featureFilePath, function(feature) {
     });
 
 });
-
-function setupInterpreterContext()
-{
-    var dbf = new databasefactory();
-    var evs = new emailverifyservice();
-    database = dbf.levelredis();
-    usersDb = dbf.userdb(database.leveldb);
-    
-    token.defaults.secret = 'ZZVV';
-    token.defaults.timeStep = 96 * 60 * 60; // 96h in seconds
-    
-    ums = new usermanagementservice(usersDb, bcrypt, token, evs);
-    
-    interpreter_context = { ums: ums, usersDb: usersDb, createdUsers: [], evs: evs};
-}
 

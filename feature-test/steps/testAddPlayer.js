@@ -1,6 +1,8 @@
 /* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
+/*jslint nomen: true */
 "use strict";
+
 var path = require('path');
 var Yadda = require('yadda');
 Yadda.plugins.mocha.AsyncStepLevelPlugin.init();

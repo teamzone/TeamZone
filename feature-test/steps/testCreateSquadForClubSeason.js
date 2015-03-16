@@ -1,6 +1,8 @@
 /* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
+/*jslint nomen: true */
 "use strict";
+
 var path = require('path');
 var Yadda = require('yadda');
 var teammanagementservice = require('../../lib/TeamManagementService'); // The library that you wish to test

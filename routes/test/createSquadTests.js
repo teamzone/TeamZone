@@ -121,6 +121,14 @@ describe("Testing of expressjs route for create a squad", function() {
         enactRequestBodyValidationTest(incomingExpressRequest, [{ msg: 'Administrator/Custodian Email does not appear to be valid' }], done);
     });
 
+    function assertSquadCreatedAndViewUpdated(redirectView, spy, alertType, messages) {
+        spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
+                        type: alertType,
+                        messages: messages
+                    }    
+                }));
+    }
+
     function enactRequestBodyValidationTest(incomingExpressRequest, expectedMessage, done) {
         //exercise
         cs.post(incomingExpressRequest, outgoingExpressResponse);
@@ -130,14 +138,6 @@ describe("Testing of expressjs route for create a squad", function() {
         
         //teardown
         done();
-    }
-    
-    function assertSquadCreatedAndViewUpdated(redirectView, spy, alertType, messages) {
-        spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
-                        type: alertType,
-                        messages: messages
-                    }    
-                }));
     }
     
 });

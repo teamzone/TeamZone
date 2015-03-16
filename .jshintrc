@@ -2,8 +2,8 @@
   "undef": true,
   "unused": false,
   "lastsemic": true,
+  "newcap": true,
   "predef": [ ],
-  ....
   "globals"   : {
     /* MOCHA */
     "describe"   : false,
