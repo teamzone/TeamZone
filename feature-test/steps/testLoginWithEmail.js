@@ -1,5 +1,5 @@
-/* jslint node: true */
-/* global before, afterEach, after, featureFile, scenarios, steps */
+/*jslint node: true */
+/*global before, afterEach, after, featureFile, scenarios, steps */
 /*jslint nomen: true */
 "use strict";
 

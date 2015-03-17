@@ -1,12 +1,17 @@
+/*jslint node: true */
+/*global before, afterEach, after, describe, it, _ */
+/*jslint nomen: true */
+"use strict";
+
 var assert = require('assert'); 
 var levelcache = require('level-cache');
 var levelUp = require('levelup');
 var sublevel = require('level-sublevel');
 var sinon = require('sinon');
-require('mocha-sinon');
 var dbhelpers = require('../DbHelpers');
 var _ = require('underscore');
 var imstreams = require('memory-streams');
+require('mocha-sinon');
 
 describe("Unit Tests for the DbHelpers code, the code that helps us in our testing", function() {
 

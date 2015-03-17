@@ -1,6 +1,7 @@
+/*jslint node: true */
+/*global before, afterEach, after, describe, it, _ */
 /*jslint nomen: true */
-/* global before, afterEach, after, describe, it */
-'use strict';
+"use strict";
 
 var user = require('../userRegister');
 var sinon = require('sinon');
@@ -109,6 +110,14 @@ describe("Testing of expressjs route for user register", function() {
         enactRequestBodyValidationTest(incomingExpressRequest, [{ msg: 'Email does not appear to be valid' }], done);
     });
 
+    function assertRegisterVerifiedAndViewUpdated(redirectView, spy, alertType, messages) {
+        spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
+                        type: alertType,
+                        messages: messages
+                    }    
+                }));
+    }
+
     function enactRequestBodyValidationTest(incomingExpressRequest, expectedMessage, done) {
         //exercise
         u.post(incomingExpressRequest, outgoingExpressResponse);
@@ -118,15 +127,6 @@ describe("Testing of expressjs route for user register", function() {
         
         //teardown
         done();
-    }
-    
-    function assertRegisterVerifiedAndViewUpdated(redirectView, spy, alertType, messages)
-    {
-        spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
-                        type: alertType,
-                        messages: messages
-                    }    
-                }));
     }
     
 });
