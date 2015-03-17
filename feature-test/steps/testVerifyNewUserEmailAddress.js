@@ -1,5 +1,6 @@
 /*jslint node: true */
-/*global before, afterEach, after, featureFile, scenarios, steps */
+/*jslint newcap: true */
+/*global before, beforeEach, afterEach, after, featureFile, scenarios, steps */
 /*jslint nomen: true */
 "use strict";
 

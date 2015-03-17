@@ -1,5 +1,6 @@
 /*jslint nomen: true */
-/*global before, afterEach, after, describe, it */
+/*jslint newcap: true */
+/*global before, beforeEach, afterEach, after, describe, it */
 'use strict';
 
 var user = require('../userLogin');
@@ -23,11 +24,8 @@ describe("Testing of expressjs route for user login", function() {
         incomingExpressRequest,
         outgoingExpressResponse,
         outgoingExpressResponseSpy;
-    
-    before(function() {
-    });
-    
-    beforeEach(function()  {
+
+    beforeEach(function() {
     
         ums = new usermanagementservice(null, null, null, null);
         

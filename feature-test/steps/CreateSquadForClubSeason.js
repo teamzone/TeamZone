@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jslint newcap: true */
+/*global before, beforeEach, afterEach, after, describe, it */
+/*jslint nomen: true */
 var assert = require('assert');
 var English = require('yadda').localisation.English;
 var dbhelpers = require('./common/DbHelpers');
