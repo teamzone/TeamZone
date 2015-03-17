@@ -16,6 +16,7 @@ require('mocha-sinon');
 
 describe("Testing of expressjs route for user login", function() {
 
+    // !. Module Setup
     var u,
         sandbox,
         stubLogin,
@@ -37,8 +38,8 @@ describe("Testing of expressjs route for user login", function() {
         umsResponse = { loggedIn: true };
         stubLogin.yields(null, umsResponse);
         outgoingExpressResponse = { 
-            redirect: function(view) { }, 
-            render: function(view) { } 
+            redirect: function(view) { /* just a stub to be overriden by sinon */ console.log('This code for should not be executed in a unit test %s', view); }, 
+            render: function(view) { /* just a stub to be overriden by sinon */ console.log('This code for should not be executed in a unit test %s', view); } 
         };
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'redirect');
 
@@ -46,10 +47,30 @@ describe("Testing of expressjs route for user login", function() {
         u = new user(ums);
     });
 
-    afterEach(function()  {
-        sandbox.restore();
-    });
+    /* 
+    *
+    *  Assert function definitions used in the tests declared before the tests 
+    *
+    */
+    function assertLoginVerifiedAndViewUpdated() {
+        expect(incomingExpressRequest.session.authenticated).to.equal(true);
+        expect(incomingExpressRequest.session.user.email).to.equal(incomingExpressRequest.body.username);
+        outgoingExpressResponseSpy.should.have.been.calledWith('dashboard');
+    }
 
+    function assertLoginFailedAndViewUpdated(message, alertType) {
+        expect(incomingExpressRequest.session.authenticated).to.equal(false);
+        outgoingExpressResponseSpy.should.have.been.calledWith('login', 
+            sinon.match({ flash: {
+                    type: alertType,
+                    messages: [{ msg: message }]
+                }    
+            }));
+    }
+
+    /*
+    * 2. Module Exercise
+    */
     it("Logs in a valid user", function(done) {
         //exercise
         u.post(incomingExpressRequest, outgoingExpressResponse);
@@ -93,21 +114,11 @@ describe("Testing of expressjs route for user login", function() {
         done();    
     });
     
-    function assertLoginVerifiedAndViewUpdated()
-    {
-        expect(incomingExpressRequest.session.authenticated).to.equal(true);
-        expect(incomingExpressRequest.session.user.email).to.equal(incomingExpressRequest.body.username);
-        outgoingExpressResponseSpy.should.have.been.calledWith('dashboard');
-    }
-
-    function assertLoginFailedAndViewUpdated(message, alertType) {
-        expect(incomingExpressRequest.session.authenticated).to.equal(false);
-        outgoingExpressResponseSpy.should.have.been.calledWith('login', 
-            sinon.match({ flash: {
-                    type: alertType,
-                    messages: [{ msg: message }]
-                }    
-            }));
-    }
+    //3. Module Verify
+    
+    //4. Module Cleanup
+    afterEach(function()  {
+        sandbox.restore();
+    });
     
 });
