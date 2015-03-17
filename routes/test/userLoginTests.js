@@ -1,3 +1,4 @@
+/*jslint node: true */
 /*jslint nomen: true */
 /*jslint newcap: true */
 /*global before, beforeEach, afterEach, after, describe, it */
@@ -14,7 +15,7 @@ chai.should();
 chai.use(sinonChai);
 require('mocha-sinon');
 
-describe("Testing of expressjs route for user login", function() {
+describe("Testing of expressjs route for user login", function () {
 
     // !. Module Setup
     var u,
@@ -26,7 +27,7 @@ describe("Testing of expressjs route for user login", function() {
         outgoingExpressResponse,
         outgoingExpressResponseSpy;
 
-    beforeEach(function() {
+    beforeEach(function () {
         ums = new usermanagementservice(null, null, null, null);
         incomingExpressRequest = { body: { username: 'rob@mu.co.uk', password: 'AussieInternational' }, session: { authenticated: false, user: null }};
         //sandbox to cleanup global spies
@@ -34,9 +35,9 @@ describe("Testing of expressjs route for user login", function() {
         stubLogin = sandbox.stub(ums, 'LoginUser');
         umsResponse = { loggedIn: true };
         stubLogin.yields(null, umsResponse);
-        outgoingExpressResponse = { 
-            redirect: function(view) { /* just a stub to be overriden by sinon */ console.log('This code for should not be executed in a unit test %s', view); }, 
-            render: function(view) { /* just a stub to be overriden by sinon */ console.log('This code for should not be executed in a unit test %s', view); } 
+        outgoingExpressResponse = {
+            redirect: function (view) { /* just a stub to be overriden by sinon */ console.log('This code for should not be executed in a unit test %s', view); },
+            render: function (view) { /* just a stub to be overriden by sinon */ console.log('This code for should not be executed in a unit test %s', view); }
         };
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'redirect');
         //this will be setup to be injected soon enough
@@ -56,18 +57,17 @@ describe("Testing of expressjs route for user login", function() {
 
     function assertLoginFailedAndViewUpdated(message, alertType) {
         expect(incomingExpressRequest.session.authenticated).to.equal(false);
-        outgoingExpressResponseSpy.should.have.been.calledWith('login', 
+        outgoingExpressResponseSpy.should.have.been.calledWith('login',
             sinon.match({ flash: {
-                    type: alertType,
-                    messages: [{ msg: message }]
-                }    
-            }));
+                type: alertType,
+                messages: [{ msg: message }]
+            }}));
     }
 
     /*
     * 2. Module Exercise
     */
-    it("Logs in a valid user", function(done) {
+    it("Logs in a valid user", function (done) {
         //2. exercise
         u.post(incomingExpressRequest, outgoingExpressResponse);
         //3. verify
@@ -76,10 +76,10 @@ describe("Testing of expressjs route for user login", function() {
         done();
     });
 
-    it("Will not log a user with invalid credentials", function(done) {
+    it("Will not log a user with invalid credentials", function (done) {
         //1. setup - changing default behaviour
         umsResponse = { loggedIn: false };
-        stubLogin.yields(null, umsResponse);        
+        stubLogin.yields(null, umsResponse);
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
         //2. exercise
         u.post(incomingExpressRequest, outgoingExpressResponse);
@@ -89,10 +89,10 @@ describe("Testing of expressjs route for user login", function() {
         done();
     });
 
-    it("Reports an error on failure to login", function(done) {
+    it("Reports an error on failure to login", function (done) {
         //1. setup - changing the default behaviour
-        var expectedErrorMessage = 'Login Service Failure';
-        var expectedError = new Error(expectedErrorMessage);
+        var expectedErrorMessage = 'Login Service Failure',
+            expectedError = new Error(expectedErrorMessage);
         stubLogin.yields(expectedError);
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
         //2. exercise
@@ -100,14 +100,14 @@ describe("Testing of expressjs route for user login", function() {
         //3. verify
         assertLoginFailedAndViewUpdated(expectedErrorMessage, 'alert-danger');
         //4. teardown
-        done();    
+        done();
     });
-    
+
     //3. Module Verify
-    
+
     //4. Module Cleanup
-    afterEach(function()  {
+    afterEach(function () {
         sandbox.restore();
     });
-    
+
 });
