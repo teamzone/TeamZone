@@ -27,11 +27,8 @@ describe("Testing of expressjs route for user login", function() {
         outgoingExpressResponseSpy;
 
     beforeEach(function() {
-    
         ums = new usermanagementservice(null, null, null, null);
-        
         incomingExpressRequest = { body: { username: 'rob@mu.co.uk', password: 'AussieInternational' }, session: { authenticated: false, user: null }};
-      
         //sandbox to cleanup global spies
         sandbox = sinon.sandbox.create();
         stubLogin = sandbox.stub(ums, 'LoginUser');
@@ -42,7 +39,6 @@ describe("Testing of expressjs route for user login", function() {
             render: function(view) { /* just a stub to be overriden by sinon */ console.log('This code for should not be executed in a unit test %s', view); } 
         };
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'redirect');
-
         //this will be setup to be injected soon enough
         u = new user(ums);
     });
@@ -72,45 +68,38 @@ describe("Testing of expressjs route for user login", function() {
     * 2. Module Exercise
     */
     it("Logs in a valid user", function(done) {
-        //exercise
+        //2. exercise
         u.post(incomingExpressRequest, outgoingExpressResponse);
-        
-        //verify
+        //3. verify
         assertLoginVerifiedAndViewUpdated();
-        
-        //teardown
+        //4. teardown
         done();
     });
 
     it("Will not log a user with invalid credentials", function(done) {
-        //setup - changing default behaviour
+        //1. setup - changing default behaviour
         umsResponse = { loggedIn: false };
         stubLogin.yields(null, umsResponse);        
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
-        
-        //exercise
+        //2. exercise
         u.post(incomingExpressRequest, outgoingExpressResponse);
-
-        //verify
+        //3. verify
         assertLoginFailedAndViewUpdated('Login failed.  You may need to still verify your account or incorrect username/password was entered', 'alert-info');
-
+        //4. teardown
         done();
     });
 
     it("Reports an error on failure to login", function(done) {
-        //setup - changing the default behaviour
+        //1. setup - changing the default behaviour
         var expectedErrorMessage = 'Login Service Failure';
         var expectedError = new Error(expectedErrorMessage);
         stubLogin.yields(expectedError);
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
-        
-        //exercise
+        //2. exercise
         u.post(incomingExpressRequest, outgoingExpressResponse);
-        
-        //verify
+        //3. verify
         assertLoginFailedAndViewUpdated(expectedErrorMessage, 'alert-danger');
-
-        //teardown
+        //4. teardown
         done();    
     });
     
