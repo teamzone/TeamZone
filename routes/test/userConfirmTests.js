@@ -1,5 +1,7 @@
+/*jslint node: true */
 /*jslint nomen: true */
-/* global before, afterEach, after, describe, it */
+/*jslint newcap: true */
+/*global before, beforeEach, afterEach, after, describe, it */
 'use strict';
 
 var user = require('../userConfirm');
@@ -11,8 +13,9 @@ chai.should();
 chai.use(sinonChai);
 require('mocha-sinon');
 
-describe("Testing of expressjs route for user confirmation: ", function() {
+describe("Testing of expressjs route for user confirmation: ", function () {
 
+    //1. Module Setup
     var u,
         sandbox,
         stubConfirm,
@@ -22,15 +25,11 @@ describe("Testing of expressjs route for user confirmation: ", function() {
         outgoingExpressResponse,
         outgoingExpressRenderSpy;
 
-    before(function() {
-    });
-    
-    beforeEach(function()  {
-    
+    beforeEach(function () {
         ums = new usermanagementservice(null, null, null, null);
-        incomingExpressRequest = { 
-                    query: { u: 'rob@wk.com.au', t: 'UniqueTokenString'  }, 
-                    session: { authenticated: false, user: null }
+        incomingExpressRequest = {
+            query: { u: 'rob@wk.com.au', t: 'UniqueTokenString' },
+            session: { authenticated: false, user: null }
         };
 
         //sandbox to cleanup global spies
@@ -38,8 +37,8 @@ describe("Testing of expressjs route for user confirmation: ", function() {
         stubConfirm = sandbox.stub(ums, 'ConfirmRegisterUser');
         umsResponse = { };
         stubConfirm.yields(null, umsResponse);
-        outgoingExpressResponse = { 
-            render: function(view) { }, 
+        outgoingExpressResponse = {
+            render: function (view) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', view); }
         };
         outgoingExpressRenderSpy = sandbox.spy(outgoingExpressResponse, 'render');
 
@@ -47,101 +46,104 @@ describe("Testing of expressjs route for user confirmation: ", function() {
         u = new user(ums);
     });
 
-    afterEach(function()  {
+    function assertUserServiceConfirmed(redirectView, spy, alertType, message) {
+        spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
+            type: alertType,
+            messages: [{ msg: message }]
+        }}));
+    }
+
+    function assertQueryParameterMissing() {
+        outgoingExpressRenderSpy.should.have.been.calledWith('login', sinon.match({ flash: {
+            type: 'alert-danger',
+            messages: [{ msg: 'Invalid confirmation url' }]
+        }}));
+    }
+
+    //2. Module Exercise
+    it("Confirm a valid user", function (done) {
+        //1. setup
+
+        //2. exercise
+        u.get(incomingExpressRequest, outgoingExpressResponse);
+
+        //3. verify
+        assertUserServiceConfirmed('login', outgoingExpressRenderSpy, 'alert-success', 'You have been successfully confirmed, please log in.');
+
+        //4. teardown
+        done();
+    });
+
+    it("Reject blank query parameter - u", function (done) {
+        //1 . setup
+        incomingExpressRequest = {
+            query: { t: 'UniqueTokenString' },
+            session: { authenticated: false, user: null }
+        };
+
+        //2. exercise
+        u.get(incomingExpressRequest, outgoingExpressResponse);
+
+        //3. verify
+        assertQueryParameterMissing('u');
+
+        //4. teardown
+        done();
+    });
+
+    it("Reject blank query parameter - t", function (done) {
+        //1. setup
+        incomingExpressRequest = {
+            query: { u: 'rob@mu.co.uk' },
+            session: { authenticated: false, user: null }
+        };
+
+        //2. exercise
+        u.get(incomingExpressRequest, outgoingExpressResponse);
+
+        //3. verify
+        assertQueryParameterMissing('t');
+
+        //4. teardown
+        done();
+    });
+
+    it("Notifies via response when an error during confirmation service occurs", function (done) {
+        //1. setup - changing the default behaviour
+        var expectedErrorMessage = 'User Confirmation Service Failure',
+            expectedError = new Error(expectedErrorMessage);
+        stubConfirm.yields(expectedError);
+
+        //2. exercise
+        u.get(incomingExpressRequest, outgoingExpressResponse);
+
+        //3. verify
+        assertUserServiceConfirmed('login', outgoingExpressRenderSpy, 'alert-danger', expectedErrorMessage);
+
+        //4. teardown
+        done();
+    });
+
+    it("Post is not allowed, so throw an error", function (done) {
+        //1. setup
+
+        //2. exercise
+        try {
+            u.post(incomingExpressRequest, outgoingExpressResponse);
+        } catch (e) {
+            //3. verify
+            e.message.should.equal('Post is not permitted for confirmation');
+        }
+
+        //4. teardown
+        done();
+    });
+
+    //3. Module Verify
+
+    //4. Module CleanUp
+    afterEach(function () {
         sandbox.restore();
     });
 
-    it("Confirm a valid user", function(done) {
-        //setup
-        
-        //exercise
-        u.get(incomingExpressRequest, outgoingExpressResponse);
-        
-        //verify
-        assertUserServiceConfirmed('login', outgoingExpressRenderSpy, 'alert-success', 'You have been successfully confirmed, please log in.');
-        
-        //teardown
-        done();
-    });
-
-    it("Reject blank query parameter - u", function(done) {
-        //setup
-        incomingExpressRequest = { 
-                    query: { t: 'UniqueTokenString'  }, 
-                    session: { authenticated: false, user: null }
-        };
-        
-        //exercise
-        u.get(incomingExpressRequest, outgoingExpressResponse);
-        
-        //verify
-        assertQueryParameterMissing('u');
-        
-        //teardown
-        done();
-    });
-
-    it("Reject blank query parameter - t", function(done) {
-        //setup
-        incomingExpressRequest = { 
-                    query: { u: 'rob@mu.co.uk'  }, 
-                    session: { authenticated: false, user: null }
-        };
-        
-        //exercise
-        u.get(incomingExpressRequest, outgoingExpressResponse);
-        
-        //verify
-        assertQueryParameterMissing('t');
-        
-        //teardown
-        done();
-    });
-
-    it("Notifies via response when an error during confirmation service occurs", function(done) {
-        //setup - changing the default behaviour
-        var expectedErrorMessage = 'User Confirmation Service Failure';
-        var expectedError = new Error(expectedErrorMessage);
-        stubConfirm.yields(expectedError);
-
-        //exercise
-        u.get(incomingExpressRequest, outgoingExpressResponse);
-        
-        //verify
-        assertUserServiceConfirmed('login', outgoingExpressRenderSpy, 'alert-danger', expectedErrorMessage);
-        
-        //teardown
-        done();
-    });
-
-    it("Post is not allowed, so throw an error", function(done) {
-        //setup
-        
-        //exercise
-        try {
-            u.post(incomingExpressRequest, outgoingExpressResponse);
-        } catch(e) {
-            //verify
-            e.message.should.equal('Post is not permitted for confirmation');
-        }
-        
-        //teardown
-        done();
-    });
-    
-    function assertUserServiceConfirmed(redirectView, spy, alertType, message) {
-        spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
-                        type: alertType,
-                        messages: [{ msg: message }]
-                    }    
-                }));
-    }
-    
-    function assertQueryParameterMissing(parameterName) {
-        outgoingExpressRenderSpy.should.have.been.calledWith('login', sinon.match({ flash: {
-                        type: 'alert-danger',
-                        messages: [{ msg: 'Invalid confirmation url' }]
-                    }    
-                }));
-    }
 });

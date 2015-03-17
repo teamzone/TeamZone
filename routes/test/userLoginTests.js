@@ -36,8 +36,8 @@ describe("Testing of expressjs route for user login", function () {
         umsResponse = { loggedIn: true };
         stubLogin.yields(null, umsResponse);
         outgoingExpressResponse = {
-            redirect: function (view) { /* just a stub to be overriden by sinon */ console.log('This code for should not be executed in a unit test %s', view); },
-            render: function (view) { /* just a stub to be overriden by sinon */ console.log('This code for should not be executed in a unit test %s', view); }
+            redirect: function (view) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', view); },
+            render: function (view) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', view); }
         };
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'redirect');
         //this will be setup to be injected soon enough
