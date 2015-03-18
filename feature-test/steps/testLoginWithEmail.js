@@ -8,9 +8,9 @@ var path = require('path');
 var Yadda = require('yadda');
 var bcrypt = require('bcrypt');
 var assert = require('assert');
-var usermanagementservice = require('../../lib/UserManagementService'); // The library that you wish to test
+var usermanagementservice = require('../../lib/ts/UserManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
-var emailverifyservice = require('../../lib/EmailVerifyService');
+var emailverifyservice = require('../../lib/ts/EmailVerifyService');
 var token = require('token');
 
 Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
