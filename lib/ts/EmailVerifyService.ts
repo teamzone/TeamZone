@@ -1,4 +1,4 @@
-/// <reference path='../typings/tsd.d.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 /*jslint nomen: true */
 'use strict';
 import email = require('./IEmailVerifyService');

@@ -1,4 +1,4 @@
-/// <reference path='../typings/tsd.d.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
 /*jslint node: true */
 /*jslint newcap: true */
 /*jslint nomen: true */

@@ -1,5 +1,5 @@
-/// <reference path='../typings/tsd.d.ts' />
-/// <reference path='../typings/bcrypt/bcrypt.d.ts' />
+/// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../../typings/bcrypt/bcrypt.d.ts' />
 /*jslint nomen: true */
 'use strict';
 
