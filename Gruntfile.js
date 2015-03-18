@@ -95,8 +95,8 @@ module.exports = function(grunt) {
       server: {
         src: [ // some example files
           'lib/*.js',
-          'routes/*.js',
           'lib/test/*.js',
+          'lib/ts/test/*.js',
           'routes/test/*.js',
           'feature-test/steps/common/test/*.js',
           'feature-test/steps/*.js'
