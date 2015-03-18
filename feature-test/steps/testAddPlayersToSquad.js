@@ -6,7 +6,7 @@
 var path = require('path');
 var Yadda = require('yadda');
 var assert = require('assert');
-var teammanagementservice = require('../../lib/TeamManagementService'); // The library that you wish to test
+var teammanagementservice = require('../../lib/ts/TeamManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
 var dbhelpers = require('./common/DbHelpers');
 
