@@ -1,4 +1,5 @@
 /// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../../typings/underscore.d.ts' />
 /*jslint nomen: true */
 'use strict';
 
