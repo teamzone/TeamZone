@@ -104,8 +104,8 @@ module.exports = function(grunt) {
         exclude: [
           //TODO: Remove these once refactored
           'lib/PlayerManagementService.js',
-          'feature-test/steps/AddPlayer.js',
-          'feature-test/steps/common/test/DbHelpersTests'
+          'feature-test/steps/testAddPlayer.js',
+          'feature-test/steps/common/test/DbHelpersTests.js'
         ],
         directives: { // example directives
           node: true,
