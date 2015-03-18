@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jslint newcap: true */
+/*global before, beforeEach, afterEach, after, describe, it */
+/*jslint nomen: true */
+"use strict";
+
 var assert = require('assert');
 var English = require('yadda').localisation.English;
 var dbhelpers = require('./common/DbHelpers');
@@ -8,12 +14,12 @@ var suburbname;
 var cityname;
 var email;
 
-module.exports = (function() {
+module.exports = (function () {
 	
   return English.library()
 	
 	// Background
-	.given("The user $firstname $lastname is logged into the site.", function(firstname, lastname, next) {	
+	.given("The user $firstname $lastname is logged into the site.", function (firstname, lastname, next) {	
 	    tms = this.interpreter_context.tms;
 	    var createdUsers = this.interpreter_context.createdUsers;
 	    var usersDb = this.interpreter_context.usersDb;	 
@@ -24,7 +30,7 @@ module.exports = (function() {
     })
     
     // Scenario 1
-    .given("User gives the club name $club located at $addressField in the suburb $suburb in the city $city", function(club, addressField, suburb, city, next) {
+    .given("User gives the club name $club located at $addressField in the suburb $suburb in the city $city", function (club, addressField, suburb, city, next) {
        clubname = club; 
        fieldname = addressField;
        suburbname = suburb;
@@ -32,7 +38,7 @@ module.exports = (function() {
        next();
     })
 	
-    .when("the club is saved", function(next) {
+    .when("the club is saved", function (next) {
        var createdClubs = this.interpreter_context.createdClubs;
        tms.CreateClub(clubname, fieldname, suburbname, cityname, email,          
             function (err, value) {
@@ -43,9 +49,9 @@ module.exports = (function() {
             });
     })
 
-    .then("the user will also be the administrator of the club", function(next) {
+    .then("the user will also be the administrator of the club", function (next) {
         var dbh = new dbhelpers();
-        dbh.GetClub(this.interpreter_context.clubsDb, clubname, cityname, function(err, res) {
+        dbh.GetClub(this.interpreter_context.clubsDb, clubname, cityname, function (err, res) {
             assert.ifError(err, "Error in getting the club back");
             assert.equal(res.admin, email, 'admin email should have been set to ' + email + ' instead it was ' + res.admin);
             assert.equal(res.suburb, suburbname , 'suburb should have been set to ' + suburbname + ' instead it was ' + res.suburb);

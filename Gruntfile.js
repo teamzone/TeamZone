@@ -101,6 +101,9 @@ module.exports = function(grunt) {
           'feature-test/steps/common/test/*.js',
           'feature-test/steps/*.js'
         ],
+        exclude: [
+          'lib/PlayerManagementService.js'
+        ],
         directives: { // example directives
           node: true,
           todo: true

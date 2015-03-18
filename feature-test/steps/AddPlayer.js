@@ -1,11 +1,15 @@
-/* jslint node: true */
+/*jslint node: true */
+/*jslint newcap: true */
+/*global before, beforeEach, afterEach, after, describe, it, $$jsInject */
+/*jslint nomen: true */
 "use strict";
+
 var assert = require('assert');
 var English = require('yadda').localisation.English;
 var Pms = require('../../lib/PlayerManagementService'); // The library that you wish to test
 
-module.exports = (function() {
-	
+module.exports = (function () {
+
   return English.library()
 	
 	.given("^we have a team called $teamname for the season $year with no players listed", function(teamname, year, next) {	 
