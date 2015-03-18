@@ -9,7 +9,7 @@
 
 import express = require("express");
 import Flash = require("./flash");
-import Service = require("../lib/ITeamManagementService");
+import Service = require("../lib/ts/ITeamManagementService");
 import webRequest = require("./IWebRequest");
 
 /*

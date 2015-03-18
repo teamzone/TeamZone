@@ -7,7 +7,7 @@
 
 import express = require("express");
 import Flash = require("./flash");
-import Service = require("../lib/IUserManagementService");
+import Service = require("../lib/ts/IUserManagementService");
 import webRequest = require("./IWebRequest");
 var _ = require('underscore');
 

@@ -6,7 +6,7 @@
 
 var user = require('../userConfirm');
 var sinon = require('sinon');
-var usermanagementservice = require('../../lib/UserManagementService');
+var usermanagementservice = require('../../lib/ts/UserManagementService');
 var sinonChai = require("sinon-chai");
 var chai = require("chai");
 chai.should();
