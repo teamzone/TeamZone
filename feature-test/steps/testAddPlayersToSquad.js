@@ -1,7 +1,8 @@
-/* jslint node: true */
-/* global before, afterEach, after, featureFile, scenarios, steps */
 /*jslint nomen: true */
-"use strict";
+/*jslint node: true */
+/*jslint newcap: true */
+/*global before, afterEach, after, featureFile, scenarios, steps */
+'use strict';
 
 var path = require('path');
 var Yadda = require('yadda');
@@ -24,33 +25,6 @@ var playersDb;
 var database;
 var tms;
 
-setupInterpreterContext();
-
-before(function(done) {
-    done();
-});
-
-after(function(done) {
-    var dbh = new dbhelpers();
-    dbh.CascadeDelete({ playersDb: playersDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb, clubsDb: clubsDb, usersDb: usersDb }, 
-                      interpreter_context.createdPlayers, interpreter_context.createdSquads, interpreter_context.createdSquadPlayers,
-                      interpreter_context.createdClubs, interpreter_context.createdUsers, done);
-});
-
-var library = require('./AddPlayersToSquad');
-var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
-    
-featureFile(featureFilePath, function(feature) {
-
-    scenarios(feature.scenarios, function(scenario) {
-        var scenario_context = { };
-        steps(scenario.steps, function(step, done) {
-            yadda.yadda(step, { scenario_context: scenario_context }, done);
-        });
-    });
-
-});
-
 function setupInterpreterContext() {
     var dbf = new databasefactory();
     database = dbf.levelredis();
@@ -60,8 +34,35 @@ function setupInterpreterContext() {
     squadplayersDb = dbf.squadplayersdb(database.leveldb);
     playersDb = dbf.playerdb(database.leveldb);
     tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
-    interpreter_context = { tms: tms, database: database, 
+    interpreter_context = { tms: tms, database: database,
                             playersDb: playersDb, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb,
-                            createdPlayers: [], createdUsers: [], createdClubs: [], createdSquads: [], 
+                            createdPlayers: [], createdUsers: [], createdClubs: [], createdSquads: [],
                             createdSquadPlayers: [] };
 }
+
+setupInterpreterContext();
+
+before(function (done) {
+    done();
+});
+
+after(function (done) {
+    var dbh = new dbhelpers();
+    dbh.CascadeDelete({ playersDb: playersDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb, clubsDb: clubsDb, usersDb: usersDb },
+                      interpreter_context.createdPlayers, interpreter_context.createdSquads, interpreter_context.createdSquadPlayers,
+                      interpreter_context.createdClubs, interpreter_context.createdUsers, done);
+});
+
+var library = require('./AddPlayersToSquad');
+var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
+
+featureFile(featureFilePath, function (feature) {
+
+    scenarios(feature.scenarios, function (scenario) {
+        var scenario_context = { };
+        steps(scenario.steps, function (step, done) {
+            yadda.yadda(step, { scenario_context: scenario_context }, done);
+        });
+    });
+
+});

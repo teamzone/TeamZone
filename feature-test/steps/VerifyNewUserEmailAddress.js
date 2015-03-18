@@ -1,5 +1,8 @@
+/*jslint node: true */
+/*jslint newcap: true */
+/*jslint plusplus: true */
+/*global before, beforeEach, afterEach, after, featureFile, scenarios, steps */
 /*jslint nomen: true */
-"use strict";
 
 var assert = require('assert');
 var English = require('yadda').localisation.English;
