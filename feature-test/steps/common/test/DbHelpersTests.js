@@ -11,6 +11,7 @@ var sublevel = require('level-sublevel');
 var sinon = require('sinon');
 var dbhelpers = require('../DbHelpers');
 var _ = require('underscore');
+var bcrypt = require('bcrypt');
 var imstreams = require('memory-streams');
 require('mocha-sinon');
 
@@ -18,7 +19,7 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
 
     var levelimdb, spyCallback, sandbox, stubDel, stubGet, stubPut, dbh, clubname, cityname, fieldname, suburbname, adminemail, squadname, season, agelimit;
     var playerFirstname, playerSurname, playerEmail, playerDOB, playerAddress, playerSuburb, playerPostCode, playerPhone;
-    var userfirstname, usersurname, userpassword, useremail, usertokenHash, userconfirmed;
+    var userfirstname, usersurname, userpassword, useremail, usertokenHash, userconfirmed, stubCreateCrypt;
     
     beforeEach(function () {
         //sandbox to cleanup global spies
@@ -47,6 +48,7 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         userfirstname = playerFirstname;
         usersurname = playerSurname;
         useremail = playerEmail;
+        userpassword = 'Password';
         usertokenHash = 'hash value';
         userconfirmed = true;
         
@@ -54,6 +56,9 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         stubGet = sandbox.stub(levelimdb, 'get');
         stubPut = sandbox.stub(levelimdb, 'put');
         stubDel = sandbox.stub(levelimdb, 'del');
+        stubCreateCrypt = sandbox.stub(bcrypt, 'hash');
+        
+        stubCreateCrypt.yields(null, userpassword);
     });
   
     function assertCreatedTheUserOnce(firstname, surname, password, email, tokenHash, confirmed, createdUsers, checkCallBack) {
