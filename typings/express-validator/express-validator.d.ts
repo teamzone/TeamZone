@@ -18,6 +18,7 @@ declare module "express-validator" {
 
     export interface RequestValidation {
       check(field:string, message:string): Validator;
+      checkBody(field:string, message:string): Validator;
       assert(field:string, message:string): Validator;
       sanitize(field:string): Sanitizer;
       onValidationError(func:(msg:string) => void): void;

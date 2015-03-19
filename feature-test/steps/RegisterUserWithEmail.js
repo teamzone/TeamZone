@@ -38,7 +38,7 @@ module.exports = (function () {
                     next();
                 });
         })
-        
+
         .then("$firstname $lastname will be sent a validation email. No other details are required until the email is validated.", function (firstname, lastname, next) {
             console.log('Firstname %s and Lastname %s appear as part of the narrative and not used as such', firstname, lastname);
             assert(this.interpreter_context.evs.messageCount === 1, 'Expected one message to have been sent');
