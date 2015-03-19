@@ -1,6 +1,7 @@
 /// <reference path='../typings/tsd.d.ts' />
 /// <reference path='../typings/express/express.d.ts' />
 /// <reference path='../typings/express-session/express-session.d.ts' />
+/// <reference path='../typings/express/express.ext.d.ts' />
 /// <reference path='../typings/node/node.d.ts' />
 /*jslint nomen: true */
 'use strict';
