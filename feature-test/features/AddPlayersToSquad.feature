@@ -5,13 +5,13 @@ teams.  It helps the coach know who his players are and the age brackets they be
 
 Background:
 	
-	Given The coach Ken Court is logged into the site and is a coach for Western Knights in Perth and is looking after two squads First Team and Reserves for the 2015 season.  
+	Given The coach Ken Court is logged into the site and is a coach for Western Knights in Perth and is looking after two squads 1st Team and Reserves for the 2015 season.  
 		
 Scenario: The coach wants to select players for his squad and allow players over 16 years of age.
 	
 	Given A list of older players playing at the club
 	When the coach selects player [firstname], [surname], [dob], [email]
-	And chooses to add them to the First Team squad
+	And chooses to add them to the 1st Team squad
 	Then the coach will have [firstname], [surname], [email] listed as players as they conform to the age limit
 
 	Where:
