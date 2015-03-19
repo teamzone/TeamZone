@@ -38,15 +38,15 @@ module.exports = (function () {
                     next();
                 });
         })
-
-        .then("$firstname lastname will be sent a validation email.  No other details are required until the email is validated.", function (firstname, lastname, next) {
+        
+        .then("$firstname $lastname will be sent a validation email. No other details are required until the email is validated.", function (firstname, lastname, next) {
             console.log('Firstname %s and Lastname %s appear as part of the narrative and not used as such', firstname, lastname);
             assert(this.interpreter_context.evs.messageCount === 1, 'Expected one message to have been sent');
             next();
         })
 
         // Scenario 2
-        .given("$firstname lastname is already registered on the website as $email", function (firstname, lastname, email, next) {
+        .given("$firstname $lastname is already registered on the website as $email", function (firstname, lastname, email, next) {
             console.log('Firstname %s and Lastname %s with email %s appear as part of the narrative and not used as such', firstname, lastname, email);
             //No need to set up here - the same user was registered in the previous step - Yadda will not execute out of order.  Using a Background possible, but found not quite 
             //right for this context
@@ -63,7 +63,7 @@ module.exports = (function () {
                 });
         })
 
-        .then("$firstname lastname will be told that she is already registered.  She should be told to use the login button on the home page to login", function (firstname, lastname, next) {
+        .then("$firstname $lastname will be told that she is already registered. She should be told to use the login button on the home page to login", function (firstname, lastname, next) {
             console.log('Firstname %s and Lastname %s appear as part of the narrative and not used as such', firstname, lastname);
             assert.equal(this.scenario_context.err.message, 'User already exists', 'Expecting to be told that the user was already registered');
             next();

@@ -13,11 +13,10 @@ Scenario: The administrator Mary Kovacs wants to register on the website. She wi
 
 	Given I choose to register with an email and a password
 	When I enter marykovacs@aboutagile.com into the email field and GoKnights in the password field and click the Register button
-	Then Mary Kovacs will be sent a validation email.  No other details are required until the email is validated.
+	Then Mary Kovacs will be sent a validation email. No other details are required until the email is validated.
 
 Scenario: The administrator Mary Kovacs is already registered on the website so should not be able to register again
 
 	Given Mary Kovacs is already registered on the website as marykovacs@aboutagile.com
 	When marykovacs@aboutagile.com is entered into the email field and GoKnights in the password field and click the Register button
-	Then Mary Kovacs will be told that she is already registered.  She should be told to use the login button on the home page to login
-	
+	Then Mary Kovacs will be told that she is already registered. She should be told to use the login button on the home page to login
