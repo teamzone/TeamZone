@@ -8,6 +8,7 @@
 'use strict';
 
 import express = require("express");
+import expressValidator = require('express-validator');
 import Flash = require("./flash");
 import Service = require("../lib/ts/IUserManagementService");
 import webRequest = require("./IWebRequest");

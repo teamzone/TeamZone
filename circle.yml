@@ -14,7 +14,7 @@ test:
     - npm install -g grunt-cli
     
   override:
-    - grunt cibuild 
+    - grunt cibuild --force
 
 deployment:
   dev:
