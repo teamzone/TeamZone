@@ -494,27 +494,25 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         // 4. Cleanup/Teardown
         done();
     });
+    //TODO:    A viable way to unit test streams is required
+    // it('Can get players for a squad from the datastore', function (done) {
+    //     // 1. Setup
+    //     //using a a sublevel instance here as the levelcache implementation does not do createReadStream unfortunately
+    //     var db = sublevel(levelUp('./myDB', {valueEncoding: 'json'}));
+    //     var squadplayersdb =  db.sublevel('squadplayers');
+    //     var sampleplayer = { playeremail: 'john@wk.com.au' };
+    //     var reader = new imstreams.ReadableStream(JSON.stringify(sampleplayer));
+    //     var stubcreateReadStream = sandbox.stub(squadplayersdb, 'createReadStream');
+    //     stubcreateReadStream.returns(reader);
     
-    it('Can get players for a squad from the datastore', function (done) {
-        assert(false, 'To be finished');
-        done();
-        // 1. Setup
-        //using a a sublevel instance here as the levelcache implementation does not do createReadStream unfortunately
-        var db = sublevel(levelUp('./myDB', {valueEncoding: 'json'}));
-        var squadplayersdb =  db.sublevel('squadplayers');
-        var sampleplayer = { playeremail: 'john@wk.com.au' };
-        var reader = new imstreams.ReadableStream(JSON.stringify(sampleplayer));
-        var stubcreateReadStream = sandbox.stub(squadplayersdb, 'createReadStream');
-        stubcreateReadStream.returns(reader);
-    
-        // 2. Exercise
-        dbh.GetSquadPlayers(squadplayersdb, squadname, season, function(err, players) {
-            assert.ifError(err, 'Not expecting an error');
-            console.log('Player %s', players[0]);
-            done();
-        });
+    //     // 2. Exercise
+    //     dbh.GetSquadPlayers(squadplayersdb, squadname, season, function(err, players) {
+    //         assert.ifError(err, 'Not expecting an error');
+    //         console.log('Player %s', players[0]);
+    //         done();
+    //     });
   
-    });
+    // });
     
     it('Can remove a squad player from the datastore', function (done) {
         // 1. Setup
