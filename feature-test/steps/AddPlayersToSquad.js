@@ -73,6 +73,7 @@ module.exports = (function () {
                     season: season,
                     email: playerToAddEmail
                 });
+                console.log('Successfully added the player %s to the squad %s', playerToAddEmail, targetsquad);
                 next();
             });
         })
@@ -83,6 +84,7 @@ module.exports = (function () {
                 assert.ifError(err, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season);
                 assert(players.length > 0, 'Expected players to be in the squad');
                 assert(_.find(players, function (p) { return p.value.playeremail === playeremail; }), playerfirstname + '.' +  playerlastname + ' ' + playeremail + ' not found in Squad Players');
+                console.log('Completed the Add Player to Squad test successfully');
                 next();
             });
         });

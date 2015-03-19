@@ -37,8 +37,11 @@ function DbHelpers(dontCreateIfPreExisting) {
 	* @param {callback} callback - notify the caller of success or error
 	**/
     this.CreateUser = function(usersDb, createdUsers, firstname, surname, password, email, tokenHash, confirmed, callback) {
-        if (dontCreateIfPreExisting && _.find(createdUsers, function(u) { return u.email === email })) 
+        if (dontCreateIfPreExisting && _.find(createdUsers, function(u) { return u.email === email })) {
+            console.log('User %s already exists so we no need to create again', email);
+            callback();
             return;
+        }
         console.log('Test: Creating test user - %s', email);
 	    //direct code to DB
         bcrypt.hash(password, 10, function(err, hashedPassword) {
@@ -152,8 +155,10 @@ function DbHelpers(dontCreateIfPreExisting) {
 	*                                            because it probably part of bigger workflow.
 	**/
     this.CreateClub = function(clubsdb, createdClubs, clubname, cityname, fieldname, suburbname, adminemail, callback, callbackCalledOnSuccess) {
-        if (dontCreateIfPreExisting && _.find(createdClubs, function(c) { return c.club === clubname && c.city === cityname })) 
+        if (dontCreateIfPreExisting && _.find(createdClubs, function(c) { return c.club === clubname && c.city === cityname })) {
+            console.log('Club %s already exists so we no need to create again', clubname);
             return;
+        }
         clubsdb.put(clubname + '~' + cityname, { field: fieldname, suburb: suburbname, admin: adminemail }, { sync: true }, 
             function (err) {
 		        if (err) 
@@ -194,8 +199,10 @@ function DbHelpers(dontCreateIfPreExisting) {
 	*                                            because it probably part of bigger workflow.
 	**/
     this.CreatePlayer = function(playersdb, createdPlayers, email, firstname, surname, DOB, address, suburb, postcode, phone, callback, callbackCalledOnSuccess) {
-        if (dontCreateIfPreExisting && _.find(createdPlayers, function(p) { return p.email === email })) 
+        if (dontCreateIfPreExisting && _.find(createdPlayers, function(p) { return p.email === email })) {
+            console.log('Player %s already exists so we no need to create again', email);
             return;
+        }
         playersdb.put(email, { dob: DOB, address: address, suburb: suburb, postcode: postcode, phone: phone }, { sync: true }, 
             function (err) {
 		        if (err) 
@@ -255,8 +262,10 @@ function DbHelpers(dontCreateIfPreExisting) {
 	*                                            because it probably part of bigger workflow.
 	**/
     this.CreateSquad = function(squadsdb, createdSquads, squadname, season, agelimit, adminemail, callback, callbackCalledOnSuccess) {
-        if (dontCreateIfPreExisting && _.find(createdSquads, function(s) { return s.squad === squadname && s.season === season })) 
+        if (dontCreateIfPreExisting && _.find(createdSquads, function(s) { return s.squad === squadname && s.season === season })) {
+            console.log('Squad %s already exists so we no need to create again', squadname);
             return;
+        }
         squadsdb.put(squadname + '~' + season, { agelimit: agelimit, admin: adminemail }, { sync: true }, 
             function (err) {
 		        if (err) {
