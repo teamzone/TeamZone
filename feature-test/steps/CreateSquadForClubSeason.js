@@ -47,16 +47,12 @@ module.exports = (function () {
         })
 
         .when("the squad is saved", function (next) {
-            var createdSquads = this.interpreter_context.createdSquads,
-                club = clubname,
-                city = cityname,
-                squad = squadname,
-                s = season;
+            var createdSquads = this.interpreter_context.createdSquads;
             tms.CreateSquad(clubname, cityname, squadname, season, agelimit, email,
                 function (err) {
                     assert.ifError(err, "Error in CreateSquad");
                     //saving the created club for cleaning up later on
-                    createdSquads.push({ squad: squad, season: s });
+                    createdSquads.push({ squad: squadname, season: season });
                     next();
                 });
         })
