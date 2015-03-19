@@ -9,7 +9,7 @@ Background:
 		
 Scenario: The user creates a squad.
 	
-	Given User gives the squad name Reserves Team and an age limit of unrestricted
+	Given User gives the squad name Ressies Team and an age limit of unrestricted
 	When the squad is saved
 	Then the user will also be marked as the creator of the squad
 
