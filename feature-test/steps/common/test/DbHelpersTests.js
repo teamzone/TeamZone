@@ -882,8 +882,8 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
     
         cascadeDeleteTestPayload.createdPlayers.push({ email: playerEmail });
         cascadeDeleteTestPayload.createdPlayers.push({ email: 'ken.daglish@wk.com.au' });
-        cascadeDeleteTestPayload.createdSquads.push({ squadname: squadname, season: season });
-        cascadeDeleteTestPayload.createdSquads.push({ squadname: 'reserves', season: season });
+        cascadeDeleteTestPayload.createdSquads.push({ squad: squadname, season: season });
+        cascadeDeleteTestPayload.createdSquads.push({ squad: 'reserves', season: season });
         cascadeDeleteTestPayload.createdSquadPlayers.push({ squad: squadname, season: season, email: playerEmail });
         cascadeDeleteTestPayload.createdSquadPlayers.push({ squad: squadname, season: season, email: 'kdaglish@wk.com.au' });
         cascadeDeleteTestPayload.createdClubs.push({ club: clubname, city: cityname });

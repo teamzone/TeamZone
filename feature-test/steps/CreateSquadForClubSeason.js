@@ -56,7 +56,7 @@ module.exports = (function () {
                 function (err) {
                     assert.ifError(err, "Error in CreateSquad");
                     //saving the created club for cleaning up later on
-                    createdSquads.push({ clubname: club, cityname: city, squadname: squad, season: s });
+                    createdSquads.push({ squad: squad, season: s });
                     next();
                 });
         })

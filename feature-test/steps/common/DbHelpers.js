@@ -236,6 +236,8 @@ function DbHelpers(dontCreateIfPreExisting) {
 	*                                            because it probably part of bigger workflow.
 	**/
     this.RemoveClub = function(clubsdb, clubname, cityname, callback, callbackCalledOnSuccess) {
+        assert(clubname, 'email needs to exist for a delete to work');
+        assert(cityname, 'cityname needs to exist for a delete to work');
         clubsdb.del(clubname + '~' + cityname, { sync: true }, function(err) {
              if (err) {
                 console.log('Error whilst deleting %s', clubname);
@@ -343,6 +345,8 @@ function DbHelpers(dontCreateIfPreExisting) {
 	**/
     this.RemoveSquad = function(squadsDb, squadname, season, callback, callbackCalledOnSuccess) {
         console.log('Removing squad %s for season %s', squadname, season);
+        assert(squadname, 'squadname needs to exist for a delete to work');
+        assert(season, 'season needs to exist for a delete to work');
         squadsDb.del(squadname + '~' + season, { sync: true }, function(err) {
              if (err) {
                 console.log('Error whilst deleting %s', squadname);
@@ -369,6 +373,8 @@ function DbHelpers(dontCreateIfPreExisting) {
 	**/
     this.RemoveSquadPlayer = function(squadPlayersDb, squadname, season, email, callback, callbackCalledOnSuccess) {
         console.log('Removing player %s from squad %s for season %s', email, squadname, season);
+        assert(squadname, 'squad name needs to exist for a delete to work');
+        assert(season, 'season needs to exist for a delete to work');
         squadPlayersDb.del(squadname + '~' + season + '~' + email, { sync: true }, function(err) {
              if (err) {
                 console.log('Error whilst deleting %s', email);
@@ -392,6 +398,7 @@ function DbHelpers(dontCreateIfPreExisting) {
 	**/
     this.RemovePlayer = function(playersDb, email, callback, callbackCalledOnSuccess) {
         console.log('Removing player with email address: %s', email);
+        assert(email, 'email needs to exist for a delete to work');
         playersDb.del(email, { sync: true }, function(err) {
              if (err) 
                 callback(err);
