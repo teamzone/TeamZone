@@ -118,7 +118,7 @@ module.exports = function(grunt) {
           log: 'out/server-lint.log',
           jslintXml: 'out/server-jslint.xml',
           errorsOnly: true, // only display errors
-          failOnError: false, // defaults to true
+          failOnError: true, // defaults to true
           checkstyle: 'out/server-checkstyle.xml' // write a checkstyle-XML
         }
       }
