@@ -32,7 +32,7 @@ var dbh;
 * @param {string} playerphone - a personal or contact phone number for the player
 * @param {callback} next - continuation callback 
 */
-function createPlayersForTheTest(interpreter_context, playerfirstname, playerlastname, 
+function createPlayersForTheTest(interpreter_context, playerfirstname, playerlastname,
     playerdob, playeremail, playeraddress, playersuburb, playerpostcode, playerphone, next) {
     //these players need to be added as players to the db for the next part of the test to work
     var playersDb = interpreter_context.playersDb,
@@ -40,7 +40,7 @@ function createPlayersForTheTest(interpreter_context, playerfirstname, playerlas
     playerToAddEmail = playeremail;
     //don't need all the data, can make some of it up and it's not material to the test
     dbh.CreatePlayer(playersDb, createdPlayers, playeremail, playerfirstname,
-                     playerlastname, playerdob, playeraddress, playersuburb, 
+                     playerlastname, playerdob, playeraddress, playersuburb,
                      playerpostcode, playerphone, next, true);
 }
 
@@ -79,7 +79,7 @@ module.exports = (function () {
         })
 
         .when("the coach selects player $firstname, $surname, $dob, $email", function (playerfirstname, playerlastname, playerdob, playeremail, next) {
-            createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail, 
+            createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail,
                 '1 Smith Street', 'Mosman Park', '6011', '0411 213 537', next);
         })
 
@@ -114,15 +114,15 @@ module.exports = (function () {
         })
 
         .when("the coach selects an underage player $firstname, $surname, $dob, $email", function (playerfirstname, playerlastname, playerdob, playeremail, next) {
-            createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail, 
+            createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail,
                 '2 Smith Street', 'Mosman Park', '6011', '0412 214 407', next);
         })
 
         .when("wants to add them to the $squadname squad", function (squadname, next) {
-            // for this scenario we should store the error for checking in the next step
-            var scenario_context = this.scenario_context;
             targetsquad = squadname;
-            var createdSquadPlayers = this.interpreter_context.createdSquadPlayers;
+            // for this scenario we should store the error for checking in the next step
+            var scenario_context = this.scenario_context,
+                createdSquadPlayers = this.interpreter_context.createdSquadPlayers;
             tms.AddPlayerToSquad(squadname, season, playerToAddEmail, function (err) {
                 if (!err) {
                     //didn't get an error - somehow they probably got created so we should store that fact anyway so it gets cleaned up
@@ -132,7 +132,7 @@ module.exports = (function () {
                         email: playerToAddEmail
                     });
                 }
-                assert(err !== null || err != undefined, 'We expect an error to be returned');
+                assert(err !== null || err !== undefined, 'We expect an error to be returned');
                 scenario_context.TooYoungError = err;
                 next();
             });
@@ -140,10 +140,10 @@ module.exports = (function () {
 
         .then("$firstname, $surname, $email will be rejected as being too young", function (playerfirstname, playerlastname, playeremail, next) {
             //two checks here - First the error when attempting to insert and second making sure it didn't get added
-            var actualError = this.scenario_context.TooYoungError;
+            var actualError = this.scenario_context.TooYoungError,
+                squadPlayersDb = this.interpreter_context.squadplayersDb;
             assert.ok(actualError, 'Expecting to get an error');
             assert.equal(actualError.message, 'Player does not qualify for the squad due to being underaged', 'Did not get the expeccted Age Limit Error.  Instead it was: ' + actualError.message);
-            var squadPlayersDb = this.interpreter_context.squadplayersDb;
             dbh.GetSquadPlayers(squadPlayersDb, targetsquad, season, function (err, players) {
                 assert.ifError(err, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season);
                 assert(!_.find(players, function (p) { return p.value.playeremail === playeremail; }), playerfirstname + '.' +  playerlastname + ' ' + playeremail + ' found in Squad Players, not expecting this');
