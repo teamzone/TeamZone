@@ -19,6 +19,31 @@ var targetsquad;
 var playerToAddEmail;
 var dbh;
 
+/*
+* Helps with the creation of test players enabling the test outcomes to be achieved
+* @param {string} interpreter_context - whole of test object bag holding key data
+* @param {string} playerfirstname - the first name of the player to create
+* @param {string} playerlastname - the last name of the player to create
+* @param {string} playerdob - the date of birth of the player to create
+* @param {string} playeremail - the email address of the player to create
+* @param {string} playeraddress - the residential address to give the player
+* @param {string} playersuburb - the residential suburb for the player
+* @param {string} playerpostcode - the residential postcode for the player
+* @param {string} playerphone - a personal or contact phone number for the player
+* @param {callback} next - continuation callback 
+*/
+function createPlayersForTheTest(interpreter_context, playerfirstname, playerlastname, 
+    playerdob, playeremail, playeraddress, playersuburb, playerpostcode, playerphone, next) {
+    //these players need to be added as players to the db for the next part of the test to work
+    var playersDb = interpreter_context.playersDb,
+        createdPlayers = interpreter_context.createdPlayers;
+    playerToAddEmail = playeremail;
+    //don't need all the data, can make some of it up and it's not material to the test
+    dbh.CreatePlayer(playersDb, createdPlayers, playeremail, playerfirstname,
+                     playerlastname, playerdob, playeraddress, playersuburb, 
+                     playerpostcode, playerphone, next, true);
+}
+
 module.exports = (function () {
 
     return English.library()
@@ -54,13 +79,8 @@ module.exports = (function () {
         })
 
         .when("the coach selects player $firstname, $surname, $dob, $email", function (playerfirstname, playerlastname, playerdob, playeremail, next) {
-            //these players need to be added as players to the db for the next part of the test to work
-            var playersDb = this.interpreter_context.playersDb,
-                createdPlayers = this.interpreter_context.createdPlayers;
-            playerToAddEmail = playeremail;
-            //don't need all the data, can make some of it up and it's not material to the test
-            dbh.CreatePlayer(playersDb, createdPlayers, playeremail, playerfirstname,
-                             playerlastname, playerdob, '1 Smith Street', 'Mosman Park', '6011', '0411 213 537', next, true);
+            createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail, 
+                '1 Smith Street', 'Mosman Park', '6011', '0411 213 537', next);
         })
 
         .when("chooses to add them to the $squadname squad", function (squadname, next) {
@@ -84,7 +104,49 @@ module.exports = (function () {
                 assert.ifError(err, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season);
                 assert(players.length > 0, 'Expected players to be in the squad');
                 assert(_.find(players, function (p) { return p.value.playeremail === playeremail; }), playerfirstname + '.' +  playerlastname + ' ' + playeremail + ' not found in Squad Players');
-                console.log('Completed the Add Player to Squad test successfully');
+                next();
+            });
+        })
+
+        // Scenario 2
+        .given("A list of younger players playing at the club", function (next) {
+            next();
+        })
+
+        .when("the coach selects an underage player $firstname, $surname, $dob, $email", function (playerfirstname, playerlastname, playerdob, playeremail, next) {
+            createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail, 
+                '2 Smith Street', 'Mosman Park', '6011', '0412 214 407', next);
+        })
+
+        .when("wants to add them to the $squadname squad", function (squadname, next) {
+            // for this scenario we should store the error for checking in the next step
+            var scenario_context = this.scenario_context;
+            targetsquad = squadname;
+            var createdSquadPlayers = this.interpreter_context.createdSquadPlayers;
+            tms.AddPlayerToSquad(squadname, season, playerToAddEmail, function (err) {
+                if (!err) {
+                    //didn't get an error - somehow they probably got created so we should store that fact anyway so it gets cleaned up
+                    createdSquadPlayers.push({
+                        squad: squadname,
+                        season: season,
+                        email: playerToAddEmail
+                    });
+                }
+                assert(err !== null || err != undefined, 'We expect an error to be returned');
+                scenario_context.TooYoungError = err;
+                next();
+            });
+        })
+
+        .then("$firstname, $surname, $email will be rejected as being too young", function (playerfirstname, playerlastname, playeremail, next) {
+            //two checks here - First the error when attempting to insert and second making sure it didn't get added
+            var actualError = this.scenario_context.TooYoungError;
+            assert.ok(actualError, 'Expecting to get an error');
+            assert.equal(actualError.message, 'Player does not qualify for the squad due to being underaged', 'Did not get the expeccted Age Limit Error.  Instead it was: ' + actualError.message);
+            var squadPlayersDb = this.interpreter_context.squadplayersDb;
+            dbh.GetSquadPlayers(squadPlayersDb, targetsquad, season, function (err, players) {
+                assert.ifError(err, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season);
+                assert(!_.find(players, function (p) { return p.value.playeremail === playeremail; }), playerfirstname + '.' +  playerlastname + ' ' + playeremail + ' found in Squad Players, not expecting this');
                 next();
             });
         });

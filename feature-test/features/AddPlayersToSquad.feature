@@ -19,3 +19,16 @@ Scenario: The coach wants to select players for his squad and allow players over
 	firstname	| surname	| dob			| email
 	Mile		| Jedinak	| 3 Aug 1984	| mile@wk.com.au
 	Tim 		| Cahill 	| 3 Aug 1985	| tim@wk.com.au
+	
+Scenario: Selecting and attempting to add players under 16 years of age should reject those players.
+	
+	Given A list of younger players playing at the club
+	When the coach selects an underage player [firstname], [surname], [dob], [email]
+	And wants to add them to the Reserves squad
+	Then [firstname], [surname], [email] will be rejected as being too young
+	
+Where:
+	 firstname	| surname	| dob			| email
+	 Ivan		| Jedinak	| 13 Dec 2009	| ivanj@wk.com.au
+	 Timmy		| Cahill 	| 3 Aug 2010	| timmy@wk.com.au
+	 

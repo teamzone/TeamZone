@@ -57,9 +57,8 @@ var library = require('./AddPlayersToSquad');
 var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
 
 featureFile(featureFilePath, function (feature) {
-
     scenarios(feature.scenarios, function (scenario) {
-        var scenario_context = { };
+        var scenario_context = { TooYoungError: undefined };
         steps(scenario.steps, function (step, done) {
             yadda.yadda(step, { scenario_context: scenario_context }, done);
         });
