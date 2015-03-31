@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    title Dashboard :: Create Squad
+    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.common.min.css')
+    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.bootstrap.min.css')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='stylesheets/style.css')
+  body
+    .login.well
+      h1  Create a new Squad for a Season
+      hr
+      form(id='create-squad-form', method='POST', action='/createSquad' novalidate)
+        .form-group
+          label(for='clubname') Club Name
+          input(type='text', name='clubname', class='form-control', 
+            id='clubname', placeholder='Enter the name of the club',
+            required data-required-msg='The club name is required')    
+        .form-group
+          label(for='cityname') City 
+          input(type='text', name='cityname', class='form-control', 
+            id='cityname', placeholder='City Name',
+            required data-required-msg='Your club needs to be in a city')
+        .form-group
+          label(for='squadname') Squad 
+          input(type='text', name='squadname', class='form-control', 
+            id='squadname', placeholder='Squad Name',
+            required data-required-msg='The squad needs a name')
+        .form-group
+          label(for='season') Season 
+          input(type='text', name='season', class='form-control', 
+            id='season', placeholder='Season',
+            required data-required-msg='A squad needs to be created against a season')
+        .form-group
+          label(for='agelimit') Age Limit 
+          input(type='text', name='agelimit', class='form-control', 
+            id='agelimit', placeholder='Age Limit',
+            required data-required-msg='Please enter the age limit for the club')
+        .form-group
+          label(for='adminemail') Administrator/Coach Email
+          input(type='email', name='adminemail', class='form-control', 
+            id='adminemail', placeholder='Enter email address for the administrator or head coach looking after the squad',
+            required data-required-msg="The Admininistrator's or Custodian Email address is required"
+            data-available data-available-url="validate/adminEmailIsUser" 
+            data-available-msg="The administrator or custodian needs to be a existing user")    
+        .form-group
+          button.btn.btn-default Create
+        include messages
+
+  script(src='//code.jquery.com/jquery-1.9.1.min.js')
+  script(src='//cdn.kendostatic.com/2013.3.1119/js/kendo.all.min.js')
