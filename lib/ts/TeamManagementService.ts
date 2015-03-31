@@ -1,4 +1,5 @@
 /// <reference path='../../typings/tsd.d.ts' />
+/// <reference path='../../typings/underscore/underscore.d.ts' />
 /*jslint node: true */
 /*jslint newcap: true */
 /*jslint nomen: true */
@@ -6,6 +7,7 @@
 
 import tms = require('./ITeamManagementService');
 import assert = require('assert');
+import _ = require('underscore');
 var createError = require('errno').create;
 var AgeLimitError = createError('AgeLimitError');
 
@@ -82,7 +84,7 @@ export module Service {
 			this.checkNotNullOrEmpty(admin, 'admin', callback);
 			this.checkEmailAddress(admin, 'The admin email is invalid', callback);
 			var squads = this._squads;
-			var key = this.squadKeyMaker(squadname, season);
+			var key = this.squadKeyMaker(clubname, cityname, squadname, season);
 	    	squads.get(key, function(err) {
 	    		if(err && err.notFound) {
 					squads.put(key, { agelimit: agelimit, admin: admin }, { sync: true }, function (err) {
@@ -136,13 +138,89 @@ export module Service {
 				}
 			});
 		}
+
+		/**
+		* Returns a list of all the players for a club/city pair
+		* 
+		* @param {string} clubname - the name of the club (key)
+		* @param {string} cityname - the name of the city the club is in (key)
+		* @param {callback} callback - tell the caller if squad created or there was a failure
+		**/
+		GetPlayersForClub = (clubname: string, cityname: string, callback: any) => {
+	        var players = [];
+	        this._players.createReadStream(this.clubKeyMaker(clubname, cityname))
+	            .on('data', function(player) {
+	                players.push(player);
+	            })
+	            .on('end', function() {
+	                callback(null, players);
+	            })
+	            .on('error', function(err){
+	                callback(err);
+	            });
+		}
+
+		/**
+		* Returns a list of all the players for a club/city pair that aren't yet in the squad for a season
+		* 
+		* @param {string} clubname - the name of the club (key)
+		* @param {string} cityname - the name of the city the club is in (key)
+		* @param {string} squadname - the name of the squad to be checked against
+		* @param {string} season - the identifier for a season to be checked against (along with the squadname)
+		* @param {callback} callback - tell the caller if squad created or there was a failure
+		**/
+		GetPlayersForClubNotInSquad = (clubname: string, cityname: string, squadname: string, season: string, callback: any) => {
+			var playersdb = this._players;
+			var clubKey = this.clubKeyMaker(clubname, cityname);
+			this.GetPlayersForSquad(clubname, cityname, squadname, season, function(err, squadplayers) {
+				if (err) {
+					callback(err)
+				} else {
+			        var players = [];
+			        playersdb.createReadStream({ gte: clubKey })
+			            .on('data', function(player) {
+			            	if (!_.find(squadplayers, function(s: any) { return s.email === player.email; })) {
+			                	players.push(player);
+			            	}
+			            })
+			            .on('end', function() {
+			                callback(null, players);
+			            })
+			            .on('error', function(err){
+			                callback(err);
+			            });
+				}
+			});
+		}
+
+		/**
+		* Returns a list of all the players for a club/city pair
+		* 
+		* @param {string} squadname - the name of the squad (key)
+		* @param {string} season - a name for the season the squad is playing in (key).  
+		* 						   For example 2015, 2014/15 - this should map to a season dataset for further details about the season.
+		* @param {callback} callback - tell the caller if squad created or there was a failure
+		**/
+		GetPlayersForSquad = (clubname: string, cityname: string, squadname: string, season: string, callback: any)  => {
+	        var players = [];
+	        this._squadplayers.createReadStream(this.squadKeyMaker(clubname, cityname, squadname, season))
+	            .on('data', function(player) {
+	                players.push(player);
+	            })
+	            .on('end', function() {
+	                callback(null, players);
+	            })
+	            .on('error', function(err){
+	                callback(err);
+	            });
+		}
 		
 		/**
 		 * Create the key value for the clubs dataset
 		 * @param {string} clubname - the club is the first part of the key
 		 * @param {string} cityname - the city is the second part of the key
 		 **/
-		clubKeyMaker(clubname: string, cityname: string) {
+		clubKeyMaker(clubname: string, cityname: string) : string {
 	        return "".concat(clubname, "~", cityname);
 	    }
 
@@ -153,8 +231,8 @@ export module Service {
 		 * @param {string} squadname - the squad is the second part of the key
 		 * @param {string} season - the season is the fourth part of the key
 		 **/
-		squadKeyMaker(squadname: string, season: string) {
-			return ''.concat(squadname, '~', season);
+		squadKeyMaker(clubname: string, cityname: string, squadname: string, season: string) : string {
+			return this.clubKeyMaker(clubname, cityname).concat('~', squadname, '~', season);
 		}
 		
 		/**

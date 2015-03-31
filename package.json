@@ -37,6 +37,7 @@
     "validate.js": "^0.3.2",
     "verror": "^1.6.0",
     "void-elements": "^1.0.0",
+    "webworker-threads": "^0.5.5",
     "winston": "^0.8.3"
   },
   "devDependencies": {
