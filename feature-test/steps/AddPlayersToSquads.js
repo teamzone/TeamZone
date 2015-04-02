@@ -82,7 +82,7 @@ module.exports = (function () {
             createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail,
                 '1 Smith Street', 'Mosman Park', '6011', '0411 213 537', next);
         })
-        
+
         .when("chooses to add them to the $squadname", function (squadname, next) {
             targetsquad = squadname;
             var createdSquadPlayers = this.interpreter_context.createdSquadPlayers;
@@ -101,12 +101,12 @@ module.exports = (function () {
                 next();
             });
         })
-               
+
         .then("the coach will have $firstname, $surname, $email listed as players in the $squad", function (playerfirstname, playerlastname, playeremail, squadname, next) {
             var squadPlayersDb = this.interpreter_context.squadplayersDb;
-            dbh.GetSquadPlayers(squadPlayersDb, targetsquad, season, function (err, players) {
+            dbh.GetSquadPlayers(squadPlayersDb, squadname, season, function (err, players) {
                 if (err) {
-                    assert.fail(err, undefined, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season + ' because of error: ' + err.message);
+                    assert.fail(err, undefined, 'Failure to get squad players for squad ' + squadname + ' in season ' + season + ' because of error: ' + err.message);
                 }
                 assert(players.length > 0, 'Expected players to be in the squad');
                 assert(_.find(players, function (p) { return p.value.playeremail === playeremail; }), playerfirstname + '.' +  playerlastname + ' ' + playeremail + ' not found in Squad Players');
