@@ -103,21 +103,25 @@ export module Service {
 		}
 
 		/**
-		* Add a player to a squad.  
+		* Add a player to a squad. 
+		* @param {string} clubname - the name of the club (key) - we need to relate back to the club to find the true squad
+		* @param {string} cityname - the name of the city the club is in (key) - we need to relate back to the club to find the true squad
 		* @param {string} squadname - the name of the squad (key)
 		* @param {string} season - a name for the season the squad is playing in (key).  
 		* 						   For example 2015, 2014/15 - this should map to a season dataset for further details about the season.
 		* @param {string} playeremail - the email address of the player which will link to players under a club
 		* @param {callback} callback - tell the caller if squad created or there was a failure
 		**/
-		AddPlayerToSquad = (squadname: string, season: string, playeremail: string, callback: any)  => {
+		AddPlayerToSquad = (clubname: string, cityname: string, squadname: string, season: string, playeremail: string, callback: any)  => {
 			var squadplayers = this._squadplayers;
 
+			this.checkNotNullOrEmpty(clubname, 'clubname', callback);
+			this.checkNotNullOrEmpty(cityname, 'cityname', callback);
 			this.checkNotNullOrEmpty(squadname, 'squadname', callback);
 			this.checkNotNullOrEmpty(season, 'season', callback);
 			this.checkNotNullOrEmpty(playeremail, 'playeremail', callback);
 			this.checkEmailAddress(playeremail, 'The player email is invalid', callback);
-			this.checkPlayerAge(playeremail, squadname, season, function(err) {
+			this.checkPlayerAge(playeremail, clubname, cityname, squadname, season, function(err) {
 				if (err)
 					callback(err);
 				else {
@@ -262,21 +266,21 @@ export module Service {
 	    /**
 	     * Check the player is eligible to play for the team by checking the age requirement
 	     * @param {string} playeremail - the email address of the player which can be used to get player details involved in the checking
+		 * @param {string} clubname - use to get squad details to enable checking of details of the squad
+		 * @param {string} cityname - use to get squad details to enable checking of details of the squad
 	     * @param {string} squadname - use to get squad details to enable checking of details of the squad
 	     * @param {string} season - use to get squad details to enable checking of details of the squad
 	     * @param {callback} callback - notification of error or success
 	     **/
-		checkPlayerAge(playeremail: string, squadname: string, season: string, callback) {
+		checkPlayerAge(playeremail: string, clubname: string, cityname: string, squadname: string, season: string, callback) {
 			//get player details from playerdb
 			var squads = this._squads;
+			var squadkey = this.squadKeyMaker(clubname, cityname, squadname, season);
 			this._players.get(playeremail, function(err, playervalue) {
 				if (err) 
 					callback(err);
 				else {
-					//squads are created unders clubs in sublevel, therefore the key need only include squadname and season
-					//as club is already in context and therefore no need to pass in the extra information that can make for more
-					//unwieldy parameter lists
-					var squad = squads.get(squadname + '~' + season, function(err, squadvalue) {
+					squads.get(squadkey, function(err, squadvalue) {
 						if (err)
 							callback(err);
 						else {

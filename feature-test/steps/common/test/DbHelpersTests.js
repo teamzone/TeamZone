@@ -200,7 +200,7 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
     }
     
     function callbackCalledWithNoError() {
-        return spyCallback.calledWith(sinon.match.falsy);
+        return !spyCallback.calledWith(sinon.match.instanceOf(Error));
     }
   
     function squadKey(clubname, cityname, squadname, season) {

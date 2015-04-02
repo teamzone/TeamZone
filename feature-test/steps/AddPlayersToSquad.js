@@ -38,7 +38,6 @@ function createPlayersForTheTest(interpreter_context, playerfirstname, playerlas
     var playersDb = interpreter_context.playersDb,
         createdPlayers = interpreter_context.createdPlayers;
     playerToAddEmail = playeremail;
-    //don't need all the data, can make some of it up and it's not material to the test
     dbh.CreatePlayer(playersDb, createdPlayers, playeremail, playerfirstname,
                      playerlastname, playerdob, playeraddress, playersuburb,
                      playerpostcode, playerphone, next, true);
@@ -68,8 +67,8 @@ module.exports = (function () {
                 coachemail = coachfirstname + '.' + coachlastname + '@gmail.com';
                 // create the sample club name, some fields can be made up as they aren't material to the test
                 dbh.CreateClub(clubsDb, createdClubs, club, city, 'Burswood Oval', 'Burswood', 'admin@gmail.com', next, false);
-                dbh.CreateSquad(squadsDb, createdSquads, squadname1, season, 'over 16', coachemail, next, false);
-                dbh.CreateSquad(squadsDb, createdSquads, squadname2, season, 'over 16', coachemail, next, false);
+                dbh.CreateSquad(squadsDb, createdSquads, club, city, squadname1, season, 'over 16', coachemail, next, false);
+                dbh.CreateSquad(squadsDb, createdSquads, club, city, squadname2, season, 'over 16', coachemail, next, false);
                 dbh.CreateUser(usersDb, createdUsers, coachfirstname, coachlastname, 'SomePassword', coachemail, '', true, next);
             })
 
@@ -79,6 +78,7 @@ module.exports = (function () {
         })
 
         .when("the coach selects player $firstname, $surname, $dob, $email", function (playerfirstname, playerlastname, playerdob, playeremail, next) {
+            //don't need all the data, can make some of it up and it's not material to the test
             createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail,
                 '1 Smith Street', 'Mosman Park', '6011', '0411 213 537', next);
         })
@@ -86,8 +86,10 @@ module.exports = (function () {
         .when("chooses to add them to the $squadname squad", function (squadname, next) {
             targetsquad = squadname;
             var createdSquadPlayers = this.interpreter_context.createdSquadPlayers;
-            tms.AddPlayerToSquad(squadname, season, playerToAddEmail, function (err) {
-                assert.ifError(err, 'Failed because of error in AddPlayerToSquad');
+            tms.AddPlayerToSquad(clubname, cityname, squadname, season, playerToAddEmail, function (err) {
+                if (err) {
+                    assert.fail(err, undefined, "Failed because of error in AddPlayerToSquad:  " + err.message);
+                }
                 createdSquadPlayers.push({
                     squad: squadname,
                     season: season,
@@ -101,7 +103,9 @@ module.exports = (function () {
         .then("the coach will have $firstname, $surname, $email listed as players as they conform to the age limit", function (playerfirstname, playerlastname, playeremail, next) {
             var squadPlayersDb = this.interpreter_context.squadplayersDb;
             dbh.GetSquadPlayers(squadPlayersDb, targetsquad, season, function (err, players) {
-                assert.ifError(err, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season);
+                if (err) {
+                    assert.fail(err, undefined, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season + ' because of error: ' + err.message);
+                }
                 assert(players.length > 0, 'Expected players to be in the squad');
                 assert(_.find(players, function (p) { return p.value.playeremail === playeremail; }), playerfirstname + '.' +  playerlastname + ' ' + playeremail + ' not found in Squad Players');
                 next();
@@ -123,7 +127,7 @@ module.exports = (function () {
             // for this scenario we should store the error for checking in the next step
             var scenario_context = this.scenario_context,
                 createdSquadPlayers = this.interpreter_context.createdSquadPlayers;
-            tms.AddPlayerToSquad(squadname, season, playerToAddEmail, function (err) {
+            tms.AddPlayerToSquad(clubname, cityname, squadname, season, playerToAddEmail, function (err) {
                 if (!err) {
                     //didn't get an error - somehow they probably got created so we should store that fact anyway so it gets cleaned up
                     createdSquadPlayers.push({
@@ -145,7 +149,9 @@ module.exports = (function () {
             assert.ok(actualError, 'Expecting to get an error');
             assert.equal(actualError.message, 'Player does not qualify for the squad due to being underaged', 'Did not get the expeccted Age Limit Error.  Instead it was: ' + actualError.message);
             dbh.GetSquadPlayers(squadPlayersDb, targetsquad, season, function (err, players) {
-                assert.ifError(err, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season);
+                if (err) {
+                    assert.fail(err, undefined, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season + ' because of error: ' + err.message);
+                }
                 assert(!_.find(players, function (p) { return p.value.playeremail === playeremail; }), playerfirstname + '.' +  playerlastname + ' ' + playeremail + ' found in Squad Players, not expecting this');
                 next();
             });
