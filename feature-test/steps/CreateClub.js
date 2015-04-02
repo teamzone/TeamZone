@@ -42,7 +42,9 @@ module.exports = (function () {
             var createdClubs = this.interpreter_context.createdClubs;
             tms.CreateClub(clubname, fieldname, suburbname, cityname, email,
                 function (err) {
-                    assert.ifError(err, "Error in CreateClub");
+                    if (err) {
+                        assert.fail(err, undefined, "Error in creating the club back with error: " + err.message);
+                    }
                     //saving the created club for cleaning up later on
                     createdClubs.push({ clubname: clubname, cityname: cityname });
                     next();

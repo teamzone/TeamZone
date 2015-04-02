@@ -10,7 +10,7 @@ var teammanagementservice = require('../../lib/ts/TeamManagementService'); // Th
 var databasefactory = require('../../lib/common/DatabaseFactory');
 var dbhelpers = require('./common/DbHelpers');
 
-Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
+Yadda.plugins.mocha.StepLevelPlugin.init();
 
 //creating a path that works for locations, Yaddas calls is not as good as node's require and you need
 //to be in the folder itself

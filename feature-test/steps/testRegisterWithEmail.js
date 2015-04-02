@@ -15,7 +15,7 @@ var databasefactory = require('../../lib/common/DatabaseFactory');
 var emailverifyservice = require('../../lib/ts/EmailVerifyService');
 var token = require('token');
 
-Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
+Yadda.plugins.mocha.StepLevelPlugin.init();
 
 //creating a path that works for locations, Yaddas calls is not as good as node's require and you need
 //to be in the folder itself

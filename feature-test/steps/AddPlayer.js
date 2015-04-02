@@ -6,7 +6,8 @@
 
 var assert = require('assert');
 var English = require('yadda').localisation.English;
-var Pms = require('../../lib/PlayerManagementService'); // The library that you wish to test
+var playermanagementservice = require('../../lib/PlayerManagementService'); // The library that you wish to test
+var databasefactory = require('../../lib/common/DatabaseFactory');
 
 module.exports = (function () {
 
@@ -15,6 +16,15 @@ module.exports = (function () {
 	.given("^we have a team called $teamname for the season $year with no players listed", function(teamname, year, next) {	 
         this.ctx.teamname = teamname;
         this.ctx.year = year;
+        var dbf = new databasefactory(),
+            database = dbf.levelredis(),
+            playersDb = dbf.playerdb(database.leveldb);
+    
+        var pms = new playermanagementservice();
+        pms.Open(playersDb);
+        this.interpreter_context.pms = pms;
+        this.interpreter_context.database = database;
+        this.interpreter_context.playersDb = playersDb;
         next();
     })
 
@@ -34,26 +44,18 @@ module.exports = (function () {
        this.ctx.phone = phone;
        this.ctx.email = email;
 
-       var pms = new Pms();
-	   pms.Open(null, null);	   	
+       var pms = this.interpreter_context.pms;
        pms.AddPlayer(this.ctx.teamname, firstname, surname, dob, address, suburb, postcode, phone, email,
                  function (err, value) {
-                    
-					if (err) 
-					{
-						console.log('Ooops!', err) // some kind of I/O error
-						assert(1 === 0, "Error in AddPlayer");
-					}
-                    else
-                    {	
-					   next();
-				    }
+                    if (err) {
+                        assert.fail(err, undefined, "Error in adding the player back with error: " + err.message);
+                    }
+					next();
                  });
   	   	   
     })
 
     .then("The player list should have 1 player listed", function(next) {
-        console.log('then');
 
         var teamname = this.ctx.teamname;
         var firstname = this.ctx.firstname;
@@ -67,33 +69,26 @@ module.exports = (function () {
 
         console.log('Getplayer to be called on %s %s %s', teamname, firstname, surname);
 
-        var pms = new Pms();
-	    pms.Open(null, null);
+        var pms = this.interpreter_context.pms;
         pms.GetPlayer(teamname, firstname, surname, 
-                function (err, value) {
-                   
-				    if (err) 
-				    {
-					    console.log('Ooops!', err) // some kind of I/O error
-					    assert(1 === 0, "Error in GetPlayer");
-				    }
-				   	else
-                    {                                                                                                               				   
- 				       assert(value != null, "No value returned");
-				   		
-                       assert.equal(teamname, value.teamname, "teamname does not match");
-                       assert.equal(firstname, value.firstname, "firstname does not match");
-                       assert.equal(surname, value.surname, "surname does not match");                                                                                           			   					   
-					   assert.equal(dob, value.dob, "dob does not match");
-					   assert.equal(address, value.address, "address does not match");
-					   assert.equal(suburb, value.suburb, "suburb does not match");
-					   assert.equal(postcode, value.postcode, "postcode does not match ");
-					   assert.equal(phone, value.phone, "phone does not match ");
-                       assert.equal(email, value.email, "email does not match ");					   
+            function (err, value) {
+                if (err) {
+                    assert.fail(err, undefined, "Error in getting the player back with error: " + err.message);
+                }
+ 		        assert(value != null, "No value returned");
+		   		
+                assert.equal(teamname, value.teamname, "teamname does not match");
+                assert.equal(firstname, value.firstname, "firstname does not match");
+                assert.equal(surname, value.surname, "surname does not match");                                                                                           			   					   
+			    assert.equal(dob, value.dob, "dob does not match");
+			    assert.equal(address, value.address, "address does not match");
+			    assert.equal(suburb, value.suburb, "suburb does not match");
+			    assert.equal(postcode, value.postcode, "postcode does not match ");
+			    assert.equal(phone, value.phone, "phone does not match ");
+                assert.equal(email, value.email, "email does not match ");					   
 
-					   next();
-                    }
-				});
+			    next();
+			});
     })
 	
     .given("I have a Player List with the following details $firstName, $surname, $dob, $address, $suburb, $postcode, $phone, $email", function(firstname, surname, dob, address, suburb, postcode, phone, email, next) {
@@ -109,38 +104,26 @@ module.exports = (function () {
        this.ctx.email = email;
 
        //we are using our own API aware of the tradeoff here
-       var pms = new Pms();
-	   pms.Open(null, null);	   	
-       pms.AddPlayer(this.ctx.teamname, firstname, surname, dob, address, suburb, postcode, phone, email,
-                 function (err, value) {
-                    
-					if (err) 
-					{
-						console.log('Ooops!', err) // some kind of I/O error
-						assert(1 === 0, "Error in AddPlayer");
-					}
-                    else
-                    {		                       			   					   					   					   
-					   next();
-				    }
-                 });
+	   var pms = this.interpreter_context.pms;
+       pms.AddPlayer(this.ctx.teamname, firstname, surname, dob, address, suburb, postcode, phone, email, function (err, value) {
+            if (err) {
+                assert.fail(err, undefined, "Error in adding the player back with error: " + err.message);
+            }
+			next();
+        });
     })
 
     .when("I enter those details again", function(next) {
-       var pms = new Pms();
-	   pms.Open(null, null);	 
+	   var pms = this.interpreter_context.pms;	 
        var ctx = this.ctx;
        pms.AddPlayer(this.ctx.teamname, this.ctx.firstname, this.ctx.surname, this.ctx.dob, this.ctx.address, this.ctx.suburb, this.ctx.postcode, this.ctx.phone, this.ctx.email,
                  function (err, value) {                    
-					if (err) 
-					{
+					if (err) {
                         //gonna save the error and check it in the then clause
                         ctx.Error = err;
                         next();
-					}
-                    else
-                    {		
-                       assert(1 === 0, "Failed: Should have been an error");                        			   					   					   					   
+					} else {		
+                       assert(false, "Failed: Should have been an error");                        			   					   					   					   
 				    }
                  });        
     })
@@ -160,12 +143,10 @@ module.exports = (function () {
        this.ctx.firstname = firstname;
 	   this.ctx.surname = surname;
        var ctx = this.ctx;
-       var pms = new Pms();
-	   pms.Open(null, null);	 
+       var pms = this.interpreter_context.pms;
        pms.AddPlayer(this.ctx.teamname, firstname, surname, dob, address, suburb, postcode, phone, email,
                  function (err, value) {                    
-					if (err) 
-					{
+					if (err) {
                         //gonna save the error and check it in the then clause
                         ctx.Error = err;
                         next();
@@ -176,13 +157,12 @@ module.exports = (function () {
     .then("I should be notified of an invalid date", function(next) {
         assert.equal(this.ctx.Error.message, 'The date is in an incorrect format', 'Incorrect error message');
 
-        var pms = new Pms();
-	    pms.Open(null, null);
+        var pms = this.interpreter_context.pms;
         console.log('Checking not row exists for %s %s %s', this.ctx.teamname, this.ctx.firstname, this.ctx.surname);
         pms.GetPlayer(this.ctx.teamname, this.ctx.firstname, this.ctx.surname, 
                 function (err, value) {
                     assert(err !== null, 'We want an error to have been returned to show that the row doesn not exist');
-                    assert(err.notFound, 'Got the wrong error message')
+                    assert(err.notFound, 'Got the wrong error message');
                     next();
 				});
 
