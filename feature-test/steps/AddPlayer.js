@@ -48,7 +48,7 @@ module.exports = (function () {
        pms.AddPlayer(this.ctx.teamname, firstname, surname, dob, address, suburb, postcode, phone, email,
                  function (err, value) {
                     if (err) {
-                        assert.fail(err, undefined, "Error in adding the player back with error: " + err.message);
+                        assert.fail(err, undefined, "Error in adding the player back with error: " + err);
                     }
 					next();
                  });
