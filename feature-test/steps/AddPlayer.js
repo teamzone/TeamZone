@@ -6,8 +6,6 @@
 
 var assert = require('assert');
 var English = require('yadda').localisation.English;
-var playermanagementservice = require('../../lib/PlayerManagementService'); // The library that you wish to test
-var databasefactory = require('../../lib/common/DatabaseFactory');
 
 module.exports = (function () {
 
@@ -16,15 +14,6 @@ module.exports = (function () {
 	.given("^we have a team called $teamname for the season $year with no players listed", function(teamname, year, next) {	 
         this.ctx.teamname = teamname;
         this.ctx.year = year;
-        var dbf = new databasefactory(),
-            database = dbf.levelredis(),
-            playersDb = dbf.playerdb(database.leveldb);
-    
-        var pms = new playermanagementservice();
-        pms.Open(playersDb);
-        this.interpreter_context.pms = pms;
-        this.interpreter_context.database = database;
-        this.interpreter_context.playersDb = playersDb;
         next();
     })
 

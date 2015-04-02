@@ -5,7 +5,10 @@
 
 var path = require('path');
 var Yadda = require('yadda');
+var playermanagementservice = require('../../lib/PlayerManagementService'); // The library that you wish to test
+var databasefactory = require('../../lib/common/DatabaseFactory');
 var interpreter_context = {};
+
 Yadda.plugins.mocha.StepLevelPlugin.init();
 
 //creating a path that works for locations, Yaddas calls is not as good as node's require and you need
@@ -17,6 +20,16 @@ featureFile(featureFilePath, function(feature) {
     var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
 
     before(function(done) {
+        var dbf = new databasefactory(),
+            database = dbf.levelredis(),
+            playersDb = dbf.playerdb(database.leveldb);
+    
+        var pms = new playermanagementservice();
+        pms.Open(playersDb);
+        interpreter_context.pms = pms;
+        interpreter_context.database = database;
+        interpreter_context.playersDb = playersDb;
+        
         done();
     });
 
