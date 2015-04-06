@@ -166,8 +166,13 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         assert(spyCallback.calledWith(expectedError), 'Callback needs to be called with the expectedError: ' + expectedError.message);
     }
   
-    function assertRemovedTheSquadPlayer(squadname, season, email) {
-        assert(stubDel.calledWith(squadname + '~' + season + '~' + email, { sync: true }), 'delete not called with correct parameters');
+    function assertGotTheSquadPlayer(clubname, cityname, squadname, season, playeremail) {
+        assert(stubGet.calledWith(squadKey(clubname, cityname, squadname, season) + '~' + playeremail), 'get not called with correct parameters');
+        assert(spyCallback.calledWith(null, { playeremail: playeremail }), 'Did not receive the callback');
+    }
+
+    function assertRemovedTheSquadPlayer(clubname, cityname, squadname, season, email) {
+        assert(stubDel.calledWith(clubname + '~' + cityname + '~' + squadname + '~' + season + '~' + email, { sync: true }), 'delete not called with correct parameters');
         assert(spyCallback.called, 'Did not receive the callback');
     }
     
@@ -176,8 +181,8 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         assert(spyCallback.calledWith(null, players), 'Did not receive the callback');
     }
     
-    function assertRemovedTheSquadPlayerWithoutACallback(squadname, season, email) {
-        assert(stubDel.calledWith(squadname + '~' + season + '~' + email, { sync: true }), 'delete not called with correct parameters');
+    function assertRemovedTheSquadPlayerWithoutACallback(clubname, cityname, squadname, season, email) {
+        assert(stubDel.calledWith(clubname + '~' + cityname + '~' + squadname + '~' + season + '~' + email, { sync: true }), 'delete not called with correct parameters');
         assert(!spyCallback.called, 'Should not receive the callback');
     }
     
@@ -514,15 +519,29 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
   
     // });
     
+    it('Can get a squadplayer from the datastore', function (done) {
+        // 1. Setup
+        stubGet.yields(null, { playeremail: playerEmail });
+        
+        // 2. Exercise
+        dbh.GetSquadPlayer(levelimdb, clubname, cityname, squadname, season, playerEmail, spyCallback);
+    
+        // 3. Verify
+        assertGotTheSquadPlayer(clubname, cityname, squadname, season, playerEmail);
+        
+        // 4. Cleanup/Teardown
+        done();
+    });
+    
     it('Can remove a squad player from the datastore', function (done) {
         // 1. Setup
         stubDel.yields(null);
         
         // 2. Exercise
-        dbh.RemoveSquadPlayer(levelimdb, squadname, season, playerEmail, spyCallback);
+        dbh.RemoveSquadPlayer(levelimdb, clubname, cityname, squadname, season, playerEmail, spyCallback);
     
         // 3. Verify
-        assertRemovedTheSquadPlayer(squadname, season, playerEmail);
+        assertRemovedTheSquadPlayer(clubname, cityname, squadname, season, playerEmail);
         
         // 4. Cleanup/Teardown
         done();
@@ -534,7 +553,7 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         stubDel.yields(expectedError);
         
         // 2. Exercise
-        dbh.RemoveSquadPlayer(levelimdb, squadname, season, playerEmail, spyCallback);
+        dbh.RemoveSquadPlayer(levelimdb, clubname, cityname, squadname, season, playerEmail, spyCallback);
     
         // 3. Verify
         assertRemoveSquadPlayerReportsErrorViaCallback(expectedError);
@@ -548,10 +567,10 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         stubDel.yields(null);
         
         // 2. Exercise
-        dbh.RemoveSquadPlayer(levelimdb, squadname, season, playerEmail, spyCallback, true);
+        dbh.RemoveSquadPlayer(levelimdb, clubname, cityname, squadname, season, playerEmail, spyCallback, true);
     
         // 3. Verify
-        assertRemovedTheSquadPlayer(squadname, season, playerEmail);
+        assertRemovedTheSquadPlayer(clubname, cityname, squadname, season, playerEmail);
         
         // 4. Cleanup/Teardown
         done();
@@ -562,10 +581,10 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         stubDel.yields(null);
         
         // 2. Exercise
-        dbh.RemoveSquadPlayer(levelimdb, squadname, season, playerEmail, undefined, false);
+        dbh.RemoveSquadPlayer(levelimdb, clubname, cityname, squadname, season, playerEmail, undefined, false);
     
         // 3. Verify
-        assertRemovedTheSquadPlayerWithoutACallback(squadname, season, playerEmail);
+        assertRemovedTheSquadPlayerWithoutACallback(clubname, cityname, squadname, season, playerEmail);
         
         // 4. Cleanup/Teardown
         done();
@@ -884,8 +903,8 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         cascadeDeleteTestPayload.createdPlayers.push({ email: 'ken.daglish@wk.com.au' });
         cascadeDeleteTestPayload.createdSquads.push({ club: clubname, city: cityname, squad: squadname, season: season });
         cascadeDeleteTestPayload.createdSquads.push({ club: clubname, city: cityname, squad: 'reserves', season: season });
-        cascadeDeleteTestPayload.createdSquadPlayers.push({ squad: squadname, season: season, email: playerEmail });
-        cascadeDeleteTestPayload.createdSquadPlayers.push({ squad: squadname, season: season, email: 'kdaglish@wk.com.au' });
+        cascadeDeleteTestPayload.createdSquadPlayers.push({ club: clubname, city: cityname, squad: squadname, season: season, email: playerEmail });
+        cascadeDeleteTestPayload.createdSquadPlayers.push({ club: clubname, city: cityname, squad: squadname, season: season, email: 'kdaglish@wk.com.au' });
         cascadeDeleteTestPayload.createdClubs.push({ club: clubname, city: cityname });
         cascadeDeleteTestPayload.createdClubs.push({ club: 'Alkimos Surfers', city: cityname });
         cascadeDeleteTestPayload.createdUsers.push({ email: adminemail });
@@ -932,7 +951,8 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         if (createdSquadPlayers) {
             assert(createdSquadPlayers.length > -1, 'Where are the squad players to test with!');
             for (var i = 0; i < createdSquadPlayers.length; i++) 
-                assert(cascadeDeleteTestPayload.stubDelSquadPlayersDb.calledWith(createdSquadPlayers[i].squad + '~' + createdSquadPlayers[i].season + '~' + createdSquadPlayers[i].email, { sync: true }), 
+                assert(cascadeDeleteTestPayload.stubDelSquadPlayersDb.calledWith(createdSquadPlayers[i].club + '~' + createdSquadPlayers[i].city + '~' + 
+                        createdSquadPlayers[i].squad + '~' + createdSquadPlayers[i].season + '~' + createdSquadPlayers[i].email, { sync: true }), 
                    'Call to remove the squad player ' + createdSquadPlayers[i].email + ' in squad ' + 
                    createdSquadPlayers[i].squad + ' for season ' + createdSquadPlayers[i].season + ' was not enacted');
         } else

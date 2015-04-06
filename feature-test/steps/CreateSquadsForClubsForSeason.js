@@ -7,6 +7,7 @@
 var assert = require('assert');
 var English = require('yadda').localisation.English;
 var dbhelpers = require('./common/DbHelpers');
+var bulkloadhelpers = require('./BulkLoadHelpers');
 var useremailfieldname = 'adminemail',
     userfirstnamefieldname = 'adminfirstname',
     userlastnamefieldname = 'adminlastname',
@@ -19,58 +20,6 @@ var useremailfieldname = 'adminemail',
     squadnamefieldname = 'squadname',
     seasonfieldname = 'season',
     agelimitfieldname = 'agelimit';
-
-function createUser(dbh, usersDb, createdUsers, userfirstname, userlastname, userpassword, useremail, currentUserCount, testUserCount, next) {
-    dbh.CreateUser(usersDb, createdUsers, userfirstname, userlastname, userpassword, useremail, '', true,
-        function (err) {
-            //force failure
-            if (err) {
-                assert.fail(err, undefined, "Error in Create User with error: " + err.message);
-            }
-            //need to wait for creation to complete before proceeding
-            if (currentUserCount === testUserCount - 1) {
-                console.log('user creation completed');
-                next();
-            }
-        });
-}
-
-function createUsers(testdata, useremailfieldname, userfirstnamefieldname, userlastnamefieldname, userpasswordfieldname, createdUsers, usersDb, next) {
-    var testdatalength = testdata.length,
-        i,
-        currentarrayitem,
-        dbh = new dbhelpers();
-    for (i = 0; i < testdatalength; i = i + 1) {
-        currentarrayitem = testdata[i];
-        createUser(dbh, usersDb, createdUsers, currentarrayitem[userfirstnamefieldname], currentarrayitem[userlastnamefieldname],
-                   currentarrayitem[userpasswordfieldname], currentarrayitem[useremailfieldname], i, testdatalength, next);
-    }
-}
-
-function createClub(dbh, clubsDb, clubname, fieldname, suburbname, cityname, adminemail, createdClubs, currentClubCount, totalClubCount, next) {
-    dbh.CreateClub(clubsDb, createdClubs, clubname, cityname, fieldname, suburbname, adminemail,
-        function (err) {
-            if (err) {
-                assert.fail(err, undefined, "Error in CreateClub with error: " + err.message);
-            }
-            if (currentClubCount === totalClubCount - 1) {
-                console.log('club creation completed');
-                next();
-            }
-        });
-}
-
-function createClubs(testdata, clubsDb, createdClubs, clubnamefieldname, fieldnamefieldname, suburbnamefieldname, citynamefieldname, useremailfieldname, next) {
-    var testdatalength = testdata.length,
-        i,
-        dbh = new dbhelpers(),
-        currentarrayitem;
-    for (i = 0; i < testdatalength; i = i + 1) {
-        currentarrayitem = testdata[i];
-        createClub(dbh, clubsDb, currentarrayitem[clubnamefieldname], currentarrayitem[fieldnamefieldname], currentarrayitem[suburbnamefieldname],
-            currentarrayitem[citynamefieldname], currentarrayitem[useremailfieldname], createdClubs, i, testdatalength, next);
-    }
-}
 
 function createSquad(tms, clubname, cityname, season, squadname, agelimit, creatinguser, createdSquads, currentClubCount, currentSquadInClubCount, totalClubCount, totalSquadsInClubCount, next) {
     tms.CreateSquad(clubname, cityname, squadname, season, agelimit, creatinguser,
@@ -86,7 +35,7 @@ function createSquad(tms, clubname, cityname, season, squadname, agelimit, creat
             }
         });
 }
-
+    
 function createSquads(testdata, tms, createdSquads, clubnamefieldname, citynamefieldname, seasonfieldname,
                       squadsfieldname, squadnamefieldname, agelimitfieldname, useremailfieldname, totalClubCount, next) {
     var testdatalength = testdata.length,
@@ -141,13 +90,14 @@ module.exports = (function () {
             //1. Setup Test Data
             var testdata = require(testdatafile),
                 createdClubs = this.interpreter_context.createdClubs,
-                clubsDb = this.interpreter_context.clubsDb;
+                clubsDb = this.interpreter_context.clubsDb,
+                blh = new bulkloadhelpers();
             this.interpreter_context.testdata = testdata;
-            createUsers(this.interpreter_context.testdata, useremailfieldname, userfirstnamefieldname,
+            blh.CreateUsers(this.interpreter_context.testdata, useremailfieldname, userfirstnamefieldname,
                 userlastnamefieldname, userpasswordfieldname,
                 this.interpreter_context.createdUsers, this.interpreter_context.usersDb,
                 function () {
-                    createClubs(testdata, clubsDb, createdClubs,
+                    blh.CreateClubs(testdata, clubsDb, createdClubs,
                                 clubnamefieldname, fieldnamefieldname, suburbnamefieldname,
                                 citynamefieldname, useremailfieldname, next);
                 });

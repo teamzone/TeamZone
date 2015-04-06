@@ -111,8 +111,9 @@ export module Service {
 		* 						   For example 2015, 2014/15 - this should map to a season dataset for further details about the season.
 		* @param {string} playeremail - the email address of the player which will link to players under a club
 		* @param {callback} callback - tell the caller if squad created or there was a failure
+		* @param {number} targetyear - optionally specified over the current year for the player age check
 		**/
-		AddPlayerToSquad = (clubname: string, cityname: string, squadname: string, season: string, playeremail: string, callback: any)  => {
+		AddPlayerToSquad = (clubname: string, cityname: string, squadname: string, season: string, playeremail: string, callback: any, targetyear?: number)  => {
 			var squadplayers = this._squadplayers;
 
 			this.checkNotNullOrEmpty(clubname, 'clubname', callback);
@@ -125,7 +126,7 @@ export module Service {
 				if (err)
 					callback(err);
 				else {
-					var key = squadname + '~' + season + '~' + playeremail;
+					var key = clubname + '~' + cityname + '~' + squadname + '~' + season + '~' + playeremail;
 			    	squadplayers.get(key, function(err) {
 			    		if(err && err.notFound) {
 							squadplayers.put(key, { playeremail: playeremail }, { sync: true }, function (err) {
@@ -271,8 +272,9 @@ export module Service {
 	     * @param {string} squadname - use to get squad details to enable checking of details of the squad
 	     * @param {string} season - use to get squad details to enable checking of details of the squad
 	     * @param {callback} callback - notification of error or success
+		 * @param {number} targetyear - optionally specified over the current year for the player age check
 	     **/
-		checkPlayerAge(playeremail: string, clubname: string, cityname: string, squadname: string, season: string, callback) {
+		checkPlayerAge(playeremail: string, clubname: string, cityname: string, squadname: string, season: string, callback: any, targetyear?: number) {
 			//get player details from playerdb
 			var squads = this._squads;
 			var squadkey = this.squadKeyMaker(clubname, cityname, squadname, season);
@@ -287,10 +289,11 @@ export module Service {
 							var prefix = 'over';
 							//when a player's age at the start of the year the season is in is less than an over value they get rejected
 							//seasons can be any notation that the user wishes to describe, so this makes the assumption using the current
-							//date and taking the start of the year for the current date
-							var currentyear = new Date(Date.now()).getFullYear();
+							//date and taking the start of the year for the current date - unless specified in the target year
+							if (!targetyear)
+								targetyear = new Date(Date.now()).getFullYear();
 							var playerdob  = new Date(playervalue.dob);
-							var playerage = currentyear - playerdob.getFullYear();
+							var playerage = targetyear - playerdob.getFullYear();
 							if (squadvalue.agelimit.substring(0, prefix.length) === prefix) {
 								var ageLimitYears = Number(squadvalue.agelimit.substring(prefix.length).trim());
 								if (playerage < ageLimitYears) {

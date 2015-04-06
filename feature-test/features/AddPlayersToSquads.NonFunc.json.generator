@@ -1,0 +1,67 @@
+[
+  '{{repeat(2)}}',
+  {
+    adminfirstname: '{{firstName()}}',
+    adminlastname: '{{surname()}}',
+    suburbname: '{{lorem(1, "words")}}',
+    suffix: '{{random("FC", "SC", "AFC")}}',
+    clubname: function (tags) {
+      return (this.suburbname + ' ' + this.suffix);
+    },
+    cityname: '{{city()}}',
+    fieldname: function (tags) {
+      return (this.suburbname + ' Park');
+    },    
+    adminemail: function (tags) {
+      return (this.adminfirstname + '.' + this.adminlastname + '@' + this.suburbname + this.suffix + tags.domainZone()).toLowerCase();
+    },
+    adminpassword: '{{guid()}}',
+    season: '{{random("Season 2015", "Season 2014")}}',
+    squads: [
+      '{{repeat(2, 6)}}',
+      {
+		index: '{{index()}}',
+		squadname: function (tags) {
+          var squads = ['Under 10', 'Under 12', 'Under 14', 'Under 16', 'Reserves', '1st Team'];
+          return squads[tags.index()];
+        },
+        agelimit: function (tags, parent) {
+			if (this.squadname === 'Reserves' || this.squadname === '1st Team')
+              return 'over 16';
+            else
+              return this.squadname.toLowerCase();
+		},        
+        players: [
+          '{{repeat(10, 15)}}',
+          {
+            index: '{{index()}}',
+            firstname: '{{firstName()}}',
+            lastname: '{{surname()}}',
+            dob: function(tags, parent) {
+              var generateddate;
+              if (parent.agelimit === 'under 10')
+				generateddate = tags.date(new Date(2007, 0, 1), new Date(2009, 0, 1));
+              else if (parent.agelimit === 'under 12')
+				generateddate = tags.date(new Date(2004, 0, 1), new Date(2008, 0, 1));
+              else if (parent.agelimit === 'under 14')
+				generateddate = tags.date(new Date(2001, 0, 1), new Date(2007, 0, 1));
+              else if (parent.agelimit === 'under 16')
+				generateddate = tags.date(new Date(1999, 0, 1), new Date(2004, 0, 1));
+              else 
+				generateddate = tags.date(new Date(1981, 0, 1), new Date(1996, 0, 1));              
+              return moment(generateddate).format('YYYY-MM-DD');
+            },
+            address: '{{street()}}',
+            suburb: '{{lorem(1, "words")}}',
+            postcode: '{{integer(2000, 8000)}}',
+            phone: '{{phone()}}',
+            email: function (tags) {
+              return (this.firstname + '.' + this.lastname + '@' + this.suburb +
+                      tags.domainZone()).toLowerCase();
+            }           
+          }
+        ]        
+      }
+    ]
+  }
+]

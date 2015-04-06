@@ -299,8 +299,7 @@ function DbHelpers(dontCreateIfPreExisting) {
     };
 
 	/**
-	* Returns a squad object from database via clubname and cityname.  These are keys as we expect
-	* a club cannot exist more than once in the same city
+	* Returns a squad object from database 
 	* @param {squadsDb} squadsDb - datastore for squads.
 	* @param {string} clubname - first part of the key
 	* @param {string} cityname - second part of the key
@@ -318,18 +317,39 @@ function DbHelpers(dontCreateIfPreExisting) {
     };
 
 	/**
-	* Returns all the squad players from database for a squad and season combination.
-	* @param {squadPlayersDb} squadPlayersDb - datastore for squad players.
-	* @param {string} squadname - part of the key
-	* @param {string} season - part of the key
+	* Returns a single squad player object from database 
+	* @param {squadsDb} squadsDb - datastore for squads.
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key
+	* @param {string} squadname - third part of the key
+	* @param {string} season - fourth part of the key
+	* @param {string} playeremail - fifth part of the key
 	* @param {Retrieve~callback} callback - handles the response from leveldb
 	**/
-    this.GetSquadPlayers = function(squadPlayersDb, squadname, season, callback) {
+    this.GetSquadPlayer = function(squadplayersDb, clubname, cityname, squadname, season, playeremail, callback) {
+        squadplayersDb.get(clubname + '~' + cityname + '~' + squadname + '~' + season + '~' + playeremail, function (err, res) {
+	        if (err) 
+                callback(err);
+            else 
+                callback(null, res); //easy via a stub to fool this into being correct - does it matter - the key would have already been supplied so the data is there!
+	    });	    
+    };
+
+	/**
+	* Returns all the squad players from database for a squad and season combination.
+	* @param {squadPlayersDb} squadPlayersDb - datastore for squad players.
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key
+	* @param {string} squadname - third part of the key
+	* @param {string} season - last part of the key
+	* @param {Retrieve~callback} callback - handles the response from leveldb
+	**/
+    this.GetSquadPlayers = function(squadPlayersDb, clubname, cityname, squadname, season, callback) {
         console.log('Retrieving players for squad %s', squadname);
         var players = [];
-        squadPlayersDb.createReadStream({ gte: squadname + '~' + season })
+        var key = clubname + '~' + cityname + '~' + squadname + '~' + season + '~';
+        squadPlayersDb.createReadStream({ gte: key, lte: key + '~' })
             .on('data', function(player) {
-                console.log('Got some data');
                 players.push(player);
             })
             .on('end', function() {
@@ -344,6 +364,8 @@ function DbHelpers(dontCreateIfPreExisting) {
 	/**
 	* Removes a squad from the datastore. 
 	* @param {squadsDb} squadsDb - the datastore to be removing from
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key* 
     * @param {string} squadname - part of the key  
     * @param {string} season - part of the key  
 	* @param {Delete~callback} callback - notify the caller when done
@@ -371,18 +393,22 @@ function DbHelpers(dontCreateIfPreExisting) {
 	/**
 	* Removes a squad player from the datastore.  
 	* @param {squadPlayersDb} squadPlayersDb - the datastore to be removing from
-    * @param {string} squadname - first part of the key, the squad the player is playing in  
-    * @param {string} season - secobnd part of the key, the season the player is playing in  
-    * @param {string} email - third part of the key, the player's email
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key* 
+    * @param {string} squadname - third part of the key, the squad the player is playing in  
+    * @param {string} season - fourth part of the key, the season the player is playing in  
+    * @param {string} email - last part of the key, the player's email
 	* @param {Delete~callback} callback - notify the caller when done
 	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
 	*                                            because it probably part of bigger workflow.
 	**/
-    this.RemoveSquadPlayer = function(squadPlayersDb, squadname, season, email, callback, callbackCalledOnSuccess) {
+    this.RemoveSquadPlayer = function(squadPlayersDb, clubname, cityname, squadname, season, email, callback, callbackCalledOnSuccess) {
         console.log('Removing player %s from squad %s for season %s', email, squadname, season);
+        assert(clubname, 'club name needs to exist for a delete to work');
+        assert(cityname, 'city name needs to exist for a delete to work');
         assert(squadname, 'squad name needs to exist for a delete to work');
         assert(season, 'season needs to exist for a delete to work');
-        squadPlayersDb.del(squadname + '~' + season + '~' + email, { sync: true }, function(err) {
+        squadPlayersDb.del(clubname + '~' + cityname + '~' + squadname + '~' + season + '~' + email, { sync: true }, function(err) {
              if (err) {
                 console.log('Error whilst deleting %s', email);
                 callback(err);
@@ -433,7 +459,7 @@ function DbHelpers(dontCreateIfPreExisting) {
         if (createdSquadPlayers) {
             console.log('Start of squad players removal');
             for (var i = 0; i < createdSquadPlayers.length; i++) 
-                this.RemoveSquadPlayer(dbs.squadplayersDb, createdSquadPlayers[i].squad, createdSquadPlayers[i].season, createdSquadPlayers[i].email, callback, false);
+                this.RemoveSquadPlayer(dbs.squadplayersDb, createdSquadPlayers[i].club, createdSquadPlayers[i].city, createdSquadPlayers[i].squad, createdSquadPlayers[i].season, createdSquadPlayers[i].email, callback, false);
         }
 
         if (createdPlayers) {
