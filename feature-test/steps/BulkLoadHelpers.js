@@ -1,7 +1,14 @@
+/*jslint node: true */
+/*jslint newcap: true */
+/*global before, beforeEach, afterEach, after, describe, it */
+/*jslint nomen: true */
+"use strict";
+
 var dbhelpers = require('./common/DbHelpers');
+var assert = require('assert');
 
 function BulkLoadHelpers() {
-    
+
     this.CreateUser = function (dbh, usersDb, createdUsers, userfirstname, userlastname, userpassword, useremail, currentUserCount, testUserCount, next) {
         dbh.CreateUser(usersDb, createdUsers, userfirstname, userlastname, userpassword, useremail, '', true,
             function (err) {
@@ -28,8 +35,8 @@ function BulkLoadHelpers() {
                        currentarrayitem[userpasswordfieldname], currentarrayitem[useremailfieldname], i, testdatalength, next);
         }
     };
-    
-   this.CreateClub = function (dbh, clubsDb, clubname, fieldname, suburbname, cityname, adminemail, createdClubs, currentClubCount, totalClubCount, next) {
+
+    this.CreateClub = function (dbh, clubsDb, clubname, fieldname, suburbname, cityname, adminemail, createdClubs, currentClubCount, totalClubCount, next) {
         dbh.CreateClub(clubsDb, createdClubs, clubname, cityname, fieldname, suburbname, adminemail,
             function (err) {
                 if (err) {
@@ -41,7 +48,7 @@ function BulkLoadHelpers() {
                 }
             });
     };
-    
+
     this.CreateClubs = function (testdata, clubsDb, createdClubs, clubnamefieldname, fieldnamefieldname, suburbnamefieldname, citynamefieldname, useremailfieldname, next) {
         var testdatalength = testdata.length,
             i,
@@ -53,7 +60,7 @@ function BulkLoadHelpers() {
                 currentarrayitem[citynamefieldname], currentarrayitem[useremailfieldname], createdClubs, i, testdatalength, next);
         }
     };
-    
+
     this.CreateSquad = function (dbh, squadsdb, clubname, cityname, season, squadname, agelimit, creatinguser, createdSquads, currentClubCount, currentSquadInClubCount, totalClubCount, totalSquadsInClubCount, next) {
         dbh.CreateSquad(squadsdb, createdSquads, clubname, cityname, squadname, season, agelimit, creatinguser,
             function (err) {
@@ -68,7 +75,7 @@ function BulkLoadHelpers() {
                 }
             });
     };
-    
+
     this.CreateSquads = function (testdata, dbh, squadsdb, createdSquads, clubnamefieldname, citynamefieldname, seasonfieldname,
                           squadsfieldname, squadnamefieldname, agelimitfieldname, useremailfieldname, totalClubCount, next) {
         var testdatalength = testdata.length,
@@ -99,26 +106,27 @@ function BulkLoadHelpers() {
         }
     };
 
-   this.CreatePlayer = function (dbh, playersdb, createdPlayers, playerfirstname, playerlastname, playerdob, playeremail, 
+    this.CreatePlayer = function (dbh, playersdb, createdPlayers, playerfirstname, playerlastname, playerdob, playeremail,
         playeraddress, playersuburb, playerpostcode, playerphone, currentItemCount, totalItemCount, next) {
-        dbh.CreatePlayer(playersdb, createdPlayers, playeremail, playerfirstname, playerlastname, playerdob, playeraddress, playersuburb, playerpostcode, playerphone, 
-            function() {
+        dbh.CreatePlayer(playersdb, createdPlayers, playeremail, playerfirstname, playerlastname, playerdob, playeraddress, playersuburb, playerpostcode, playerphone,
+            function () {
                 if (currentItemCount === totalItemCount - 1) {
                     //all done -- continue on
                     next();
                 }
             }, true);
     };
-    
-    this.CreatePlayers = function (testdata, dbh, playersdb, createdPlayers, firstnamefieldname, lastnamefieldname, dobfieldname, addressfieldname, 
+
+    this.CreatePlayers = function (testdata, dbh, playersdb, createdPlayers, firstnamefieldname, lastnamefieldname, dobfieldname, addressfieldname,
                                    suburbfieldname, postcodefieldname, phonefieldname, emailfieldname, next) {
         var testdatalength = testdata.length,
-            currentarrayitem, i;
+            currentarrayitem,
+            i;
         for (i = 0; i < testdatalength; i = i + 1) {
             currentarrayitem = testdata[i];
-            this.CreatePlayer(dbh, playersdb, createdPlayers, currentarrayitem[firstnamefieldname], currentarrayitem[lastnamefieldname], 
-                currentarrayitem[dobfieldname], currentarrayitem[emailfieldname], currentarrayitem[addressfieldname], 
-                currentarrayitem[suburbfieldname], currentarrayitem[postcodefieldname], 
+            this.CreatePlayer(dbh, playersdb, createdPlayers, currentarrayitem[firstnamefieldname], currentarrayitem[lastnamefieldname],
+                currentarrayitem[dobfieldname], currentarrayitem[emailfieldname], currentarrayitem[addressfieldname],
+                currentarrayitem[suburbfieldname], currentarrayitem[postcodefieldname],
                 currentarrayitem[phonefieldname], i, testdatalength, next);
         }
     };
