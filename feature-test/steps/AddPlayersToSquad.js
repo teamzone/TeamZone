@@ -102,7 +102,7 @@ module.exports = (function () {
 
         .then("the coach will have $firstname, $surname, $email listed as players as they conform to the age limit", function (playerfirstname, playerlastname, playeremail, next) {
             var squadPlayersDb = this.interpreter_context.squadplayersDb;
-            dbh.GetSquadPlayers(squadPlayersDb, targetsquad, season, function (err, players) {
+            dbh.GetSquadPlayers(squadPlayersDb, clubname, cityname, targetsquad, season, function (err, players) {
                 if (err) {
                     assert.fail(err, undefined, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season + ' because of error: ' + err.message);
                 }
@@ -148,7 +148,7 @@ module.exports = (function () {
                 squadPlayersDb = this.interpreter_context.squadplayersDb;
             assert.ok(actualError, 'Expecting to get an error');
             assert.equal(actualError.message, 'Player does not qualify for the squad due to being underaged', 'Did not get the expeccted Age Limit Error.  Instead it was: ' + actualError.message);
-            dbh.GetSquadPlayers(squadPlayersDb, targetsquad, season, function (err, players) {
+            dbh.GetSquadPlayers(squadPlayersDb, clubname, cityname, targetsquad, season, function (err, players) {
                 if (err) {
                     assert.fail(err, undefined, 'Failure to get squad players for squad ' + targetsquad + ' in season ' + season + ' because of error: ' + err.message);
                 }
