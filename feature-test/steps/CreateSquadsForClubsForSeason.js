@@ -35,7 +35,7 @@ function createSquad(tms, clubname, cityname, season, squadname, agelimit, creat
             }
         });
 }
-    
+
 function createSquads(testdata, tms, createdSquads, clubnamefieldname, citynamefieldname, seasonfieldname,
                       squadsfieldname, squadnamefieldname, agelimitfieldname, useremailfieldname, totalClubCount, next) {
     var testdatalength = testdata.length,

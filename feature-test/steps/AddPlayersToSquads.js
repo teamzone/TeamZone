@@ -32,7 +32,7 @@ module.exports = (function () {
         })
 
         .when("chooses to add them to the $squadname", function (squadname, next) {
-            ths.ExecuteAdditionOfPlayerToSquad(this.interpreter_context, this.interpreter_context.clubname, this.interpreter_context.cityname, 
+            ths.ExecuteAdditionOfPlayerToSquad(this.interpreter_context, this.interpreter_context.clubname, this.interpreter_context.cityname,
                 squadname, this.interpreter_context.season, this.interpreter_context.playerToAddEmail, 0, 1, next);
         })
 

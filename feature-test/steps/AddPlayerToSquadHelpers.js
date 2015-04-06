@@ -4,15 +4,15 @@
 /*jslint nomen: true */
 "use strict";
 
-var console = {};
-console.log = function(){};
+// var console = {};
+// console.log = function(){};
 
 var assert = require('assert');
 var _ = require("underscore");
 var dbhelpers = require('./common/DbHelpers');
 
 function AddPlayerToSquadHelpers() {
-    
+
     /*
     * Helps with the creation of test players enabling the test outcomes to be achieved
     * @param {string} interpreter_context - whole of test object bag holding key data
@@ -36,7 +36,7 @@ function AddPlayerToSquadHelpers() {
                          playerlastname, playerdob, playeraddress, playersuburb,
                          playerpostcode, playerphone, next, true);
     };
-    
+
     this.SetupBackgroundForAddPlayerToSquad = function (interpreter_context, coachfirstname, coachlastname, club, city, squad1, squad2, season, next) {
         interpreter_context.clubname = club;
         interpreter_context.cityname = city;
@@ -52,10 +52,10 @@ function AddPlayerToSquadHelpers() {
         dbh.CreateSquad(interpreter_context.squadsDb, interpreter_context.createdSquads, club, city, squad2, season, 'over 16', interpreter_context.coachemail, next, false);
         dbh.CreateUser(interpreter_context.usersDb, interpreter_context.createdUsers, coachfirstname, coachlastname, 'SomePassword', interpreter_context.coachemail, '', true, next);
     };
-    
+
     this.ExecuteAdditionOfPlayerToSquad = function (interpreter_context, clubname, cityname, squadname, season, playerToAddEmail, currentItemCount, totalItemCount, next) {
-        var createdSquadPlayers = interpreter_context.createdSquadPlayers;
-        var targetyear = Number(season.replace('Season ', ''));
+        var createdSquadPlayers = interpreter_context.createdSquadPlayers,
+            targetyear = Number(season.replace('Season ', ''));
         interpreter_context.tms.AddPlayerToSquad(clubname, cityname, squadname, season, playerToAddEmail, function (err) {
             if (err) {
                 assert.fail(err, undefined, "Failed because of error in AddPlayerToSquad:  " + err.message + ' Player: ' + playerToAddEmail);
@@ -74,19 +74,27 @@ function AddPlayerToSquadHelpers() {
             }
         }, targetyear);
     };
-    
+
     this.AssertAdditionOfPlayerToSquad = function (squadPlayersDb, clubname, cityname, squadname, season, playerfirstname, playerlastname, playeremail, next) {
         var dbh = new dbhelpers();
         dbh.GetSquadPlayer(squadPlayersDb, clubname, cityname, squadname, season, playeremail, function (err, player) {
             if (err) {
                 assert.fail(err, undefined, 'Failure to get squad player for squad ' + squadname + ' in season ' + season + ' for player ' + playeremail + ' because of error: ' + err.message);
             }
-            assert.equal(player.playeremail, playeremail, 'Exoected to receive the player email ' + playeremail + 'for key combination (' 
+            assert.equal(player.playeremail, playeremail, 'Exoected to receive the player email ' + playeremail + 'for key combination ('
                 + clubname + ', ' + cityname + ', ' + squadname + ', ' + season + ') for player ' + playerfirstname + ' ' + playerlastname);
             next();
         });
     };
-    
+
+    function assertPlayer(expectedPlayer, players, currentPlayerCount, currentSquadCount, currentItemCount, playersCount, totalSquadCount, totalItemCount, next) {
+        assert(_.find(players, function (p) { return p.value.playeremail === expectedPlayer.email; }), expectedPlayer.firstname + '.' +  expectedPlayer.lastname + ' ' + expectedPlayer.email + ' not found in Squad Players');
+        if (currentPlayerCount === playersCount - 1 && currentSquadCount === totalSquadCount - 1 && currentItemCount === totalItemCount - 1) {
+            //all done -- continue on
+            next();
+        }
+    }
+
     this.AssertAdditionOfPlayersToSquad = function (squadPlayersDb, clubname, cityname, squadname, season, expectedPlayers, currentSquadCount, currentItemCount, totalSquadCount, totalItemCount, next) {
         var i,
             expectedPlayersCount = expectedPlayers.length,
@@ -103,14 +111,7 @@ function AddPlayerToSquadHelpers() {
             }
         });
     };
-    
-    function assertPlayer(expectedPlayer, players, currentPlayerCount, currentSquadCount, currentItemCount, playersCount, totalSquadCount, totalItemCount, next) {
-        assert(_.find(players, function (p) { return p.value.playeremail === expectedPlayer['email']; }), expectedPlayer['firstname'] + '.' +  expectedPlayer['lastname'] + ' ' + expectedPlayer['email'] + ' not found in Squad Players');
-        if (currentPlayerCount === playersCount - 1 && currentSquadCount === totalSquadCount - 1 && currentItemCount === totalItemCount - 1) {
-            //all done -- continue on
-            next();
-        }
-    }
+
 }
 
 module.exports = AddPlayerToSquadHelpers;

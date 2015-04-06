@@ -9,7 +9,6 @@ var bulkloadhelpers = require('./BulkLoadHelpers');
 var dbhelpers = require('./common/DbHelpers');
 var testhelpers = require('./AddPlayerToSquadHelpers');
 var _ = require('underscore');
-var ths;
 var useremailfieldname = 'adminemail',
     userfirstnamefieldname = 'adminfirstname',
     userlastnamefieldname = 'adminlastname',
@@ -23,27 +22,27 @@ var useremailfieldname = 'adminemail',
     seasonfieldname = 'season',
     agelimitfieldname = 'agelimit',
     playersfieldname = 'players',
-    playerfirstnamefieldname = 'firstname', 
-    playerlastnamefieldname = 'lastname', 
-    playerdobfieldname = 'dob', 
-    playeraddressfieldname = 'address', 
-    playersuburbfieldname = 'suburb', 
-    playerpostcodefieldname = 'postcode', 
-    playerphonefieldname = 'phone', 
+    playerfirstnamefieldname = 'firstname',
+    playerlastnamefieldname = 'lastname',
+    playerdobfieldname = 'dob',
+    playeraddressfieldname = 'address',
+    playersuburbfieldname = 'suburb',
+    playerpostcodefieldname = 'postcode',
+    playerphonefieldname = 'phone',
     playeremailfieldname = 'email';
-    
+
 /*
  * Will cycle through the testdata, extract the players and the squads they are destined for and then place them in random order so that
  * the writes look more like random user interactions
  */
-function getPlayersFromTestDataRandomised (testdata) {
-    var players = _.flatten(_.map(testdata, function (useritem) { 
-        
-        var squadplayers = _.map(useritem.squads, function (squad) { 
-                
+function getPlayersFromTestDataRandomised(testdata) {
+    var allplayers = _.shuffle(_.flatten(_.map(testdata, function (useritem) {
+
+        var squadplayers = _.map(useritem.squads, function (squad) {
+
             var players = _.map(squad.players, function (player) {
-                
-                return { 
+
+                return {
                     squadname: squad.squadname,
                     firstname: player.firstname,
                     lastname: player.lastname,
@@ -53,23 +52,22 @@ function getPlayersFromTestDataRandomised (testdata) {
                     phone: player.phone,
                     email: player.email
                 };
-                
+
             });
-            
-            _.each(players, function(player) {
-                player.season = useritem.season,
+
+            _.each(players, function (player) {
+                player.season = useritem.season;
                 player.clubname = useritem.clubname;
                 player.cityname = useritem.cityname;
             });
-            
+
             return players;
-            
+
         });
-        
+
         return squadplayers;
-    }));
-    var shuffledplayers = _.shuffle(players);
-    return shuffledplayers;
+    })));
+    return allplayers;
 }
 
 module.exports = (function () {
@@ -92,18 +90,18 @@ module.exports = (function () {
                 function () {
                     blh.CreateClubs(testdata, clubsDb, createdClubs,
                                 clubnamefieldname, fieldnamefieldname, suburbnamefieldname,
-                                citynamefieldname, useremailfieldname, 
-                                function () {
-                                    blh.CreateSquads(interpreter_context.testdata, dbh, interpreter_context.squadsDb, interpreter_context.createdSquads,
+                                citynamefieldname, useremailfieldname,
+                        function () {
+                            blh.CreateSquads(interpreter_context.testdata, dbh, interpreter_context.squadsDb, interpreter_context.createdSquads,
                                                  clubnamefieldname, citynamefieldname, seasonfieldname,
                                                  squadsfieldname, squadnamefieldname, agelimitfieldname, useremailfieldname,
-                                                 interpreter_context.testdata.length, function() {
-                                                     interpreter_context.playersTargetSquad = getPlayersFromTestDataRandomised(interpreter_context.testdata);
-                                                     blh.CreatePlayers(interpreter_context.playersTargetSquad, dbh, interpreter_context.playersDb, interpreter_context.createdPlayers, 
-                                                                    playerfirstnamefieldname, playerlastnamefieldname, playerdobfieldname, playeraddressfieldname, 
+                                                 interpreter_context.testdata.length, function () {
+                                    interpreter_context.playersTargetSquad = getPlayersFromTestDataRandomised(interpreter_context.testdata);
+                                    blh.CreatePlayers(interpreter_context.playersTargetSquad, dbh, interpreter_context.playersDb, interpreter_context.createdPlayers,
+                                                                    playerfirstnamefieldname, playerlastnamefieldname, playerdobfieldname, playeraddressfieldname,
                                                                     playersuburbfieldname, playerpostcodefieldname, playerphonefieldname, playeremailfieldname, next);
-                                                 });
                                 });
+                        });
                 });
         })
 
@@ -122,10 +120,10 @@ module.exports = (function () {
                 ths = new testhelpers();
             for (i = 0; i < playerslength; i = i + 1) {
                 currentarrayitem = players[i];
-                playersquad = currentarrayitem['squadname'];
-                playeremail = currentarrayitem['email'];
-                ths.ExecuteAdditionOfPlayerToSquad(this.interpreter_context, currentarrayitem['clubname'], currentarrayitem['cityname'], 
-                    playersquad, currentarrayitem['season'], playeremail, i, playerslength, next);
+                playersquad = currentarrayitem.squadname;
+                playeremail = currentarrayitem.email;
+                ths.ExecuteAdditionOfPlayerToSquad(this.interpreter_context, currentarrayitem.clubname, currentarrayitem.cityname,
+                    playersquad, currentarrayitem.season, playeremail, i, playerslength, next);
             }
         })
 
@@ -155,7 +153,7 @@ module.exports = (function () {
                     squadname = squad[squadnamefieldname];
                     players = squad[playersfieldname];
                     ths.AssertAdditionOfPlayersToSquad(this.interpreter_context.squadplayersDb, clubname, cityname, squadname, season, players, i, j, squadslength, testdatalength, next);
-                }   
+                }
             }
         });
 
