@@ -91,6 +91,8 @@ module.exports = (function () {
                     assert.fail(err, undefined, "Failed because of error in AddPlayerToSquad:  " + err.message);
                 }
                 createdSquadPlayers.push({
+                    club: clubname,
+                    city: cityname,
                     squad: squadname,
                     season: season,
                     email: playerToAddEmail
@@ -131,6 +133,8 @@ module.exports = (function () {
                 if (!err) {
                     //didn't get an error - somehow they probably got created so we should store that fact anyway so it gets cleaned up
                     createdSquadPlayers.push({
+                        club: clubname,
+                        city: cityname,
                         squad: squadname,
                         season: season,
                         email: playerToAddEmail
