@@ -28,7 +28,7 @@ before(function (done) {
             squadplayersDb = dbf.squadplayersdb(database.leveldb),
             playersDb = dbf.playerdb(database.leveldb),
             tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
-            interpreter_context = { tms: tms, database: database,
+        interpreter_context = { tms: tms, database: database,
                                 playersDb: playersDb, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb,
                                 createdPlayers: [], createdUsers: [], createdClubs: [], createdSquads: [],
                                 createdSquadPlayers: [] };
@@ -39,7 +39,7 @@ before(function (done) {
 
 after(function (done) {
     var dbh = new dbhelpers();
-    dbh.CascadeDelete({ playersDb: interpreter_context.playersDb, squadsDb: interpreter_context.squadsDb, squadplayersDb: interpreter_context.squadplayersDb, 
+    dbh.CascadeDelete({ playersDb: interpreter_context.playersDb, squadsDb: interpreter_context.squadsDb, squadplayersDb: interpreter_context.squadplayersDb,
                       clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       interpreter_context.createdPlayers, interpreter_context.createdSquads, interpreter_context.createdSquadPlayers,
                       interpreter_context.createdClubs, interpreter_context.createdUsers, done);
