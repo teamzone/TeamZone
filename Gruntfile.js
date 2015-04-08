@@ -53,8 +53,7 @@ module.exports = function(grunt) {
           timeout: 5200
           //require: 'coverage/blanket'
         },
-        //src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js']
-        src: ['lib/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js']
+        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js']
       },
       cibuild: {
         options: {
@@ -65,7 +64,8 @@ module.exports = function(grunt) {
           timeout: 10000
           //require: 'coverage/blanket'
         },
-        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', '!feature-test/steps/testAddPlayer.js', '!lib/test/PlayerManagementServiceTests.js']
+        // src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', '!feature-test/steps/testAddPlayer.js', '!lib/test/PlayerManagementServiceTests.js']
+        src: ['lib/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', '!feature-test/steps/testAddPlayer.js', '!lib/test/PlayerManagementServiceTests.js']
       },
       uitbuild: {
         options: {
