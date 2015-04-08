@@ -34,7 +34,12 @@ after(function (done) {
     var dbh = new dbhelpers();
     dbh.CascadeDelete({ clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       undefined, undefined, undefined,
-                      interpreter_context.createdClubs, interpreter_context.createdUsers, done);
+                      interpreter_context.createdClubs, interpreter_context.createdUsers,
+                      function () {
+                            if (interpreter_context.database.clientdone)
+                                interpreter_context.database.clientdone();
+                            done();
+                        });
 });
 
 featureFile(featureFilePath, function (feature) {

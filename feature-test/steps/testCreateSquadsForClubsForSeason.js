@@ -19,18 +19,6 @@ Yadda.plugins.mocha.StepLevelPlugin.init();
 var featureFilePath = path.resolve(__dirname, '../features/CreateSquadsForClubsSeason.feature');
 var interpreter_context;
 
-// function setupInterpreterContext() {
-//     var dbf = new databasefactory();
-//     database = dbf.levelredis();
-//     usersDb = dbf.userdb(database.leveldb);
-//     clubsDb = dbf.clubdb(database.leveldb);
-//     squadsDb = dbf.squaddb(database.leveldb);
-//     tms = new teammanagementservice(clubsDb, squadsDb);
-//     interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, createdUsers: [], createdClubs: [], createdSquads: [] };
-// }
-
-// setupInterpreterContext();
-
 before(function (done) {
     var dbf = new databasefactory();
     dbf.levelredisasync(10, function (database) {
@@ -46,9 +34,17 @@ before(function (done) {
 
 after(function (done) {
     var dbh = new dbhelpers();
+    // dbh.CascadeDelete({ clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb, squadsDb: interpreter_context.squadsDb },
+    //                   undefined, interpreter_context.createdSquads, undefined,
+    //                   interpreter_context.createdClubs, interpreter_context.createdUsers, done);
     dbh.CascadeDelete({ clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb, squadsDb: interpreter_context.squadsDb },
-                      undefined, interpreter_context.createdSquads, undefined,
-                      interpreter_context.createdClubs, interpreter_context.createdUsers, done);
+                        undefined, interpreter_context.createdSquads, undefined,
+                        interpreter_context.createdClubs, interpreter_context.createdUsers, 
+                        function () {
+                            if (interpreter_context.database.clientdone)
+                                interpreter_context.database.clientdone();
+                            done();
+                        });    
 });
 
 featureFile(featureFilePath, function (feature) {

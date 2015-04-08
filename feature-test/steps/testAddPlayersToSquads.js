@@ -40,7 +40,12 @@ after(function (done) {
     dbh.CascadeDelete({ playersDb: interpreter_context.playersDb, squadsDb: interpreter_context.squadsDb, squadplayersDb: interpreter_context.squadplayersDb,
                       clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       interpreter_context.createdPlayers, interpreter_context.createdSquads, interpreter_context.createdSquadPlayers,
-                      interpreter_context.createdClubs, interpreter_context.createdUsers, done);
+                      interpreter_context.createdClubs, interpreter_context.createdUsers,
+                      function () {
+                            if (interpreter_context.database.clientdone)
+                                interpreter_context.database.clientdone();
+                            done();
+                        });
 });
 
 featureFile(featureFilePath, function (feature) {
