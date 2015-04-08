@@ -48,7 +48,7 @@ after(function (done) {
     console.log(interpreter_context.createdClubs[0]);
     dbh.CascadeDelete({ squadsDb: interpreter_context.squadsDb, clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       undefined, interpreter_context.createdSquads, undefined,
-                      interpreter_context.createdClubs, interpreter_context.createdUsers, 
+                      interpreter_context.createdClubs, interpreter_context.createdUsers,
         function () {
             if (interpreter_context.database.clientdone) {
                 interpreter_context.database.clientdone();

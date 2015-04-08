@@ -47,8 +47,9 @@ after(function (done) {
             dbh.RemoveUser(interpreter_context, i, done);
         }
     } else {
-        if (interpreter_context.database.clientdone)
+        if (interpreter_context.database.clientdone) {
             interpreter_context.database.clientdone();
+        }
         done();
     }
 });
