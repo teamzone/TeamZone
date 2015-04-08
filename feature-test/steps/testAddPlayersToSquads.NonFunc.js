@@ -43,14 +43,14 @@ before(function (done) {
             tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
         interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, playersDb: playersDb, squadplayersDb: squadplayersDb,
                                 createdUsers: [], createdClubs: [], createdSquads: [], createdSquadPlayers: [], createdPlayers: [] };
-        yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });                                
+        yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
         done();
     });
 });
 
 after(function (done) {
     var dbh = new dbhelpers();
-    dbh.CascadeDelete({ playersDb: interpreter_context.playersDb, squadsDb: interpreter_context.squadsDb, 
+    dbh.CascadeDelete({ playersDb: interpreter_context.playersDb, squadsDb: interpreter_context.squadsDb,
                       squadplayersDb: interpreter_context.squadplayersDb, clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       interpreter_context.createdPlayers, interpreter_context.createdSquads, interpreter_context.createdSquadPlayers,
                       interpreter_context.createdClubs, interpreter_context.createdUsers, done);
