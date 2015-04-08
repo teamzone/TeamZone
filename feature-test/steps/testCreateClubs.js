@@ -35,11 +35,12 @@ after(function (done) {
     dbh.CascadeDelete({ clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       undefined, undefined, undefined,
                       interpreter_context.createdClubs, interpreter_context.createdUsers,
-                      function () {
-                            if (interpreter_context.database.clientdone)
-                                interpreter_context.database.clientdone();
-                            done();
-                        });
+        function () {
+            if (interpreter_context.database.clientdone) {
+                interpreter_context.database.clientdone();
+            }
+            done();
+        });
 });
 
 featureFile(featureFilePath, function (feature) {

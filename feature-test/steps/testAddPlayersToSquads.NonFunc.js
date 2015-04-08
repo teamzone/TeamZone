@@ -54,11 +54,12 @@ after(function (done) {
                       squadplayersDb: interpreter_context.squadplayersDb, clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       interpreter_context.createdPlayers, interpreter_context.createdSquads, interpreter_context.createdSquadPlayers,
                       interpreter_context.createdClubs, interpreter_context.createdUsers,
-                      function () {
-                            if (interpreter_context.database.clientdone)
-                                interpreter_context.database.clientdone();
-                            done();
-                        });
+        function () {
+            if (interpreter_context.database.clientdone) {
+                interpreter_context.database.clientdone();
+            }
+            done();
+        });
 });
 
 featureFile(featureFilePath, function (feature) {
