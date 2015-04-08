@@ -9,42 +9,33 @@ var Yadda = require('yadda');
 var teammanagementservice = require('../../lib/ts/TeamManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
 var dbhelpers = require('./common/DbHelpers');
-
-Yadda.plugins.mocha.StepLevelPlugin.init();
-
+var library = require('./CreateClubs');
+var yadda;
 //creating a path that works for locations, Yaddas calls is not as good as node's require and you need
 //to be in the folder itself
 var featureFilePath = path.resolve(__dirname, '../features/CreateClubs.feature');
 var interpreter_context;
-var usersDb;
-var clubsDb;
-var database;
-var tms;
 
-function setupInterpreterContext() {
-    var dbf = new databasefactory();
-    database = dbf.levelredis();
-    usersDb = dbf.userdb(database.leveldb);
-    clubsDb = dbf.clubdb(database.leveldb);
-    tms = new teammanagementservice(clubsDb);
-    interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, createdUsers: [], createdClubs: [] };
-}
-
-setupInterpreterContext();
+Yadda.plugins.mocha.StepLevelPlugin.init();
 
 before(function (done) {
-    done();
+    var dbf = new databasefactory();
+    dbf.levelredisasync(10, function (database) {
+        var usersDb = dbf.userdb(database.leveldb),
+            clubsDb = dbf.clubdb(database.leveldb),
+            tms = new teammanagementservice(clubsDb);
+        interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, createdUsers: [], createdClubs: [] };
+        yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
+        done();
+    });
 });
 
 after(function (done) {
     var dbh = new dbhelpers();
-    dbh.CascadeDelete({ clubsDb: clubsDb, usersDb: usersDb },
+    dbh.CascadeDelete({ clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       undefined, undefined, undefined,
                       interpreter_context.createdClubs, interpreter_context.createdUsers, done);
 });
-
-var library = require('./CreateClubs');
-var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
 
 featureFile(featureFilePath, function (feature) {
     scenarios(feature.scenarios, function (scenario) {

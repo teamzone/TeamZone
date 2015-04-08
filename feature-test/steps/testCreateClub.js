@@ -7,36 +7,28 @@
 
 var path = require('path');
 var Yadda = require('yadda');
-var bcrypt = require('bcrypt');
-var assert = require('assert');
 var teammanagementservice = require('../../lib/ts/TeamManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
 var dbhelpers = require('./common/DbHelpers');
-
-Yadda.plugins.mocha.StepLevelPlugin.init();
-
+var library = require('./CreateClub');
+var yadda;
 //creating a path that works for locations, Yaddas calls is not as good as node's require and you need
 //to be in the folder itself
 var featureFilePath = path.resolve(__dirname, '../features/CreateClub.feature');
 var interpreter_context;
-var usersDb;
-var clubsDb;
-var database;
-var tms;
 
-function setupInterpreterContext() {
-    var dbf = new databasefactory();
-    database = dbf.levelredis();
-    usersDb = dbf.userdb(database.leveldb);
-    clubsDb = dbf.clubdb(database.leveldb);
-    tms = new teammanagementservice(clubsDb);
-    interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, createdUsers: [], createdClubs: [] };
-}
-
-setupInterpreterContext();
+Yadda.plugins.mocha.StepLevelPlugin.init();
 
 before(function (done) {
-    done();
+    var dbf = new databasefactory();
+    dbf.levelredisasync(10, function (database) {
+        var usersDb = dbf.userdb(database.leveldb),
+            clubsDb = dbf.clubdb(database.leveldb),
+            tms = new teammanagementservice(clubsDb);
+        interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, createdUsers: [], createdClubs: [] };
+        yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
+        done();
+    });
 });
 
 after(function (done) {
@@ -45,7 +37,7 @@ after(function (done) {
     console.log('Test: Clean Up by removing %s clubs', interpreter_context.createdClubs.length);
     if (interpreter_context.createdClubs.length > 0) {
         for (i = 0; i < interpreter_context.createdClubs.length; i++) {
-            dbh.RemoveClub(clubsDb, interpreter_context.createdClubs[i].clubname, interpreter_context.createdClubs[i].cityname, done, false);
+            dbh.RemoveClub(interpreter_context.clubsDb, interpreter_context.createdClubs[i].clubname, interpreter_context.createdClubs[i].cityname, done, false);
         }
     }
 
@@ -58,9 +50,6 @@ after(function (done) {
         done();
     }
 });
-
-var library = require('./CreateClub');
-var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
 
 featureFile(featureFilePath, function (feature) {
 

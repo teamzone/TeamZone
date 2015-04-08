@@ -15,45 +15,35 @@ Yadda.plugins.mocha.StepLevelPlugin.init();
 //creating a path that works for locations, Yaddas calls is not as good as node's require and you need
 //to be in the folder itself
 var featureFilePath = path.resolve(__dirname, '../features/AddPlayersToSquad.feature');
+var library = require('./AddPlayersToSquad');
 var interpreter_context;
-var usersDb;
-var squadsDb;
-var squadplayersDb;
-var clubsDb;
-var playersDb;
-var database;
-var tms;
-
-function setupInterpreterContext() {
-    var dbf = new databasefactory();
-    database = dbf.levelredis();
-    usersDb = dbf.userdb(database.leveldb);
-    clubsDb = dbf.clubdb(database.leveldb);
-    squadsDb = dbf.squaddb(database.leveldb);
-    squadplayersDb = dbf.squadplayersdb(database.leveldb);
-    playersDb = dbf.playerdb(database.leveldb);
-    tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
-    interpreter_context = { tms: tms, database: database,
-                            playersDb: playersDb, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb,
-                            createdPlayers: [], createdUsers: [], createdClubs: [], createdSquads: [],
-                            createdSquadPlayers: [] };
-}
-
-setupInterpreterContext();
+var yadda;
 
 before(function (done) {
-    done();
+    var dbf = new databasefactory();
+    dbf.levelredisasync(10, function (database) {
+        var usersDb = dbf.userdb(database.leveldb),
+            clubsDb = dbf.clubdb(database.leveldb),
+            squadsDb = dbf.squaddb(database.leveldb),
+            squadplayersDb = dbf.squadplayersdb(database.leveldb),
+            playersDb = dbf.playerdb(database.leveldb),
+            tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
+            interpreter_context = { tms: tms, database: database,
+                                playersDb: playersDb, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb,
+                                createdPlayers: [], createdUsers: [], createdClubs: [], createdSquads: [],
+                                createdSquadPlayers: [] };
+        yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
+        done();
+    });
 });
 
 after(function (done) {
     var dbh = new dbhelpers();
-    dbh.CascadeDelete({ playersDb: playersDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb, clubsDb: clubsDb, usersDb: usersDb },
+    dbh.CascadeDelete({ playersDb: interpreter_context.playersDb, squadsDb: interpreter_context.squadsDb, squadplayersDb: interpreter_context.squadplayersDb, 
+                      clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       interpreter_context.createdPlayers, interpreter_context.createdSquads, interpreter_context.createdSquadPlayers,
                       interpreter_context.createdClubs, interpreter_context.createdUsers, done);
 });
-
-var library = require('./AddPlayersToSquad');
-var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
 
 featureFile(featureFilePath, function (feature) {
     scenarios(feature.scenarios, function (scenario) {

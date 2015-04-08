@@ -487,10 +487,12 @@ function DbHelpers(dontCreateIfPreExisting) {
             var context = { createdUsers: createdUsers, usersDb: dbs.usersDb },
                 createdUsersLength = createdUsers.length;
             for (var i = 0; i < createdUsersLength; i++) {
-                this.RemoveUser(context, i, callback);
+                this.RemoveUser(context, i, function () {
+                    console.log('Completed cascade delete');
+                    callback();
+                });
             }
         }
-        console.log('Completed cascade delete');
     };
     
 	/**
