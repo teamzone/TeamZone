@@ -18,18 +18,6 @@ var yadda;
 
 Yadda.plugins.mocha.StepLevelPlugin.init();
 
-// function setupInterpreterContext() {
-//     var dbf = new databasefactory();
-//     database = dbf.levelredis();
-//     usersDb = dbf.userdb(database.leveldb);
-//     clubsDb = dbf.clubdb(database.leveldb);
-//     squadsDb = dbf.squaddb(database.leveldb);
-//     tms = new teammanagementservice(null, squadsDb);
-//     interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, createdUsers: [], createdClubs: [], createdSquads: [] };
-// }
-
-// setupInterpreterContext();
-
 before(function (done) {
     var dbf = new databasefactory();
     dbf.levelredisasync(10, function (database) {
@@ -45,7 +33,6 @@ before(function (done) {
 
 after(function (done) {
     var dbh = new dbhelpers();
-    console.log(interpreter_context.createdClubs[0]);
     dbh.CascadeDelete({ squadsDb: interpreter_context.squadsDb, clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb },
                       undefined, interpreter_context.createdSquads, undefined,
                       interpreter_context.createdClubs, interpreter_context.createdUsers,

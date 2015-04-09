@@ -50,9 +50,12 @@ module.exports = (function () {
             var createdSquads = this.interpreter_context.createdSquads;
             tms.CreateSquad(clubname, cityname, squadname, season, agelimit, email,
                 function (err) {
-                    assert.ifError(err, "Error in CreateSquad");
+                    if (err) {
+                        assert.fail(err, undefined, "Error in creating the squad back with error: " + err.message +
+                                " Check the keys (clubname, cityname, squadname, season) = (" + clubname + ', ' + cityname + ', ' + squadname + ', ' + season + ')');
+                    }
                     //saving the created club for cleaning up later on
-                    createdSquads.push({ squad: squadname, season: season });
+                    createdSquads.push({ club: clubname, city: cityname, squad: squadname, season: season });
                     next();
                 });
         })
@@ -60,7 +63,10 @@ module.exports = (function () {
         .then("the user will also be marked as the creator of the squad", function (next) {
             var dbh = new dbhelpers();
             dbh.GetSquad(this.interpreter_context.squadsDb, clubname, cityname, squadname, season, function (err, res) {
-                assert.ifError(err, "Error in getting the squad back");
+                if (err) {
+                    assert.fail(err, undefined, "Error in getting the squad back with error: " + err.message +
+                            " Check the keys (clubname, cityname, squadname, season) = (" + clubname + ', ' + cityname + ', ' + squadname + ', ' + season + ')');
+                }
                 assert.equal(res.admin, email, 'creator should have been set to ' + email + ' instead it was ' + res.admin);
                 assert.equal(res.agelimit, agelimit, 'fieldname should have been set to ' + agelimit + ' instead it was ' + res.agelimit);
                 next();
