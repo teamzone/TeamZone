@@ -2,12 +2,12 @@
 /// <reference path='../typings/express/express.d.ts' />
 /// <reference path='../typings/express-session/express-session.d.ts' />
 /// <reference path='../typings/node/node.d.ts' />
-
+/*jslint nomen: true */
 'use strict';
 
 import express = require("express");
 import Flash = require("./flash");
-import Service = require("../lib/IUserManagementService");
+import Service = require("../lib/ts/IUserManagementService");
 import webRequest = require("./IWebRequest");
 var _ = require('underscore');
 

@@ -1,9 +1,15 @@
 /* jslint node: true */
 /* global before, afterEach, after, featureFile, scenarios, steps */
+/*jslint nomen: true */
 "use strict";
+
 var path = require('path');
 var Yadda = require('yadda');
-Yadda.plugins.mocha.AsyncStepLevelPlugin.init();
+var playermanagementservice = require('../../lib/PlayerManagementService'); // The library that you wish to test
+var databasefactory = require('../../lib/common/DatabaseFactory');
+var interpreter_context = {};
+
+Yadda.plugins.mocha.StepLevelPlugin.init();
 
 //creating a path that works for locations, Yaddas calls is not as good as node's require and you need
 //to be in the folder itself
@@ -11,9 +17,19 @@ var featureFilePath = path.resolve(__dirname, '../features/AddPlayer.feature');
 featureFile(featureFilePath, function(feature) {
 
     var library = require('./AddPlayer');
-    var yadda = new Yadda.Yadda(library);
+    var yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
 
     before(function(done) {
+        var dbf = new databasefactory(),
+            database = dbf.levelredis(),
+            playersDb = dbf.playerdb(database.leveldb);
+    
+        var pms = new playermanagementservice();
+        pms.Open(playersDb);
+        interpreter_context.pms = pms;
+        interpreter_context.database = database;
+        interpreter_context.playersDb = playersDb;
+        
         done();
     });
 
@@ -31,18 +47,18 @@ featureFile(featureFilePath, function(feature) {
         // we should be in a state of preparedness to make the refactoring if and when needed
         // maybe a feature request for Yadda here.  Maybe we pull down the Yadda code and submit a code change ourselves!
 
-        var Pms = require('../../lib/PlayerManagementService'); // The library that you wish to test
-        var pms = new Pms();
-	    pms.Open(null, null);	
+        var pms = interpreter_context.pms;
+        var database = interpreter_context.database;
         // Question: Do we really want such an API!!!
         pms.DeletePlayers(function(err) { 
             if (err) {
                 console.log('Error in deleting %s', err);
-                done();
             }
-            else {
-                done();
-            }
+         	if (database && database.redis)
+         		database.redis.quit();
+            if (database) 
+                database.leveldb.close();    
+            done();
         });
     });
 });

@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Dashboard :: Add Players to Squad
+    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.common.min.css')
+    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.bootstrap.min.css')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='stylesheets/style.css')
+  body
+    .login.well
+      h1  Add Players to a Squad for a Season
+      hr
+      form(id='add-squad-player-form', method='POST', action='/addSquadPlayer' novalidate)
+        .form-group
+          select
+            each clubplayer, i in clubplayers
+              option(value=i) #{clubplayer.firstname} #{clubplayer.lastname}
+          button.btn Add
+        .form-group
+          ul
+              each squadplayer in squadplayers
+                  //create a new well for each recipe model
+                  .well
+                      h2 #{squadplayer.firstname} #{squadplayer.lastname}
+                      h3 #{squadplayer.position}
+                      h3 #{squadplayer.phone}
+        .form-group
+          button.btn.btn-default Save
+          
+        include messages
+
+  script(src='//code.jquery.com/jquery-1.9.1.min.js')
+  script(src='//cdn.kendostatic.com/2013.3.1119/js/kendo.all.min.js')

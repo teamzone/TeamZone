@@ -1,5 +1,5 @@
 var playermanagementservice = require('../lib/PlayerManagementService');
-
+var databasefactory = require('../lib/common/DatabaseFactory');
 
 /*
  * GET home page.
@@ -15,8 +15,12 @@ exports.addPlayer = function(req, res){
 
 exports.AddPlayer = function(req, res) {
   
+    var dbf = new databasefactory(),
+        database = dbf.levelredis(),
+        playersDb = dbf.playerdb(database.leveldb);
+
     var pms = new playermanagementservice();
-    pms.Open(null);
+    pms.Open(playersDb);
         
     pms.AddPlayer(req.body.TeamName, req.body.FirstName, req.body.Surname, req.body.DOB, req.body.Address, req.body.Suburb, req.body.PostCode, req.body.Phone, req.body.Email, 
         function(err, serviceResponse) {
@@ -26,6 +30,8 @@ exports.AddPlayer = function(req, res) {
             else {
                 res.render('index', { title: 'Express' });
             }
+            database.redis.quit();
+            database.leveldb.close();
         });
 
 };

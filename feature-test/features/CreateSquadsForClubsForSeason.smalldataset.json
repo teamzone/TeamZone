@@ -1,0 +1,147 @@
+[
+  {
+    "adminfirstname": "Lois",
+    "adminlastname": "Randall",
+    "suburbname": "minim",
+    "suffix": "FC",
+    "clubname": "minim FC",
+    "cityname": "Coyote",
+    "fieldname": "minim Park",
+    "adminemail": "lois.randall@minimfc.me",
+    "adminpassword": "cd312c14-254d-4332-9cc1-cda79b17a172",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Rachel",
+    "adminlastname": "Stein",
+    "suburbname": "pariatur",
+    "suffix": "SC",
+    "clubname": "pariatur SC",
+    "cityname": "Cascades",
+    "fieldname": "pariatur Park",
+    "adminemail": "rachel.stein@pariatursc.name",
+    "adminpassword": "6fae47ac-c396-4263-8123-be216982bac6",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Helga",
+    "adminlastname": "Langley",
+    "suburbname": "aliqua",
+    "suffix": "FC",
+    "clubname": "aliqua FC",
+    "cityname": "Holtville",
+    "fieldname": "aliqua Park",
+    "adminemail": "helga.langley@aliquafc.io",
+    "adminpassword": "cab4caed-9ead-4819-83c6-6037ac63c296",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Angela",
+    "adminlastname": "Freeman",
+    "suburbname": "consectetur",
+    "suffix": "FC",
+    "clubname": "consectetur FC",
+    "cityname": "Coultervillle",
+    "fieldname": "consectetur Park",
+    "adminemail": "angela.freeman@consecteturfc.org",
+    "adminpassword": "afecc9c8-16d6-41f4-952a-5aa2712b7cd7",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Minnie",
+    "adminlastname": "Baird",
+    "suburbname": "non",
+    "suffix": "FC",
+    "clubname": "non FC",
+    "cityname": "Rockhill",
+    "fieldname": "non Park",
+    "adminemail": "minnie.baird@nonfc.com",
+    "adminpassword": "a604d8be-ac3b-42d9-9b9e-3d20b48af139",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  }
+]

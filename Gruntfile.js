@@ -42,7 +42,7 @@ module.exports = function(grunt) {
           clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
           //require: 'coverage/blanket'
         },
-        src: ['lib/test/*.js', 'routes/test/*.js']
+        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js']
       },
       devbuild: {
         options: {
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
           timeout: 5200
           //require: 'coverage/blanket'
         },
-        src: ['lib/test/*.js', 'routes/test/*.js', 'feature-test/steps/test*.js']
+        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js']
       },
       cibuild: {
         options: {
@@ -61,10 +61,12 @@ module.exports = function(grunt) {
           captureFile: 'cibuild-test-results.txt', // Optionally capture the reporter output to a file
           quiet: false, // Optionally suppress output to standard out (defaults to false)
           clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
-          timeout: 5200
+          timeout: 10000
           //require: 'coverage/blanket'
         },
-        src: ['lib/test/*.js', 'routes/test/*.js', 'feature-test/steps/test*.js']
+        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', 
+              '!feature-test/steps/testCreateSquadsForClubsForSeason.js', '!feature-test/steps/testAddPlayersToSquads.NonFunc.js', 
+              '!feature-test/steps/testAddPlayer.js', '!lib/test/PlayerManagementServiceTests.js']
       },
       uitbuild: {
         options: {
@@ -95,11 +97,18 @@ module.exports = function(grunt) {
       server: {
         src: [ // some example files
           'lib/*.js',
-          'routes/*.js',
           'lib/test/*.js',
+          'lib/ts/test/*.js',
           'routes/test/*.js',
           'feature-test/steps/common/test/*.js',
           'feature-test/steps/*.js'
+        ],
+        exclude: [
+          //TODO: Remove these once refactored
+          'lib/PlayerManagementService.js',
+          'feature-test/steps/testAddPlayer.js',
+          'feature-test/steps/AddPlayer.js',
+          'feature-test/steps/common/test/DbHelpersTests.js'
         ],
         directives: { // example directives
           node: true,
@@ -111,7 +120,7 @@ module.exports = function(grunt) {
           log: 'out/server-lint.log',
           jslintXml: 'out/server-jslint.xml',
           errorsOnly: true, // only display errors
-          failOnError: false, // defaults to true
+          failOnError: true, // defaults to true
           checkstyle: 'out/server-checkstyle.xml' // write a checkstyle-XML
         }
       }

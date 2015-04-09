@@ -1,5 +1,9 @@
 var bcrypt = require('bcrypt');
 var assert = require('assert');
+var _ = require("underscore");
+
+// var console = {};
+// console.log = function(){};
 
 /*
 *  Using the back door to access data in leveldb to perform checking in our feature tests.
@@ -15,9 +19,13 @@ var assert = require('assert');
 *  Note: these are dumb - so repeating what was said earlier - don't expect any validation or any other logic other than create, retrieve and delete
 *        in this class
 *
+*  @param {boolean} dontCreateIfPreExisting - when this is utilized then pre-existance checks occur on the key values to prevent recreating what is
+*                                             already there.  LevelDb has no integrity checking whatsoever, it's a simple datastore and does have
+*                                             the relational database baggage that could handled by yourself.
+*
 *  @class
 **/
-function DbHelpers() {
+function DbHelpers(dontCreateIfPreExisting) {
     
 	/**
 	* Will allow creation of a user in the users database.    
@@ -32,9 +40,15 @@ function DbHelpers() {
 	* @param {callback} callback - notify the caller of success or error
 	**/
     this.CreateUser = function(usersDb, createdUsers, firstname, surname, password, email, tokenHash, confirmed, callback) {
+        if (dontCreateIfPreExisting && _.find(createdUsers, function(u) { return u.email === email })) {
+            console.log('User %s already exists so we no need to create again', email);
+            callback();
+            return;
+        }
         console.log('Test: Creating test user - %s', email);
 	    //direct code to DB
         bcrypt.hash(password, 10, function(err, hashedPassword) {
+            
             console.log('Test: Hashing password %s to - %s', password, hashedPassword);
             // Store hashed password in DB and token as well - token is used to keep the user alive as well as something the user sends back to verify identity
             usersDb.put(email, { firstname: firstname, surname: surname, email: email, password: hashedPassword, confirmed: confirmed, token: tokenHash }, { sync: true }, 
@@ -99,7 +113,7 @@ function DbHelpers() {
 	* when then surely fail with hopefully enough information to aid in rectification of the problem.
 	* @param {object} context - a javascript object containing properties for the database and the user array.
 	* @param {Number} userCount - the total number of users to be deleted, used to check for completion
-	* @param {callback} done - notify the caller when done
+	* @param {Delete~callback} done - notify the caller when done
 	**/
     this.RemoveUser = function(context, userCount, done) {
         var userEmail = context.createdUsers[userCount].email;
@@ -144,12 +158,16 @@ function DbHelpers() {
 	*                                            because it probably part of bigger workflow.
 	**/
     this.CreateClub = function(clubsdb, createdClubs, clubname, cityname, fieldname, suburbname, adminemail, callback, callbackCalledOnSuccess) {
+        if (dontCreateIfPreExisting && _.find(createdClubs, function(c) { return c.club === clubname && c.city === cityname })) {
+            console.log('Club %s already exists so we no need to create again', clubname);
+            return;
+        }
         clubsdb.put(clubname + '~' + cityname, { field: fieldname, suburb: suburbname, admin: adminemail }, { sync: true }, 
             function (err) {
 		        if (err) 
                     callback(err);
                 else {
-                    console.log('Test: sample club %s was added', clubname);
+                    console.log('Test: sample club %s in city %s was added', clubname, cityname);
                     createdClubs.push({
                                 club: clubname,
                                 city: cityname,
@@ -168,21 +186,67 @@ function DbHelpers() {
     };
     
 	/**
+	* Creates a player in the datastore.  Players exist under a club
+	* @param {clubsdb} clubsdb - datastore for clubs.
+	* @param {array} createdPlayers - array used to keep track of created players and used later to aid with cleanup
+	* @param {string} email - email address of the player and the key
+	* @param {string} firstname - Player's first name
+	* @param {string} surname - Player's last name
+    * @param {string} DOB - Player's date of birth
+	* @param {string} address - Player's residential address
+	* @param {string} suburb - Player's residential suburb
+	* @param {string} postcode - Player's residential postcode
+	* @param {string} phone - Player's residential phone number, could be the mobile number
+	* @param {Retrieve~callback} callback - handles the response from leveldb
+	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
+	*                                            because it probably part of bigger workflow.
+	**/
+    this.CreatePlayer = function(playersdb, createdPlayers, email, firstname, surname, DOB, address, suburb, postcode, phone, callback, callbackCalledOnSuccess) {
+        if (dontCreateIfPreExisting && _.find(createdPlayers, function(p) { return p.email === email })) {
+            console.log('Player %s already exists so we no need to create again', email);
+            return;
+        }
+        playersdb.put(email, { dob: DOB, address: address, suburb: suburb, postcode: postcode, phone: phone }, { sync: true }, 
+            function (err) {
+		        if (err) 
+                    callback(err);
+                else {
+                    console.log('Test: sample player %s was added', email);
+                    createdPlayers.push({
+                                email: email,
+                                dob: DOB, 
+                                address: address, 
+                                suburb: suburb, 
+                                postcode: postcode, 
+                                phone: phone
+                    });
+                    if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
+                        callback();
+                    else if (!callbackCalledOnSuccess && callbackCalledOnSuccess === false)
+                        console.log('No need to do the callback');
+                    else
+                        callback();
+                }
+            });	    
+    };
+    
+	/**
 	* Removes a club from the datastore.  
 	* @param {string} clubname - first part of the key
 	* @param {string} cityname - second part of the key 
-	* @param {callback} callback - notify the caller when done
+	* @param {Delete~callback} callback - notify the caller when done
 	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
 	*                                            because it probably part of bigger workflow.
 	**/
     this.RemoveClub = function(clubsdb, clubname, cityname, callback, callbackCalledOnSuccess) {
+        assert(clubname, 'clubname needs to exist for a delete to work');
+        assert(cityname, 'cityname needs to exist for a delete to work');
         console.log('Removing club %s in city %s', clubname, cityname);
         clubsdb.del(clubname + '~' + cityname, { sync: true }, function(err) {
              if (err) {
                 console.log('Error whilst deleting %s', clubname);
                 callback(err);
-             }
-             else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
+             } else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
                 callback();
              else if (!callbackCalledOnSuccess && callbackCalledOnSuccess === false)
                 console.log('No need to do the callback');
@@ -192,8 +256,50 @@ function DbHelpers() {
     };
 
 	/**
-	* Returns a squad object from database via clubname and cityname.  These are keys as we expect
-	* a club cannot exist more than once in the same city
+	* Creates a squad, linked to a club, in the datastore.  
+	* @param {squadsdb} squadsdb - datastore for squads. It exists under clubs
+	* @param {string} clubname - first part of the key - linking part to club
+	* @param {string} cityname - second part of the key  - linking back to city
+	* @param {string} squadname - name of the squad and part of the key
+    * @param {string} season - the identifier for the season the squad plays in and part of the key
+    * @param {string} agelimit - used to help limit eligibility to play in the squad
+	* @param {string} adminemail - the administrator of the club
+	* @param {Retrieve~callback} callback - handles the response from leveldb
+	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
+	*                                            because it probably part of bigger workflow.
+	**/
+    this.CreateSquad = function(squadsdb, createdSquads, clubname, cityname, squadname, season, agelimit, adminemail, callback, callbackCalledOnSuccess) {
+        if (dontCreateIfPreExisting && _.find(createdSquads, function(s) { return s.club === clubname && s.city === cityname && s.squad === squadname && s.season === season })) {
+            console.log('Squad %s already exists so we no need to create again', squadname);
+            return;
+        }
+        squadsdb.put(clubname + '~' + cityname + '~' + squadname + '~' + season, { agelimit: agelimit, admin: adminemail }, { sync: true }, 
+            function (err) {
+		        if (err) {
+		            console.log('Oops error in CreateSquad');
+                    callback(err);
+                } else {
+                    console.log('Test: sample squad %s for season %s was added', squadname, season);
+                    createdSquads.push({
+                                club: clubname,
+                                city: cityname,
+                                squad: squadname,
+                                season: season,
+                                agelimit: agelimit,
+                                admin: adminemail
+                    });
+                    if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
+                        callback();
+                    else if (!callbackCalledOnSuccess && callbackCalledOnSuccess === false)
+                        console.log('No need to do the callback');
+                    else
+                        callback();
+                }
+            });	    
+    };
+
+	/**
+	* Returns a squad object from database 
 	* @param {squadsDb} squadsDb - datastore for squads.
 	* @param {string} clubname - first part of the key
 	* @param {string} cityname - second part of the key
@@ -211,19 +317,65 @@ function DbHelpers() {
     };
 
 	/**
-	* Removes a squad from the datastore.  
+	* Returns a single squad player object from database 
+	* @param {squadsDb} squadsDb - datastore for squads.
 	* @param {string} clubname - first part of the key
 	* @param {string} cityname - second part of the key
-    * @param {string} squadname - third part of the key  
-    * @param {string} season - fourth part of the key  
-	* @param {object} context - a javascript object containing properties for the database and the user array.
-	* @param {Number} userCount - the total number of users to be deleted, used to check for completion
-	* @param {callback} callback - notify the caller when done
+	* @param {string} squadname - third part of the key
+	* @param {string} season - fourth part of the key
+	* @param {string} playeremail - fifth part of the key
+	* @param {Retrieve~callback} callback - handles the response from leveldb
+	**/
+    this.GetSquadPlayer = function(squadplayersDb, clubname, cityname, squadname, season, playeremail, callback) {
+        squadplayersDb.get(clubname + '~' + cityname + '~' + squadname + '~' + season + '~' + playeremail, function (err, res) {
+	        if (err) 
+                callback(err);
+            else 
+                callback(null, res); //easy via a stub to fool this into being correct - does it matter - the key would have already been supplied so the data is there!
+	    });	    
+    };
+
+	/**
+	* Returns all the squad players from database for a squad and season combination.
+	* @param {squadPlayersDb} squadPlayersDb - datastore for squad players.
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key
+	* @param {string} squadname - third part of the key
+	* @param {string} season - last part of the key
+	* @param {Retrieve~callback} callback - handles the response from leveldb
+	**/
+    this.GetSquadPlayers = function(squadPlayersDb, clubname, cityname, squadname, season, callback) {
+        console.log('Retrieving players for squad %s', squadname);
+        var players = [];
+        var key = clubname + '~' + cityname + '~' + squadname + '~' + season + '~';
+        squadPlayersDb.createReadStream({ gte: key, lte: key + '~' })
+            .on('data', function(player) {
+                players.push(player);
+            })
+            .on('end', function() {
+                callback(null, players);
+            })
+            .on('error', function(err){
+                console.log('Error in getting squad players: ' + err.message);
+                callback(err);
+            });
+    };
+    
+	/**
+	* Removes a squad from the datastore. 
+	* @param {squadsDb} squadsDb - the datastore to be removing from
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key* 
+    * @param {string} squadname - part of the key  
+    * @param {string} season - part of the key  
+	* @param {Delete~callback} callback - notify the caller when done
 	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
 	*                                            because it probably part of bigger workflow.
 	**/
     this.RemoveSquad = function(squadsDb, clubname, cityname, squadname, season, callback, callbackCalledOnSuccess) {
-        console.log('Removing squad %s for season %s in the club %s in the city %s', squadname, season, clubname, cityname);
+        console.log('Removing squad %s for season %s', squadname, season);
+        assert(squadname, 'squadname needs to exist for a delete to work');
+        assert(season, 'season needs to exist for a delete to work');
         squadsDb.del(clubname + '~' + cityname + '~' + squadname + '~' + season, { sync: true }, function(err) {
              if (err) {
                 console.log('Error whilst deleting %s', squadname);
@@ -239,7 +391,112 @@ function DbHelpers() {
     };
 
 	/**
-	* Checks for completion of removal of users and then closes done the database, releasing resources that it may hold
+	* Removes a squad player from the datastore.  
+	* @param {squadPlayersDb} squadPlayersDb - the datastore to be removing from
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key* 
+    * @param {string} squadname - third part of the key, the squad the player is playing in  
+    * @param {string} season - fourth part of the key, the season the player is playing in  
+    * @param {string} email - last part of the key, the player's email
+	* @param {Delete~callback} callback - notify the caller when done
+	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
+	*                                            because it probably part of bigger workflow.
+	**/
+    this.RemoveSquadPlayer = function(squadPlayersDb, clubname, cityname, squadname, season, email, callback, callbackCalledOnSuccess) {
+        console.log('Removing player %s from squad %s for season %s', email, squadname, season);
+        assert(clubname, 'club name needs to exist for a delete to work');
+        assert(cityname, 'city name needs to exist for a delete to work');
+        assert(squadname, 'squad name needs to exist for a delete to work');
+        assert(season, 'season needs to exist for a delete to work');
+        squadPlayersDb.del(clubname + '~' + cityname + '~' + squadname + '~' + season + '~' + email, { sync: true }, function(err) {
+             if (err) {
+                console.log('Error whilst deleting %s', email);
+                callback(err);
+             }
+             else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
+                callback();
+             else if (!callbackCalledOnSuccess && callbackCalledOnSuccess === false)
+                console.log('No need to do the callback');
+             else
+                callback();
+        });
+    };
+
+	/**
+	* Removes a squad from the datastore.  
+	* @param {string} clubname - first part of the key
+	* @param {callback} callback - notify the caller when done
+	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
+	*                                            because it probably part of bigger workflow.
+	**/
+    this.RemovePlayer = function(playersDb, email, callback, callbackCalledOnSuccess) {
+        console.log('Removing player with email address: %s', email);
+        assert(email, 'email needs to exist for a delete to work');
+        playersDb.del(email, { sync: true }, function(err) {
+             if (err) 
+                callback(err);
+             else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
+                callback();
+             else if (!callbackCalledOnSuccess && callbackCalledOnSuccess === false)
+                console.log('No need to do the callback');
+             else
+                callback();
+        });
+    };
+
+	/**
+	* Removes all entities found in the arrays from the datastores.  
+	* @param {object} dbs - contains references to datastore objects.
+	* @param {createdPlayers} - array of players to remove. Can be undefined, which means it's skipped.
+	* @param {createdSquads} - array of squads to remove.  Can be undefined, which means it's skipped.
+	* @param {createdSquadPlayers} - array of squad players to remove. Can be undefined, which means it's skipped.
+	* @param {createdClubs} - array of clubs to remove. Can be undefined, which means it's skipped.
+	* @param {createdUsers} - array of users to remove. Can be undefined, which means it's skipped.
+	* @param {callback} callback - notify the caller when done
+	**/
+    this.CascadeDelete = function(dbs, createdPlayers, createdSquads, createdSquadPlayers, createdClubs, createdUsers, callback) {
+        console.log('Start of cascade delete');
+        if (createdSquadPlayers) {
+            console.log('Start of squad players removal');
+            for (var i = 0; i < createdSquadPlayers.length; i++) 
+                this.RemoveSquadPlayer(dbs.squadplayersDb, createdSquadPlayers[i].club, createdSquadPlayers[i].city, createdSquadPlayers[i].squad, createdSquadPlayers[i].season, createdSquadPlayers[i].email, callback, false);
+        }
+
+        if (createdPlayers) {
+            console.log('Start of players removal');
+            for (var i = 0; i < createdPlayers.length; i++) 
+                this.RemovePlayer(dbs.playersDb, createdPlayers[i].email, callback, false);
+        }
+        
+        if (createdSquads) {
+            console.log('Start of squads removal');
+            for (var i = 0; i < createdSquads.length; i++) 
+                this.RemoveSquad(dbs.squadsDb, createdSquads[i].club, createdSquads[i].city, createdSquads[i].squad, createdSquads[i].season, callback, false);
+        }
+
+        if (createdClubs) {           
+            console.log('Start of clubs removal');
+            var createdClubsLength = createdClubs.length;
+            for (var i = 0; i < createdClubsLength; i++) {
+                this.RemoveClub(dbs.clubsDb, createdClubs[i].club, createdClubs[i].city, callback, false);
+            }
+        }
+
+        if (dbs && dbs.usersDb && createdUsers) {
+            console.log('Start of users removal');
+            var context = { createdUsers: createdUsers, usersDb: dbs.usersDb },
+                createdUsersLength = createdUsers.length;
+            for (var i = 0; i < createdUsersLength; i++) {
+                this.RemoveUser(context, i, function () {
+                    console.log('Completed cascade delete');
+                    callback();
+                });
+            }
+        }
+    };
+    
+	/**
+	* Checks for completion of removal of users and then closes down the database, releasing resources that it may hold
 	* @param {object} context - passed in from the caller with properties for created users.
 	* @param {string} userCount - help to check for completion of the removal
 	* @param {callback} done - notify the caller of completion - when the parameter is supplied
@@ -247,9 +504,10 @@ function DbHelpers() {
     function checkforcompletion(context, userCount, done)
     {
         if (userCount === context.createdUsers.length - 1) {
-         	if (context.database.redis)
+         	if (context.database && context.database.redis)
          		context.database.redis.quit();
-            context.database.leveldb.close();    
+            if (context.database) 
+                context.database.leveldb.close();    
             if (done)
                 done();
         }
@@ -260,6 +518,12 @@ function DbHelpers() {
  * @callback Retrieve~callback
  * @param {Error} populated with an a standard Error object when there is a failure with leveldb
  * @param {any} the contents of the database returned as is.  It will most likely be a JSON formatted object
+ */
+ 
+/**
+ * A generic callback for any delete function for leveldb.
+ * @callback Delete~callback
+ * @param {Error} populated with an a standard Error object when there is a failure with leveldb
  */
 }
 

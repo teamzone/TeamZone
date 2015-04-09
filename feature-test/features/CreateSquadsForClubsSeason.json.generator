@@ -1,0 +1,37 @@
+[
+  '{{repeat(5)}}',
+  {
+    adminfirstname: '{{firstName()}}',
+    adminlastname: '{{surname()}}',
+    suburbname: '{{lorem(1, "words")}}',
+    suffix: '{{random("FC", "SC", "AFC")}}',
+    clubname: function (tags) {
+      return (this.suburbname + ' ' + this.suffix);
+    },
+    cityname: '{{city()}}',
+    fieldname: function (tags) {
+      return (this.suburbname + ' Park');
+    },    
+    adminemail: function (tags) {
+      return (this.adminfirstname + '.' + this.adminlastname + '@' + this.suburbname + this.suffix + tags.domainZone()).toLowerCase();
+    },
+    adminpassword: '{{guid()}}',
+    season: '{{random("Season 2015", "Season 2014")}}',
+    squads: [
+      '{{repeat(2, 6)}}',
+      {
+		index: '{{index()}}',
+        squadname: function (tags) {
+          var squads = ['Under 10', 'Under 12', 'Under 14', 'Under 16', 'Reserves', '1st Team'];
+          return squads[tags.index()];
+        },
+        agelimit: function (tags, parent) {
+			if (this.squadname === 'Reserves' || this.squadname === '1st Team')
+              return 'over 16';
+            else
+              return this.squadname.toLowerCase();
+		}
+      }
+    ]
+  }
+]
