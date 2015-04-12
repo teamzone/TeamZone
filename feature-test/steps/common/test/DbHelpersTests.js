@@ -119,19 +119,22 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         assertCreatedTheClub(clubname, cityname, fieldname, suburbname, adminemail, createdClubs, checkCallBack);
     }
     
-    function assertCreatedThePlayer(email, firstname, surname, DOB, address, suburb, postcode, phone, createdPlayers, checkCallBack) {
-        assert(stubPut.calledWith(email, { dob: DOB, address: address, suburb: suburb, postcode: postcode, phone: phone }, { sync: true }), 'create player put not called with correct parameters');
+    function assertCreatedThePlayer(email, clubname, cityname, firstname, lastname, DOB, address, suburb, postcode, phone, createdPlayers, checkCallBack) {
+        assert(stubPut.calledWith(clubname + '~' + cityname + '~' + email, { firstname: firstname,
+            lastname: lastname, dob: DOB, address: address, suburb: suburb, postcode: postcode, phone: phone, email: email }, { sync: true }), 'create player put not called with correct parameters');
         if (checkCallBack) 
             assert(callbackCalledWithNoError(), 'Callback not called after saving the player');
         else
             assert(spyCallback.callCount === 0, 'Callback should not called after saving the player');
-        assert(_.find(createdPlayers, function(c) { return c.email === email && c.address === address && c.suburb === suburb && 
+        assert(_.find(createdPlayers, function(c) { return c.email === email && c.club === clubname && c.city === cityname && 
+                                                           c.firstname === firstname && c.lastname === lastname &&
+                                                           c.address === address && c.suburb === suburb && 
                                                            c.postcode === postcode && c.phone === phone; }), 'Phone not found in array');
     }
   
-    function assertCreatedThePlayerOnce(email, firstname, surname, DOB, address, suburb, postcode, phone, createdPlayers, checkCallBack) {
+    function assertCreatedThePlayerOnce(email, clubname, cityname, firstname, lastname, DOB, address, suburb, postcode, phone, createdPlayers, checkCallBack) {
         assertPutCalledOnce();
-        assertCreatedThePlayer(email, firstname, surname, DOB, address, suburb, postcode, phone, createdPlayers, checkCallBack);
+        assertCreatedThePlayer(email, clubname, cityname, firstname, lastname, DOB, address, suburb, postcode, phone, createdPlayers, checkCallBack);
     }
     
     function assertPutCalledOnce() {
@@ -602,11 +605,11 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         stubPut.yields();
     
         // 2. Exercise
-        dbh.CreatePlayer(levelimdb, createdPlayers, playerEmail, playerFirstname, playerSurname, 
+        dbh.CreatePlayer(levelimdb, createdPlayers, playerEmail, clubname, cityname, playerFirstname, playerSurname, 
                          playerDOB, playerAddress, playerSuburb, playerPostCode, playerPhone, spyCallback, true);
     
         // 3. Verify
-        assertCreatedThePlayer(playerEmail, playerFirstname, playerSurname, 
+        assertCreatedThePlayer(playerEmail, clubname, cityname, playerFirstname, playerSurname,
                          playerDOB, playerAddress, playerSuburb, playerPostCode, playerPhone, createdPlayers, true);
         
         // 4. Cleanup/Teardown
@@ -620,13 +623,13 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         dbh = new dbhelpers(true);
         
         // 2. Exercise
-        dbh.CreatePlayer(levelimdb, createdPlayers, playerEmail, playerFirstname, playerSurname, 
+        dbh.CreatePlayer(levelimdb, createdPlayers, playerEmail, clubname, cityname, playerFirstname, playerSurname, 
                          playerDOB, playerAddress, playerSuburb, playerPostCode, playerPhone, spyCallback, true);
-        dbh.CreatePlayer(levelimdb, createdPlayers, playerEmail, playerFirstname, playerSurname, 
+        dbh.CreatePlayer(levelimdb, createdPlayers, playerEmail, clubname, cityname, playerFirstname, playerSurname, 
                          playerDOB, playerAddress, playerSuburb, playerPostCode, playerPhone, spyCallback, true);
     
         // 3. Verify
-        assertCreatedThePlayerOnce(playerEmail, playerFirstname, playerSurname, 
+        assertCreatedThePlayerOnce(playerEmail, clubname, cityname, playerFirstname, playerSurname, 
                          playerDOB, playerAddress, playerSuburb, playerPostCode, playerPhone, createdPlayers, true);
         
         // 4. Cleanup/Teardown
@@ -639,11 +642,11 @@ describe("Unit Tests for the DbHelpers code, the code that helps us in our testi
         stubPut.yields();
     
         // 2. Exercise
-        dbh.CreatePlayer(levelimdb, createdPlayers, playerEmail, playerFirstname, playerSurname, 
+        dbh.CreatePlayer(levelimdb, createdPlayers, playerEmail, clubname, cityname, playerFirstname, playerSurname, 
                          playerDOB, playerAddress, playerSuburb, playerPostCode, playerPhone, spyCallback, false);
     
         // 3. Verify
-        assertCreatedThePlayer(playerEmail, playerFirstname, playerSurname, 
+        assertCreatedThePlayer(playerEmail, clubname, cityname, playerFirstname, playerSurname, 
                          playerDOB, playerAddress, playerSuburb, playerPostCode, playerPhone, createdPlayers, false);
         
         // 4. Cleanup/Teardown

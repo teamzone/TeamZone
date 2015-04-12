@@ -190,8 +190,10 @@ function DbHelpers(dontCreateIfPreExisting) {
 	* @param {clubsdb} clubsdb - datastore for clubs.
 	* @param {array} createdPlayers - array used to keep track of created players and used later to aid with cleanup
 	* @param {string} email - email address of the player and the key
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key 
 	* @param {string} firstname - Player's first name
-	* @param {string} surname - Player's last name
+	* @param {string} lastname - Player's last name
     * @param {string} DOB - Player's date of birth
 	* @param {string} address - Player's residential address
 	* @param {string} suburb - Player's residential suburb
@@ -201,18 +203,22 @@ function DbHelpers(dontCreateIfPreExisting) {
 	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
 	*                                            because it probably part of bigger workflow.
 	**/
-    this.CreatePlayer = function(playersdb, createdPlayers, email, firstname, surname, DOB, address, suburb, postcode, phone, callback, callbackCalledOnSuccess) {
+    this.CreatePlayer = function(playersdb, createdPlayers, email, clubname, cityname, firstname, lastname, DOB, address, suburb, postcode, phone, callback, callbackCalledOnSuccess) {
         if (dontCreateIfPreExisting && _.find(createdPlayers, function(p) { return p.email === email })) {
             console.log('Player %s already exists so we no need to create again', email);
             return;
         }
-        playersdb.put(email, { dob: DOB, address: address, suburb: suburb, postcode: postcode, phone: phone }, { sync: true }, 
+        playersdb.put(clubname + '~' + cityname + '~' + email, { firstname: firstname, lastname: lastname, dob: DOB, address: address, suburb: suburb, postcode: postcode, phone: phone, email: email }, { sync: true }, 
             function (err) {
 		        if (err) 
                     callback(err);
                 else {
                     console.log('Test: sample player %s was added', email);
                     createdPlayers.push({
+                                club: clubname,
+                                city: cityname,
+                                firstname: firstname,
+                                lastname: lastname,
                                 email: email,
                                 dob: DOB, 
                                 address: address, 
