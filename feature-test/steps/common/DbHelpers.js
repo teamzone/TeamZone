@@ -394,7 +394,7 @@ function DbHelpers(dontCreateIfPreExisting) {
 	* Removes a squad player from the datastore.  
 	* @param {squadPlayersDb} squadPlayersDb - the datastore to be removing from
 	* @param {string} clubname - first part of the key
-	* @param {string} cityname - second part of the key* 
+	* @param {string} cityname - second part of the key
     * @param {string} squadname - third part of the key, the squad the player is playing in  
     * @param {string} season - fourth part of the key, the season the player is playing in  
     * @param {string} email - last part of the key, the player's email
@@ -425,14 +425,17 @@ function DbHelpers(dontCreateIfPreExisting) {
 	/**
 	* Removes a squad from the datastore.  
 	* @param {string} clubname - first part of the key
+    * @param {string} cityname - second part of the key
+    * @param {string} email - the third part of the key
 	* @param {callback} callback - notify the caller when done
 	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
 	*                                            because it probably part of bigger workflow.
 	**/
-    this.RemovePlayer = function(playersDb, email, callback, callbackCalledOnSuccess) {
-        console.log('Removing player with email address: %s', email);
+    this.RemovePlayer = function(playersDb, clubname, cityname, email, callback, callbackCalledOnSuccess) {
+        assert(clubname, 'clubname needs to exist for a delete to work');
+        assert(cityname, 'cityname needs to exist for a delete to work');
         assert(email, 'email needs to exist for a delete to work');
-        playersDb.del(email, { sync: true }, function(err) {
+        playersDb.del(clubname + '~' + cityname + '~' + email, { sync: true }, function(err) {
              if (err) 
                 callback(err);
              else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
@@ -465,7 +468,7 @@ function DbHelpers(dontCreateIfPreExisting) {
         if (createdPlayers) {
             console.log('Start of players removal');
             for (var i = 0; i < createdPlayers.length; i++) 
-                this.RemovePlayer(dbs.playersDb, createdPlayers[i].email, callback, false);
+                this.RemovePlayer(dbs.playersDb, createdPlayers[i].club, createdPlayers[i].city, createdPlayers[i].email, callback, false);
         }
         
         if (createdSquads) {
@@ -482,7 +485,8 @@ function DbHelpers(dontCreateIfPreExisting) {
             }
         }
 
-        if (dbs && dbs.usersDb && createdUsers) {
+        //TODO: This could be an example of Cyclomatic Complexity
+        if (dbs && dbs.usersDb && createdUsers && createdUsers.length > 0) {
             console.log('Start of users removal');
             var context = { createdUsers: createdUsers, usersDb: dbs.usersDb },
                 createdUsersLength = createdUsers.length;
@@ -492,6 +496,8 @@ function DbHelpers(dontCreateIfPreExisting) {
                     callback();
                 });
             }
+        } else {
+            callback();
         }
     };
     

@@ -34,9 +34,6 @@ before(function (done) {
 
 after(function (done) {
     var dbh = new dbhelpers();
-    // dbh.CascadeDelete({ clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb, squadsDb: interpreter_context.squadsDb },
-    //                   undefined, interpreter_context.createdSquads, undefined,
-    //                   interpreter_context.createdClubs, interpreter_context.createdUsers, done);
     dbh.CascadeDelete({ clubsDb: interpreter_context.clubsDb, usersDb: interpreter_context.usersDb, squadsDb: interpreter_context.squadsDb },
                         undefined, interpreter_context.createdSquads, undefined,
                         interpreter_context.createdClubs, interpreter_context.createdUsers,

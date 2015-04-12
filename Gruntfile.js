@@ -66,7 +66,7 @@ module.exports = function(grunt) {
         },
         src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', 
               '!feature-test/steps/testCreateSquadsForClubsForSeason.js', '!feature-test/steps/testAddPlayersToSquads.NonFunc.js', 
-              '!feature-test/steps/testAddPlayer.js', '!lib/test/PlayerManagementServiceTests.js']
+              '!lib/test/PlayerManagementServiceTests.js']
       },
       uitbuild: {
         options: {
