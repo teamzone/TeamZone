@@ -107,7 +107,7 @@ export module Service {
 		* @param {string} email - unique id for the player.  We assume they have an email address
 		* @param {Add~callback} callback - tell the caller if there is a date failure
 		**/
-        isValidDate(d: string, callback: any) : void {
+        isValidDate(d: string, callback: any) : boolean {
             var validDateFormats = ['DD MMM YYYY', 'D MMM YYYY', 'DD-MM-YYYY', 'D/MM/YYYY', 'D/M/YYYY', 'DD-MMM-YYYY', 'YYYY-MM-DD'],
                 i = 0,
                 len = validDateFormats.length,
