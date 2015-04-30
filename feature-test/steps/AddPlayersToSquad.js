@@ -22,6 +22,8 @@ var dbh;
 /*
 * Helps with the creation of test players enabling the test outcomes to be achieved
 * @param {string} interpreter_context - whole of test object bag holding key data
+* @param {string} clubname - name of the club ther player will be part of
+* @param {string} cityname - name of the city that the club/player are playing in
 * @param {string} playerfirstname - the first name of the player to create
 * @param {string} playerlastname - the last name of the player to create
 * @param {string} playerdob - the date of birth of the player to create
@@ -32,13 +34,13 @@ var dbh;
 * @param {string} playerphone - a personal or contact phone number for the player
 * @param {callback} next - continuation callback 
 */
-function createPlayersForTheTest(interpreter_context, playerfirstname, playerlastname,
+function createPlayersForTheTest(interpreter_context, clubname, cityname, playerfirstname, playerlastname,
     playerdob, playeremail, playeraddress, playersuburb, playerpostcode, playerphone, next) {
     //these players need to be added as players to the db for the next part of the test to work
     var playersDb = interpreter_context.playersDb,
         createdPlayers = interpreter_context.createdPlayers;
     playerToAddEmail = playeremail;
-    dbh.CreatePlayer(playersDb, createdPlayers, playeremail, playerfirstname,
+    dbh.CreatePlayer(playersDb, createdPlayers, playeremail, clubname, cityname, playerfirstname,
                      playerlastname, playerdob, playeraddress, playersuburb,
                      playerpostcode, playerphone, next, true);
 }
@@ -79,7 +81,7 @@ module.exports = (function () {
 
         .when("the coach selects player $firstname, $surname, $dob, $email", function (playerfirstname, playerlastname, playerdob, playeremail, next) {
             //don't need all the data, can make some of it up and it's not material to the test
-            createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail,
+            createPlayersForTheTest(this.interpreter_context, clubname, cityname, playerfirstname, playerlastname, playerdob, playeremail,
                 '1 Smith Street', 'Mosman Park', '6011', '0411 213 537', next);
         })
 
@@ -120,7 +122,7 @@ module.exports = (function () {
         })
 
         .when("the coach selects an underage player $firstname, $surname, $dob, $email", function (playerfirstname, playerlastname, playerdob, playeremail, next) {
-            createPlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail,
+            createPlayersForTheTest(this.interpreter_context, clubname, cityname, playerfirstname, playerlastname, playerdob, playeremail,
                 '2 Smith Street', 'Mosman Park', '6011', '0412 214 407', next);
         })
 

@@ -190,8 +190,10 @@ function DbHelpers(dontCreateIfPreExisting) {
 	* @param {clubsdb} clubsdb - datastore for clubs.
 	* @param {array} createdPlayers - array used to keep track of created players and used later to aid with cleanup
 	* @param {string} email - email address of the player and the key
+	* @param {string} clubname - first part of the key
+	* @param {string} cityname - second part of the key 
 	* @param {string} firstname - Player's first name
-	* @param {string} surname - Player's last name
+	* @param {string} lastname - Player's last name
     * @param {string} DOB - Player's date of birth
 	* @param {string} address - Player's residential address
 	* @param {string} suburb - Player's residential suburb
@@ -201,18 +203,22 @@ function DbHelpers(dontCreateIfPreExisting) {
 	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
 	*                                            because it probably part of bigger workflow.
 	**/
-    this.CreatePlayer = function(playersdb, createdPlayers, email, firstname, surname, DOB, address, suburb, postcode, phone, callback, callbackCalledOnSuccess) {
+    this.CreatePlayer = function(playersdb, createdPlayers, email, clubname, cityname, firstname, lastname, DOB, address, suburb, postcode, phone, callback, callbackCalledOnSuccess) {
         if (dontCreateIfPreExisting && _.find(createdPlayers, function(p) { return p.email === email })) {
             console.log('Player %s already exists so we no need to create again', email);
             return;
         }
-        playersdb.put(email, { dob: DOB, address: address, suburb: suburb, postcode: postcode, phone: phone }, { sync: true }, 
+        playersdb.put(clubname + '~' + cityname + '~' + email, { firstname: firstname, lastname: lastname, dob: DOB, address: address, suburb: suburb, postcode: postcode, phone: phone, email: email }, { sync: true }, 
             function (err) {
 		        if (err) 
                     callback(err);
                 else {
                     console.log('Test: sample player %s was added', email);
                     createdPlayers.push({
+                                club: clubname,
+                                city: cityname,
+                                firstname: firstname,
+                                lastname: lastname,
                                 email: email,
                                 dob: DOB, 
                                 address: address, 
@@ -394,7 +400,7 @@ function DbHelpers(dontCreateIfPreExisting) {
 	* Removes a squad player from the datastore.  
 	* @param {squadPlayersDb} squadPlayersDb - the datastore to be removing from
 	* @param {string} clubname - first part of the key
-	* @param {string} cityname - second part of the key* 
+	* @param {string} cityname - second part of the key
     * @param {string} squadname - third part of the key, the squad the player is playing in  
     * @param {string} season - fourth part of the key, the season the player is playing in  
     * @param {string} email - last part of the key, the player's email
@@ -425,14 +431,17 @@ function DbHelpers(dontCreateIfPreExisting) {
 	/**
 	* Removes a squad from the datastore.  
 	* @param {string} clubname - first part of the key
+    * @param {string} cityname - second part of the key
+    * @param {string} email - the third part of the key
 	* @param {callback} callback - notify the caller when done
 	* @param {Boolean} callbackCalledOnSuccess - when set and set to false then the callback should not be called on success
 	*                                            because it probably part of bigger workflow.
 	**/
-    this.RemovePlayer = function(playersDb, email, callback, callbackCalledOnSuccess) {
-        console.log('Removing player with email address: %s', email);
+    this.RemovePlayer = function(playersDb, clubname, cityname, email, callback, callbackCalledOnSuccess) {
+        assert(clubname, 'clubname needs to exist for a delete to work');
+        assert(cityname, 'cityname needs to exist for a delete to work');
         assert(email, 'email needs to exist for a delete to work');
-        playersDb.del(email, { sync: true }, function(err) {
+        playersDb.del(clubname + '~' + cityname + '~' + email, { sync: true }, function(err) {
              if (err) 
                 callback(err);
              else if (!callbackCalledOnSuccess && callbackCalledOnSuccess !== false)
@@ -465,7 +474,7 @@ function DbHelpers(dontCreateIfPreExisting) {
         if (createdPlayers) {
             console.log('Start of players removal');
             for (var i = 0; i < createdPlayers.length; i++) 
-                this.RemovePlayer(dbs.playersDb, createdPlayers[i].email, callback, false);
+                this.RemovePlayer(dbs.playersDb, createdPlayers[i].club, createdPlayers[i].city, createdPlayers[i].email, callback, false);
         }
         
         if (createdSquads) {
@@ -482,7 +491,8 @@ function DbHelpers(dontCreateIfPreExisting) {
             }
         }
 
-        if (dbs && dbs.usersDb && createdUsers) {
+        //TODO: This could be an example of Cyclomatic Complexity
+        if (dbs && dbs.usersDb && createdUsers && createdUsers.length > 0) {
             console.log('Start of users removal');
             var context = { createdUsers: createdUsers, usersDb: dbs.usersDb },
                 createdUsersLength = createdUsers.length;
@@ -492,6 +502,8 @@ function DbHelpers(dontCreateIfPreExisting) {
                     callback();
                 });
             }
+        } else {
+            callback();
         }
     };
     

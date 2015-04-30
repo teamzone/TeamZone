@@ -278,7 +278,7 @@ export module Service {
 			//get player details from playerdb
 			var squads = this._squads;
 			var squadkey = this.squadKeyMaker(clubname, cityname, squadname, season);
-			this._players.get(playeremail, function(err, playervalue) {
+			this._players.get(clubname + '~' + cityname + '~' + playeremail, function(err, playervalue) {
 				if (err) 
 					callback(err);
 				else {
