@@ -278,6 +278,9 @@ export module Service {
 			//get player details from playerdb
 			var squads = this._squads;
 			var squadkey = this.squadKeyMaker(clubname, cityname, squadname, season);
+			var playerAgeChecker = this.comparePlayerAgeWithRulesForPlayerAgesAndSquads;
+			var overAgeChecker = this.isPlayerRightAgeForOverAgeSquad;
+			var underAgeChecker = this.isPlayerRightAgeForUnderAgeSquad;
 			this._players.get(clubname + '~' + cityname + '~' + playeremail, function(err, playervalue) {
 				if (err) 
 					callback(err);
@@ -286,35 +289,82 @@ export module Service {
 						if (err)
 							callback(err);
 						else {
-							var prefix = 'over';
-							//when a player's age at the start of the year the season is in is less than an over value they get rejected
-							//seasons can be any notation that the user wishes to describe, so this makes the assumption using the current
-							//date and taking the start of the year for the current date - unless specified in the target year
-							if (!targetyear)
-								targetyear = new Date(Date.now()).getFullYear();
-							var playerdob  = new Date(playervalue.dob);
-							var playerage = targetyear - playerdob.getFullYear();
-							if (squadvalue.agelimit.substring(0, prefix.length) === prefix) {
-								var ageLimitYears = Number(squadvalue.agelimit.substring(prefix.length).trim());
-								if (playerage < ageLimitYears) {
-									callback(new AgeLimitError('Player does not qualify for the squad due to being underaged'));
-									return;
-								}
-							} else {
-								prefix = 'under';
-								if (squadvalue.agelimit.substring(0, prefix.length) === prefix) {
-									var ageLimitYears = Number(squadvalue.agelimit.substring(prefix.length).trim());
-									if (playerage > ageLimitYears) {
-										callback(new AgeLimitError('Player does not qualify for the squad due to being over age'));
-										return;
-									}
-								}
-							}
+							playerAgeChecker(targetyear, playervalue.dob, squadvalue.agelimit, overAgeChecker, underAgeChecker, callback);
 						}
 						callback();
 					});
 				} 
 			});
+		}
+
+	    /**
+	     * Check the player age against the rules for squads and reject if not valid
+	     * 
+	     * When a player's age at the start of the year the season is less than an 'over' value they get rejected.
+	     * A similar check for 'under ' squads occurs for players who are too old being rejected.
+		 * Seasons can be any notation that the user wishes to describe, so this makes the assumption using the current
+		 * date and taking the start of the year for the current date - unless specified in the target year.
+		 * 
+	     * @param {number} targetyear - the age needs to be checked for a specific year so state the year here
+		 * @param {string} playersdob - need to no the player date of birth to perform the check.  Should accept any string format
+		 * 								as long as the Date type can parse.  No error checking will occur for invalid formats.
+		 * @param {string} squadagelimit - a string that represents the age limit, could be under 12 or could be over 16
+		 * 								   with the prefix either a under or over.  Not validating the string.  It should be valid
+		 * 								   when it gets to here.
+	     * @param {any} isPlayerRightAgeForOverAgeSquad - the function to do the over age check - to fit in with Javascript plumbing really
+	     * @param {any} isPlayerRightAgeForUnderAgeSquad - the function to do the under age check - to fit in with Javascript plumbing really
+	     * @param {callback} callback - notification of error or success
+	     **/
+		comparePlayerAgeWithRulesForPlayerAgesAndSquads(targetyear: number, playersdob: string, squadagelimit: string, 
+			isPlayerRightAgeForOverAgeSquad: any, isPlayerRightAgeForUnderAgeSquad: any, callback: any) {
+			if (!targetyear)
+				targetyear = new Date(Date.now()).getFullYear();
+			var playerdob = new Date(playersdob);
+			var playerage: number = targetyear - playerdob.getFullYear();
+			if (isPlayerRightAgeForOverAgeSquad(squadagelimit, playerage, callback)) return;
+			isPlayerRightAgeForUnderAgeSquad(squadagelimit, playerage, callback);
+		}
+		
+	    /**
+	     * Performs the check for a players age and fails it via the callback if the player is too young
+	     *  
+		 * @param {number} playerage - the age of the player e.g. 13
+		 * @param {string} squadagelimit - a string that represents the age limit, could be under 12 or could be over 16
+	     * @param {callback} callback - notification of error. Completion means no callback.  The last in the chain should handle that
+	     **/		
+		isPlayerRightAgeForOverAgeSquad(squadagelimit: string, playerage: number, callback: any) : boolean {
+			var prefix: string = 'over';
+			var ageLimitYears: number;
+			var checkCompleted: boolean = false;
+			if (squadagelimit.substring(0, prefix.length) === prefix) {
+				ageLimitYears = Number(squadagelimit.substring(prefix.length).trim());
+				if (playerage < ageLimitYears) {
+					callback(new AgeLimitError('Player does not qualify for the squad due to being underaged'));
+				} 
+				checkCompleted = true;
+			}
+			return checkCompleted;
+		}
+
+	    /**
+	     * Performs the check for a players age and fails it via the callback if the player is too old
+	     *  
+		 * @param {number} playerage - the age of the player e.g. 13
+		 * @param {string} squadagelimit - a string that represents the age limit, could be under 12 or could be over 16
+	     * @param {callback} callback - notification of error. Completion means no callback.  The last in the chain should handle that
+	     **/		
+		isPlayerRightAgeForUnderAgeSquad(squadagelimit: string, playerage: number, callback: any) : boolean {
+			var prefix: string = 'under';
+			var ageLimitYears: number;
+			var checkCompleted: boolean = false;
+			if (squadagelimit.substring(0, prefix.length) === prefix) {
+				ageLimitYears = Number(squadagelimit.substring(prefix.length).trim());
+				if (playerage > ageLimitYears) {
+					callback(new AgeLimitError('Player does not qualify for the squad due to being over age'));
+				}
+				checkCompleted = true;
+			}
+			return checkCompleted;
 		}
 	}
 }

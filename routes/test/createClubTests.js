@@ -52,18 +52,29 @@ describe("Testing of expressjs route for create a club", function () {
     });
 
     function assertClubCreatedAndViewUpdated(redirectView, spy, alertType, messages) {
+        stubCreateClub.should.have.been.calledWith(incomingExpressRequest.body.clubname, 
+            incomingExpressRequest.body.fieldname, incomingExpressRequest.body.suburbname,
+            incomingExpressRequest.body.cityname, incomingExpressRequest.body.adminemail, sinon.match.any);
         spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
             type: alertType,
             messages: messages
         }}));
     }
 
+    function assertViewUpdatedWithValidationMessageClubIsNotCreated(redirectView, spy, alertType, messages) {
+        stubCreateClub.should.not.have.been.called;
+        spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
+            type: alertType,
+            messages: messages
+        }}));
+    }
+    
     function enactRequestBodyValidationTest(incomingExpressRequest, expectedMessage, done) {
         //2. exercise
         cc.post(incomingExpressRequest, outgoingExpressResponse);
 
         //3. verify
-        assertClubCreatedAndViewUpdated('createClub', outgoingExpressResponseSpy, 'alert-danger', expectedMessage);
+        assertViewUpdatedWithValidationMessageClubIsNotCreated('createClub', outgoingExpressResponseSpy, 'alert-danger', expectedMessage);
 
         //4. teardown
         done();

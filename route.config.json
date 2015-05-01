@@ -14,6 +14,8 @@
         { "route": "/manageSquad", "method": "POST", "controller": "./routes/manageSquad" },
         { "route": "/manageSquad", "method": "GET", "controller": "./routes/manageSquad" },
         { "route": "/addSquadPlayer", "method": "POST", "controller": "./routes/addSquadPlayer" },
-        { "route": "/addSquadPlayer", "method": "GET", "controller": "./routes/addSquadPlayer" }        
+        { "route": "/addSquadPlayer", "method": "GET", "controller": "./routes/addSquadPlayer" },
+        { "route": "/addPlayer", "method": "POST", "controller": "./routes/addPlayer" },
+        { "route": "/addPlayer", "method": "GET", "controller": "./routes/addPlayer" }        
     ]
 }
