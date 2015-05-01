@@ -10,7 +10,6 @@ var assert = require('assert');
 var teammanagementservice = require('../../lib/ts/TeamManagementService');
 var sinonChai = require("sinon-chai");
 var chai = require("chai");
-var expect = chai.expect;
 chai.should();
 chai.use(sinonChai);
 require('mocha-sinon');
@@ -52,7 +51,7 @@ describe("Testing of expressjs route for create a club", function () {
     });
 
     function assertClubCreatedAndViewUpdated(redirectView, spy, alertType, messages) {
-        stubCreateClub.should.have.been.calledWith(incomingExpressRequest.body.clubname, 
+        stubCreateClub.should.have.been.calledWith(incomingExpressRequest.body.clubname,
             incomingExpressRequest.body.fieldname, incomingExpressRequest.body.suburbname,
             incomingExpressRequest.body.cityname, incomingExpressRequest.body.adminemail, sinon.match.any);
         spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
@@ -62,13 +61,13 @@ describe("Testing of expressjs route for create a club", function () {
     }
 
     function assertViewUpdatedWithValidationMessageClubIsNotCreated(redirectView, spy, alertType, messages) {
-        stubCreateClub.should.not.have.been.called;
+        assert.equal(stubCreateClub.callCount, 0, 'Code to create the club should be called on a validation failure');
         spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
             type: alertType,
             messages: messages
         }}));
     }
-    
+
     function enactRequestBodyValidationTest(incomingExpressRequest, expectedMessage, done) {
         //2. exercise
         cc.post(incomingExpressRequest, outgoingExpressResponse);
