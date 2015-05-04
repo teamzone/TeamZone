@@ -8,6 +8,7 @@
 import tms = require('./ITeamManagementService');
 import assert = require('assert');
 import _ = require('underscore');
+var errTo = require('errto');
 var createError = require('errno').create;
 var AgeLimitError = createError('AgeLimitError');
 
@@ -115,33 +116,18 @@ export module Service {
 		**/
 		AddPlayerToSquad = (clubname: string, cityname: string, squadname: string, season: string, playeremail: string, callback: any, targetyear?: number)  => {
 			var squadplayers = this._squadplayers;
-
-			this.checkNotNullOrEmpty(clubname, 'clubname', callback);
-			this.checkNotNullOrEmpty(cityname, 'cityname', callback);
-			this.checkNotNullOrEmpty(squadname, 'squadname', callback);
-			this.checkNotNullOrEmpty(season, 'season', callback);
-			this.checkNotNullOrEmpty(playeremail, 'playeremail', callback);
-			this.checkEmailAddress(playeremail, 'The player email is invalid', callback);
-			this.checkPlayerAge(playeremail, clubname, cityname, squadname, season, function(err) {
-				if (err)
-					callback(err);
-				else {
-					var key = clubname + '~' + cityname + '~' + squadname + '~' + season + '~' + playeremail;
-			    	squadplayers.get(key, function(err) {
-			    		if(err && err.notFound) {
-							squadplayers.put(key, { playeremail: playeremail }, { sync: true }, function (err) {
-								if (err) 
-									callback(err);
-								else 
-									callback();
-					    	});
-			    		} else if (err) 
-			    			callback(err);
-					    else 
-					    	callback(new Error('Cannot add the same player twice to a squad'));
-			    	});
-				}
-			});
+			var squadkey = this.squadKeyMaker(clubname, cityname, squadname, season);
+			this.validatePlayerForSquadParameters(clubname, cityname, squadname, season, playeremail, targetyear, squadkey, errTo(callback, function() {
+				var key = squadkey + '~' + playeremail;
+		    	squadplayers.get(key, function(err) {
+		    		if(err && err.notFound) {
+						squadplayers.put(key, { playeremail: playeremail }, { sync: true }, errTo(callback, callback));
+		    		} else if (err) 
+		    			callback(err);
+				    else 
+				    	callback(new Error('Cannot add the same player twice to a squad'));
+		    	});
+			}));
 		}
 
 		/**
@@ -221,6 +207,35 @@ export module Service {
 		}
 		
 		/**
+		* Does qall the validation required for adding a player to a squad which includes checking the parameters and checking the age against the squad limit
+		* 
+		* @param {string} clubname - the name of the club (key) - we need to relate back to the club to find the true squad
+		* @param {string} cityname - the name of the city the club is in (key) - we need to relate back to the club to find the true squad
+		* @param {string} squadname - the name of the squad (key)
+		* @param {string} season - a name for the season the squad is playing in (key).  
+		* 						   For example 2015, 2014/15 - this should map to a season dataset for further details about the season.
+		* @param {string} playeremail - the email address of the player which will link to players under a club
+		* @param {number} targetyear - specified over the current year for the player age check
+ 		* @param {callback} callback - tell the caller if squad created or there was a failure
+		**/
+		validatePlayerForSquadParameters(clubname: string, cityname: string, squadname: string, season: string, playeremail: string, targetyear: number, squadkey: string, callback: any) {
+			var thismodule = this;
+			thismodule.checkNotNullOrEmpty(clubname, 'clubname', errTo(callback, function() {
+				thismodule.checkNotNullOrEmpty(cityname, 'cityname', errTo(callback, function() {
+					thismodule.checkNotNullOrEmpty(squadname, 'squadname', errTo(callback, function() {
+						thismodule.checkNotNullOrEmpty(season, 'season', errTo(callback, function() {
+							thismodule.checkNotNullOrEmpty(playeremail, 'playeremail', errTo(callback, function() {
+								thismodule.checkEmailAddress(playeremail, 'The player email is invalid', errTo(callback, function() {
+									thismodule.checkPlayerAge(thismodule, squadkey, playeremail, clubname, cityname, squadname, season, targetyear, errTo(callback, callback));
+								}));
+							}));
+						}));
+					}));
+				}));
+			}));
+		}
+		
+		/**
 		 * Create the key value for the clubs dataset
 		 * @param {string} clubname - the club is the first part of the key
 		 * @param {string} cityname - the city is the second part of the key
@@ -248,8 +263,9 @@ export module Service {
 		 **/
 	    checkNotNullOrEmpty(parametervalue: string, parametername: string, callback: any) {
 	    	if (parametervalue === undefined || parametervalue === null || parametervalue.trim().length === 0) {
-	    		callback(new Error('The argument ' + parametername + ' is a required argument'));
+	    		return callback(new Error('The argument ' + parametername + ' is a required argument'));
 	    	}
+	    	callback();
 	    }
 	    
 	    /**
@@ -260,8 +276,10 @@ export module Service {
 	     **/
 	    checkEmailAddress(email: string, invalidMessage: string, callback: any) {
 			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    		if (!re.test(email))
-    			callback(new Error(invalidMessage));
+    		if (!re.test(email)) {
+    			return callback(new Error(invalidMessage));
+    		}
+    		callback();
 	    }
 
 	    /**
@@ -271,27 +289,23 @@ export module Service {
 		 * @param {string} cityname - use to get squad details to enable checking of details of the squad
 	     * @param {string} squadname - use to get squad details to enable checking of details of the squad
 	     * @param {string} season - use to get squad details to enable checking of details of the squad
+		 * @param {number} targetyear - specified over the current year for the player age check
 	     * @param {callback} callback - notification of error or success
-		 * @param {number} targetyear - optionally specified over the current year for the player age check
 	     **/
-		checkPlayerAge(playeremail: string, clubname: string, cityname: string, squadname: string, season: string, callback: any, targetyear?: number) {
-			//get player details from playerdb
-			var squads = this._squads;
-			var squadkey = this.squadKeyMaker(clubname, cityname, squadname, season);
-			var playerAgeChecker = this.comparePlayerAgeWithRulesForPlayerAgesAndSquads;
-			var overAgeChecker = this.isPlayerRightAgeForOverAgeSquad;
-			var underAgeChecker = this.isPlayerRightAgeForUnderAgeSquad;
-			this._players.get(clubname + '~' + cityname + '~' + playeremail, function(err, playervalue) {
+		checkPlayerAge(thismodule: any, squadkey: string, playeremail: string, clubname: string, cityname: string, squadname: string, season: string, targetyear: number, callback: any) {
+			var playerAgeChecker = thismodule.comparePlayerAgeWithRulesForPlayerAgesAndSquads;
+			var overAgeChecker = thismodule.isPlayerRightAgeForOverAgeSquad;
+			var underAgeChecker = thismodule.isPlayerRightAgeForUnderAgeSquad;
+			thismodule._players.get(clubname + '~' + cityname + '~' + playeremail, function(err, playervalue) {
 				if (err) 
 					callback(err);
 				else {
-					squads.get(squadkey, function(err, squadvalue) {
+					thismodule._squads.get(squadkey, function(err, squadvalue) {
 						if (err)
 							callback(err);
 						else {
 							playerAgeChecker(targetyear, playervalue.dob, squadvalue.agelimit, overAgeChecker, underAgeChecker, callback);
 						}
-						callback();
 					});
 				} 
 			});
@@ -321,8 +335,10 @@ export module Service {
 				targetyear = new Date(Date.now()).getFullYear();
 			var playerdob = new Date(playersdob);
 			var playerage: number = targetyear - playerdob.getFullYear();
-			if (isPlayerRightAgeForOverAgeSquad(squadagelimit, playerage, callback)) return;
-			isPlayerRightAgeForUnderAgeSquad(squadagelimit, playerage, callback);
+			isPlayerRightAgeForOverAgeSquad(squadagelimit, playerage, 
+				errTo(callback, function() { 
+					isPlayerRightAgeForUnderAgeSquad(squadagelimit, playerage, errTo(callback, callback));	
+				}));
 		}
 		
 	    /**
@@ -332,18 +348,16 @@ export module Service {
 		 * @param {string} squadagelimit - a string that represents the age limit, could be under 12 or could be over 16
 	     * @param {callback} callback - notification of error. Completion means no callback.  The last in the chain should handle that
 	     **/		
-		isPlayerRightAgeForOverAgeSquad(squadagelimit: string, playerage: number, callback: any) : boolean {
+		isPlayerRightAgeForOverAgeSquad(squadagelimit: string, playerage: number, callback: any) {
 			var prefix: string = 'over';
 			var ageLimitYears: number;
-			var checkCompleted: boolean = false;
 			if (squadagelimit.substring(0, prefix.length) === prefix) {
 				ageLimitYears = Number(squadagelimit.substring(prefix.length).trim());
 				if (playerage < ageLimitYears) {
-					callback(new AgeLimitError('Player does not qualify for the squad due to being underaged'));
+					return callback(new AgeLimitError('Player does not qualify for the squad due to being underaged'));
 				} 
-				checkCompleted = true;
 			}
-			return checkCompleted;
+			callback();
 		}
 
 	    /**
@@ -353,18 +367,16 @@ export module Service {
 		 * @param {string} squadagelimit - a string that represents the age limit, could be under 12 or could be over 16
 	     * @param {callback} callback - notification of error. Completion means no callback.  The last in the chain should handle that
 	     **/		
-		isPlayerRightAgeForUnderAgeSquad(squadagelimit: string, playerage: number, callback: any) : boolean {
+		isPlayerRightAgeForUnderAgeSquad(squadagelimit: string, playerage: number, callback: any) {
 			var prefix: string = 'under';
 			var ageLimitYears: number;
-			var checkCompleted: boolean = false;
 			if (squadagelimit.substring(0, prefix.length) === prefix) {
 				ageLimitYears = Number(squadagelimit.substring(prefix.length).trim());
 				if (playerage > ageLimitYears) {
-					callback(new AgeLimitError('Player does not qualify for the squad due to being over age'));
-				}
-				checkCompleted = true;
+					return callback(new AgeLimitError('Player does not qualify for the squad due to being over age'));
+				} 
 			}
-			return checkCompleted;
+			callback();
 		}
 	}
 }
