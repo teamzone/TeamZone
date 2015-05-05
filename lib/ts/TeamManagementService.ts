@@ -40,30 +40,36 @@ export module Service {
 		* @param {string} adminemail - the email address of the main administrator of the club.  Usually the person creating the club.
 		* @param {callback} callback - tell the caller if club created or there was a failure
 		**/
-		CreateClub = (clubname: string, fieldname: string, suburbname: string, cityname: string, adminemail: string, callback: any)  => {
-			this.checkNotNullOrEmpty(clubname, 'clubname', callback);
-			this.checkNotNullOrEmpty(fieldname, 'fieldname', callback);
-			this.checkNotNullOrEmpty(suburbname, 'suburbname', callback);
-			this.checkNotNullOrEmpty(cityname, 'cityname', callback);
-			this.checkNotNullOrEmpty(adminemail, 'adminemail', callback);
-			this.checkEmailAddress(adminemail, 'The admin email is invalid', callback);
+		CreateClub = (clubname: string, fieldname: string, suburbname: string, cityname: string, adminemail: string, callback: any) => {
 			var clubs = this._clubs;
 			var key = this.clubKeyMaker(clubname, cityname);
-	    	clubs.get(key, function(err) {
-	    		if(err && err.notFound) {
-					clubs.put(key, { field: fieldname, suburb: suburbname, admin: adminemail }, { sync: true }, function (err) {
-						if (err) {
-							callback(err);
-						} else {
-							callback();
-						}
-			    	});
-	    		} else if (err) {
-	    			callback(err);
-			    } else {
-			    	callback(new Error('Club in the same city cannot be created more than once'));
-			    }
-			});
+			this.validateParameters(this.validationParametersForCreatingClub(clubname, fieldname, suburbname, cityname, adminemail), errTo(callback, function() {
+		    	clubs.get(key, function(err) {
+		    		if(err && err.notFound) {
+						clubs.put(key, { field: fieldname, suburb: suburbname, admin: adminemail }, { sync: true }, errTo(callback, callback));
+		    		} else if (err) {
+		    			callback(err);
+				    } else {
+				    	callback(new Error('Club in the same city cannot be created more than once'));
+				    }
+				});
+			}));
+		}
+
+		/**
+		* Supplies an array parameter values and their names and links to the validations required for these parameters
+		* @param {string} clubname - the name of the club to be created.
+		* @param {string} fieldname - the home field of the club.
+		* @param {string} suburbname - the suburb of the home field and/or club.
+		* @param {string} cityname - the name of the city the club plays in.
+		* @param {string} adminemail - the email address of the main administrator of the club.  Usually the person creating the club.
+		**/
+		validationParametersForCreatingClub(clubname: string, fieldname: string, suburbname: string, cityname: string, adminemail: string) : any {
+			return [ 
+				{ name: 'clubname', content: clubname, validations: [ this.checkNotNullOrEmpty ] }, { name: 'fieldname', content: fieldname, validations: [ this.checkNotNullOrEmpty ] }, 
+			  	{ name: 'suburbname', content: suburbname, validations: [ this.checkNotNullOrEmpty ] }, { name: 'cityname', content: cityname, validations: [ this.checkNotNullOrEmpty ] }, 
+			  	{ name: 'adminemail', content: adminemail, validations: [ this.checkNotNullOrEmpty, { v: this.checkEmailAddress, m: 'The admin email is invalid' } ] }
+			];
 		}
 		
 		/**
@@ -76,31 +82,37 @@ export module Service {
 		* @param {string} admin - the email address of the main administrator of the squad.  Usually a coach.
 		* @param {callback} callback - tell the caller if squad created or there was a failure
 		**/
-		CreateSquad = (clubname: string, cityname: string, squadname: string, season: string, agelimit: string, admin: string, callback: any)  => {
-			this.checkNotNullOrEmpty(clubname, 'clubname', callback);
-			this.checkNotNullOrEmpty(cityname, 'cityname', callback);
-			this.checkNotNullOrEmpty(squadname, 'squadname', callback);
-			this.checkNotNullOrEmpty(season, 'season', callback);
-			this.checkNotNullOrEmpty(agelimit, 'agelimit', callback);
-			this.checkNotNullOrEmpty(admin, 'admin', callback);
-			this.checkEmailAddress(admin, 'The admin email is invalid', callback);
-			var squads = this._squads;
+		CreateSquad = (clubname: string, cityname: string, squadname: string, season: string, agelimit: string, admin: string, callback: any) => {
 			var key = this.squadKeyMaker(clubname, cityname, squadname, season);
-	    	squads.get(key, function(err) {
-	    		if(err && err.notFound) {
-					squads.put(key, { agelimit: agelimit, admin: admin }, { sync: true }, function (err) {
-						if (err) {
-							callback(err);
-						} else {
-							callback();
-						}
-			    	});
-	    		} else if (err) {
-	    			callback(err);
-			    } else {
-			    	callback(new Error('Squad in the same club and season cannot be created more than once'));
-			    }
-			});
+			var squads = this._squads;
+			this.validateParameters(this.validationParametersForCreatingSquad(clubname, cityname, squadname, season, agelimit, admin), errTo(callback, function() {
+		    	squads.get(key, function(err) {
+		    		if(err && err.notFound) {
+						squads.put(key, { agelimit: agelimit, admin: admin }, { sync: true },  errTo(callback, callback));
+		    		} else if (err) {
+		    			callback(err);
+				    } else {
+				    	callback(new Error('Squad in the same club and season cannot be created more than once'));
+				    }
+				});
+			}));
+		}
+
+		/**
+		* Supplies an array parameter values and their names and links to the validations required for these parameters
+		* @param {string} clubname - the name of the club to be created (key), notionally used as squads are created under clubs anyway.
+		* @param {string} cityname - the name of the city the club plays in (key), notionally used as squads are created under clubs anyway.
+		* @param {string} squadname - the name of the squad (key)
+		* @param {string} season - a name for the season the squad is playing in (key).  
+		* @param {string} admin - the email address of the main administrator of the squad.  Usually a coach.
+		**/
+		validationParametersForCreatingSquad(clubname: string, cityname: string, squadname: string, season: string, agelimit: string, admin: string) : any {
+			return [ 
+				{ name: 'clubname', content: clubname, validations: [ this.checkNotNullOrEmpty ] }, { name: 'squadname', content: squadname, validations: [ this.checkNotNullOrEmpty ] },
+				{ name: 'cityname', content: cityname, validations: [ this.checkNotNullOrEmpty ] },
+			  	{ name: 'season', content: season, validations: [ this.checkNotNullOrEmpty ] }, { name: 'agelimit', content: agelimit, validations: [ this.checkNotNullOrEmpty ] }, 
+			  	{ name: 'admin', content: admin, validations: [ this.checkNotNullOrEmpty, { v: this.checkEmailAddress, m: 'The admin email is invalid' } ] }
+			];
 		}
 
 		/**
@@ -205,9 +217,79 @@ export module Service {
 	                callback(err);
 	            });
 		}
+
+		/**
+		* Enacts a series of validations on parameter values
+		* 
+		* @param {any} parameters - consists of an array of parameter values, names and associated validations
+		* @param {callback} callback - a failure to validate correctly results in immediate notification to the caller with no other validations taking place
+		**/
+		validateParameters(parameters: any, callback: any) {
+			var validationCalls = this.flattenValidationCalls(parameters);
+			var validationCallsLength = validationCalls.length;
+			if (validationCallsLength === 0) return callback();
+			if (validationCallsLength === 1) {
+				validationCalls[0].validator(validationCalls[0].fieldcontent, validationCalls[0].fieldname, errTo(callback, callback), validationCalls[0].message);
+			} else {
+				// obtaining a reference to the function to enable recursive processing in javascript
+				var process = this.processFlattenedValidationCalls;
+				process(validationCalls, 0, validationCallsLength, process, errTo(callback, callback));
+			}
+		}
+
+		/**
+		* Called from validateParameters to process a list of parameters and validate their values.  Is called recursively to process values
+		* and work in with errTo and callback processing
+		* 
+		* @param {any} validationCalls - this is a more function friendly representation of the parameters to process with the functions repeated for 
+		* 		each parameter.
+		* @param {number} processed - processed number of parameters. Gets incremented after each sucessful validation
+		* @param {number} totalValidations - the total number of validations to process and compared with processed to check for end state
+		* @param {callback} callback - a failure to validate correctly results in immediate notification to the caller with no other validations taking place
+		**/
+		processFlattenedValidationCalls(validationCalls: any, processed: number, totalValidations: number, process: any, callback: any) {
+			if (processed === totalValidations) return callback();
+			var parameter: any;
+			parameter = validationCalls[processed];
+			parameter.validator(parameter.content, parameter.name, errTo(callback, function() {
+				process(validationCalls, processed + 1, totalValidations, process, errTo(callback, callback));
+			}), parameter.message);
+		}
+
+		/**
+		* Called from validateParameters to flatten the list of parameters so that the array is a simple linear list of parameter names, content
+		* 	and validations.  This makes the processing of the validations easier for processFlattenedValidationCalls
+		* 
+		* @param {any} parameters - consists of an array of parameter values, names and associated validations
+		* @param {callback} callback - a failure to validate correctly results in immediate notification to the caller with no other validations taking place
+		* @returns {any} a flattened array of parameter names, content and validation - names and content will be repeated if there are multiple validations for
+		* 	the same parameter name/content pair.
+		**/
+		flattenValidationCalls(parameters: any) {
+			var calls = [];
+			var parameterslength = parameters.length;
+			var validationslength: number;
+			var i: number;
+			var j: number;
+			var parameter: any;
+			var validation: any;
+			for (i = 0; i < parameterslength; i = i + 1) {
+				parameter = parameters[i];
+				validationslength = parameter.validations.length;
+				for (j = 0; j < validationslength; j = j + 1) {
+					validation = parameter.validations[j];
+					if (validation.v !== undefined) {
+						calls.push({ name: parameter.name, content: parameter.content, validator: validation.v, message: validation.m });
+					} else {
+						calls.push({ name: parameter.name, content: parameter.content, validator: validation, message: undefined });
+					}
+				}
+			}
+			return calls;
+		}
 		
 		/**
-		* Does qall the validation required for adding a player to a squad which includes checking the parameters and checking the age against the squad limit
+		* Does all the validation required for adding a player to a squad which includes checking the parameters and checking the age against the squad limit
 		* 
 		* @param {string} clubname - the name of the club (key) - we need to relate back to the club to find the true squad
 		* @param {string} cityname - the name of the city the club is in (key) - we need to relate back to the club to find the true squad
@@ -225,9 +307,9 @@ export module Service {
 					thismodule.checkNotNullOrEmpty(squadname, 'squadname', errTo(callback, function() {
 						thismodule.checkNotNullOrEmpty(season, 'season', errTo(callback, function() {
 							thismodule.checkNotNullOrEmpty(playeremail, 'playeremail', errTo(callback, function() {
-								thismodule.checkEmailAddress(playeremail, 'The player email is invalid', errTo(callback, function() {
+								thismodule.checkEmailAddress(playeremail, 'playeremail', errTo(callback, function() {
 									thismodule.checkPlayerAge(thismodule, squadkey, playeremail, clubname, cityname, squadname, season, targetyear, errTo(callback, callback));
-								}));
+								}), 'The player email is invalid');
 							}));
 						}));
 					}));
@@ -261,7 +343,7 @@ export module Service {
 		 * @param {string} parametername - the name of the value to check
 		 * @param {callback} callback - will get called with the error if it exists
 		 **/
-	    checkNotNullOrEmpty(parametervalue: string, parametername: string, callback: any) {
+	    checkNotNullOrEmpty(parametervalue: string, parametername: string, callback: any, invalidMessage?: string) {
 	    	if (parametervalue === undefined || parametervalue === null || parametervalue.trim().length === 0) {
 	    		return callback(new Error('The argument ' + parametername + ' is a required argument'));
 	    	}
@@ -274,7 +356,7 @@ export module Service {
 	     * @param {string} invalidMessage - a message to include in an Error when email address is invalid
 	     * @param {callback} callback - notification of an error in an email address
 	     **/
-	    checkEmailAddress(email: string, invalidMessage: string, callback: any) {
+	    checkEmailAddress(email: string, parametername: string, callback: any, invalidMessage?: string) {
 			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     		if (!re.test(email)) {
     			return callback(new Error(invalidMessage));
