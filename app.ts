@@ -76,10 +76,6 @@ routeConfig.registerRoutes();
 app.route('/')
   .get(routes.index);
   
-app.route('/AddPlayer')
-  .get(restrict, routes.addPlayer)
-  .post(restrict, routes.AddPlayer);
-  
 app.route('/dashboard')
   .get(restrict, routes.dashboard);
   

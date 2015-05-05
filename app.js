@@ -62,7 +62,6 @@ var RouteConfig = require('./RouteConfig');
 var routeConfig = new RouteConfig(app);
 routeConfig.registerRoutes();
 app.route('/').get(routes.index);
-app.route('/AddPlayer').get(restrict, routes.addPlayer).post(restrict, routes.AddPlayer);
 app.route('/dashboard').get(restrict, routes.dashboard);
 app.route('/logout').get(routes.logout);
 app.listen(app.get('port'), function () {

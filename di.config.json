@@ -7,6 +7,7 @@
     { "item": "./lib/SquadPlayerRepository", "dependencies": [], "scope": "transient" }
   ],
   "services": [
+    { "item": "./lib/ts/PlayerManagementService", "dependencies": [ "./lib/PlayerRepository"], "scope": "webrequest" },
     { "item": "./lib/ts/UserManagementService", "dependencies": [ "./lib/UserRepository", "./lib/CryptService", "./lib/TokenService", "./lib/ts/MailGunAPIEmailVerifyService"], "scope": "webrequest" },
     { "item": "./lib/ts/TeamManagementService", "dependencies": [ "./lib/ClubRepository", "./lib/SquadRepository", "./lib/PlayerRepository", "./lib/SquadPlayerRepository"], "scope": "webrequest" },
     { "item": "./lib/CryptService", "dependencies": [], "scope": "transient" },
@@ -18,6 +19,7 @@
     { "item": "./routes/userConfirm", "dependencies": [ "./lib/ts/UserManagementService" ], "scope": "webrequest" },
     { "item": "./routes/createClub", "dependencies": [ "./lib/ts/TeamManagementService" ], "scope": "webrequest" },
     { "item": "./routes/createSquad", "dependencies": [ "./lib/ts/TeamManagementService" ], "scope": "webrequest" },
+    { "item": "./routes/addPlayer", "dependencies": [ "./lib/ts/PlayerManagementService" ], "scope": "webrequest" },
     { "item": "./routes/addSquadPlayer", "dependencies": [ "./lib/ts/TeamManagementService" ], "scope": "webrequest" }
   ]
 }

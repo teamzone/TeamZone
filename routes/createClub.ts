@@ -62,7 +62,7 @@ export class CreateClub implements webRequest.IWebRequest {
         var suburbname = req.body.suburbname;
         var fieldname = req.body.fieldname;
         var adminemail = req.body.adminemail;
-        tms.CreateClub(clubname, cityname, suburbname, fieldname, adminemail, function(err) {
+        tms.CreateClub(clubname, fieldname, suburbname, cityname, adminemail, function(err) {
           if (err) {
             flash.type = 'alert-danger';
             flash.messages = [{ msg: err.message }];
