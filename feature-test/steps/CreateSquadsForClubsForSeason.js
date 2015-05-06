@@ -21,8 +21,8 @@ var useremailfieldname = 'adminemail',
     seasonfieldname = 'season',
     agelimitfieldname = 'agelimit';
 
-function createSquad(tms, clubname, cityname, season, squadname, agelimit, creatinguser, createdSquads, currentClubCount, currentSquadInClubCount, totalClubCount, totalSquadsInClubCount, next) {
-    tms.CreateSquad(clubname, cityname, squadname, season, agelimit, creatinguser,
+function createSquad(sms, clubname, cityname, season, squadname, agelimit, creatinguser, createdSquads, currentClubCount, currentSquadInClubCount, totalClubCount, totalSquadsInClubCount, next) {
+    sms.CreateSquad(clubname, cityname, squadname, season, agelimit, creatinguser,
         function (err) {
             if (err) {
                 assert.fail(err, undefined, "Error in creating the squad back with error: " + err.message);
@@ -36,7 +36,7 @@ function createSquad(tms, clubname, cityname, season, squadname, agelimit, creat
         });
 }
 
-function createSquads(testdata, tms, createdSquads, clubnamefieldname, citynamefieldname, seasonfieldname,
+function createSquads(testdata, sms, createdSquads, clubnamefieldname, citynamefieldname, seasonfieldname,
                       squadsfieldname, squadnamefieldname, agelimitfieldname, useremailfieldname, totalClubCount, next) {
     var testdatalength = testdata.length,
         currentarrayitem,
@@ -61,7 +61,7 @@ function createSquads(testdata, tms, createdSquads, clubnamefieldname, citynamef
         for (j = 0; j < squadslength; j = j + 1) {
             squadname = squads[j][squadnamefieldname];
             agelimit = squads[j][agelimitfieldname];
-            createSquad(tms, clubname, cityname, season, squadname, agelimit, creatinguser, createdSquads, i, j, totalClubCount, squadslength, next);
+            createSquad(sms, clubname, cityname, season, squadname, agelimit, creatinguser, createdSquads, i, j, totalClubCount, squadslength, next);
         }
     }
 }
@@ -109,7 +109,7 @@ module.exports = (function () {
             // with the parsing as well
 
             // 2. Exercise
-            createSquads(this.interpreter_context.testdata, this.interpreter_context.tms, this.interpreter_context.createdSquads,
+            createSquads(this.interpreter_context.testdata, this.interpreter_context.sms, this.interpreter_context.createdSquads,
                          clubnamefieldname, citynamefieldname, seasonfieldname,
                          squadsfieldname, squadnamefieldname, agelimitfieldname, useremailfieldname,
                          this.interpreter_context.testdata.length, next);

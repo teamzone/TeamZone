@@ -26,13 +26,13 @@ function AddPlayerToSquadHelpers() {
     * @param {string} playerphone - a personal or contact phone number for the player
     * @param {callback} next - continuation callback 
     */
-    this.CreatePlayersForTheTest = function (interpreter_context, playerfirstname, playerlastname,
+    this.CreatePlayersForTheTest = function (interpreter_context, club, city, playerfirstname, playerlastname,
         playerdob, playeremail, playeraddress, playersuburb, playerpostcode, playerphone, next) {
         //these players need to be added as players to the db for the next part of the test to work
         var playersDb = interpreter_context.playersDb,
             createdPlayers = interpreter_context.createdPlayers,
             dbh = new dbhelpers(true);
-        dbh.CreatePlayer(playersDb, createdPlayers, playeremail, playerfirstname,
+        dbh.CreatePlayer(playersDb, createdPlayers, playeremail, club, city, playerfirstname,
                          playerlastname, playerdob, playeraddress, playersuburb,
                          playerpostcode, playerphone, next, true);
     };
@@ -56,7 +56,7 @@ function AddPlayerToSquadHelpers() {
     this.ExecuteAdditionOfPlayerToSquad = function (interpreter_context, clubname, cityname, squadname, season, playerToAddEmail, currentItemCount, totalItemCount, next) {
         var createdSquadPlayers = interpreter_context.createdSquadPlayers,
             targetyear = Number(season.replace('Season ', ''));
-        interpreter_context.tms.AddPlayerToSquad(clubname, cityname, squadname, season, playerToAddEmail, function (err) {
+        interpreter_context.sms.AddPlayerToSquad(clubname, cityname, squadname, season, playerToAddEmail, function (err) {
             if (err) {
                 assert.fail(err, undefined, "Failed because of error in AddPlayerToSquad:  " + err.message + ' Player: ' + playerToAddEmail);
             }

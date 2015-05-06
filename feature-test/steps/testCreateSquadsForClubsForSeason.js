@@ -6,7 +6,7 @@
 
 var path = require('path');
 var Yadda = require('yadda');
-var teammanagementservice = require('../../lib/ts/TeamManagementService'); // The library that you wish to test
+var squadmanagementservice = require('../../lib/ts/SquadManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
 var dbhelpers = require('./common/DbHelpers');
 var library = require('./CreateSquadsForClubsForSeason');
@@ -25,8 +25,8 @@ before(function (done) {
         var usersDb = dbf.userdb(database.leveldb),
             clubsDb = dbf.clubdb(database.leveldb),
             squadsDb = dbf.squaddb(database.leveldb),
-            tms = new teammanagementservice(clubsDb, squadsDb);
-        interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, createdUsers: [], createdClubs: [], createdSquads: [] };
+            sms = new squadmanagementservice(squadsDb);
+        interpreter_context = { sms: sms, database: database, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, createdUsers: [], createdClubs: [], createdSquads: [] };
         yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
         done();
     });

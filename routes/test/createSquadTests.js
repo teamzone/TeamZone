@@ -6,11 +6,9 @@
 
 var createsquad = require('../createSquad');
 var sinon = require('sinon');
-var assert = require('assert');
-var teammanagementservice = require('../../lib/ts/TeamManagementService');
+var squadmanagementservice = require('../../lib/ts/SquadManagementService');
 var sinonChai = require("sinon-chai");
 var chai = require("chai");
-var expect = chai.expect;
 chai.should();
 chai.use(sinonChai);
 require('mocha-sinon');
@@ -21,14 +19,14 @@ describe("Testing of expressjs route for create a squad", function () {
     var cs,
         sandbox,
         stubCreateClub,
-        tms,
+        cms,
         incomingExpressRequest,
         outgoingExpressResponse,
         outgoingExpressResponseSpy;
 
     beforeEach(function () {
 
-        tms = new teammanagementservice(null);
+        cms = new squadmanagementservice(null);
         incomingExpressRequest = {
             body: { clubname: 'Western Knights', cityname: 'Perth', squadname: '1st team', season: '2015', adminemail: 'mel.taylor-gainsford@wk.com.au', agelimit: 'unrestricted' },
             session: { authenticated: true, user: { } }
@@ -39,7 +37,7 @@ describe("Testing of expressjs route for create a squad", function () {
 
         //sandbox to cleanup global spies
         sandbox = sinon.sandbox.create();
-        stubCreateClub = sandbox.stub(tms, 'CreateSquad');
+        stubCreateClub = sandbox.stub(cms, 'CreateSquad');
         stubCreateClub.yields(null);
         outgoingExpressResponse = {
             redirect: function (view) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', view); },
@@ -48,7 +46,7 @@ describe("Testing of expressjs route for create a squad", function () {
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
 
         //this will be setup to be injected soon enough
-        cs = new createsquad(tms);
+        cs = new createsquad(cms);
     });
 
     function assertSquadCreatedAndViewUpdated(redirectView, spy, alertType, messages) {

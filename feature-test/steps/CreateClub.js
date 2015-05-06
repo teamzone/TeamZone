@@ -7,7 +7,7 @@
 var assert = require('assert');
 var English = require('yadda').localisation.English;
 var dbhelpers = require('./common/DbHelpers');
-var tms;
+var cms;
 var clubname;
 var fieldname;
 var suburbname;
@@ -20,7 +20,7 @@ module.exports = (function () {
 
         // Background
         .given("The user $firstname $lastname is logged into the site.", function (firstname, lastname, next) {
-            tms = this.interpreter_context.tms;
+            cms = this.interpreter_context.cms;
             var createdUsers = this.interpreter_context.createdUsers,
                 usersDb = this.interpreter_context.usersDb,
                 dbh = new dbhelpers();
@@ -40,7 +40,7 @@ module.exports = (function () {
 
         .when("the club is saved", function (next) {
             var createdClubs = this.interpreter_context.createdClubs;
-            tms.CreateClub(clubname, fieldname, suburbname, cityname, email,
+            cms.CreateClub(clubname, fieldname, suburbname, cityname, email,
                 function (err) {
                     if (err) {
                         assert.fail(err, undefined, "Error in creating the club back with error: " + err.message);

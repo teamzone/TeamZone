@@ -10,7 +10,7 @@
 
 import express = require("express");
 import Flash = require("./flash");
-import Service = require("../lib/ts/ITeamManagementService");
+import Service = require("../lib/ts/ISquadManagementService");
 import webRequest = require("./IWebRequest");
 
 /*
@@ -24,7 +24,7 @@ export class CreateSquad implements webRequest.IWebRequest {
     * @constructor
     * @param {ITeamManagementService} _tms - service to provide the ability to create a new club.
     **/  
-    constructor(private _tms: Service.ITeamManagementService) { 
+    constructor(private _cms: Service.ISquadManagementService) { 
     }
     
     /**
@@ -47,7 +47,7 @@ export class CreateSquad implements webRequest.IWebRequest {
         var flash: Flash = new Flash();
         
         //work around for access to ums in nested callback code
-        var tms = this._tms;
+        var cms = this._cms;
         
         if (errors && errors.length > 0) {
             var errorCount: number = errors.length;
@@ -65,7 +65,7 @@ export class CreateSquad implements webRequest.IWebRequest {
             var squadname = req.body.squadname;
             var agelimit = req.body.agelimit;
             var adminemail = req.body.adminemail;
-            tms.CreateSquad(clubname, cityname, squadname, season, agelimit, adminemail, function(err) {
+            cms.CreateSquad(clubname, cityname, squadname, season, agelimit, adminemail, function(err) {
                 if (err) {
                     flash.type = 'alert-danger';
                     flash.messages = [{ msg: err.message }];

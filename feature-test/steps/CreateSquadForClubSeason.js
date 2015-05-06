@@ -7,7 +7,7 @@
 var assert = require('assert');
 var English = require('yadda').localisation.English;
 var dbhelpers = require('./common/DbHelpers');
-var tms;
+var sms;
 var clubname;
 var squadname;
 var agelimit;
@@ -24,7 +24,7 @@ module.exports = (function () {
             function (firstname, lastname, club, city, field, suburb, next) {
                 clubname = club;
                 cityname = city;
-                tms = this.interpreter_context.tms;
+                sms = this.interpreter_context.sms;
                 var today = new Date(),
                     createdUsers = this.interpreter_context.createdUsers,
                     createdClubs = this.interpreter_context.createdClubs,
@@ -48,7 +48,7 @@ module.exports = (function () {
 
         .when("the squad is saved", function (next) {
             var createdSquads = this.interpreter_context.createdSquads;
-            tms.CreateSquad(clubname, cityname, squadname, season, agelimit, email,
+            sms.CreateSquad(clubname, cityname, squadname, season, agelimit, email,
                 function (err) {
                     if (err) {
                         assert.fail(err, undefined, "Error in creating the squad back with error: " + err.message +

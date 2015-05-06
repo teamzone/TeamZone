@@ -8,7 +8,7 @@
 
 import express = require("express");
 import Flash = require("./flash");
-import Service = require("../lib/ts/ITeamManagementService");
+import Service = require("../lib/ts/IClubManagementService");
 import webRequest = require("./IWebRequest");
 import expressValidator = require('express-validator');
 
@@ -23,7 +23,7 @@ export class CreateClub implements webRequest.IWebRequest {
   * @constructor
   * @param {ITeamManagementService} _tms - service to provide the ability to create a new club.
   **/  
-  constructor(private _tms: Service.ITeamManagementService) { 
+  constructor(private _cms: Service.IClubManagementService) { 
   }
   
   /**
@@ -45,7 +45,7 @@ export class CreateClub implements webRequest.IWebRequest {
     var flash: Flash = new Flash();
     
     //work around for access to ums in nested callback code
-    var tms = this._tms;
+    var cms = this._cms;
     
     if (errors && errors.length > 0) {
       var errorCount: number = errors.length;
@@ -62,7 +62,7 @@ export class CreateClub implements webRequest.IWebRequest {
         var suburbname = req.body.suburbname;
         var fieldname = req.body.fieldname;
         var adminemail = req.body.adminemail;
-        tms.CreateClub(clubname, fieldname, suburbname, cityname, adminemail, function(err) {
+        cms.CreateClub(clubname, fieldname, suburbname, cityname, adminemail, function(err) {
           if (err) {
             flash.type = 'alert-danger';
             flash.messages = [{ msg: err.message }];

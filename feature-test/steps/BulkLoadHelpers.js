@@ -106,9 +106,9 @@ function BulkLoadHelpers() {
         }
     };
 
-    this.CreatePlayer = function (dbh, playersdb, createdPlayers, playerfirstname, playerlastname, playerdob, playeremail,
+    this.CreatePlayer = function (dbh, playersdb, createdPlayers, clubname, cityname, playerfirstname, playerlastname, playerdob, playeremail,
         playeraddress, playersuburb, playerpostcode, playerphone, currentItemCount, totalItemCount, next) {
-        dbh.CreatePlayer(playersdb, createdPlayers, playeremail, playerfirstname, playerlastname, playerdob, playeraddress, playersuburb, playerpostcode, playerphone,
+        dbh.CreatePlayer(playersdb, createdPlayers, playeremail, clubname, cityname, playerfirstname, playerlastname, playerdob, playeraddress, playersuburb, playerpostcode, playerphone,
             function () {
                 if (currentItemCount === totalItemCount - 1) {
                     //all done -- continue on
@@ -117,14 +117,15 @@ function BulkLoadHelpers() {
             }, true);
     };
 
-    this.CreatePlayers = function (testdata, dbh, playersdb, createdPlayers, firstnamefieldname, lastnamefieldname, dobfieldname, addressfieldname,
+    this.CreatePlayers = function (testdata, dbh, playersdb, createdPlayers, clubnamefieldname, citynamefieldname, firstnamefieldname, lastnamefieldname, dobfieldname, addressfieldname,
                                    suburbfieldname, postcodefieldname, phonefieldname, emailfieldname, next) {
         var testdatalength = testdata.length,
             currentarrayitem,
             i;
         for (i = 0; i < testdatalength; i = i + 1) {
             currentarrayitem = testdata[i];
-            this.CreatePlayer(dbh, playersdb, createdPlayers, currentarrayitem[firstnamefieldname], currentarrayitem[lastnamefieldname],
+            this.CreatePlayer(dbh, playersdb, createdPlayers, currentarrayitem[clubnamefieldname], currentarrayitem[citynamefieldname],
+                currentarrayitem[firstnamefieldname], currentarrayitem[lastnamefieldname],
                 currentarrayitem[dobfieldname], currentarrayitem[emailfieldname], currentarrayitem[addressfieldname],
                 currentarrayitem[suburbfieldname], currentarrayitem[postcodefieldname],
                 currentarrayitem[phonefieldname], i, testdatalength, next);
@@ -132,5 +133,4 @@ function BulkLoadHelpers() {
     };
 
 }
-
 module.exports = BulkLoadHelpers;

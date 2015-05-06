@@ -27,7 +27,8 @@ module.exports = (function () {
         .when("the coach selects player $firstname, $surname, $dob, $email", function (playerfirstname, playerlastname, playerdob, playeremail, next) {
             this.interpreter_context.playerToAddEmail = playeremail;
             //don't need all the data, can make some of it up and it's not material to the test
-            ths.CreatePlayersForTheTest(this.interpreter_context, playerfirstname, playerlastname, playerdob, playeremail,
+            ths.CreatePlayersForTheTest(this.interpreter_context, this.interpreter_context.clubname, this.interpreter_context.cityname,
+                playerfirstname, playerlastname, playerdob, playeremail,
                 '1 Smith Street', 'Mosman Park', '6011', '0411 213 537', next);
         })
 

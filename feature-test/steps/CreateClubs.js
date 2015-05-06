@@ -35,8 +35,8 @@ function createUsers(testdata, useremailfieldname, userfirstnamefieldname, userl
     }
 }
 
-function createClub(tms, clubname, fieldname, suburbname, cityname, adminemail, createdClubs, currentClubCount, totalClubCount, next) {
-    tms.CreateClub(clubname, fieldname, suburbname, cityname, adminemail,
+function createClub(cms, clubname, fieldname, suburbname, cityname, adminemail, createdClubs, currentClubCount, totalClubCount, next) {
+    cms.CreateClub(clubname, fieldname, suburbname, cityname, adminemail,
         function (err) {
             if (err) {
                 assert.fail(err, undefined, "Error in CreateClub with error: " + err.message);
@@ -49,13 +49,13 @@ function createClub(tms, clubname, fieldname, suburbname, cityname, adminemail, 
         });
 }
 
-function createClubs(testdata, tms, createdClubs, clubnamefieldname, fieldnamefieldname, suburbnamefieldname, citynamefieldname, useremailfieldname, next) {
+function createClubs(testdata, cms, createdClubs, clubnamefieldname, fieldnamefieldname, suburbnamefieldname, citynamefieldname, useremailfieldname, next) {
     var testdatalength = testdata.length,
         i,
         currentarrayitem;
     for (i = 0; i < testdatalength; i = i + 1) {
         currentarrayitem = testdata[i];
-        createClub(tms, currentarrayitem[clubnamefieldname], currentarrayitem[fieldnamefieldname], currentarrayitem[suburbnamefieldname],
+        createClub(cms, currentarrayitem[clubnamefieldname], currentarrayitem[fieldnamefieldname], currentarrayitem[suburbnamefieldname],
             currentarrayitem[citynamefieldname], currentarrayitem[useremailfieldname], createdClubs, i, testdatalength, next);
     }
 }
@@ -94,7 +94,7 @@ module.exports = (function () {
                 this.interpreter_context.fieldnamefieldname = fieldnamefieldname;
                 this.interpreter_context.suburbnamefieldname = suburbnamefieldname;
                 this.interpreter_context.citynamefieldname = citynamefieldname;
-                createClubs(this.interpreter_context.testdata, this.interpreter_context.tms, this.interpreter_context.createdClubs, clubnamefieldname, fieldnamefieldname, suburbnamefieldname,
+                createClubs(this.interpreter_context.testdata, this.interpreter_context.cms, this.interpreter_context.createdClubs, clubnamefieldname, fieldnamefieldname, suburbnamefieldname,
                         citynamefieldname, useremailfieldname, next);
             })
 
