@@ -124,7 +124,7 @@ function BulkLoadHelpers() {
             i;
         for (i = 0; i < testdatalength; i = i + 1) {
             currentarrayitem = testdata[i];
-            this.CreatePlayer(dbh, playersdb, createdPlayers, currentarrayitem[clubnamefieldname], currentarrayitem[citynamefieldname], 
+            this.CreatePlayer(dbh, playersdb, createdPlayers, currentarrayitem[clubnamefieldname], currentarrayitem[citynamefieldname],
                 currentarrayitem[firstnamefieldname], currentarrayitem[lastnamefieldname],
                 currentarrayitem[dobfieldname], currentarrayitem[emailfieldname], currentarrayitem[addressfieldname],
                 currentarrayitem[suburbfieldname], currentarrayitem[postcodefieldname],
@@ -133,5 +133,4 @@ function BulkLoadHelpers() {
     };
 
 }
-
 module.exports = BulkLoadHelpers;
