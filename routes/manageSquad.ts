@@ -8,7 +8,7 @@
 
 import express = require("express");
 import Flash = require("./flash");
-import Service = require("../lib/ts/ITeamManagementService");
+import Service = require("../lib/ts/ISquadManagementService");
 import webRequest = require("./IWebRequest");
 
 /*
@@ -20,9 +20,9 @@ export class ManageSquad implements webRequest.IWebRequest {
   /**
   * Accepts the service component that will handle the management of squads in the database
   * @constructor
-  * @param {ITeamManagementService} _tms - service to provide the ability to create a new club.
+  * @param {ISquadManagementService} _sms - service to provide the ability to manage squads
   **/  
-  constructor(private _tms: Service.ITeamManagementService) { 
+  constructor(private _sms: Service.ISquadManagementService) { 
   }
   
   /**
