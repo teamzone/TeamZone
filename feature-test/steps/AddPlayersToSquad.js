@@ -8,7 +8,7 @@ var assert = require('assert');
 var _ = require("underscore");
 var English = require('yadda').localisation.English;
 var dbhelpers = require('./common/DbHelpers');
-var tms;
+var sms;
 var clubname;
 var squadname1;
 var squadname2;
@@ -57,7 +57,7 @@ module.exports = (function () {
                 squadname1 = squad1;
                 squadname2 = squad2;
                 season = forseason;
-                tms = this.interpreter_context.tms;
+                sms = this.interpreter_context.sms;
                 var createdUsers = this.interpreter_context.createdUsers,
                     createdClubs = this.interpreter_context.createdClubs,
                     createdSquads = this.interpreter_context.createdSquads,
@@ -88,7 +88,7 @@ module.exports = (function () {
         .when("chooses to add them to the $squadname squad", function (squadname, next) {
             targetsquad = squadname;
             var createdSquadPlayers = this.interpreter_context.createdSquadPlayers;
-            tms.AddPlayerToSquad(clubname, cityname, squadname, season, playerToAddEmail, function (err) {
+            sms.AddPlayerToSquad(clubname, cityname, squadname, season, playerToAddEmail, function (err) {
                 if (err) {
                     assert.fail(err, undefined, "Failed because of error in AddPlayerToSquad:  " + err.message);
                 }
@@ -131,7 +131,7 @@ module.exports = (function () {
             // for this scenario we should store the error for checking in the next step
             var scenario_context = this.scenario_context,
                 createdSquadPlayers = this.interpreter_context.createdSquadPlayers;
-            tms.AddPlayerToSquad(clubname, cityname, squadname, season, playerToAddEmail, function (err) {
+            sms.AddPlayerToSquad(clubname, cityname, squadname, season, playerToAddEmail, function (err) {
                 if (!err) {
                     //didn't get an error - somehow they probably got created so we should store that fact anyway so it gets cleaned up
                     createdSquadPlayers.push({

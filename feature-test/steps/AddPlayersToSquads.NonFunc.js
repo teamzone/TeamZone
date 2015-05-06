@@ -93,13 +93,13 @@ module.exports = (function () {
                                 citynamefieldname, useremailfieldname,
                         function () {
                             blh.CreateSquads(interpreter_context.testdata, dbh, interpreter_context.squadsDb, interpreter_context.createdSquads,
-                                                 clubnamefieldname, citynamefieldname, seasonfieldname,
-                                                 squadsfieldname, squadnamefieldname, agelimitfieldname, useremailfieldname,
-                                                 interpreter_context.testdata.length, function () {
+                                 clubnamefieldname, citynamefieldname, seasonfieldname,
+                                 squadsfieldname, squadnamefieldname, agelimitfieldname, useremailfieldname,
+                                 interpreter_context.testdata.length, function () {
                                     interpreter_context.playersTargetSquad = getPlayersFromTestDataRandomised(interpreter_context.testdata);
                                     blh.CreatePlayers(interpreter_context.playersTargetSquad, dbh, interpreter_context.playersDb, interpreter_context.createdPlayers,
-                                                                    playerfirstnamefieldname, playerlastnamefieldname, playerdobfieldname, playeraddressfieldname,
-                                                                    playersuburbfieldname, playerpostcodefieldname, playerphonefieldname, playeremailfieldname, next);
+                                        clubnamefieldname, citynamefieldname, playerfirstnamefieldname, playerlastnamefieldname, playerdobfieldname, playeraddressfieldname,
+                                        playersuburbfieldname, playerpostcodefieldname, playerphonefieldname, playeremailfieldname, next);
                                 });
                         });
                 });

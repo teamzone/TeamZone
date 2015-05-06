@@ -6,7 +6,7 @@
 
 var path = require('path');
 var Yadda = require('yadda');
-var teammanagementservice = require('../../lib/ts/TeamManagementService'); // The library that you wish to test
+var squadmanagementservice = require('../../lib/ts/SquadManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
 var dbhelpers = require('./common/DbHelpers');
 
@@ -19,19 +19,6 @@ var interpreter_context;
 var library = require('./AddPlayersToSquads.NonFunc');
 var yadda;
 
-// function setupInterpreterContext() {
-//     var dbf = new databasefactory();
-//     database = dbf.levelredis();
-//     usersDb = dbf.userdb(database.leveldb);
-//     clubsDb = dbf.clubdb(database.leveldb);
-//     squadsDb = dbf.squaddb(database.leveldb);
-//     squadplayersDb = dbf.squadplayersdb(database.leveldb);
-//     playersDb = dbf.playerdb(database.leveldb);
-//     tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
-//     interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, playersDb: playersDb, squadplayersDb: squadplayersDb,
-//                             createdUsers: [], createdClubs: [], createdSquads: [], createdSquadPlayers: [], createdPlayers: [] };
-// }
-
 before(function (done) {
     var dbf = new databasefactory();
     dbf.levelredisasync(10, function (database) {
@@ -40,8 +27,8 @@ before(function (done) {
             squadsDb = dbf.squaddb(database.leveldb),
             squadplayersDb = dbf.squadplayersdb(database.leveldb),
             playersDb = dbf.playerdb(database.leveldb),
-            tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
-        interpreter_context = { tms: tms, database: database, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, playersDb: playersDb, squadplayersDb: squadplayersDb,
+            sms = new squadmanagementservice(squadsDb, playersDb, squadplayersDb);
+        interpreter_context = { sms: sms, database: database, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, playersDb: playersDb, squadplayersDb: squadplayersDb,
                                 createdUsers: [], createdClubs: [], createdSquads: [], createdSquadPlayers: [], createdPlayers: [] };
         yadda = new Yadda.Yadda(library, { interpreter_context: interpreter_context });
         done();

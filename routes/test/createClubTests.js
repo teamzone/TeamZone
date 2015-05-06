@@ -7,7 +7,7 @@
 var createclub = require('../createClub');
 var sinon = require('sinon');
 var assert = require('assert');
-var teammanagementservice = require('../../lib/ts/TeamManagementService');
+var clubmanagementservice = require('../../lib/ts/ClubManagementService');
 var sinonChai = require("sinon-chai");
 var chai = require("chai");
 chai.should();
@@ -20,14 +20,14 @@ describe("Testing of expressjs route for create a club", function () {
     var cc,
         sandbox,
         stubCreateClub,
-        tms,
+        cms,
         incomingExpressRequest,
         outgoingExpressResponse,
         outgoingExpressResponseSpy;
 
     beforeEach(function () {
 
-        tms = new teammanagementservice(null);
+        cms = new clubmanagementservice(null);
         incomingExpressRequest = {
             body: { clubname: 'Western Knights', cityname: 'Perth', suburbname: 'Mosman Park', fieldname: 'Nash Field', adminemail: 'mel.taylor-gainsford@wk.com.au' },
             session: { authenticated: true, user: { } }
@@ -38,7 +38,7 @@ describe("Testing of expressjs route for create a club", function () {
 
         //sandbox to cleanup global spies
         sandbox = sinon.sandbox.create();
-        stubCreateClub = sandbox.stub(tms, 'CreateClub');
+        stubCreateClub = sandbox.stub(cms, 'CreateClub');
         stubCreateClub.yields(null);
         outgoingExpressResponse = {
             redirect: function (view) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', view); },
@@ -47,7 +47,7 @@ describe("Testing of expressjs route for create a club", function () {
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
 
         //this will be setup to be injected soon enough
-        cc = new createclub(tms);
+        cc = new createclub(cms);
     });
 
     function assertClubCreatedAndViewUpdated(redirectView, spy, alertType, messages) {

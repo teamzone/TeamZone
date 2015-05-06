@@ -9,7 +9,8 @@
   "services": [
     { "item": "./lib/ts/PlayerManagementService", "dependencies": [ "./lib/PlayerRepository"], "scope": "webrequest" },
     { "item": "./lib/ts/UserManagementService", "dependencies": [ "./lib/UserRepository", "./lib/CryptService", "./lib/TokenService", "./lib/ts/MailGunAPIEmailVerifyService"], "scope": "webrequest" },
-    { "item": "./lib/ts/TeamManagementService", "dependencies": [ "./lib/ClubRepository", "./lib/SquadRepository", "./lib/PlayerRepository", "./lib/SquadPlayerRepository"], "scope": "webrequest" },
+    { "item": "./lib/ts/ClubManagementService", "dependencies": [ "./lib/ClubRepository"], "scope": "webrequest" },
+    { "item": "./lib/ts/SquadManagementService", "dependencies": [ "./lib/SquadRepository", "./lib/PlayerRepository", "./lib/SquadPlayerRepository"], "scope": "webrequest" },
     { "item": "./lib/CryptService", "dependencies": [], "scope": "transient" },
     { "item": "./lib/ts/MailGunAPIEmailVerifyService", "dependencies": [ "info@aboutagile.com", "https://teamzone-teamzone.c9.io/verifyReg", "key-39bb09ee565759dda760855ad27eada1" ], "scope": "webrequest" }
   ],
@@ -17,9 +18,9 @@
     { "item": "./routes/userLogin", "dependencies": [ "./lib/ts/UserManagementService" ], "scope": "webrequest" },
     { "item": "./routes/userRegister", "dependencies": [ "./lib/ts/UserManagementService" ], "scope": "webrequest" },
     { "item": "./routes/userConfirm", "dependencies": [ "./lib/ts/UserManagementService" ], "scope": "webrequest" },
-    { "item": "./routes/createClub", "dependencies": [ "./lib/ts/TeamManagementService" ], "scope": "webrequest" },
-    { "item": "./routes/createSquad", "dependencies": [ "./lib/ts/TeamManagementService" ], "scope": "webrequest" },
+    { "item": "./routes/createClub", "dependencies": [ "./lib/ts/ClubManagementService" ], "scope": "webrequest" },
+    { "item": "./routes/createSquad", "dependencies": [ "./lib/ts/SquadManagementService" ], "scope": "webrequest" },
     { "item": "./routes/addPlayer", "dependencies": [ "./lib/ts/PlayerManagementService" ], "scope": "webrequest" },
-    { "item": "./routes/addSquadPlayer", "dependencies": [ "./lib/ts/TeamManagementService" ], "scope": "webrequest" }
+    { "item": "./routes/addSquadPlayer", "dependencies": [ "./lib/ts/SquadManagementService" ], "scope": "webrequest" }
   ]
 }

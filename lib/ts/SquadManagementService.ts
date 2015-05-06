@@ -5,7 +5,9 @@
 /*jslint nomen: true */
 'use strict';
 
-import tms = require('./ITeamManagementService');
+import sms = require('./ISquadManagementService');
+import servicebase = require('./ServiceBase');
+import kf = require('./KeyFactory');
 import assert = require('assert');
 import _ = require('underscore');
 var errTo = require('errto');
@@ -15,63 +17,24 @@ var AgeLimitError = createError('AgeLimitError');
 export module Service {
 
 	/*
-	*  Implementation for Services for Team Management like like creating clubs and managing players within teams
+	*  Implementation for Services for Squad Management like like creating squads for players to be added to
 	*  @class
 	**/
-	export class TeamManagementService implements tms.ITeamManagementService {
+	export class SquadManagementService 
+		extends servicebase.Service.ServiceBase
+		implements sms.ISquadManagementService {
 
 		/**
 		* Accepts the components that support team management like the data store.  
 		* @constructor
-		* @param {clubdb} _clubs - The storage of clubs.
 		* @param {squadsdb} _squads - The storage of squads.
 		* @param {playersdb} _players - The storage of players.
 		* @param (squadplayers) _squadplayers - The storage that links players to a squad 
 		**/
-		constructor(private _clubs: any, private _squads: any, private _players: any, private _squadplayers: any) {
+		constructor(private _squads: any, private _players: any, private _squadplayers: any) {
+			super();
 		}
 
-		/**
-		* Will allow creation of the club.  Supplied parameters are mandatory.  
-		* @param {string} clubname - the name of the club to be created.
-		* @param {string} fieldname - the home field of the club.
-		* @param {string} suburbname - the suburb of the home field and/or club.
-		* @param {string} cityname - the name of the city the club plays in.
-		* @param {string} adminemail - the email address of the main administrator of the club.  Usually the person creating the club.
-		* @param {callback} callback - tell the caller if club created or there was a failure
-		**/
-		CreateClub = (clubname: string, fieldname: string, suburbname: string, cityname: string, adminemail: string, callback: any) => {
-			var clubs = this._clubs;
-			var key = this.clubKeyMaker(clubname, cityname);
-			this.validateParameters(this.validationParametersForCreatingClub(clubname, fieldname, suburbname, cityname, adminemail), errTo(callback, function() {
-		    	clubs.get(key, function(err) {
-		    		if(err && err.notFound) {
-						clubs.put(key, { field: fieldname, suburb: suburbname, admin: adminemail }, { sync: true }, errTo(callback, callback));
-		    		} else if (err) {
-		    			callback(err);
-				    } else {
-				    	callback(new Error('Club in the same city cannot be created more than once'));
-				    }
-				});
-			}));
-		}
-
-		/**
-		* Supplies an array parameter values and their names and links to the validations required for these parameters
-		* @param {string} clubname - the name of the club to be created.
-		* @param {string} fieldname - the home field of the club.
-		* @param {string} suburbname - the suburb of the home field and/or club.
-		* @param {string} cityname - the name of the city the club plays in.
-		* @param {string} adminemail - the email address of the main administrator of the club.  Usually the person creating the club.
-		**/
-		validationParametersForCreatingClub(clubname: string, fieldname: string, suburbname: string, cityname: string, adminemail: string) : any {
-			return [ 
-				{ name: 'clubname', content: clubname, validations: [ this.checkNotNullOrEmpty ] }, { name: 'fieldname', content: fieldname, validations: [ this.checkNotNullOrEmpty ] }, 
-			  	{ name: 'suburbname', content: suburbname, validations: [ this.checkNotNullOrEmpty ] }, { name: 'cityname', content: cityname, validations: [ this.checkNotNullOrEmpty ] }, 
-			  	{ name: 'adminemail', content: adminemail, validations: [ this.checkNotNullOrEmpty, { v: this.checkEmailAddress, m: 'The admin email is invalid' } ] }
-			];
-		}
-		
 		/**
 		* Will allow creation of the squad.  Supplied parameters are mandatory.  
 		* @param {string} clubname - the name of the club to be created (key), notionally used as squads are created under clubs anyway.
@@ -83,9 +46,9 @@ export module Service {
 		* @param {callback} callback - tell the caller if squad created or there was a failure
 		**/
 		CreateSquad = (clubname: string, cityname: string, squadname: string, season: string, agelimit: string, admin: string, callback: any) => {
-			var key = this.squadKeyMaker(clubname, cityname, squadname, season);
+			var key = kf.KeyFactory.squadKeyMaker(clubname, cityname, squadname, season);
 			var squads = this._squads;
-			this.validateParameters(this.validationParametersForCreatingSquad(clubname, cityname, squadname, season, agelimit, admin), errTo(callback, function() {
+			super.validateParameters(this.validationParametersForCreatingSquad(clubname, cityname, squadname, season, agelimit, admin), errTo(callback, function() {
 		    	squads.get(key, function(err) {
 		    		if(err && err.notFound) {
 						squads.put(key, { agelimit: agelimit, admin: admin }, { sync: true },  errTo(callback, callback));
@@ -128,7 +91,7 @@ export module Service {
 		**/
 		AddPlayerToSquad = (clubname: string, cityname: string, squadname: string, season: string, playeremail: string, callback: any, targetyear?: number)  => {
 			var squadplayers = this._squadplayers;
-			var squadkey = this.squadKeyMaker(clubname, cityname, squadname, season);
+			var squadkey = kf.KeyFactory.squadKeyMaker(clubname, cityname, squadname, season);
 			this.validatePlayerForSquadParameters(clubname, cityname, squadname, season, playeremail, targetyear, squadkey, errTo(callback, function() {
 				var key = squadkey + '~' + playeremail;
 		    	squadplayers.get(key, function(err) {
@@ -143,27 +106,6 @@ export module Service {
 		}
 
 		/**
-		* Returns a list of all the players for a club/city pair
-		* 
-		* @param {string} clubname - the name of the club (key)
-		* @param {string} cityname - the name of the city the club is in (key)
-		* @param {callback} callback - tell the caller if squad created or there was a failure
-		**/
-		GetPlayersForClub = (clubname: string, cityname: string, callback: any) => {
-	        var players = [];
-	        this._players.createReadStream(this.clubKeyMaker(clubname, cityname))
-	            .on('data', function(player) {
-	                players.push(player);
-	            })
-	            .on('end', function() {
-	                callback(null, players);
-	            })
-	            .on('error', function(err){
-	                callback(err);
-	            });
-		}
-
-		/**
 		* Returns a list of all the players for a club/city pair that aren't yet in the squad for a season
 		* 
 		* @param {string} clubname - the name of the club (key)
@@ -174,7 +116,7 @@ export module Service {
 		**/
 		GetPlayersForClubNotInSquad = (clubname: string, cityname: string, squadname: string, season: string, callback: any) => {
 			var playersdb = this._players;
-			var clubKey = this.clubKeyMaker(clubname, cityname);
+			var clubKey = kf.KeyFactory.clubKeyMaker(clubname, cityname);
 			this.GetPlayersForSquad(clubname, cityname, squadname, season, function(err, squadplayers) {
 				if (err) {
 					callback(err)
@@ -206,7 +148,7 @@ export module Service {
 		**/
 		GetPlayersForSquad = (clubname: string, cityname: string, squadname: string, season: string, callback: any)  => {
 	        var players = [];
-	        this._squadplayers.createReadStream(this.squadKeyMaker(clubname, cityname, squadname, season))
+	        this._squadplayers.createReadStream(kf.KeyFactory.squadKeyMaker(clubname, cityname, squadname, season))
 	            .on('data', function(player) {
 	                players.push(player);
 	            })
@@ -218,76 +160,6 @@ export module Service {
 	            });
 		}
 
-		/**
-		* Enacts a series of validations on parameter values
-		* 
-		* @param {any} parameters - consists of an array of parameter values, names and associated validations
-		* @param {callback} callback - a failure to validate correctly results in immediate notification to the caller with no other validations taking place
-		**/
-		validateParameters(parameters: any, callback: any) {
-			var validationCalls = this.flattenValidationCalls(parameters);
-			var validationCallsLength = validationCalls.length;
-			if (validationCallsLength === 0) return callback();
-			if (validationCallsLength === 1) {
-				validationCalls[0].validator(validationCalls[0].fieldcontent, validationCalls[0].fieldname, errTo(callback, callback), validationCalls[0].message);
-			} else {
-				// obtaining a reference to the function to enable recursive processing in javascript
-				var process = this.processFlattenedValidationCalls;
-				process(validationCalls, 0, validationCallsLength, process, errTo(callback, callback));
-			}
-		}
-
-		/**
-		* Called from validateParameters to process a list of parameters and validate their values.  Is called recursively to process values
-		* and work in with errTo and callback processing
-		* 
-		* @param {any} validationCalls - this is a more function friendly representation of the parameters to process with the functions repeated for 
-		* 		each parameter.
-		* @param {number} processed - processed number of parameters. Gets incremented after each sucessful validation
-		* @param {number} totalValidations - the total number of validations to process and compared with processed to check for end state
-		* @param {callback} callback - a failure to validate correctly results in immediate notification to the caller with no other validations taking place
-		**/
-		processFlattenedValidationCalls(validationCalls: any, processed: number, totalValidations: number, process: any, callback: any) {
-			if (processed === totalValidations) return callback();
-			var parameter: any;
-			parameter = validationCalls[processed];
-			parameter.validator(parameter.content, parameter.name, errTo(callback, function() {
-				process(validationCalls, processed + 1, totalValidations, process, errTo(callback, callback));
-			}), parameter.message);
-		}
-
-		/**
-		* Called from validateParameters to flatten the list of parameters so that the array is a simple linear list of parameter names, content
-		* 	and validations.  This makes the processing of the validations easier for processFlattenedValidationCalls
-		* 
-		* @param {any} parameters - consists of an array of parameter values, names and associated validations
-		* @param {callback} callback - a failure to validate correctly results in immediate notification to the caller with no other validations taking place
-		* @returns {any} a flattened array of parameter names, content and validation - names and content will be repeated if there are multiple validations for
-		* 	the same parameter name/content pair.
-		**/
-		flattenValidationCalls(parameters: any) {
-			var calls = [];
-			var parameterslength = parameters.length;
-			var validationslength: number;
-			var i: number;
-			var j: number;
-			var parameter: any;
-			var validation: any;
-			for (i = 0; i < parameterslength; i = i + 1) {
-				parameter = parameters[i];
-				validationslength = parameter.validations.length;
-				for (j = 0; j < validationslength; j = j + 1) {
-					validation = parameter.validations[j];
-					if (validation.v !== undefined) {
-						calls.push({ name: parameter.name, content: parameter.content, validator: validation.v, message: validation.m });
-					} else {
-						calls.push({ name: parameter.name, content: parameter.content, validator: validation, message: undefined });
-					}
-				}
-			}
-			return calls;
-		}
-		
 		/**
 		* Does all the validation required for adding a player to a squad which includes checking the parameters and checking the age against the squad limit
 		* 
@@ -317,53 +189,6 @@ export module Service {
 			}));
 		}
 		
-		/**
-		 * Create the key value for the clubs dataset
-		 * @param {string} clubname - the club is the first part of the key
-		 * @param {string} cityname - the city is the second part of the key
-		 **/
-		clubKeyMaker(clubname: string, cityname: string) : string {
-	        return "".concat(clubname, "~", cityname);
-	    }
-
-		/**
-		 * Create the key value for the squads dataset
-		 * @param {string} clubname - the club is the first part of the key
-		 * @param {string} cityname - the city is the second part of the key
-		 * @param {string} squadname - the squad is the second part of the key
-		 * @param {string} season - the season is the fourth part of the key
-		 **/
-		squadKeyMaker(clubname: string, cityname: string, squadname: string, season: string) : string {
-			return this.clubKeyMaker(clubname, cityname).concat('~', squadname, '~', season);
-		}
-		
-		/**
-		 * Checks for null or empty strings
-		 * @param {string} parametervalue - the value to check
-		 * @param {string} parametername - the name of the value to check
-		 * @param {callback} callback - will get called with the error if it exists
-		 **/
-	    checkNotNullOrEmpty(parametervalue: string, parametername: string, callback: any, invalidMessage?: string) {
-	    	if (parametervalue === undefined || parametervalue === null || parametervalue.trim().length === 0) {
-	    		return callback(new Error('The argument ' + parametername + ' is a required argument'));
-	    	}
-	    	callback();
-	    }
-	    
-	    /**
-	     * Check validity of an email address
-	     * @param {string} email - the address to check
-	     * @param {string} invalidMessage - a message to include in an Error when email address is invalid
-	     * @param {callback} callback - notification of an error in an email address
-	     **/
-	    checkEmailAddress(email: string, parametername: string, callback: any, invalidMessage?: string) {
-			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    		if (!re.test(email)) {
-    			return callback(new Error(invalidMessage));
-    		}
-    		callback();
-	    }
-
 	    /**
 	     * Check the player is eligible to play for the team by checking the age requirement
 	     * @param {string} playeremail - the email address of the player which can be used to get player details involved in the checking
@@ -378,19 +203,11 @@ export module Service {
 			var playerAgeChecker = thismodule.comparePlayerAgeWithRulesForPlayerAgesAndSquads;
 			var overAgeChecker = thismodule.isPlayerRightAgeForOverAgeSquad;
 			var underAgeChecker = thismodule.isPlayerRightAgeForUnderAgeSquad;
-			thismodule._players.get(clubname + '~' + cityname + '~' + playeremail, function(err, playervalue) {
-				if (err) 
-					callback(err);
-				else {
-					thismodule._squads.get(squadkey, function(err, squadvalue) {
-						if (err)
-							callback(err);
-						else {
-							playerAgeChecker(targetyear, playervalue.dob, squadvalue.agelimit, overAgeChecker, underAgeChecker, callback);
-						}
-					});
-				} 
-			});
+			thismodule._players.get(clubname + '~' + cityname + '~' + playeremail, errTo(callback, function (playervalue) {
+				thismodule._squads.get(squadkey, errTo(callback, function (squadvalue) {
+					playerAgeChecker(targetyear, playervalue.dob, squadvalue.agelimit, overAgeChecker, underAgeChecker, callback);
+				}));
+			}));
 		}
 
 	    /**
@@ -462,4 +279,4 @@ export module Service {
 		}
 	}
 }
-module.exports = Service.TeamManagementService;
+module.exports = Service.SquadManagementService;

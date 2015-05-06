@@ -6,7 +6,7 @@
 
 var path = require('path');
 var Yadda = require('yadda');
-var teammanagementservice = require('../../lib/ts/TeamManagementService'); // The library that you wish to test
+var squadmanagementservice = require('../../lib/ts/SquadManagementService'); // The library that you wish to test
 var databasefactory = require('../../lib/common/DatabaseFactory');
 var dbhelpers = require('./common/DbHelpers');
 
@@ -27,8 +27,8 @@ before(function (done) {
             squadsDb = dbf.squaddb(database.leveldb),
             squadplayersDb = dbf.squadplayersdb(database.leveldb),
             playersDb = dbf.playerdb(database.leveldb),
-            tms = new teammanagementservice(null, squadsDb, playersDb, squadplayersDb);
-        interpreter_context = { tms: tms, database: database,
+            sms = new squadmanagementservice(squadsDb, playersDb, squadplayersDb);
+        interpreter_context = { sms: sms, database: database,
                                 playersDb: playersDb, usersDb: usersDb, clubsDb: clubsDb, squadsDb: squadsDb, squadplayersDb: squadplayersDb,
                                 createdPlayers: [], createdUsers: [], createdClubs: [], createdSquads: [],
                                 createdSquadPlayers: [] };

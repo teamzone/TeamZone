@@ -206,7 +206,7 @@ function DbHelpers(dontCreateIfPreExisting) {
     this.CreatePlayer = function(playersdb, createdPlayers, email, clubname, cityname, firstname, lastname, DOB, address, suburb, postcode, phone, callback, callbackCalledOnSuccess) {
         if (dontCreateIfPreExisting && _.find(createdPlayers, function(p) { return p.email === email })) {
             console.log('Player %s already exists so we no need to create again', email);
-            return;
+            return callback();
         }
         playersdb.put(clubname + '~' + cityname + '~' + email, { firstname: firstname, lastname: lastname, dob: DOB, address: address, suburb: suburb, postcode: postcode, phone: phone, email: email }, { sync: true }, 
             function (err) {
