@@ -90,19 +90,18 @@ module.exports = function(grunt) {
           //require: 'coverage/blanket'
         },
         src: ['ui-test/full/steps/test*.js']
-      }
-      
-    },
-    coverage: {
-      options: {
-        reporter: 'lcov',
-        // use the quiet flag to suppress the mocha console output
-        quiet: true,
-        // specify a destination file to capture the mocha
-        // output (the quiet option does not suppress this)
-        captureFile: process.env.CIRCLE_ARTIFACTS + '/coverage.lcov'
       },
-      src: ['test/**/*.js']
+      coverage: {
+        options: {
+          reporter: 'lcov',
+          // use the quiet flag to suppress the mocha console output
+          quiet: true,
+          // specify a destination file to capture the mocha
+          // output (the quiet option does not suppress this)
+          captureFile: process.env.CIRCLE_ARTIFACTS + '/coverage.lcov'
+        },
+        src: ['test/**/*.js']
+      }
     },
     jslint: { // configure the task
       // lint your project's server code
