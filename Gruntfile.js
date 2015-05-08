@@ -39,8 +39,17 @@ module.exports = function(grunt) {
           reporter: 'spec',
           captureFile: 'unit-test-results.txt', // Optionally capture the reporter output to a file
           quiet: false, // Optionally suppress output to standard out (defaults to false)
-          clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
-          //require: 'coverage/blanket'
+          clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
+          // Require blanket wrapper here to instrument other required
+          // files on the fly. 
+          //
+          // NB. We cannot require blanket directly as it
+          // detects that we are not running mocha cli and loads differently.
+          //
+          // NNB. As mocha is 'clever' enough to only run the tests once for
+          // each file the following coverage task does not actually run any
+          // tests which is why the coverage instrumentation has to be done here          
+          require: 'coverage/blanket'
         },
         src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js']
       },
@@ -50,8 +59,8 @@ module.exports = function(grunt) {
           captureFile: 'devbuild-test-results.txt', // Optionally capture the reporter output to a file
           quiet: false, // Optionally suppress output to standard out (defaults to false)
           clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
-          timeout: 5200
-          //require: 'coverage/blanket'
+          timeout: 5200,
+          require: 'coverage/blanket'
         },
         src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js']
       },
@@ -61,8 +70,8 @@ module.exports = function(grunt) {
           captureFile: 'cibuild-test-results.txt', // Optionally capture the reporter output to a file
           quiet: false, // Optionally suppress output to standard out (defaults to false)
           clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
-          timeout: 10000
-          //require: 'coverage/blanket'
+          timeout: 10000,
+          require: 'coverage/blanket'
         },
         src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', 
               '!feature-test/steps/testAddPlayerToSquad.js',
@@ -86,12 +95,12 @@ module.exports = function(grunt) {
     },
     coverage: {
       options: {
-        reporter: 'html-cov',
+        reporter: 'lcov',
         // use the quiet flag to suppress the mocha console output
         quiet: true,
         // specify a destination file to capture the mocha
         // output (the quiet option does not suppress this)
-        captureFile: 'coverage.html'
+        captureFile: process.env.CIRCLE_ARTIFACTS + '/coverage.lcov'
       },
       src: ['test/**/*.js']
     },
