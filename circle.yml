@@ -4,11 +4,10 @@ machine:
     
   environment:
     REDISTOGO_URL: redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750
-    CODECLIMATE_REPO_TOKEN: e5ce3421df121a9156794447d6b3c677317ebb6f codeclimate < coverage.lcov
 
 general:
   artifacts:
-    - "Coverage.html" 
+    - "coverage.lcov" 
     
 test:
   pre:
@@ -16,6 +15,7 @@ test:
     
   override:
     - grunt cibuild 
+    - CODECLIMATE_REPO_TOKEN=$CodeClimateToken ./node_modules/.bin/codeclimate < "${CIRCLE_ARTIFACTS}/lcov.info"
 
 deployment:
   dev:
