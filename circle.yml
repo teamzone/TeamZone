@@ -15,7 +15,7 @@ test:
     
   override:
     - grunt cibuild 
-    - CODECLIMATE_REPO_TOKEN=$CodeClimateToken ./node_modules/codeclimate-test-reporter/.bin/codeclimate < "${CIRCLE_ARTIFACTS}/coverage.lcov"
+    - CODECLIMATE_REPO_TOKEN=$CodeClimateToken ./node_modules/codeclimate-test-reporter/codeclimate < "${CIRCLE_ARTIFACTS}/coverage.lcov"
 
 deployment:
   dev:
