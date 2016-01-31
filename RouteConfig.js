@@ -1,5 +1,7 @@
 'use strict';
 
+var authenticationMiddleware = require('./utils/authenticationMiddleware');
+
 var RouteConfig = function(application) {
   this.application = application;
 };
@@ -15,8 +17,9 @@ var registerRoutes = function() {
     var Controller = loadController(routeItem);
     var route = getRoute(routeItem);
     var method = getMethod(routeItem);
+    var requiresAuth = getRequiresAuth(routeItem);
 
-    registerRoute(this.application, Controller, route, method);
+    registerRoute(this.application, Controller, route, method, requiresAuth);
   }
 
   createConfigRoute(this.application);
@@ -82,11 +85,29 @@ var getMethod = function(routeItem) {
   }
 };
 
-var registerRoute = function(application, Controller, route, method) {
-  application.route(route)[method](function(req, res, next) {
+var getRequiresAuth = function(routeItem) {
+    var requiresAuth = routeItem.requireAuthenticated;
+    
+    if(requiresAuth == null) {
+      requiresAuth = true; // Default to true.
+    }
+    
+    return requiresAuth;
+}
+
+var registerRoute = function(application, Controller, route, method, requiresAuth) {
+  console.log("Registering route: " + route + " with method: " + method + " with requiresAuth = " + requiresAuth);
+  if(requiresAuth) {
+    application.route(route)[method](authenticationMiddleware, invokeController);
+  } else {
+    application.route(route)[method](invokeController);
+  }
+  
+  function invokeController(req, res, next) {
+    console.log('invoking controller: ' + Controller);
     var controller = req.dependencyInjector.get(Controller);
     controller[method](req, res, next);
-  });
+  }
 };
 
 var createConfigRoute = function(application) {

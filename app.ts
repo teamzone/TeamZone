@@ -43,6 +43,10 @@ app.use(expressValidator([]));
 // add session support!
 app.use(cookieParser());
 app.use(expressSession({ secret: 'sauce', saveUninitialized: true, resave: true}));
+app.use(function(req, res, next) {
+  res.locals.query = req.query;
+  next();
+})
   
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -57,14 +61,6 @@ if ('development' == app.get('env')) {
 
 app.use(morgan("combined", { "stream": logger.stream }));
 
-function restrict(req, res, next) {
-  if (req.session.authenticated) {
-    next();
-  } else {
-    res.redirect('/');
-  }
-}
-
 var DiConfig = require('./DiConfig');
 var diConfig = new DiConfig(app);
 diConfig.configureDependencies();
@@ -77,7 +73,7 @@ app.route('/')
   .get(routes.index);
   
 app.route('/dashboard')
-  .get(restrict, routes.dashboard);
+  .get(routes.dashboard);
   
 app.route('/logout')
   .get(routes.logout);

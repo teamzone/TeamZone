@@ -49,10 +49,11 @@ describe("Testing of expressjs route for user login", function () {
     *  Assert function definitions used in the tests declared before the tests 
     *
     */
-    function assertLoginVerifiedAndViewUpdated() {
+    function assertLoginVerifiedAndViewUpdated(url) {
+        url = url || 'dashboard';
         expect(incomingExpressRequest.session.authenticated).to.equal(true);
         expect(incomingExpressRequest.session.user.email).to.equal(incomingExpressRequest.body.username);
-        outgoingExpressResponseSpy.should.have.been.calledWith('dashboard');
+        outgoingExpressResponseSpy.should.have.been.calledWith(url);
     }
 
     function assertLoginFailedAndViewUpdated(message, alertType) {
@@ -102,6 +103,22 @@ describe("Testing of expressjs route for user login", function () {
         //4. teardown
         done();
     });
+    
+    it("Redirects to the originally requested url", function(done) {
+        //1. Setup
+        incomingExpressRequest.query = {
+            url: '/addPlayer'
+        };
+        
+        // 2. Exercise
+        u.post(incomingExpressRequest, outgoingExpressResponse);
+        
+        // 3. verify
+        assertLoginVerifiedAndViewUpdated('/addPlayer');
+        
+        // 4. teardown
+        done();
+    })
 
     //3. Module Verify
 

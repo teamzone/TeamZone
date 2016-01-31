@@ -37,7 +37,12 @@ var UserLogin = (function () {
                 else if (reslogin.loggedIn) {
                     req.session.authenticated = true;
                     req.session.user = { email: username };
-                    res.redirect('dashboard');
+                    if (req.query && req.query.url) {
+                        res.redirect(req.query.url);
+                    }
+                    else {
+                        res.redirect('dashboard');
+                    }
                 }
                 else {
                     flash.type = 'alert-info';

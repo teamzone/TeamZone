@@ -43,7 +43,12 @@ export class UserLogin implements webRequest.IWebRequest {
             } else if (reslogin.loggedIn) {
                 req.session.authenticated = true;
                 req.session.user = { email: username };
-                res.redirect('dashboard');
+                
+                if(req.query && req.query.url) {
+                    res.redirect(req.query.url);
+                } else {
+                    res.redirect('dashboard');
+                }
             } else {
                 flash.type = 'alert-info';
                 flash.messages = [{ msg: 'Login failed.  You may need to still verify your account or incorrect username/password was entered' }];
