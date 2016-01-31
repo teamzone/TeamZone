@@ -4,16 +4,28 @@ machine:
     
   environment:
     REDISTOGO_URL: redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750
+
+general:
+  artifacts:
+    - "coverage.lcov" 
     
 test:
-  post:
-    - >
-      if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
-        ./bin/run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
-      fi   
-      
+  pre:
+    - npm install -g grunt-cli
+    
+  override:
+    - grunt cibuild 
+
 deployment:
   dev:
     branch: master
     heroku:
-      appname: circleci-cibuild      
+      appname: circleci-cibuild
+  uit:
+    branch: UIT
+    heroku:
+      appname: circleci-cibuild
+  staging:
+      branch: staging
+      heroku:
+        appname: circleci-cibuild-staging      

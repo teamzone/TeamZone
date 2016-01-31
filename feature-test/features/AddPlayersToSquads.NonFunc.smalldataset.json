@@ -1,0 +1,553 @@
+[
+  {
+    "adminfirstname": "Golden",
+    "adminlastname": "Stein",
+    "suburbname": "officia",
+    "suffix": "FC",
+    "clubname": "officia FC",
+    "cityname": "Ona",
+    "fieldname": "officia Park",
+    "adminemail": "golden.stein@officiafc.us",
+    "adminpassword": "83300644-22af-408f-a4e9-90a13a91848d",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10",
+        "players": [
+          {
+            "index": 0,
+            "firstname": "Kayla",
+            "lastname": "Preston",
+            "dob": "2007-12-14",
+            "address": "Turner Place",
+            "suburb": "mollit",
+            "postcode": 4536,
+            "phone": "(965) 509-2256",
+            "email": "kayla.preston@mollit.info"
+          },
+          {
+            "index": 1,
+            "firstname": "Fanny",
+            "lastname": "Sheppard",
+            "dob": "2006-12-04",
+            "address": "Montague Street",
+            "suburb": "consectetur",
+            "postcode": 2721,
+            "phone": "(942) 553-3952",
+            "email": "fanny.sheppard@consectetur.biz"
+          },
+          {
+            "index": 2,
+            "firstname": "Holcomb",
+            "lastname": "Spears",
+            "dob": "2006-06-03",
+            "address": "Concord Street",
+            "suburb": "sit",
+            "postcode": 7951,
+            "phone": "(823) 422-2012",
+            "email": "holcomb.spears@sit.biz"
+          },
+          {
+            "index": 3,
+            "firstname": "Claudine",
+            "lastname": "Booker",
+            "dob": "2006-03-25",
+            "address": "Main Street",
+            "suburb": "velit",
+            "postcode": 2867,
+            "phone": "(824) 496-3446",
+            "email": "claudine.booker@velit.com"
+          },
+          {
+            "index": 4,
+            "firstname": "Harriett",
+            "lastname": "Brooks",
+            "dob": "2008-04-12",
+            "address": "Virginia Place",
+            "suburb": "velit",
+            "postcode": 2463,
+            "phone": "(972) 590-2946",
+            "email": "harriett.brooks@velit.net"
+          },
+          {
+            "index": 5,
+            "firstname": "Peters",
+            "lastname": "Cooley",
+            "dob": "2008-11-10",
+            "address": "McClancy Place",
+            "suburb": "incididunt",
+            "postcode": 6730,
+            "phone": "(859) 447-3272",
+            "email": "peters.cooley@incididunt.org"
+          },
+          {
+            "index": 6,
+            "firstname": "Hays",
+            "lastname": "Green",
+            "dob": "2008-12-23",
+            "address": "Arkansas Drive",
+            "suburb": "mollit",
+            "postcode": 7136,
+            "phone": "(821) 506-3559",
+            "email": "hays.green@mollit.ca"
+          },
+          {
+            "index": 7,
+            "firstname": "Tania",
+            "lastname": "Guthrie",
+            "dob": "2008-11-30",
+            "address": "Hamilton Avenue",
+            "suburb": "sunt",
+            "postcode": 7861,
+            "phone": "(961) 490-3222",
+            "email": "tania.guthrie@sunt.io"
+          },
+          {
+            "index": 8,
+            "firstname": "Vega",
+            "lastname": "Kent",
+            "dob": "2008-02-08",
+            "address": "Beadel Street",
+            "suburb": "minim",
+            "postcode": 2422,
+            "phone": "(958) 597-3589",
+            "email": "vega.kent@minim.co.uk"
+          },
+          {
+            "index": 9,
+            "firstname": "Becky",
+            "lastname": "Le",
+            "dob": "2007-04-05",
+            "address": "Hoyt Street",
+            "suburb": "aute",
+            "postcode": 3562,
+            "phone": "(809) 525-3772",
+            "email": "becky.le@aute.name"
+          },
+          {
+            "index": 10,
+            "firstname": "Moss",
+            "lastname": "Lancaster",
+            "dob": "2006-02-27",
+            "address": "Garden Street",
+            "suburb": "deserunt",
+            "postcode": 7443,
+            "phone": "(915) 597-2690",
+            "email": "moss.lancaster@deserunt.tv"
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12",
+        "players": [
+          {
+            "index": 0,
+            "firstname": "Lola",
+            "lastname": "Gould",
+            "dob": "2004-05-27",
+            "address": "Newport Street",
+            "suburb": "cillum",
+            "postcode": 5930,
+            "phone": "(944) 468-3345",
+            "email": "lola.gould@cillum.us"
+          },
+          {
+            "index": 1,
+            "firstname": "Arnold",
+            "lastname": "Martin",
+            "dob": "2003-12-11",
+            "address": "Manor Court",
+            "suburb": "occaecat",
+            "postcode": 5759,
+            "phone": "(871) 419-2684",
+            "email": "arnold.martin@occaecat.info"
+          },
+          {
+            "index": 2,
+            "firstname": "York",
+            "lastname": "Ramsey",
+            "dob": "2007-11-29",
+            "address": "Union Street",
+            "suburb": "velit",
+            "postcode": 5915,
+            "phone": "(985) 443-3930",
+            "email": "york.ramsey@velit.biz"
+          },
+          {
+            "index": 3,
+            "firstname": "Cervantes",
+            "lastname": "Mckee",
+            "dob": "2007-06-11",
+            "address": "Dorset Street",
+            "suburb": "nostrud",
+            "postcode": 2633,
+            "phone": "(997) 463-2912",
+            "email": "cervantes.mckee@nostrud.biz"
+          },
+          {
+            "index": 4,
+            "firstname": "Mari",
+            "lastname": "Stone",
+            "dob": "2007-10-22",
+            "address": "Fanchon Place",
+            "suburb": "exercitation",
+            "postcode": 4212,
+            "phone": "(912) 511-3444",
+            "email": "mari.stone@exercitation.com"
+          },
+          {
+            "index": 5,
+            "firstname": "Karla",
+            "lastname": "Petersen",
+            "dob": "2005-03-26",
+            "address": "Montgomery Place",
+            "suburb": "ipsum",
+            "postcode": 6369,
+            "phone": "(922) 591-2102",
+            "email": "karla.petersen@ipsum.net"
+          },
+          {
+            "index": 6,
+            "firstname": "Dale",
+            "lastname": "Hernandez",
+            "dob": "2005-07-04",
+            "address": "Conduit Boulevard",
+            "suburb": "do",
+            "postcode": 6800,
+            "phone": "(847) 542-3751",
+            "email": "dale.hernandez@do.org"
+          },
+          {
+            "index": 7,
+            "firstname": "Janice",
+            "lastname": "Frost",
+            "dob": "2003-01-23",
+            "address": "Cobek Court",
+            "suburb": "occaecat",
+            "postcode": 5773,
+            "phone": "(845) 550-3034",
+            "email": "janice.frost@occaecat.ca"
+          },
+          {
+            "index": 8,
+            "firstname": "Rachelle",
+            "lastname": "Reeves",
+            "dob": "2004-12-16",
+            "address": "Beverley Road",
+            "suburb": "ad",
+            "postcode": 7661,
+            "phone": "(907) 590-3334",
+            "email": "rachelle.reeves@ad.io"
+          },
+          {
+            "index": 9,
+            "firstname": "Nina",
+            "lastname": "Hardin",
+            "dob": "2004-07-22",
+            "address": "Plymouth Street",
+            "suburb": "sunt",
+            "postcode": 7231,
+            "phone": "(852) 535-2279",
+            "email": "nina.hardin@sunt.co.uk"
+          },
+          {
+            "index": 10,
+            "firstname": "Patrick",
+            "lastname": "Murray",
+            "dob": "2007-11-27",
+            "address": "Lloyd Street",
+            "suburb": "adipisicing",
+            "postcode": 3734,
+            "phone": "(908) 449-3707",
+            "email": "patrick.murray@adipisicing.name"
+          },
+          {
+            "index": 11,
+            "firstname": "Cohen",
+            "lastname": "Reynolds",
+            "dob": "2003-06-02",
+            "address": "Preston Court",
+            "suburb": "aliquip",
+            "postcode": 5490,
+            "phone": "(986) 576-3751",
+            "email": "cohen.reynolds@aliquip.tv"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Cherie",
+    "adminlastname": "Foley",
+    "suburbname": "est",
+    "suffix": "FC",
+    "clubname": "est FC",
+    "cityname": "Aberdeen",
+    "fieldname": "est Park",
+    "adminemail": "cherie.foley@estfc.us",
+    "adminpassword": "c9738b77-cd92-48d9-971d-69797e8e81f5",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10",
+        "players": [
+          {
+            "index": 0,
+            "firstname": "Vickie",
+            "lastname": "Chavez",
+            "dob": "2008-04-24",
+            "address": "Albany Avenue",
+            "suburb": "ad",
+            "postcode": 6121,
+            "phone": "(970) 403-2366",
+            "email": "vickie.chavez@ad.info"
+          },
+          {
+            "index": 1,
+            "firstname": "Kline",
+            "lastname": "Hale",
+            "dob": "2006-10-22",
+            "address": "Wortman Avenue",
+            "suburb": "laborum",
+            "postcode": 6759,
+            "phone": "(899) 526-3066",
+            "email": "kline.hale@laborum.biz"
+          },
+          {
+            "index": 2,
+            "firstname": "Holder",
+            "lastname": "Silva",
+            "dob": "2007-06-29",
+            "address": "Hubbard Street",
+            "suburb": "ex",
+            "postcode": 3176,
+            "phone": "(921) 547-3970",
+            "email": "holder.silva@ex.biz"
+          },
+          {
+            "index": 3,
+            "firstname": "Suzanne",
+            "lastname": "Haley",
+            "dob": "2006-08-11",
+            "address": "Applegate Court",
+            "suburb": "laboris",
+            "postcode": 5555,
+            "phone": "(888) 471-2078",
+            "email": "suzanne.haley@laboris.com"
+          },
+          {
+            "index": 4,
+            "firstname": "Brandi",
+            "lastname": "Mcfadden",
+            "dob": "2007-03-06",
+            "address": "Erskine Loop",
+            "suburb": "occaecat",
+            "postcode": 7637,
+            "phone": "(980) 503-3449",
+            "email": "brandi.mcfadden@occaecat.net"
+          },
+          {
+            "index": 5,
+            "firstname": "Larson",
+            "lastname": "Pollard",
+            "dob": "2006-03-23",
+            "address": "Johnson Street",
+            "suburb": "ut",
+            "postcode": 5020,
+            "phone": "(847) 444-3058",
+            "email": "larson.pollard@ut.org"
+          },
+          {
+            "index": 6,
+            "firstname": "Dona",
+            "lastname": "Lindsey",
+            "dob": "2007-02-22",
+            "address": "Anna Court",
+            "suburb": "aute",
+            "postcode": 4460,
+            "phone": "(927) 555-3053",
+            "email": "dona.lindsey@aute.ca"
+          },
+          {
+            "index": 7,
+            "firstname": "Elisa",
+            "lastname": "Carver",
+            "dob": "2006-10-05",
+            "address": "Manhattan Avenue",
+            "suburb": "nisi",
+            "postcode": 2232,
+            "phone": "(889) 437-3451",
+            "email": "elisa.carver@nisi.io"
+          },
+          {
+            "index": 8,
+            "firstname": "Buchanan",
+            "lastname": "Glenn",
+            "dob": "2007-11-09",
+            "address": "Belmont Avenue",
+            "suburb": "ad",
+            "postcode": 3457,
+            "phone": "(989) 579-4000",
+            "email": "buchanan.glenn@ad.co.uk"
+          },
+          {
+            "index": 9,
+            "firstname": "Tammie",
+            "lastname": "Hayes",
+            "dob": "2007-07-21",
+            "address": "Grafton Street",
+            "suburb": "et",
+            "postcode": 7032,
+            "phone": "(904) 419-2346",
+            "email": "tammie.hayes@et.name"
+          },
+          {
+            "index": 10,
+            "firstname": "Cline",
+            "lastname": "Schroeder",
+            "dob": "2006-01-15",
+            "address": "Cozine Avenue",
+            "suburb": "amet",
+            "postcode": 5123,
+            "phone": "(895) 439-3016",
+            "email": "cline.schroeder@amet.tv"
+          },
+          {
+            "index": 11,
+            "firstname": "Wright",
+            "lastname": "Mathis",
+            "dob": "2007-03-10",
+            "address": "Glenwood Road",
+            "suburb": "ad",
+            "postcode": 5655,
+            "phone": "(830) 569-3151",
+            "email": "wright.mathis@ad.us"
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12",
+        "players": [
+          {
+            "index": 0,
+            "firstname": "Janis",
+            "lastname": "Crosby",
+            "dob": "2006-12-08",
+            "address": "Crosby Avenue",
+            "suburb": "sunt",
+            "postcode": 3779,
+            "phone": "(826) 514-3460",
+            "email": "janis.crosby@sunt.info"
+          },
+          {
+            "index": 1,
+            "firstname": "Mitchell",
+            "lastname": "Burke",
+            "dob": "2007-07-19",
+            "address": "Fay Court",
+            "suburb": "mollit",
+            "postcode": 6877,
+            "phone": "(974) 547-3237",
+            "email": "mitchell.burke@mollit.biz"
+          },
+          {
+            "index": 2,
+            "firstname": "Millicent",
+            "lastname": "Mcleod",
+            "dob": "2005-09-16",
+            "address": "Kenilworth Place",
+            "suburb": "adipisicing",
+            "postcode": 5298,
+            "phone": "(990) 590-2451",
+            "email": "millicent.mcleod@adipisicing.biz"
+          },
+          {
+            "index": 3,
+            "firstname": "Crosby",
+            "lastname": "Ruiz",
+            "dob": "2006-01-06",
+            "address": "Grace Court",
+            "suburb": "proident",
+            "postcode": 5123,
+            "phone": "(881) 431-2023",
+            "email": "crosby.ruiz@proident.com"
+          },
+          {
+            "index": 4,
+            "firstname": "Heath",
+            "lastname": "Dominguez",
+            "dob": "2003-08-14",
+            "address": "Seton Place",
+            "suburb": "laboris",
+            "postcode": 5778,
+            "phone": "(801) 536-3556",
+            "email": "heath.dominguez@laboris.net"
+          },
+          {
+            "index": 5,
+            "firstname": "Patel",
+            "lastname": "Carroll",
+            "dob": "2003-12-23",
+            "address": "Hendrickson Street",
+            "suburb": "nostrud",
+            "postcode": 2679,
+            "phone": "(851) 535-3053",
+            "email": "patel.carroll@nostrud.org"
+          },
+          {
+            "index": 6,
+            "firstname": "Deloris",
+            "lastname": "Fowler",
+            "dob": "2004-12-27",
+            "address": "Dekoven Court",
+            "suburb": "laboris",
+            "postcode": 4534,
+            "phone": "(979) 523-2515",
+            "email": "deloris.fowler@laboris.ca"
+          },
+          {
+            "index": 7,
+            "firstname": "Waller",
+            "lastname": "Stout",
+            "dob": "2005-01-11",
+            "address": "Barwell Terrace",
+            "suburb": "do",
+            "postcode": 2635,
+            "phone": "(829) 477-2837",
+            "email": "waller.stout@do.io"
+          },
+          {
+            "index": 8,
+            "firstname": "Jimmie",
+            "lastname": "Terrell",
+            "dob": "2004-07-30",
+            "address": "Bowne Street",
+            "suburb": "Lorem",
+            "postcode": 6648,
+            "phone": "(913) 441-2711",
+            "email": "jimmie.terrell@lorem.co.uk"
+          },
+          {
+            "index": 9,
+            "firstname": "Brandie",
+            "lastname": "Ballard",
+            "dob": "2004-04-14",
+            "address": "Wyckoff Street",
+            "suburb": "eu",
+            "postcode": 4644,
+            "phone": "(980) 550-3502",
+            "email": "brandie.ballard@eu.name"
+          }
+        ]
+      }
+    ]
+  }
+]

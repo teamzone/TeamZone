@@ -1,0 +1,1692 @@
+[
+  {
+    "adminfirstname": "Maricela",
+    "adminlastname": "Macias",
+    "suburbname": "in",
+    "suffix": "SC",
+    "clubname": "in SC",
+    "cityname": "Silkworth",
+    "fieldname": "in Park",
+    "adminemail": "maricela.macias@insc.net",
+    "adminpassword": "1a096be5-f89d-4116-9db3-93fa3e4e05c0",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Combs",
+    "adminlastname": "Stephenson",
+    "suburbname": "quis",
+    "suffix": "AFC",
+    "clubname": "quis AFC",
+    "cityname": "Cawood",
+    "fieldname": "quis Park",
+    "adminemail": "combs.stephenson@quisafc.org",
+    "adminpassword": "04000906-b1f8-4ecd-9926-3a503b5ce8ee",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Carlene",
+    "adminlastname": "Sharp",
+    "suburbname": "non",
+    "suffix": "AFC",
+    "clubname": "non AFC",
+    "cityname": "Springville",
+    "fieldname": "non Park",
+    "adminemail": "carlene.sharp@nonafc.biz",
+    "adminpassword": "65efbafb-c598-4ba2-83e4-ae8f331d7482",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Mia",
+    "adminlastname": "Emerson",
+    "suburbname": "labore",
+    "suffix": "SC",
+    "clubname": "labore SC",
+    "cityname": "Onton",
+    "fieldname": "labore Park",
+    "adminemail": "mia.emerson@laboresc.ca",
+    "adminpassword": "203091aa-729e-41f3-b33f-97449d81804e",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Silvia",
+    "adminlastname": "Clarke",
+    "suburbname": "est",
+    "suffix": "AFC",
+    "clubname": "est AFC",
+    "cityname": "Babb",
+    "fieldname": "est Park",
+    "adminemail": "silvia.clarke@estafc.info",
+    "adminpassword": "e6ffa8c1-0bc6-4f15-a856-751913e1df78",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Sue",
+    "adminlastname": "French",
+    "suburbname": "aute",
+    "suffix": "FC",
+    "clubname": "aute FC",
+    "cityname": "Newry",
+    "fieldname": "aute Park",
+    "adminemail": "sue.french@autefc.me",
+    "adminpassword": "85149f25-9e77-42ae-9c27-287e0aeeea2d",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Lucile",
+    "adminlastname": "Mcclure",
+    "suburbname": "mollit",
+    "suffix": "FC",
+    "clubname": "mollit FC",
+    "cityname": "Sunnyside",
+    "fieldname": "mollit Park",
+    "adminemail": "lucile.mcclure@mollitfc.us",
+    "adminpassword": "b23cc19c-8752-49b3-b4b0-d918d01039ae",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Bianca",
+    "adminlastname": "Becker",
+    "suburbname": "non",
+    "suffix": "FC",
+    "clubname": "non FC",
+    "cityname": "Duryea",
+    "fieldname": "non Park",
+    "adminemail": "bianca.becker@nonfc.com",
+    "adminpassword": "a664d920-4459-40d5-858a-8bde5f45341a",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Lydia",
+    "adminlastname": "Stein",
+    "suburbname": "aute",
+    "suffix": "SC",
+    "clubname": "aute SC",
+    "cityname": "Barclay",
+    "fieldname": "aute Park",
+    "adminemail": "lydia.stein@autesc.io",
+    "adminpassword": "b67ea5d4-e265-4f15-9113-00289cdaa60a",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Navarro",
+    "adminlastname": "Franks",
+    "suburbname": "commodo",
+    "suffix": "SC",
+    "clubname": "commodo SC",
+    "cityname": "Chaparrito",
+    "fieldname": "commodo Park",
+    "adminemail": "navarro.franks@commodosc.biz",
+    "adminpassword": "bdd8b174-0652-40b6-82b9-c4a2bc4cfa5e",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Bauer",
+    "adminlastname": "Holden",
+    "suburbname": "enim",
+    "suffix": "SC",
+    "clubname": "enim SC",
+    "cityname": "Tetherow",
+    "fieldname": "enim Park",
+    "adminemail": "bauer.holden@enimsc.co.uk",
+    "adminpassword": "cb7865b3-48b8-47b5-9b7c-6a0c2e093fe2",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Parks",
+    "adminlastname": "Jimenez",
+    "suburbname": "proident",
+    "suffix": "AFC",
+    "clubname": "proident AFC",
+    "cityname": "Boomer",
+    "fieldname": "proident Park",
+    "adminemail": "parks.jimenez@proidentafc.tv",
+    "adminpassword": "38769c35-bf27-4adf-9ceb-f1afa46c7919",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Valenzuela",
+    "adminlastname": "Whitehead",
+    "suburbname": "veniam",
+    "suffix": "AFC",
+    "clubname": "veniam AFC",
+    "cityname": "Glenshaw",
+    "fieldname": "veniam Park",
+    "adminemail": "valenzuela.whitehead@veniamafc.net",
+    "adminpassword": "42e33499-939f-46c8-85f6-5f1edd73e1a5",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Burns",
+    "adminlastname": "Anderson",
+    "suburbname": "cupidatat",
+    "suffix": "SC",
+    "clubname": "cupidatat SC",
+    "cityname": "Cedarville",
+    "fieldname": "cupidatat Park",
+    "adminemail": "burns.anderson@cupidatatsc.org",
+    "adminpassword": "42d205c5-7971-497a-84bd-59936d97a255",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Lane",
+    "adminlastname": "Erickson",
+    "suburbname": "culpa",
+    "suffix": "AFC",
+    "clubname": "culpa AFC",
+    "cityname": "Hiseville",
+    "fieldname": "culpa Park",
+    "adminemail": "lane.erickson@culpaafc.biz",
+    "adminpassword": "4ecf63fd-cc5b-476c-a937-cdf4d94649a5",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Lilian",
+    "adminlastname": "Mayer",
+    "suburbname": "ipsum",
+    "suffix": "FC",
+    "clubname": "ipsum FC",
+    "cityname": "Trucksville",
+    "fieldname": "ipsum Park",
+    "adminemail": "lilian.mayer@ipsumfc.ca",
+    "adminpassword": "c6a92bd6-78b1-4a77-a9cf-cf11ffcd80ef",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Carrie",
+    "adminlastname": "Hodges",
+    "suburbname": "sit",
+    "suffix": "AFC",
+    "clubname": "sit AFC",
+    "cityname": "Oberlin",
+    "fieldname": "sit Park",
+    "adminemail": "carrie.hodges@sitafc.info",
+    "adminpassword": "697d1d2c-09c6-42f3-92cb-7400ca5280be",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Christina",
+    "adminlastname": "Reeves",
+    "suburbname": "enim",
+    "suffix": "FC",
+    "clubname": "enim FC",
+    "cityname": "Wright",
+    "fieldname": "enim Park",
+    "adminemail": "christina.reeves@enimfc.me",
+    "adminpassword": "60b612a1-4c60-410b-a683-8241c3238fa1",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Jocelyn",
+    "adminlastname": "Fields",
+    "suburbname": "dolor",
+    "suffix": "AFC",
+    "clubname": "dolor AFC",
+    "cityname": "Fairacres",
+    "fieldname": "dolor Park",
+    "adminemail": "jocelyn.fields@dolorafc.us",
+    "adminpassword": "a08f8639-accd-4f3f-bce9-4a64584f310f",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Glass",
+    "adminlastname": "Hardy",
+    "suburbname": "adipisicing",
+    "suffix": "AFC",
+    "clubname": "adipisicing AFC",
+    "cityname": "Fulford",
+    "fieldname": "adipisicing Park",
+    "adminemail": "glass.hardy@adipisicingafc.com",
+    "adminpassword": "19872e2e-029a-466f-93a3-c75fb2923aae",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Lottie",
+    "adminlastname": "Gaines",
+    "suburbname": "proident",
+    "suffix": "SC",
+    "clubname": "proident SC",
+    "cityname": "Gloucester",
+    "fieldname": "proident Park",
+    "adminemail": "lottie.gaines@proidentsc.io",
+    "adminpassword": "0ccec3c7-7113-4426-8095-c6fb722ec6c5",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Rose",
+    "adminlastname": "Huber",
+    "suburbname": "adipisicing",
+    "suffix": "AFC",
+    "clubname": "adipisicing AFC",
+    "cityname": "Herlong",
+    "fieldname": "adipisicing Park",
+    "adminemail": "rose.huber@adipisicingafc.biz",
+    "adminpassword": "2439de3c-e74f-41ec-8a00-8015783abd18",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Clarissa",
+    "adminlastname": "Shields",
+    "suburbname": "ad",
+    "suffix": "AFC",
+    "clubname": "ad AFC",
+    "cityname": "Yorklyn",
+    "fieldname": "ad Park",
+    "adminemail": "clarissa.shields@adafc.co.uk",
+    "adminpassword": "34827886-c11e-48b1-a070-7d099a372e29",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Erickson",
+    "adminlastname": "Noel",
+    "suburbname": "veniam",
+    "suffix": "SC",
+    "clubname": "veniam SC",
+    "cityname": "Glenbrook",
+    "fieldname": "veniam Park",
+    "adminemail": "erickson.noel@veniamsc.tv",
+    "adminpassword": "8965d066-3de7-4204-b2c4-f4996f03c536",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Guerrero",
+    "adminlastname": "Hunt",
+    "suburbname": "qui",
+    "suffix": "SC",
+    "clubname": "qui SC",
+    "cityname": "Cavalero",
+    "fieldname": "qui Park",
+    "adminemail": "guerrero.hunt@quisc.net",
+    "adminpassword": "279134ab-28a8-4e87-9781-11d735569eab",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Shari",
+    "adminlastname": "Dalton",
+    "suburbname": "pariatur",
+    "suffix": "FC",
+    "clubname": "pariatur FC",
+    "cityname": "Kohatk",
+    "fieldname": "pariatur Park",
+    "adminemail": "shari.dalton@pariaturfc.org",
+    "adminpassword": "08f6e027-828e-4801-8bd6-54a8113f3024",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Sherri",
+    "adminlastname": "Justice",
+    "suburbname": "nostrud",
+    "suffix": "AFC",
+    "clubname": "nostrud AFC",
+    "cityname": "Caledonia",
+    "fieldname": "nostrud Park",
+    "adminemail": "sherri.justice@nostrudafc.biz",
+    "adminpassword": "52003036-2dd7-48f9-bd72-389184a79009",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Haynes",
+    "adminlastname": "Beck",
+    "suburbname": "esse",
+    "suffix": "AFC",
+    "clubname": "esse AFC",
+    "cityname": "Albany",
+    "fieldname": "esse Park",
+    "adminemail": "haynes.beck@esseafc.ca",
+    "adminpassword": "c7a8e4fc-d884-43e7-91fd-d080120d1c35",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Justine",
+    "adminlastname": "Bean",
+    "suburbname": "voluptate",
+    "suffix": "AFC",
+    "clubname": "voluptate AFC",
+    "cityname": "Allamuchy",
+    "fieldname": "voluptate Park",
+    "adminemail": "justine.bean@voluptateafc.info",
+    "adminpassword": "44a6e3c4-5520-4c4d-b1e2-b6c1c58a2486",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Callie",
+    "adminlastname": "Bush",
+    "suburbname": "mollit",
+    "suffix": "FC",
+    "clubname": "mollit FC",
+    "cityname": "Sandston",
+    "fieldname": "mollit Park",
+    "adminemail": "callie.bush@mollitfc.me",
+    "adminpassword": "e97d850d-63b2-4c07-825d-eae355f81fd5",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Dianna",
+    "adminlastname": "Bender",
+    "suburbname": "velit",
+    "suffix": "SC",
+    "clubname": "velit SC",
+    "cityname": "Bath",
+    "fieldname": "velit Park",
+    "adminemail": "dianna.bender@velitsc.us",
+    "adminpassword": "a85472b2-4695-4bd7-ab54-afc8bb7e7e07",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Mitzi",
+    "adminlastname": "Morse",
+    "suburbname": "sint",
+    "suffix": "SC",
+    "clubname": "sint SC",
+    "cityname": "Ronco",
+    "fieldname": "sint Park",
+    "adminemail": "mitzi.morse@sintsc.com",
+    "adminpassword": "de476d76-bc1a-4e6d-b9b7-8a217f724809",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Moreno",
+    "adminlastname": "Sheppard",
+    "suburbname": "ex",
+    "suffix": "AFC",
+    "clubname": "ex AFC",
+    "cityname": "Healy",
+    "fieldname": "ex Park",
+    "adminemail": "moreno.sheppard@exafc.io",
+    "adminpassword": "23847e00-b638-4ac0-909e-499bd412e15f",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Parker",
+    "adminlastname": "Carrillo",
+    "suburbname": "sint",
+    "suffix": "AFC",
+    "clubname": "sint AFC",
+    "cityname": "Bladensburg",
+    "fieldname": "sint Park",
+    "adminemail": "parker.carrillo@sintafc.biz",
+    "adminpassword": "019e3ed4-1530-40d1-88ff-5cbd772e2bd3",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Chambers",
+    "adminlastname": "Holcomb",
+    "suburbname": "anim",
+    "suffix": "FC",
+    "clubname": "anim FC",
+    "cityname": "Farmington",
+    "fieldname": "anim Park",
+    "adminemail": "chambers.holcomb@animfc.co.uk",
+    "adminpassword": "6c259b68-50ef-4a2b-a8d6-8d9978547b9b",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Osborn",
+    "adminlastname": "Mcintosh",
+    "suburbname": "officia",
+    "suffix": "AFC",
+    "clubname": "officia AFC",
+    "cityname": "Beechmont",
+    "fieldname": "officia Park",
+    "adminemail": "osborn.mcintosh@officiaafc.tv",
+    "adminpassword": "b3d9c7e3-88bf-4976-b665-bd9ae24b895f",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Helga",
+    "adminlastname": "Chapman",
+    "suburbname": "labore",
+    "suffix": "SC",
+    "clubname": "labore SC",
+    "cityname": "Soham",
+    "fieldname": "labore Park",
+    "adminemail": "helga.chapman@laboresc.net",
+    "adminpassword": "ccb5b23f-415e-47fd-8b5d-73ee47b2c442",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Caldwell",
+    "adminlastname": "Rowe",
+    "suburbname": "duis",
+    "suffix": "AFC",
+    "clubname": "duis AFC",
+    "cityname": "Roland",
+    "fieldname": "duis Park",
+    "adminemail": "caldwell.rowe@duisafc.org",
+    "adminpassword": "c4eda232-45b4-4f4d-8307-10553cb70e75",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Gardner",
+    "adminlastname": "Morton",
+    "suburbname": "et",
+    "suffix": "AFC",
+    "clubname": "et AFC",
+    "cityname": "Osmond",
+    "fieldname": "et Park",
+    "adminemail": "gardner.morton@etafc.biz",
+    "adminpassword": "d10bb569-8581-4cea-97bb-aaa0d16ba019",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Sybil",
+    "adminlastname": "Hopkins",
+    "suburbname": "dolor",
+    "suffix": "AFC",
+    "clubname": "dolor AFC",
+    "cityname": "Lydia",
+    "fieldname": "dolor Park",
+    "adminemail": "sybil.hopkins@dolorafc.ca",
+    "adminpassword": "1b4e2779-c923-44a5-8e5a-8430e343dc38",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Rebecca",
+    "adminlastname": "Barber",
+    "suburbname": "exercitation",
+    "suffix": "AFC",
+    "clubname": "exercitation AFC",
+    "cityname": "Martell",
+    "fieldname": "exercitation Park",
+    "adminemail": "rebecca.barber@exercitationafc.info",
+    "adminpassword": "4abc9e09-46a8-4617-ab1c-ef02a03dfcd5",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Moran",
+    "adminlastname": "Clark",
+    "suburbname": "sunt",
+    "suffix": "FC",
+    "clubname": "sunt FC",
+    "cityname": "Websterville",
+    "fieldname": "sunt Park",
+    "adminemail": "moran.clark@suntfc.me",
+    "adminpassword": "c27cfb85-ab08-40c6-aee8-47f852c2ba5a",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Tia",
+    "adminlastname": "Ingram",
+    "suburbname": "est",
+    "suffix": "AFC",
+    "clubname": "est AFC",
+    "cityname": "Courtland",
+    "fieldname": "est Park",
+    "adminemail": "tia.ingram@estafc.us",
+    "adminpassword": "0107c152-be73-4317-94ca-523e9f6884d0",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Dionne",
+    "adminlastname": "Hendrix",
+    "suburbname": "ad",
+    "suffix": "AFC",
+    "clubname": "ad AFC",
+    "cityname": "Fairmount",
+    "fieldname": "ad Park",
+    "adminemail": "dionne.hendrix@adafc.com",
+    "adminpassword": "3c620aa7-6cf5-475e-a291-8773e246acde",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Nunez",
+    "adminlastname": "Mckenzie",
+    "suburbname": "ex",
+    "suffix": "SC",
+    "clubname": "ex SC",
+    "cityname": "Corriganville",
+    "fieldname": "ex Park",
+    "adminemail": "nunez.mckenzie@exsc.io",
+    "adminpassword": "a02a44ba-9f98-4cf6-8fa3-5eb513178577",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      },
+      {
+        "index": 5,
+        "squadname": "1st Team",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Gordon",
+    "adminlastname": "Silva",
+    "suburbname": "id",
+    "suffix": "SC",
+    "clubname": "id SC",
+    "cityname": "Coinjock",
+    "fieldname": "id Park",
+    "adminemail": "gordon.silva@idsc.biz",
+    "adminpassword": "2312dd80-bb2a-4668-8692-fbce62e3a8dc",
+    "season": "Season 2015",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Mason",
+    "adminlastname": "Daniels",
+    "suburbname": "officia",
+    "suffix": "FC",
+    "clubname": "officia FC",
+    "cityname": "Charco",
+    "fieldname": "officia Park",
+    "adminemail": "mason.daniels@officiafc.co.uk",
+    "adminpassword": "60627071-5f3c-48e4-af2e-fa3d4dd57828",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Reyes",
+    "adminlastname": "Dale",
+    "suburbname": "sint",
+    "suffix": "AFC",
+    "clubname": "sint AFC",
+    "cityname": "Brogan",
+    "fieldname": "sint Park",
+    "adminemail": "reyes.dale@sintafc.tv",
+    "adminpassword": "17c42e8e-7c32-45ff-8573-0eee13755ecc",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      },
+      {
+        "index": 4,
+        "squadname": "Reserves",
+        "agelimit": "over 16"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Moore",
+    "adminlastname": "Gill",
+    "suburbname": "dolor",
+    "suffix": "AFC",
+    "clubname": "dolor AFC",
+    "cityname": "Hackneyville",
+    "fieldname": "dolor Park",
+    "adminemail": "moore.gill@dolorafc.net",
+    "adminpassword": "f47a49fc-fcaa-47d5-aaf9-1db650676d37",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      }
+    ]
+  },
+  {
+    "adminfirstname": "Meghan",
+    "adminlastname": "Kim",
+    "suburbname": "ut",
+    "suffix": "FC",
+    "clubname": "ut FC",
+    "cityname": "Orin",
+    "fieldname": "ut Park",
+    "adminemail": "meghan.kim@utfc.org",
+    "adminpassword": "00b59b26-3494-4f21-a42e-48a56f71c5c7",
+    "season": "Season 2014",
+    "squads": [
+      {
+        "index": 0,
+        "squadname": "Under 10",
+        "agelimit": "under 10"
+      },
+      {
+        "index": 1,
+        "squadname": "Under 12",
+        "agelimit": "under 12"
+      },
+      {
+        "index": 2,
+        "squadname": "Under 14",
+        "agelimit": "under 14"
+      },
+      {
+        "index": 3,
+        "squadname": "Under 16",
+        "agelimit": "under 16"
+      }
+    ]
+  }
+]

@@ -56,13 +56,33 @@ var bindItems = function(application, dependencyItems) {
 
     var dependencies = dependencyItems[i].dependencies;
     var dependeciesLength = dependencies.length;
-
+    var dependency;
+    
     for(var k = 0; k < dependeciesLength; k++) {
-      ItemDependencies.push(require(dependencies[k]));
+      try {
+        dependency = dependencies[k];
+        console.log('Adding dependency %s', dependency);
+        if (dependency === 'null')
+          ItemDependencies.push(null);
+        else if (dependency.substring(0, 1) !== '.') {
+          ItemDependencies.push(makeLiteralReturnFunction(dependency));
+        }
+        else
+          ItemDependencies.push(require(dependency));
+      }
+      catch (e) {
+        console.log(e.message + ' ' + dependency);
+        throw e;
+      }
     }
 
     application.bind(Item, ItemDependencies, scope);
   }
+  
+function makeLiteralReturnFunction(dependency) {
+  return function() { return dependency; };
+}
+
 };
 
 DiConfig.prototype = {

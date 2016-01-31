@@ -1,6 +1,21 @@
 {
     "routes": [
-        { "route": "/login", "method": "GET", "controller": "./routes/user" },
-        { "route": "/login", "method": "POST", "controller": "./routes/user" }
+        { "route": "/login", "method": "GET", "controller": "./routes/userLogin", "requireAuthenticated": false },
+        { "route": "/login", "method": "POST", "controller": "./routes/userLogin", "requireAuthenticated": false },
+        { "route": "/register", "method": "GET", "controller": "./routes/userRegister", "requireAuthenticated": false },
+        { "route": "/register", "method": "POST", "controller": "./routes/userRegister", "requireAuthenticated": false },
+        { "route": "/verifyReg", "method": "GET", "controller": "./routes/userConfirm", "requireAuthenticated": false },
+        { "route": "/createClub", "method": "POST", "controller": "./routes/createClub", "requireAuthenticated": true },
+        { "route": "/createClub", "method": "GET", "controller": "./routes/createClub", "requireAuthenticated": true },
+        { "route": "/manageClub", "method": "POST", "controller": "./routes/manageClub", "requireAuthenticated": true },
+        { "route": "/manageClub", "method": "GET", "controller": "./routes/manageClub", "requireAuthenticated": true },
+        { "route": "/createSquad", "method": "POST", "controller": "./routes/createSquad", "requireAuthenticated": true },
+        { "route": "/createSquad", "method": "GET", "controller": "./routes/createSquad", "requireAuthenticated": true },
+        { "route": "/manageSquad", "method": "POST", "controller": "./routes/manageSquad", "requireAuthenticated": true },
+        { "route": "/manageSquad", "method": "GET", "controller": "./routes/manageSquad", "requireAuthenticated": true },
+        { "route": "/addSquadPlayer", "method": "POST", "controller": "./routes/addSquadPlayer", "requireAuthenticated": true },
+        { "route": "/addSquadPlayer", "method": "GET", "controller": "./routes/addSquadPlayer", "requireAuthenticated": true },
+        { "route": "/addPlayer", "method": "POST", "controller": "./routes/addPlayer", "requireAuthenticated": true },
+        { "route": "/addPlayer", "method": "GET", "controller": "./routes/addPlayer", "requireAuthenticated": true }        
     ]
 }

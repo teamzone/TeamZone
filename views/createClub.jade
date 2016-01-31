@@ -1,0 +1,46 @@
+doctype html
+html
+  head
+    title Dashboard :: Create Club
+    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.common.min.css')
+    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.bootstrap.min.css')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='stylesheets/style.css')
+  body
+    .login.well
+      h1  Create a new Club
+      hr
+      form(id='create-club-form', method='POST', action='/createClub' novalidate)
+        .form-group
+          label(for='clubname') Club Name
+          input(type='text', name='clubname', class='form-control', 
+            id='clubname', placeholder='Enter the name of the club',
+            required data-required-msg='The club name is required')    
+        .form-group
+          label(for='cityname') City 
+          input(type='text', name='cityname', class='form-control', 
+            id='cityname', placeholder='City Name',
+            required data-required-msg='Your club needs to be in a city')
+        .form-group
+          label(for='suburbname') Suburb 
+          input(type='text', name='suburbname', class='form-control', 
+            id='suburbname', placeholder='Suburb Name',
+            required data-required-msg='Your club needs to be in a suburb within the city')
+        .form-group
+          label(for='fieldname') Field 
+          input(type='text', name='fieldname', class='form-control', 
+            id='fieldname', placeholder='Field Name',
+            required data-required-msg='Your club needs to have a home field where it plays')
+        .form-group
+          label(for='adminemail') Administrator Email
+          input(type='email', name='adminemail', class='form-control', 
+            id='adminemail', placeholder='Enter email address for the administrator',
+            required data-required-msg="The Admininistor's Email address is required"
+            data-available data-available-url="validate/adminEmailIsUser" 
+            data-available-msg="The administrator needs to be a existing user")    
+        .form-group
+          button.btn.btn-default Create
+        include messages
+
+  script(src='//code.jquery.com/jquery-1.9.1.min.js')
+  script(src='//cdn.kendostatic.com/2013.3.1119/js/kendo.all.min.js')

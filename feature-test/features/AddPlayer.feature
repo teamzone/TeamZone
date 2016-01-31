@@ -3,7 +3,7 @@ To be able to contact our players, as a coach I’d like to add player names and
 
 Background:
 
-	Given we have a team called Western Knights 1st Team for the season 2014 with no players listed
+	Given we have a team called Western Knights 1st Team for the season 2014 with no players listed playing in the city of Perth
 	
 Scenario: The player vital details need to be entered
 
@@ -33,6 +33,7 @@ Scenario: Entering an invalid date should be disallowed
 	Given As a coach 
 	when I attempt to enter the following details which contains an incorrect date [firstname], [surname], [dob], [address], [suburb], [postcode], [phone], [email]
 	then I should be notified of an invalid date
+	and the player should not be in the database
 
 Where:
 	 firstname	| surname	| dob			| address									| suburb			| postcode 		| phone			| email

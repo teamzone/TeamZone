@@ -1,37 +1,50 @@
-﻿extends layout
+doctype html
+html
+  head
+    title Dashboard :: Add Player
+    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.common.min.css')
+    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.bootstrap.min.css')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='stylesheets/style.css')
+  body
+    .login.well
+      h1 Player Details
+      hr  
+      div  
+        form(method="POST", action="/AddPlayer", id="addPlayerForm")
+          .form-group
+            label(for='clubname') Club
+            input(type="text", name="clubname", id="clubname", placeholder='Club Name', required, data-required-msg='Club Name is required')
+          .form-group
+            label(for='cityname') City
+            input(type="text", name="cityname", id="cityname", placeholder='City Name', required, data-required-msg='City Name is required')
+          .form-group
+            label(for='firstname') First Name
+            input(type="text", name="firstname", id="firstname", placeholder='First Name', required, data-required-msg='First Name is required')
+          .form-group
+            label(for='lastname') Last Name
+            input(type="text", name="lastname", id="lastname", placeholder='Last Name', required, data-required-msg='Last Name is required')
+          .form-group
+            label(for='dob') Date of Birth
+            input(type="date", name="dob", id="dob", placeholder='Date of Birth', required, data-required-msg='Date of Birth is required')
+          .form-group
+            label(for='address') Address
+            input(type="text", name="address", id="address", placeholder='Address', required, data-required-msg='Address is required')
+          .form-group
+            label(for='suburb') Suburb
+            input(type='text', name='suburb', id='suburb', placeholder='Suburb', required, data-required-msg='Suburb is required')      
+          .form-group
+            label(for='postcode') Postal Code
+            input(type="text", name="postcode", id="postcode", placeholder='Postal Code', required, data-required-msg='Postal Code is required')
+          .form-group
+            label(for='phone') Phone
+            input(type="text", name="phone", id="phone", placeholder='phone', required, data-required-msg='Phone is required')
+          .form-group
+            label(for='email') Email
+            input(type="email", name="email", id="email", placeholder='Email', required, data-required-msg='Email is required')
+          .form-group
+            button#Submit.btn.btn-default(name="Submit") Create
+          include messages
 
-block content
-
-  h1 Player Details
-  hr  
-  div  
-    form(method="POST", action="/AddPlayer", id="addPlayerForm")
-      .form-group
-        label(for='TeamName') Team
-        input(type="text", name="TeamName", id="TeamName", placeholder='Team Name', required, data-required-msg='Team Name is required')
-      .form-group
-        label(for='FirstName') First Name
-        input(type="text", name="FirstName", id="FirstName", placeholder='First Name', required, data-required-msg='First Name is required')
-      .form-group
-        label(for='Surname') Surname
-        input(type="text", name="Surname", id="Surname", placeholder='Surname', required, data-required-msg='Surname is required')
-      .form-group
-        label(for='DOB') Date of Birth
-        input(type="date", name="DOB", id="DOB", placeholder='Date of Birth', required, data-required-msg='Date of Birth is required')
-      .form-group
-        label(for='Address') Address
-        input(type="text", name="Address", id="Address", placeholder='Address', required, data-required-msg='Address is required')
-      .form-group
-        label(for='Suburb') Suburb
-        input(type='text', name='Suburb', id='Suburb', placeholder='Suburb', required, data-required-msg='Suburb is required')      
-      .form-group
-        label(for='PostCode') Postal Code
-        input(type="text", name="PostCode", id="PostCode", placeholder='Postal Code', required, data-required-msg='Postal Code is required')
-      .form-group
-        label(for='Phone') Phone
-        input(type="text", name="Phone", id="Phone", placeholder='Phone', required, data-required-msg='Phone is required')
-      .form-group
-        label(for='Email') Email
-        input(type="email", name="Email", id="Email", placeholder='Email', required, data-required-msg='Email is required')
-      .form-group
-        button#Submit.btn.btn-default(name="Submit") Submit
+  script(src='//code.jquery.com/jquery-1.9.1.min.js')
+  script(src='//cdn.kendostatic.com/2013.3.1119/js/kendo.all.min.js')            

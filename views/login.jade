@@ -10,7 +10,7 @@ html
     .login.well
       h1  Please log in...
       hr
-      form(id='login-form', method='POST', action='/login' novalidate)
+      form(id='login-form', method='POST', action='#{ "/login" + (query && query.url ? "?url=" + query.url : "") }' novalidate)
         .form-group
           label(for='username') Username
           input(type='text', name='username', class='form-control', 
