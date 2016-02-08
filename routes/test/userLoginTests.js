@@ -2,6 +2,7 @@
 /*jslint nomen: true */
 /*jslint newcap: true */
 /*global before, beforeEach, afterEach, after, describe, it */
+/*jshint expr: true*/
 'use strict';
 
 var user = require('../userLogin');
@@ -103,22 +104,22 @@ describe("Testing of expressjs route for user login", function () {
         //4. teardown
         done();
     });
-    
-    it("Redirects to the originally requested url", function(done) {
+
+    it("Redirects to the originally requested url", function (done) {
         //1. Setup
         incomingExpressRequest.query = {
             url: '/addPlayer'
         };
-        
+
         // 2. Exercise
         u.post(incomingExpressRequest, outgoingExpressResponse);
-        
+
         // 3. verify
         assertLoginVerifiedAndViewUpdated('/addPlayer');
-        
+
         // 4. teardown
         done();
-    })
+    });
 
     //3. Module Verify
 

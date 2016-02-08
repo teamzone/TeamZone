@@ -2,6 +2,7 @@
 /*jslint newcap: true */
 /*global before, beforeEach, afterEach, after, describe, it */
 /*jslint nomen: true */
+/*jshint expr: true*/
 "use strict";
 
 var createsquad = require('../createSquad');

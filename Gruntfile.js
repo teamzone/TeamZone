@@ -119,7 +119,19 @@ module.exports = function(grunt) {
           'lib/PlayerManagementService.js',
           'feature-test/steps/testAddPlayer.js',
           'feature-test/steps/AddPlayer.js',
-          'feature-test/steps/common/test/DbHelpersTests.js'
+          'feature-test/steps/common/test/DbHelpersTests.js',
+          // TODO: These files seem to have different rules to the other files loaded in.
+          'lib/DependencyBinder.js',
+          'lib/DependencyItemBuilder.js',
+          'lib/TestDependencyInjector.js',
+          'lib/test/DependencyBinderTests.js',
+          'lib/test/DependencyItemBuilderTests.js',
+          'lib/test/TestDependencyInjectorTests.js',
+          'lib/test/TokenServiceTests.js',
+          'feature-test/steps/_testAll.js',
+          'feature-test/steps/DiConfig.js',
+          'feature-test/steps/CreateClubs.workers.js',
+          'routes/test/addPlayerTests.js'
         ],
         directives: { // example directives
           node: true,
