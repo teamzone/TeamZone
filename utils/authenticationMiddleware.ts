@@ -10,7 +10,7 @@
 import express = require("express");
 
 
-var authenticationMiddleware : RequestHandler =  (req: Request, res: Response, next: Function) => {
+var authenticationMiddleware : express.RequestHandler =  (req: express.Request, res: express.Response, next: Function) => {
     console.log('Request to: ' + req.url + " handled by auth middleware");
     var authenticated = req.session.authenticated;
     
