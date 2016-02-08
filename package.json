@@ -4,6 +4,9 @@
   "description": "TeamZoneDemo",
   "main": "app.js",
   "author": "nickz",
+  "engines": {
+    "node": "0.10.30"
+  },
   "dependencies": {
     "bcrypt": "^0.8.5",
     "body-parser": "^1.10.0",
