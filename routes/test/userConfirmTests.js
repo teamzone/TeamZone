@@ -1,6 +1,7 @@
 /*jslint node: true */
 /*jslint nomen: true */
 /*jslint newcap: true */
+/*jshint expr: true*/
 /*global before, beforeEach, afterEach, after, describe, it */
 'use strict';
 
