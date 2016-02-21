@@ -1,3 +1,10 @@
 # Ignore node_modules
 node_modules/**
 .c9/**
+**/*.js.map
+routes/*.js
+lib/ts/*.js
+logs/all-logs.log
+utils/authenticationMiddleware.js
+
+!routes/index.js
