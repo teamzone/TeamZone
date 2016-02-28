@@ -68,7 +68,15 @@ export module Service {
 				.on('error', error => {
 					err = error;
 				})
-				.on('end', () => callback(err, clubs));
+				.on('end', () => {
+					if(!err && clubs.length == 0) {
+						err = {
+							notFound: true,
+							message: 'No clubs found with admin: ' + adminemail
+						};
+					}
+					callback(err, clubs);
+				});
 		}
 
 		/**

@@ -49,6 +49,10 @@ var CreateSquad = (function () {
         };
         this.get = function (req, res) {
             _this._cms.GetClubs(req.session.user.email, function (err, clubs) {
+                if (err && err.notFound) {
+                    res.render('notClubAdmin');
+                    return;
+                }
                 if (err) {
                     var flash = new Flash();
                     res.render('createSquad', { flash: flash });

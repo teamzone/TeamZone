@@ -3,3 +3,4 @@ node_modules/**
 .c9/**
 **/*.js.map
 logs/all-logs.log
+typings/*

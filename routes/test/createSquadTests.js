@@ -5,6 +5,7 @@
 /*jshint expr: true*/
 "use strict";
 
+var assert = require('assert');
 var createsquad = require('../createSquad');
 var sinon = require('sinon');
 var squadmanagementservice = require('../../lib/ts/SquadManagementService');
@@ -15,6 +16,7 @@ chai.should();
 chai.use(sinonChai);
 require('mocha-sinon');
 var expressValidator = require('express-validator')();
+var createError = require('errno').create;
 
 describe("Testing of expressjs route for create a squad", function () {
     //1. Module Setup
@@ -57,7 +59,7 @@ describe("Testing of expressjs route for create a squad", function () {
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
 
         stubGetClubs = sandbox.stub(clubms, 'GetClubs');
-        stubGetClubs.yields(null, ['Club1', 'Club2']);
+        stubGetClubs.yields(null, ['Club1']);
 
         //this will be setup to be injected soon enough
         cs = new createsquad(sms, clubms);
@@ -86,7 +88,7 @@ describe("Testing of expressjs route for create a squad", function () {
         cs.get(incomingGetRequest, outgoingExpressResponse);
 
         outgoingExpressResponseSpy.should.have.been.calledWith('createSquad', {
-            clubs: ['Club1', 'Club2']
+            clubs: ['Club1']
         });
 
         done();
@@ -163,6 +165,24 @@ describe("Testing of expressjs route for create a squad", function () {
         incomingExpressRequest.body.adminemail = '---';
         //2. exercise
         enactRequestBodyValidationTest(incomingExpressRequest, [{ msg: 'Administrator/Custodian Email does not appear to be valid' }], done);
+    });
+
+    it("Shows the notClubAdmin view if not a club admin", function (done) {
+        // 1. setup
+        var error = {
+            notFound: true,
+            message: 'Could not find Club for admin: robdunn@aboutagile.com'
+        };
+        stubGetClubs.yields(error, []);
+
+        // 2. exercise
+        cs.get(incomingGetRequest, outgoingExpressResponse);
+
+        // 3. verify
+        assert(outgoingExpressResponseSpy.calledWith('notClubAdmin'));
+
+        // 4. teardown
+        done();
     });
 
     //3. Module Verify
