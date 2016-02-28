@@ -55,6 +55,21 @@ export module Service {
 				});
 			}));
 		}
+		
+		GetClubs = (adminemail: string, callback: any) => {
+			var clubs = [];
+			var err = null;
+			this._clubs.createReadStream()
+				.on('data', data => {
+					if(adminemail === data.value.admin) {
+						clubs.push(data.key);
+					}
+				})
+				.on('error', error => {
+					err = error;
+				})
+				.on('end', () => callback(err, clubs));
+		}
 
 		/**
 		* Supplies an array parameter values and their names and links to the validations required for these parameters
