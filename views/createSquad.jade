@@ -16,12 +16,13 @@ html
           input(type='text', name='clubname', class='form-control', 
             id='clubname', placeholder='Enter the name of the club',
             required data-required-msg='The club name is required',
-            readonly value=(clubs || [])[0])
+            readonly value=clubs[0].club)
         .form-group
           label(for='cityname') City 
           input(type='text', name='cityname', class='form-control', 
             id='cityname', placeholder='City Name',
-            required data-required-msg='Your club needs to be in a city')
+            required data-required-msg='Your club needs to be in a city',
+            readonly value=clubs[0].city)
         .form-group
           label(for='squadname') Squad 
           input(type='text', name='squadname', class='form-control', 
