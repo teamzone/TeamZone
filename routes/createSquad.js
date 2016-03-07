@@ -63,7 +63,7 @@ var CreateSquad = (function () {
         };
     }
     return CreateSquad;
-})();
+}());
 exports.CreateSquad = CreateSquad;
 module.exports = CreateSquad;
 //# sourceMappingURL=createSquad.js.map

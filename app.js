@@ -1,3 +1,4 @@
+"use strict";
 var logger = require("./utils/logger");
 var express = require('express');
 var path = require('path');
@@ -41,9 +42,12 @@ diConfig.configureDependencies();
 var RouteConfig = require('./RouteConfig');
 var routeConfig = new RouteConfig(app);
 routeConfig.registerRoutes();
-app.route('/').get(routes.index);
-app.route('/dashboard').get(routes.dashboard);
-app.route('/logout').get(routes.logout);
+app.route('/')
+    .get(routes.index);
+app.route('/dashboard')
+    .get(routes.dashboard);
+app.route('/logout')
+    .get(routes.logout);
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });

@@ -10,7 +10,7 @@ var ManageClub = (function () {
         };
     }
     return ManageClub;
-})();
+}());
 exports.ManageClub = ManageClub;
 module.exports = ManageClub;
 //# sourceMappingURL=manageClub.js.map

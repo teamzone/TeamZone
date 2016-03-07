@@ -44,7 +44,7 @@ var UserRegister = (function () {
         };
     }
     return UserRegister;
-})();
+}());
 exports.UserRegister = UserRegister;
 module.exports = UserRegister;
 //# sourceMappingURL=userRegister.js.map
