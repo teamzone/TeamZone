@@ -10,6 +10,7 @@
 /// <reference path='typings/method-override/method-override.d.ts' />
 
 var logger = require("./utils/logger");
+var authenticationMiddleware = require('./utils/authenticationMiddleware');
 import http = require('http');
 import express = require('express');
 import path = require('path');
@@ -69,14 +70,16 @@ var RouteConfig = require('./RouteConfig');
 var routeConfig = new RouteConfig(app);
 routeConfig.registerRoutes();
 
+
 app.route('/')
   .get(routes.index);
   
 app.route('/dashboard')
-  .get(routes.dashboard);
+  .get(authenticationMiddleware, routes.dashboard);
   
 app.route('/logout')
   .get(routes.logout);
+
 
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

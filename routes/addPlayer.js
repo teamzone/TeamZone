@@ -47,7 +47,7 @@ var AddPlayer = (function () {
         };
     }
     return AddPlayer;
-})();
+}());
 exports.AddPlayer = AddPlayer;
 module.exports = AddPlayer;
 //# sourceMappingURL=addPlayer.js.map

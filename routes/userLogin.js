@@ -36,7 +36,7 @@ var UserLogin = (function () {
         };
     }
     return UserLogin;
-})();
+}());
 exports.UserLogin = UserLogin;
 module.exports = UserLogin;
 //# sourceMappingURL=userLogin.js.map

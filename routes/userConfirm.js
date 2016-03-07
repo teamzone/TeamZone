@@ -33,7 +33,7 @@ var UserConfirm = (function () {
         };
     }
     return UserConfirm;
-})();
+}());
 exports.UserConfirm = UserConfirm;
 module.exports = UserConfirm;
 //# sourceMappingURL=userConfirm.js.map
