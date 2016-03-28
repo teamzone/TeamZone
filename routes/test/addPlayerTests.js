@@ -8,6 +8,7 @@
 var addplayer = require('../addPlayer');
 var sinon = require('sinon');
 var playermanagementservice = require('../../lib/ts/PlayerManagementService');
+var clubmanagementservice = require('../../lib/ts/ClubManagementService');
 var sinonChai = require("sinon-chai");
 var chai = require("chai");
 chai.should();
@@ -21,12 +22,21 @@ describe("Testing of expressjs route for adding a player to a club", function ()
         sandbox,
         stubAddPlayer,
         pms,
+        clubms,
+        incomingGetRequest,
         incomingExpressRequest,
         outgoingExpressResponse,
-        outgoingExpressResponseSpy;
+        outgoingExpressResponseSpy,
+        stubGetClubs;
 
     beforeEach(function () {
         pms = new playermanagementservice(null);
+        clubms = new clubmanagementservice(null);
+        incomingGetRequest = {
+            session: {
+                user: { email: 'robdunn@aboutagile.com' }
+            }
+        };
         incomingExpressRequest = {
             body: { clubname: 'Western Knights', cityname: 'Perth',
                     firstname: 'Ken', lastname: 'Bacon', dob: '29 Dec 1991', address: '999 Millenium Way',
@@ -46,9 +56,12 @@ describe("Testing of expressjs route for adding a player to a club", function ()
             render: function (view) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', view); }
         };
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
+        
+        stubGetClubs = sandbox.stub(clubms, 'GetClubs');
+        stubGetClubs.yields(null, [{ club: 'Club1', city: 'City1' }]);
 
         //this will be setup to be injected soon enough
-        ap = new addplayer(pms);
+        ap = new addplayer(pms, clubms);
     });
 
     function assertViewUpdated(redirectView, spy, alertType, messages) {
@@ -85,8 +98,25 @@ describe("Testing of expressjs route for adding a player to a club", function ()
         //2. exercise
         enactRequestBodyValidationTest(incomingExpressRequest, [{ msg: expectedMessage }], done);
     }
+    
+    function assertViewCreatedWithClubAndCity() {
+        outgoingExpressResponseSpy.should.have.been.calledWith('addPlayer', { clubs: [{ club: 'Club1', city: 'City1'}]});
+    }
 
     //2. Module Exercise
+    
+    it("Includes club and city of the current user", function (done) {
+        //1. setup
+        
+        //2. exercise
+        ap.get(incomingGetRequest, outgoingExpressResponse);
+        
+        //3. verify
+        assertViewCreatedWithClubAndCity();
+        
+        //4. teardown
+        done();
+    });
 
     it("Add a valid player", function (done) {
         //1. setup
