@@ -1,9 +1,10 @@
 'use strict';
 var Flash = require("./flash");
 var AddPlayer = (function () {
-    function AddPlayer(_pms) {
+    function AddPlayer(_pms, _cms) {
         var _this = this;
         this._pms = _pms;
+        this._cms = _cms;
         this.post = function (req, res) {
             req.checkBody('clubname', 'Club is required').notEmpty();
             req.checkBody('cityname', 'City is required').notEmpty();
@@ -43,7 +44,12 @@ var AddPlayer = (function () {
             }
         };
         this.get = function (req, res) {
-            res.render('addPlayer', { title: 'Add Player' });
+            _this._cms.GetClubs(req.session.user.email, function (err, clubs) {
+                if (!err) {
+                    res.render('addPlayer', { clubs: clubs });
+                    return;
+                }
+            });
         };
     }
     return AddPlayer;
