@@ -1,5 +1,6 @@
 "use strict";
 var logger = require("./utils/logger");
+var authenticationMiddleware = require('./utils/authenticationMiddleware');
 var express = require('express');
 var path = require('path');
 var expressValidator = require('express-validator');
@@ -45,7 +46,7 @@ routeConfig.registerRoutes();
 app.route('/')
     .get(routes.index);
 app.route('/dashboard')
-    .get(routes.dashboard);
+    .get(authenticationMiddleware, routes.dashboard);
 app.route('/logout')
     .get(routes.logout);
 app.listen(app.get('port'), function () {
