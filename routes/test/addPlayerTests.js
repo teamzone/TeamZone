@@ -118,6 +118,24 @@ describe("Testing of expressjs route for adding a player to a club", function ()
         done();
     });
 
+    it("Shows the notClubAdmin view if not a club admin", function (done) {
+        // 1. setup
+        var error = {
+            notFound: true,
+            message: 'Could not find Club for admin: robdunn@aboutagile.com'
+        };
+        stubGetClubs.yields(error, []);
+
+        // 2. exercise
+        ap.get(incomingGetRequest, outgoingExpressResponse);
+
+        // 3. verify
+        outgoingExpressResponseSpy.should.have.been.calledWith('notClubAdmin');
+
+        // 4. teardown
+        done();
+    });
+
     it("Add a valid player", function (done) {
         //1. setup
 

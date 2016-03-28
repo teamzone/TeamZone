@@ -49,6 +49,10 @@ var AddPlayer = (function () {
                     res.render('addPlayer', { clubs: clubs });
                     return;
                 }
+                if (err.notFound) {
+                    res.render('notClubAdmin');
+                    return;
+                }
             });
         };
     }

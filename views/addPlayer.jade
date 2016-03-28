@@ -14,34 +14,36 @@ html
         form(method="POST", action="/AddPlayer", id="addPlayerForm")
           .form-group
             label(for='clubname') Club
-            input(type="text", name="clubname", id="clubname", placeholder='Club Name', required, data-required-msg='Club Name is required')
+            input(type="text", name="clubname", id="clubname", class='form-control', placeholder='Club Name', required, data-required-msg='Club Name is required',
+              readonly value=clubs[0].club)
           .form-group
             label(for='cityname') City
-            input(type="text", name="cityname", id="cityname", placeholder='City Name', required, data-required-msg='City Name is required')
+            input(type="text", name="cityname", id="cityname", class='form-control', placeholder='City Name', required, data-required-msg='City Name is required',
+              readonly value=clubs[0].city)
           .form-group
             label(for='firstname') First Name
-            input(type="text", name="firstname", id="firstname", placeholder='First Name', required, data-required-msg='First Name is required')
+            input(type="text", name="firstname", id="firstname", class='form-control', placeholder='First Name', required, data-required-msg='First Name is required')
           .form-group
             label(for='lastname') Last Name
-            input(type="text", name="lastname", id="lastname", placeholder='Last Name', required, data-required-msg='Last Name is required')
+            input(type="text", name="lastname", id="lastname", class='form-control', placeholder='Last Name', required, data-required-msg='Last Name is required')
           .form-group
             label(for='dob') Date of Birth
-            input(type="date", name="dob", id="dob", placeholder='Date of Birth', required, data-required-msg='Date of Birth is required')
+            input(type="date", name="dob", id="dob", class='form-control', placeholder='Date of Birth', required, data-required-msg='Date of Birth is required')
           .form-group
             label(for='address') Address
-            input(type="text", name="address", id="address", placeholder='Address', required, data-required-msg='Address is required')
+            input(type="text", name="address", id="address", class='form-control', placeholder='Address', required, data-required-msg='Address is required')
           .form-group
             label(for='suburb') Suburb
-            input(type='text', name='suburb', id='suburb', placeholder='Suburb', required, data-required-msg='Suburb is required')      
+            input(type='text', name='suburb', id='suburb', class='form-control', placeholder='Suburb', required, data-required-msg='Suburb is required')      
           .form-group
             label(for='postcode') Postal Code
-            input(type="text", name="postcode", id="postcode", placeholder='Postal Code', required, data-required-msg='Postal Code is required')
+            input(type="text", name="postcode", id="postcode", class='form-control', placeholder='Postal Code', required, data-required-msg='Postal Code is required')
           .form-group
             label(for='phone') Phone
-            input(type="text", name="phone", id="phone", placeholder='phone', required, data-required-msg='Phone is required')
+            input(type="text", name="phone", id="phone", class='form-control', placeholder='phone', required, data-required-msg='Phone is required')
           .form-group
             label(for='email') Email
-            input(type="email", name="email", id="email", placeholder='Email', required, data-required-msg='Email is required')
+            input(type="email", name="email", id="email", class='form-control', placeholder='Email', required, data-required-msg='Email is required')
           .form-group
             button#Submit.btn.btn-default(name="Submit") Create
           include messages

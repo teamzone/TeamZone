@@ -90,7 +90,10 @@ export class AddPlayer implements webRequest.IWebRequest {
                 return;
             }
             
-            
+            if(err.notFound) {
+                res.render('notClubAdmin');
+                return;
+            }
         });
     }
 }
