@@ -94,6 +94,11 @@ export class AddPlayer implements webRequest.IWebRequest {
                 res.render('notClubAdmin');
                 return;
             }
+            
+            var flash: Flash = new Flash();
+            flash.type = 'alert-danger';
+            flash.messages = [{ msg: 'An unexpected error occurred. Detailed message was: ' + err.message }];
+            res.render('addPlayer', { flash: flash });
         });
     }
 }

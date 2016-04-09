@@ -226,6 +226,28 @@ describe("Testing of expressjs route for adding a player to a club", function ()
         enactRequestBodyValidationTest(incomingExpressRequest, [{ msg: 'Email does not appear to be valid' }], done);
     });
 
+    it("Shows the error if database call fails", function (done) {
+        // 1. setup
+        var error = {
+            message: 'Db connection timeout'
+        };
+        stubGetClubs.yields(error, []);
+
+        // 2. exercise
+        ap.get(incomingGetRequest, outgoingExpressResponse);
+
+        // 3. verify
+        outgoingExpressResponseSpy.should.have.been.calledWith('addPlayer', sinon.match({ 
+            flash: {
+                type: 'alert-danger',
+                messages: [{ msg: 'An unexpected error occurred. Detailed message was: ' + error.message }]
+            }
+        }));
+
+        // 4. teardown
+        done();
+    });
+
     //3. Module Verify
 
     //4. Module Cleanup

@@ -53,6 +53,10 @@ var AddPlayer = (function () {
                     res.render('notClubAdmin');
                     return;
                 }
+                var flash = new Flash();
+                flash.type = 'alert-danger';
+                flash.messages = [{ msg: 'An unexpected error occurred. Detailed message was: ' + err.message }];
+                res.render('addPlayer', { flash: flash });
             });
         };
     }
