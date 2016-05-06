@@ -8,7 +8,8 @@
 
 import express = require("express");
 import Flash = require("./flash");
-import Service = require("../lib/ts/IPlayerManagementService");
+import ClubManagement = require('../lib/ts/IClubManagementService');
+import PlayerManagement = require("../lib/ts/IPlayerManagementService");
 import webRequest = require("./IWebRequest");
 import expressValidator = require('express-validator');
 
@@ -22,8 +23,9 @@ export class AddPlayer implements webRequest.IWebRequest {
     * Accepts the service component that will handle the creation of a new club in the database
     * @constructor
     * @param {IPlayerManagementService} _pms - service to provide the ability to create add a player.
+    * @param {IClubManagementService} _cms - service to provide the ability to load club and city.
     **/  
-    constructor(private _pms: Service.IPlayerManagementService) { 
+    constructor(private _pms: PlayerManagement.IPlayerManagementService, private _cms: ClubManagement.IClubManagementService) {
     }
     
     /**
@@ -82,7 +84,22 @@ export class AddPlayer implements webRequest.IWebRequest {
     * @param {express.Response} req - incoming response object furnished by Express
     **/  
     get = (req: express.Request, res: express.Response) => {
-        res.render('addPlayer', { title: 'Add Player' });
+        this._cms.GetClubs(req.session.user.email, function(err, clubs) {
+            if(!err) {
+                res.render('addPlayer', { clubs: clubs });
+                return;
+            }
+            
+            if(err.notFound) {
+                res.render('notClubAdmin');
+                return;
+            }
+            
+            var flash: Flash = new Flash();
+            flash.type = 'alert-danger';
+            flash.messages = [{ msg: 'An unexpected error occurred. Detailed message was: ' + err.message }];
+            res.render('addPlayer', { flash: flash });
+        });
     }
 }
 
