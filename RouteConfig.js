@@ -21,8 +21,6 @@ var registerRoutes = function() {
 
     registerRoute(this.application, Controller, route, method, requiresAuth);
   }
-
-  createConfigRoute(this.application);
 };
 
 var loadRouteConfig = function() {
@@ -108,13 +106,6 @@ var registerRoute = function(application, Controller, route, method, requiresAut
     var controller = req.dependencyInjector.get(Controller);
     controller[method](req, res, next);
   }
-};
-
-var createConfigRoute = function(application) {
-    // TODO RM Note: Check if this is needed?
-//  application.route('/config').get(function(req, res, next) {
-//    res.status(200).json(settings);
-//  });
 };
 
 RouteConfig.prototype = {
