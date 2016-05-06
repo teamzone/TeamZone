@@ -62,7 +62,8 @@ export module Service {
 			this._clubs.createReadStream()
 				.on('data', data => {
 					if(adminemail === data.value.admin) {
-						clubs.push(data.key);
+						var clubncity = kf.KeyFactory.clubKeyDecomposer(data.key);
+						clubs.push(clubncity);
 					}
 				})
 				.on('error', error => {

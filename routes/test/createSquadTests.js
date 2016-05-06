@@ -59,7 +59,7 @@ describe("Testing of expressjs route for create a squad", function () {
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
 
         stubGetClubs = sandbox.stub(clubms, 'GetClubs');
-        stubGetClubs.yields(null, ['Club1']);
+        stubGetClubs.yields(null, [{ club: 'Club1', city: 'City1' }]);
 
         //this will be setup to be injected soon enough
         cs = new createsquad(sms, clubms);
@@ -88,7 +88,7 @@ describe("Testing of expressjs route for create a squad", function () {
         cs.get(incomingGetRequest, outgoingExpressResponse);
 
         outgoingExpressResponseSpy.should.have.been.calledWith('createSquad', {
-            clubs: ['Club1']
+            clubs: [{ club: 'Club1', city: 'City1' }]
         });
 
         done();
