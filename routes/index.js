@@ -3,7 +3,7 @@
  */
 
 exports.index = function(req, res){
-  res.redirect('login');
+  res.redirect('/dashboard');
 };
 
 exports.dashboard = function(req, res) {

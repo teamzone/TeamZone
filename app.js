@@ -44,7 +44,7 @@ var RouteConfig = require('./RouteConfig');
 var routeConfig = new RouteConfig(app);
 routeConfig.registerRoutes();
 app.route('/')
-    .get(routes.index);
+    .get(authenticationMiddleware, routes.index);
 app.route('/dashboard')
     .get(authenticationMiddleware, routes.dashboard);
 app.route('/logout')
