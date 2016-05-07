@@ -32,7 +32,14 @@ var UserLogin = (function () {
             });
         };
         this.get = function (req, res) {
-            res.render('login');
+            if (req.session.userConfirmation) {
+                var flash = req.session.userConfirmation;
+                delete req.session.userConfirmation;
+                res.render('login', { flash: flash });
+            }
+            else {
+                res.render('login');
+            }
         };
     }
     return UserLogin;
