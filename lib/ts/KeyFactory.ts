@@ -13,6 +13,16 @@ export class KeyFactory {
 	public static clubKeyMaker(clubname: string, cityname: string) : string {
         return "".concat(clubname, "~", cityname);
     }
+    
+    /**
+     * Decompose a club key into its constituent parts.
+     * @param {string} key - the key as stored in the dataset
+     * @returns {object} - An object with properties club and city.
+     **/
+    public static clubKeyDecomposer(key: string) : any {
+    	var result = key.split("~");
+    	return { club: result[0], city: result[1]};
+    }
 
 	/**
 	 * Create the key value for the squads dataset
