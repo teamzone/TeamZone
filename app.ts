@@ -11,6 +11,7 @@
 
 var logger = require("./utils/logger");
 var authenticationMiddleware = require('./utils/authenticationMiddleware');
+var noCacheMiddleware = require('./utils/noCacheMiddleware');
 import http = require('http');
 import express = require('express');
 import path = require('path');
@@ -40,6 +41,7 @@ app.use(methodOverride('X-HTTP-Method'))          // Microsoft
 app.use(methodOverride('X-HTTP-Method-Override')) // Google/GData
 app.use(methodOverride('X-Method-Override'))      // IBM
 app.use(expressValidator([]));
+app.disable('etag');
 
 // add session support!
 app.use(cookieParser());
@@ -75,7 +77,7 @@ app.route('/')
   .get(authenticationMiddleware, routes.index);
   
 app.route('/dashboard')
-  .get(authenticationMiddleware, routes.dashboard);
+  .get(noCacheMiddleware, authenticationMiddleware, routes.dashboard);
   
 app.route('/logout')
   .get(routes.logout);

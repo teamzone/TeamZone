@@ -1,6 +1,7 @@
 "use strict";
 var logger = require("./utils/logger");
 var authenticationMiddleware = require('./utils/authenticationMiddleware');
+var noCacheMiddleware = require('./utils/noCacheMiddleware');
 var express = require('express');
 var path = require('path');
 var expressValidator = require('express-validator');
@@ -25,6 +26,7 @@ app.use(methodOverride('X-HTTP-Method'));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(methodOverride('X-Method-Override'));
 app.use(expressValidator([]));
+app.disable('etag');
 app.use(cookieParser());
 app.use(expressSession({ secret: 'sauce', saveUninitialized: true, resave: true }));
 app.use(function (req, res, next) {
@@ -46,7 +48,7 @@ routeConfig.registerRoutes();
 app.route('/')
     .get(authenticationMiddleware, routes.index);
 app.route('/dashboard')
-    .get(authenticationMiddleware, routes.dashboard);
+    .get(noCacheMiddleware, authenticationMiddleware, routes.dashboard);
 app.route('/logout')
     .get(routes.logout);
 app.listen(app.get('port'), function () {

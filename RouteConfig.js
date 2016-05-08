@@ -1,6 +1,7 @@
 'use strict';
 
 var authenticationMiddleware = require('./utils/authenticationMiddleware');
+var noCacheMiddleware = require('./utils/noCacheMiddleware');
 
 var RouteConfig = function(application) {
   this.application = application;
@@ -96,7 +97,7 @@ var getRequiresAuth = function(routeItem) {
 var registerRoute = function(application, Controller, route, method, requiresAuth) {
   console.log("Registering route: " + route + " with method: " + method + " with requiresAuth = " + requiresAuth);
   if(requiresAuth) {
-    application.route(route)[method](authenticationMiddleware, invokeController);
+    application.route(route)[method](noCacheMiddleware, authenticationMiddleware, invokeController);
   } else {
     application.route(route)[method](invokeController);
   }
