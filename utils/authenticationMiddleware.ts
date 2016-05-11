@@ -9,7 +9,12 @@
 
 import express = require("express");
 
-
+/**
+ * Express Middleware that redirects the client to the login url if they are not authenticated.
+ * @param {Request} req - The current Express request.
+ * @param {Response} res - The Express response.
+ * @param {Function} next - Function to invoke the next middleware.
+ **/
 var authenticationMiddleware : express.RequestHandler =  (req: express.Request, res: express.Response, next: Function) => {
     console.log('Request to: ' + req.url + " handled by auth middleware");
     var authenticated = req.session.authenticated;
