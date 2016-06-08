@@ -10,7 +10,10 @@ module.exports = function(grunt) {
       },
       cibuild : {
         REDISTOGO_URL : 'redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750'
-      }
+      },
+      devbuild : {
+        REDISTOGO_URL : 'redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750'
+      }      
     },
     ts: {
       options: {
@@ -74,6 +77,7 @@ module.exports = function(grunt) {
           require: 'coverage/blanket'
         },
         src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', 
+              'ui-test/full/steps/testLoginWithEmail.js',      // just one UI Test to check viability of the site, i.e. did it install
               '!feature-test/steps/testAddPlayerToSquad.js',
               '!feature-test/steps/testAddPlayersToSquads.js',
               '!feature-test/steps/testCreateSquadsForClubsForSeason.js', 

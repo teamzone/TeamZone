@@ -89,6 +89,11 @@ export class CreateSquad implements webRequest.IWebRequest {
     get = (req: express.Request, res: express.Response) => {
         
         this._cms.GetClubs(req.session.user.email, function(err, clubs) {
+            if(err && err.notFound) {
+                res.render('notClubAdmin');
+                return;
+            }
+            
             if(err) {
                 var flash: Flash = new Flash();
                 res.render('createSquad', { flash: flash });

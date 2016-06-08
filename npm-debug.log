@@ -1,0 +1,539 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'sauce-connect',
+1 verbose cli   '--save-dev' ]
+2 info using npm@2.14.12
+3 info using node@v4.3.2
+4 verbose install initial load of c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\package.json
+5 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\abbrev\package.json
+6 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\abstract-leveldown\package.json
+7 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\accepts\package.json
+8 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\acorn\package.json
+9 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\acorn-globals\package.json
+10 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\addressparser\package.json
+11 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\adm-zip\package.json
+12 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\align-text\package.json
+13 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\amdefine\package.json
+14 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\array-flatten\package.json
+15 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\asap\package.json
+16 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\assertion-error\package.json
+17 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\async\package.json
+18 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\balanced-match\package.json
+19 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\base64-url\package.json
+20 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\basic-auth\package.json
+21 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\bcrypt\package.json
+22 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\bindings\package.json
+23 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\bl\package.json
+24 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\blanket\package.json
+25 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\bluebird\package.json
+26 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\body-parser\package.json
+27 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\brace-expansion\package.json
+28 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\buildmail\package.json
+29 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\bytes\package.json
+30 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\bytewise\package.json
+31 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\bytewise-core\package.json
+32 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\camelcase\package.json
+33 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\center-align\package.json
+34 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\chai\package.json
+35 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\character-parser\package.json
+36 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\chokidar\package.json
+37 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\clean-css\package.json
+38 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\cli\package.json
+39 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\cliui\package.json
+40 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\clone\package.json
+41 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\collections\package.json
+42 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\colors\package.json
+43 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\commander\package.json
+44 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\concat-map\package.json
+45 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\console-browserify\package.json
+46 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\constantinople\package.json
+47 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\content-disposition\package.json
+48 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\content-type\package.json
+49 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\cookie\package.json
+50 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\cookie-parser\package.json
+51 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\cookie-signature\package.json
+52 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\core-util-is\package.json
+53 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\crc\package.json
+54 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\css\package.json
+55 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\css-parse\package.json
+56 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\css-stringify\package.json
+57 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\cycle\package.json
+58 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\date-now\package.json
+59 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\debug\package.json
+60 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\decamelize\package.json
+61 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\deep-eql\package.json
+62 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\deferred-leveldown\package.json
+63 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\depd\package.json
+64 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\destroy\package.json
+65 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\di\package.json
+66 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\diff\package.json
+67 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\dom-serializer\package.json
+68 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\domelementtype\package.json
+69 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\domhandler\package.json
+70 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\domutils\package.json
+71 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\ee-first\package.json
+72 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\end-stream\package.json
+73 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\entities\package.json
+74 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\errno\package.json
+75 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\errorhandler\package.json
+76 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\errto\package.json
+77 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\es6-promise\package.json
+78 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\es6-shim\package.json
+79 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\escape-html\package.json
+80 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\escape-string-regexp\package.json
+81 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\etag\package.json
+82 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\exit\package.json
+83 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\express\package.json
+84 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\express-dependency-injector\package.json
+85 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\express-session\package.json
+86 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\express-validator\package.json
+87 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\extsprintf\package.json
+88 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\eyes\package.json
+89 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\falafel\package.json
+90 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\fill-keys\package.json
+91 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\finalhandler\package.json
+92 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\findup-sync\package.json
+93 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\foreach\package.json
+94 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\formatio\package.json
+95 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\forwarded\package.json
+96 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\fresh\package.json
+97 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\glob\package.json
+98 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\graceful-fs\package.json
+99 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\graceful-readlink\package.json
+100 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\growl\package.json
+101 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\grunt\package.json
+102 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\grunt-cli\package.json
+103 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\grunt-env\package.json
+104 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\grunt-jslint\package.json
+105 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\grunt-mocha-test\package.json
+106 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\grunt-ts\package.json
+107 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\hooker\package.json
+108 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\htmlparser2\package.json
+109 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\http-errors\package.json
+110 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\iconv-lite\package.json
+111 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\inflight\package.json
+112 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\inherits\package.json
+113 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\ini\package.json
+114 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\ipaddr.js\package.json
+115 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\is-buffer\package.json
+116 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\is-object\package.json
+117 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\is-promise\package.json
+118 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\isarray\package.json
+119 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\isstream\package.json
+120 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\jade\package.json
+121 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\jshint\package.json
+122 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\jslint\package.json
+123 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\jstransformer\package.json
+124 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\kind-of\package.json
+125 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\lazy-cache\package.json
+126 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\level-cache\package.json
+127 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\level-encoding\package.json
+128 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\level-sublevel\package.json
+129 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\level-write-stream\package.json
+130 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\leveldown\package.json
+131 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\levelup\package.json
+132 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\libbase64\package.json
+133 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\libmime\package.json
+134 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\libqp\package.json
+135 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\lodash\package.json
+136 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\lolex\package.json
+137 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\longest\package.json
+138 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\lru-cache\package.json
+139 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\ltgt\package.json
+140 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\mailcomposer\package.json
+141 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\mailgun\package.json
+142 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\media-typer\package.json
+143 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\memory-streams\package.json
+144 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\merge-descriptors\package.json
+145 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\method-override\package.json
+146 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\methods\package.json
+147 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\middleware\package.json
+148 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\mime\package.json
+149 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\mime-db\package.json
+150 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\mime-types\package.json
+151 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\mimeparse\package.json
+152 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\minimatch\package.json
+153 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\minimist\package.json
+154 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\mkdirp\package.json
+155 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\mocha\package.json
+156 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\mocha-sinon\package.json
+157 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\module-not-found-error\package.json
+158 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\moment\package.json
+159 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\morgan\package.json
+160 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\ms\package.json
+161 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\ncp\package.json
+162 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\needle\package.json
+163 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\negotiator\package.json
+164 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\node-noop\package.json
+165 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\nodemailer\package.json
+166 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\nodemailer-direct-transport\package.json
+167 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\nodemailer-smtp-transport\package.json
+168 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\nodemailer-wellknown\package.json
+169 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\nopt\package.json
+170 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\object-keys\package.json
+171 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\on-finished\package.json
+172 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\on-headers\package.json
+173 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\once\package.json
+174 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\optimist\package.json
+175 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\options\package.json
+176 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\parseurl\package.json
+177 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\path-is-absolute\package.json
+178 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\path-to-regexp\package.json
+179 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\pkginfo\package.json
+180 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\pool-redis\package.json
+181 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\promise\package.json
+182 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\proxy-addr\package.json
+183 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\proxyquire\package.json
+184 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\prr\package.json
+185 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\pull-core\package.json
+186 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\pull-stream\package.json
+187 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\punycode\package.json
+188 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\q\package.json
+189 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\q-io\package.json
+190 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\qs\package.json
+191 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\querystring\package.json
+192 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\range-parser\package.json
+193 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\raw-body\package.json
+194 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\read-stream\package.json
+195 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\readable-stream\package.json
+196 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\recursive-readdir\package.json
+197 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\redis\package.json
+198 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\redisdown\package.json
+199 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\repeat-string\package.json
+200 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\resolve\package.json
+201 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\right-align\package.json
+202 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\rimraf\package.json
+203 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\samsam\package.json
+204 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sax\package.json
+205 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\selenium-webdriver\package.json
+206 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\semver\package.json
+207 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\send\package.json
+208 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\serve-favicon\package.json
+209 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\serve-static\package.json
+210 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\shelljs\package.json
+211 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sigmund\package.json
+212 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sinon\package.json
+213 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sinon-chai\package.json
+214 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\smtp-connection\package.json
+215 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\source-map\package.json
+216 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\stack-trace\package.json
+217 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\statuses\package.json
+218 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\string-format\package.json
+219 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\string_decoder\package.json
+220 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\strip-json-comments\package.json
+221 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\stylus\package.json
+222 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\tmp\package.json
+223 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\token\package.json
+224 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\traceur\package.json
+225 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\transformers\package.json
+226 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\type-detect\package.json
+227 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\type-is\package.json
+228 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\typescript\package.json
+229 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\typewise\package.json
+230 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\typewise-core\package.json
+231 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\typewiselite\package.json
+232 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\uglify-js\package.json
+233 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\uglify-to-browserify\package.json
+234 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\uid-safe\package.json
+235 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\ultron\package.json
+236 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\underscore\package.json
+237 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\underscore.string\package.json
+238 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\unpipe\package.json
+239 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\url\package.json
+240 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\url2\package.json
+241 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\util\package.json
+242 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\utils-merge\package.json
+243 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\validate.js\package.json
+244 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\validator\package.json
+245 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\vary\package.json
+246 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\verror\package.json
+247 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\void-elements\package.json
+248 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\weak-map\package.json
+249 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\webworker-threads\package.json
+250 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\window-size\package.json
+251 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\winston\package.json
+252 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\with\package.json
+253 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\wordwrap\package.json
+254 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\wrappy\package.json
+255 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\write-stream\package.json
+256 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\ws\package.json
+257 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\xml2js\package.json
+258 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\xmlbuilder\package.json
+259 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\xtend\package.json
+260 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\yadda\package.json
+261 verbose installManyTop reading scoped package data from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\yargs\package.json
+262 info package.json adm-zip@0.4.4 No license field.
+263 info package.json asap@1.0.0 No repository field.
+264 info package.json asap@1.0.0 No license field.
+265 info package.json chokidar@0.8.2 No license field.
+266 info package.json cli@0.6.6 No license field.
+267 info package.json collections@0.2.2 No license field.
+268 info package.json colors@0.6.2 No license field.
+269 info package.json console-browserify@1.1.0 No license field.
+270 info package.json css@1.0.8 No repository field.
+271 info package.json css@1.0.8 No license field.
+272 info package.json css-parse@1.0.4 No repository field.
+273 info package.json css-parse@1.0.4 No license field.
+274 info package.json css-stringify@1.0.5 No repository field.
+275 info package.json css-stringify@1.0.5 No license field.
+276 info package.json cycle@1.0.3 No license field.
+277 info package.json date-now@0.1.4 No license field.
+278 info package.json diff@1.0.8 No license field.
+279 info package.json domelementtype@1.3.0 No license field.
+280 info package.json domhandler@2.3.0 No license field.
+281 info package.json domutils@1.5.1 No license field.
+282 info package.json end-stream@0.1.0 No license field.
+283 info package.json entities@1.0.0 license should be a valid SPDX license expression
+284 info package.json es6-shim@0.9.3 No license field.
+285 info package.json exit@0.1.2 No license field.
+286 info package.json eyes@0.1.8 No repository field.
+287 info package.json eyes@0.1.8 No license field.
+288 info package.json findup-sync@0.1.3 No license field.
+289 info package.json formatio@1.1.1 No license field.
+290 info package.json glob@3.2.11 license should be a valid SPDX license expression
+291 info package.json graceful-fs@2.0.3 license should be a valid SPDX license expression
+292 info package.json growl@1.8.1 No license field.
+293 info package.json grunt-cli@0.1.13 No license field.
+294 info package.json grunt-env@0.4.4 No license field.
+295 info package.json grunt-jslint@1.1.14 No license field.
+296 info package.json grunt-mocha-test@0.12.7 No license field.
+297 info package.json grunt-ts@2.0.1 No license field.
+298 info package.json hooker@0.2.3 No license field.
+299 info package.json jslint@0.8.1 No license field.
+300 info package.json level-cache@0.1.0 No license field.
+301 info package.json level-encoding@0.1.0 No license field.
+302 info package.json level-write-stream@0.1.1 No license field.
+303 info package.json longest@1.0.1 license should be a valid SPDX license expression
+304 info package.json mailgun@0.5.0 No license field.
+305 info package.json middleware@1.0.0 No license field.
+306 info package.json mime@1.2.11 No license field.
+307 info package.json mimeparse@0.1.4 No license field.
+308 info package.json minimatch@0.3.0 license should be a valid SPDX license expression
+309 info package.json mocha@1.21.5 No license field.
+310 info package.json ms@0.7.1 No license field.
+311 info package.json nopt@1.0.10 license should be a valid SPDX license expression
+312 info package.json optimist@0.3.7 license should be a valid SPDX license expression
+313 info package.json options@0.0.6 No license field.
+314 info package.json pool-redis@0.1.2 No license field.
+315 info package.json punycode@1.3.2 punycode is also the name of a node core module.
+316 info package.json q@0.9.7 license should be a valid SPDX license expression
+317 info package.json q-io@1.10.9 No license field.
+318 info package.json querystring@0.2.0 querystring is also the name of a node core module.
+319 info package.json querystring@0.2.0 No license field.
+320 info package.json read-stream@0.4.8 No license field.
+321 info package.json recursive-readdir@0.0.2 No license field.
+322 info package.json redis@0.12.1 No license field.
+323 info package.json rimraf@2.2.6 license should be a valid SPDX license expression
+324 info package.json samsam@1.1.2 No license field.
+325 info package.json sax@0.5.8 license should be a valid SPDX license expression
+326 info package.json shelljs@0.3.0 license should be a valid SPDX license expression
+327 info package.json stack-trace@0.0.9 No license field.
+328 info package.json string-format@0.2.1 No license field.
+329 info package.json string_decoder@0.10.31 string_decoder is also the name of a node core module.
+330 info package.json tmp@0.0.24 No license field.
+331 info package.json token@0.0.0 license should be a valid SPDX license expression
+332 info package.json traceur@0.0.33 license should be a valid SPDX license expression
+333 info package.json underscore.string@2.3.3 No license field.
+334 info package.json url@0.10.3 url is also the name of a node core module.
+335 info package.json url2@0.0.0 No license field.
+336 info package.json util@0.10.3 util is also the name of a node core module.
+337 info package.json utils-merge@1.0.0 No license field.
+338 info package.json validate.js@0.3.2 No license field.
+339 info package.json weak-map@1.0.0 No description
+340 info package.json weak-map@1.0.0 No repository field.
+341 info package.json weak-map@1.0.0 No license field.
+342 info package.json webworker-threads@0.5.7 No license field.
+343 info package.json window-size@0.1.0 No license field.
+344 info package.json winston@0.8.3 No license field.
+345 info package.json write-stream@0.4.3 No license field.
+346 info package.json xml2js@0.4.4 No license field.
+347 info package.json yadda@0.11.7 license should be a valid SPDX license expression
+348 verbose readDependencies loading dependencies from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\package.json
+349 silly cache add args [ 'sauce-connect', null ]
+350 verbose cache add spec sauce-connect
+351 silly cache add parsed spec Result {
+351 silly cache add   raw: 'sauce-connect',
+351 silly cache add   scope: null,
+351 silly cache add   name: 'sauce-connect',
+351 silly cache add   rawSpec: '',
+351 silly cache add   spec: 'latest',
+351 silly cache add   type: 'tag' }
+352 silly addNamed sauce-connect@latest
+353 verbose addNamed "latest" is being treated as a dist-tag for sauce-connect
+354 info addNameTag [ 'sauce-connect', 'latest' ]
+355 silly mapToRegistry name sauce-connect
+356 silly mapToRegistry using default registry
+357 silly mapToRegistry registry https://registry.npmjs.org/
+358 silly mapToRegistry uri https://registry.npmjs.org/sauce-connect
+359 verbose addNameTag registry:https://registry.npmjs.org/sauce-connect not in flight; fetching
+360 verbose request uri https://registry.npmjs.org/sauce-connect
+361 verbose request no auth needed
+362 info attempt registry request try #1 at 9:03:47 PM
+363 verbose request id 5fc427263b7b627a
+364 http request GET https://registry.npmjs.org/sauce-connect
+365 http 200 https://registry.npmjs.org/sauce-connect
+366 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+366 verbose headers   etag: '"1GJNDIFMIN63O2VOMHEIR7M4M"',
+366 verbose headers   'content-type': 'application/json',
+366 verbose headers   'content-encoding': 'gzip',
+366 verbose headers   'cache-control': 'max-age=300',
+366 verbose headers   'content-length': '997',
+366 verbose headers   'accept-ranges': 'bytes',
+366 verbose headers   date: 'Wed, 25 May 2016 01:03:51 GMT',
+366 verbose headers   via: '1.1 varnish',
+366 verbose headers   age: '0',
+366 verbose headers   connection: 'keep-alive',
+366 verbose headers   'x-served-by': 'cache-atl6222-ATL',
+366 verbose headers   'x-cache': 'MISS',
+366 verbose headers   'x-cache-hits': '0',
+366 verbose headers   'x-timer': 'S1464138231.865005,VS0,VE99',
+366 verbose headers   vary: 'Accept-Encoding' }
+367 silly get cb [ 200,
+367 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+367 silly get     etag: '"1GJNDIFMIN63O2VOMHEIR7M4M"',
+367 silly get     'content-type': 'application/json',
+367 silly get     'content-encoding': 'gzip',
+367 silly get     'cache-control': 'max-age=300',
+367 silly get     'content-length': '997',
+367 silly get     'accept-ranges': 'bytes',
+367 silly get     date: 'Wed, 25 May 2016 01:03:51 GMT',
+367 silly get     via: '1.1 varnish',
+367 silly get     age: '0',
+367 silly get     connection: 'keep-alive',
+367 silly get     'x-served-by': 'cache-atl6222-ATL',
+367 silly get     'x-cache': 'MISS',
+367 silly get     'x-cache-hits': '0',
+367 silly get     'x-timer': 'S1464138231.865005,VS0,VE99',
+367 silly get     vary: 'Accept-Encoding' } ]
+368 verbose get saving sauce-connect to C:\Users\n_zdu\AppData\Roaming\npm-cache\registry.npmjs.org\sauce-connect\.cache.json
+369 silly addNameTag next cb for sauce-connect with tag latest
+370 silly addNamed sauce-connect@0.1.1
+371 verbose addNamed "0.1.1" is a plain semver version for sauce-connect
+372 silly mapToRegistry name sauce-connect
+373 silly mapToRegistry using default registry
+374 silly mapToRegistry registry https://registry.npmjs.org/
+375 silly mapToRegistry uri https://registry.npmjs.org/sauce-connect
+376 verbose addRemoteTarball https://registry.npmjs.org/sauce-connect/-/sauce-connect-0.1.1.tgz not in flight; adding
+377 verbose addRemoteTarball [ 'https://registry.npmjs.org/sauce-connect/-/sauce-connect-0.1.1.tgz',
+377 verbose addRemoteTarball   '3ae4f33e4946c3de4691f453f8ca6a3d0559c65c' ]
+378 info retry fetch attempt 1 at 9:03:47 PM
+379 info attempt registry request try #1 at 9:03:47 PM
+380 http fetch GET https://registry.npmjs.org/sauce-connect/-/sauce-connect-0.1.1.tgz
+381 http fetch 200 https://registry.npmjs.org/sauce-connect/-/sauce-connect-0.1.1.tgz
+382 silly fetchAndShaCheck shasum 3ae4f33e4946c3de4691f453f8ca6a3d0559c65c
+383 verbose addTmpTarball C:\Users\n_zdu\AppData\Local\Temp\npm-25472-c5da5bed\registry.npmjs.org\sauce-connect\-\sauce-connect-0.1.1.tgz not in flight; adding
+384 verbose addTmpTarball already have metadata; skipping unpack for sauce-connect@0.1.1
+385 silly cache afterAdd sauce-connect@0.1.1
+386 verbose afterAdd C:\Users\n_zdu\AppData\Roaming\npm-cache\sauce-connect\0.1.1\package\package.json not in flight; writing
+387 verbose afterAdd C:\Users\n_zdu\AppData\Roaming\npm-cache\sauce-connect\0.1.1\package\package.json written
+388 silly install resolved [ { name: 'sauce-connect',
+388 silly install resolved     keywords:
+388 silly install resolved      [ 'selenium',
+388 silly install resolved        'selenese',
+388 silly install resolved        'browser-automation',
+388 silly install resolved        'sauce',
+388 silly install resolved        'saucelabs',
+388 silly install resolved        'sauce-labs' ],
+388 silly install resolved     version: '0.1.1',
+388 silly install resolved     'sauce-connect-url': 'http://saucelabs.com/downloads/Sauce-Connect-latest.zip',
+388 silly install resolved     description: 'Node.js wrapper over the SauceLabs SauceConnect.jar program for establishing a secure tunnel for intranet testing',
+388 silly install resolved     main: 'lib/sauce-connect.coffee',
+388 silly install resolved     dependencies: {},
+388 silly install resolved     devDependencies: {},
+388 silly install resolved     scripts:
+388 silly install resolved      { test: 'echo "Error: no test specified" && exit 1',
+388 silly install resolved        env: 'env',
+388 silly install resolved        install: 'make install' },
+388 silly install resolved     author: { name: 'Dave Dopson', email: 'ddopson@gmail.com' },
+388 silly install resolved     license: 'WTFPL',
+388 silly install resolved     readme: 'node-sauce-connect\n==================\n\nThis module is a simple wrapper around the SauceConnect.jar program available from SauceLabs.\n\n````\nSauceConnect = require \'sauce-connect\'\n\nSauceConnect.launch \'wavii\', \'abcd1234-1234-abcd-a123-000000000000\', ->\n  console.log "READY TO START TESTS"\n````\n\n',
+388 silly install resolved     readmeFilename: 'README.md',
+388 silly install resolved     _id: 'sauce-connect@0.1.1',
+388 silly install resolved     dist:
+388 silly install resolved      { shasum: '3ae4f33e4946c3de4691f453f8ca6a3d0559c65c',
+388 silly install resolved        tarball: 'https://registry.npmjs.org/sauce-connect/-/sauce-connect-0.1.1.tgz' },
+388 silly install resolved     _npmVersion: '1.1.65',
+388 silly install resolved     _npmUser: { name: 'ddopson', email: 'ddopson@gmail.com' },
+388 silly install resolved     maintainers: [ [Object] ],
+388 silly install resolved     directories: {},
+388 silly install resolved     _shasum: '3ae4f33e4946c3de4691f453f8ca6a3d0559c65c',
+388 silly install resolved     _resolved: 'https://registry.npmjs.org/sauce-connect/-/sauce-connect-0.1.1.tgz',
+388 silly install resolved     _from: 'sauce-connect@latest' } ]
+389 info install sauce-connect@0.1.1 into c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code
+390 info installOne sauce-connect@0.1.1
+391 verbose installOne of sauce-connect to c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code not in flight; installing
+392 verbose lock using C:\Users\n_zdu\AppData\Roaming\npm-cache\_locks\sauce-connect-920d63d9f7ef4cbd.lock for c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+393 silly install write writing sauce-connect 0.1.1 to c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+394 verbose unbuild node_modules\sauce-connect
+395 silly gentlyRm c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect is being purged from base c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code
+396 verbose gentlyRm don't care about contents; nuking c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+397 verbose tar unpack C:\Users\n_zdu\AppData\Roaming\npm-cache\sauce-connect\0.1.1\package.tgz
+398 verbose tar unpacking to c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+399 silly gentlyRm c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect is being purged
+400 verbose gentlyRm don't care about contents; nuking c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+401 silly gunzTarPerm modes [ '777', '666' ]
+402 silly gunzTarPerm extractEntry package.json
+403 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+404 silly gunzTarPerm extractEntry .npmignore
+405 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+406 silly gunzTarPerm extractEntry README.md
+407 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+408 silly gunzTarPerm extractEntry lib/sauce-connect.coffee
+409 silly gunzTarPerm modified mode [ 'lib/sauce-connect.coffee', 420, 438 ]
+410 silly gunzTarPerm extractEntry Makefile
+411 silly gunzTarPerm modified mode [ 'Makefile', 420, 438 ]
+412 verbose write writing to c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect\package.json
+413 info preinstall sauce-connect@0.1.1
+414 verbose readDependencies loading dependencies from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect\package.json
+415 verbose readDependencies loading dependencies from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect\package.json
+416 silly install resolved []
+417 verbose about to build c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+418 info build c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+419 info linkStuff sauce-connect@0.1.1
+420 silly linkStuff sauce-connect@0.1.1 has c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules as its parent node_modules
+421 verbose linkBins sauce-connect@0.1.1
+422 verbose linkMans sauce-connect@0.1.1
+423 verbose rebuildBundles sauce-connect@0.1.1
+424 info install sauce-connect@0.1.1
+425 verbose unsafe-perm in lifecycle true
+426 info sauce-connect@0.1.1 Failed to exec install script
+427 verbose unlock done using C:\Users\n_zdu\AppData\Roaming\npm-cache\_locks\sauce-connect-920d63d9f7ef4cbd.lock for c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+428 verbose stack Error: sauce-connect@0.1.1 install: `make install`
+428 verbose stack Exit status 1
+428 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:214:16)
+428 verbose stack     at emitTwo (events.js:87:13)
+428 verbose stack     at EventEmitter.emit (events.js:172:7)
+428 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+428 verbose stack     at emitTwo (events.js:87:13)
+428 verbose stack     at ChildProcess.emit (events.js:172:7)
+428 verbose stack     at maybeClose (internal/child_process.js:821:16)
+428 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+429 verbose pkgid sauce-connect@0.1.1
+430 verbose cwd c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code
+431 error Windows_NT 10.0.10586
+432 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "sauce-connect" "--save-dev"
+433 error node v4.3.2
+434 error npm  v2.14.12
+435 error code ELIFECYCLE
+436 error sauce-connect@0.1.1 install: `make install`
+436 error Exit status 1
+437 error Failed at the sauce-connect@0.1.1 install script 'make install'.
+437 error This is most likely a problem with the sauce-connect package,
+437 error not with npm itself.
+437 error Tell the author that this fails on your system:
+437 error     make install
+437 error You can get their info via:
+437 error     npm owner ls sauce-connect
+437 error There is likely additional logging output above.
+438 verbose exit [ 1, true ]
+439 verbose unbuild node_modules\sauce-connect
+440 info preuninstall sauce-connect@0.1.1
+441 info uninstall sauce-connect@0.1.1
+442 verbose unbuild rmStuff sauce-connect@0.1.1 from c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules
+443 info postuninstall sauce-connect@0.1.1
+444 silly gentlyRm c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect is being purged from base c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code
+445 verbose gentlyRm don't care about contents; nuking c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+446 silly vacuum-fs purging c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules\sauce-connect
+447 silly vacuum-fs quitting because other entries in c:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\node_modules
