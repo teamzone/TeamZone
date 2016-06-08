@@ -3,6 +3,7 @@ machine:
     version: 0.10.30
     
   environment:
+    REDISTOGO_URL: redis://redistogo:cdc1c4f5a4f9ea8429387f63eadbccdf@hoki.redistogo.com:10765/
     UITEST_BROWSER: Chrome
     UITEST_BROWSER_VERSION: 50
     UITEST_OS: Windows
