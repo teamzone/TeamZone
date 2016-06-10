@@ -1,5 +1,5 @@
 var assert = require('assert');
-//var webdriver = require('selenium-webdriver');
+var webdriver = require('selenium-webdriver');
 var English = require('yadda').localisation.English;
 var dbHelpers = require('../../../feature-test/steps/common/DbHelpers');
 var testutility = require('../common/TestUtility');

@@ -12,7 +12,7 @@ var dbHelper = require('../../../feature-test/steps/common/DbHelpers');
 var databasefactory = require('../../../lib/common/DatabaseFactory');
 var assert = require('assert');
 var library = require('./LoginWithEmail');
-//var webdriver = require('selenium-webdriver');
+var webdriver = require('selenium-webdriver');
 var driver;
 var interpreter_context;
 var dbh = new dbHelper();
