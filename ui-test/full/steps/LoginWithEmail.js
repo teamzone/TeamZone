@@ -1,5 +1,5 @@
 var assert = require('assert');
-var webdriver = require('selenium-webdriver');
+//var webdriver = require('selenium-webdriver');
 var English = require('yadda').localisation.English;
 var dbHelpers = require('../../../feature-test/steps/common/DbHelpers');
 var testutility = require('../common/TestUtility');
@@ -37,7 +37,7 @@ module.exports = (function() {
         var driver = this.interpreter_context.driver;
         tu.waitForUrl(driver, process.env.TEAMZONE_URL + '/dashboard', 
                     function () { 
-                         logoutUser(driver, next); 
+                         tu.logoutUser(driver, next); 
                     });     
     })
 
@@ -84,18 +84,6 @@ function enterUsernamePassword(driver, email, password, next) {
         })  
         .then(null, function(err) {
             console.error("An error was thrown finding the username textbox " + err);
-            assert.ifError(err);
-        });
-}
-
-function logoutUser(driver, next) {
-    driver.findElement(webdriver.By.id('logout'))
-        .then(function(logoutElement) {
-            logoutElement.click();
-            tu.waitForUrl(driver, process.env.TEAMZONE_URL + '/login', next);
-        })
-        .then(null, function(err) {
-            console.error("An error was thrown trying to logout " + err);
             assert.ifError(err);
         });
 }
