@@ -11,7 +11,8 @@ machine:
     UITEST_RESOLUTION: 1680x1050
     UITEST_SERVER: http://hub.browserstack.com/wd/hub
     UITEST_LOCAL_TEST: false
-    UITEST_DEBUG: true    
+    UITEST_DEBUG: true 
+    TEAMZONE_URL: http://http://circleci-cibuild.herokuapp.com/
 
 general:
   artifacts:
@@ -25,6 +26,8 @@ test:
     - grunt cibuild 
 # Deploy to the heroku site so some ui-tests can run, not all just a sanity check.  They can be slow and another build will run the full suite
     - git push git@heroku.com:circleci-cibuild.git $CIRCLE_SHA1:master --force
+#run mocha to test the UI Test
+    - node node_modules\\mocha\\bin\\_mocha -t 20000 ui-test\full\steps\testLoginWithEmail.js
 
 deployment:
   dev:
