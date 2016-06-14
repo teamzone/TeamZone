@@ -24,7 +24,7 @@ test:
   override:
     - grunt cibuild 
 # Deploy to the heroku site so some ui-tests can run, not all just a sanity check.  They can be slow and another build will run the full suite
-    - git push git@heroku.com:circleci-cibuild.git $CIRCLE_SHA1:master
+    - git push git@heroku.com:circleci-cibuild.git $CIRCLE_SHA1:master --force
 
 deployment:
   dev:
