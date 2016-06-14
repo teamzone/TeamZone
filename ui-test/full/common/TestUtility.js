@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
+var webdriver = require('selenium-webdriver');
 
 /**
  * Utility functions for UI Testing
@@ -97,6 +98,7 @@ function TestUtility() {
      * @returns {!webdriver.promise.Promise} Promise
      */    
     this.logoutUser = function(driver, next) {
+        var tu = this;
         driver.findElement(webdriver.By.id('logout'))
             .then(function(logoutElement) {
                 logoutElement.click();
