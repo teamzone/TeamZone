@@ -77,7 +77,7 @@ module.exports = function(grunt) {
           require: 'coverage/blanket'
         },
         src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', 
-              'ui-test/full/steps/testLoginWithEmail.js',      // just one UI Test to check viability of the site, i.e. did it install
+              //'ui-test/full/steps/testLoginWithEmail.js',      // just one UI Test to check viability of the site, i.e. did it install
               '!feature-test/steps/testAddPlayerToSquad.js',
               '!feature-test/steps/testAddPlayersToSquads.js',
               '!feature-test/steps/testCreateSquadsForClubsForSeason.js', 
