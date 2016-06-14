@@ -12,7 +12,7 @@ machine:
     UITEST_SERVER: http://hub.browserstack.com/wd/hub
     UITEST_LOCAL_TEST: false
     UITEST_DEBUG: true 
-    TEAMZONE_URL: http://http://circleci-cibuild.herokuapp.com/
+    TEAMZONE_URL: http://circleci-cibuild.herokuapp.com/
 
 general:
   artifacts:
