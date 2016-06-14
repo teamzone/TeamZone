@@ -3,7 +3,8 @@ machine:
     version: 4.3.2
     
   environment:
-    REDISTOGO_URL: redis://redistogo:cdc1c4f5a4f9ea8429387f63eadbccdf@hoki.redistogo.com:10765/
+# this REDIS Url is for the cibuild location
+    REDISTOGO_URL: redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750
     UITEST_BROWSER: Chrome
     UITEST_BROWSER_VERSION: 50
     UITEST_OS: Windows
