@@ -28,7 +28,7 @@ test:
 # Deploy to the heroku site so some ui-tests can run, not all just a sanity check.  They can be slow and another build will run the full suite
     - git push git@heroku.com:circleci-cibuild.git $CIRCLE_SHA1:master --force
 #run mocha to test the UI Test
-    - node node_modules/mocha/bin/_mocha -t 20000 --reporter mocha-junit-reporter --reporter-options mochaFile=$CIRCLE_ARTIFACTS/testLoginWithEmail-TestResults.xml ui-test/full/steps/testLoginWithEmail.js
+    - node node_modules/mocha/bin/_mocha -t 20000 --reporter mocha-circleci-reporter ui-test/full/steps/testLoginWithEmail.js
 
 deployment:
   dev:
