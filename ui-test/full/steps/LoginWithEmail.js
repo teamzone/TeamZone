@@ -50,7 +50,7 @@ module.exports = (function() {
         enterUsernamePassword(this.interpreter_context.driver, email, password, next);  
     })
     
-    .then("$firstname $surname should not be logged in ", function(firstname, surname, next) {
+    .then("$firstname $surname should not be logged in", function(firstname, surname, next) {
         next();
     })
 	
