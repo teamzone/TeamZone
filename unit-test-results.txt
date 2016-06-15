@@ -1,307 +1,0 @@
-
-
-  DependencyBinder Tests
-    bind()
-      √ is a function 
-      √ should throw on null item 
-      √ should throw on undefined item 
-      √ should throw on null scope 
-      √ should throw on undefined scope 
-      √ should throw on empty scope 
-      √ should throw on bad scope 
-      √ should add item with singleton scope to parent injector items 
-      √ should not add item with singleton scope to child injector items 
-      √ should add item with webrequest scope 
-      √ should not add item with webrequest scope to parent injector items 
-      √ should add item with transient scope to parent injector items 
-      √ should not add item with transient scope to child injector items 
-      √ should add item with null dependencies 
-      √ should add item with undefined dependencies 
-    childInjectorItems()
-      √ is a function 
-      √ should return empty items when no items bound 
-      √ should return one item when one item bound 
-    parentInjectorItems()
-      √ is a function 
-      √ should return empty items when no items bound 
-      √ should return one item when one item bound 
-
-  DependencyItemBuilder Tests
-    buildInjectorItem()
-      √ is a function 
-      √ should throw on undefined item 
-      √ should throw on null item 
-      √ should throw on undefined scope 
-      √ should throw on null scope 
-      √ should return item when valid input 
-      √ should return item when undefined dependencies 
-      √ should return item when null dependencies 
-      √ should not call di.Inject() when null dependencies are passed 
-      √ should call di.Inject() once when one dependency is passed 
-      √ should call di.Inject() once when two dependencies are passed 
-      √ should call di.TransientScope() once when transient scope and no dependencies passed 
-      √ should call di.TransientScope() once when transient scope and dependencies passed 
-      √ should not call di.TransientScope() when non transient scope and no dependencies passed 
-      √ should call di.annotate() twice when transient scope and dependencies passed 
-      √ should call di.annotate() once when transient scope and no dependencies passed 
-      √ should call di.annotate() once when non transient scope and dependencies passed 
-      √ should not call di.annotate() when non transient scope and no dependencies passed 
-
-  Tests for a utlity to handle DI in tests.  Adapted from node module express-dependency-injector
-    initialize()
-      √ is a function 
-      √ should create dependency injectors 
-      √ should throw error when req is undefined 
-      √ should call dependencyBinder childInjectorItems() and parentInjectorItems() on first call 
-      √ should call dependencyBinder parentInjectorItems() once after first call 
-
-  Token Service.  The component integrates with the Dependency Injector. These are its Unit Tests
-    √ Should generate a token (Ensures that the secret value was set.  If not set then an error gets generated) 
-
-  Club Management Service Unit Tests
-    √ Can create a valid club 
-    √ Returns error clubname parameter is missing 
-    √ Returns error fieldname parameter is missing 
-    √ Returns error suburbname parameter is missing 
-    √ Returns error cityname parameter is missing 
-    √ Returns error adminemail parameter is missing 
-    √ Notification of invalid email error 
-    √ Returns error if the same club is created within the same city, this prevents multiple club names appearing in the same city but allows it for other cities 
-    √ Returns error if checking for existance of the club fails because of db failure 
-    √ Returns error if the new club fails to be saved to the database 
-    √ Returns all clubs managed by a specified user 
-    √ If the user has no clubs returns a NotFoundError 
-
-  MailGun Email Verify Service Unit Tests. Using MailGun API, a cloud based service for sending emails
-    √ The embedded token in the URI is encoded for special characters 
-    √ Sends the verification email 
-    √ Reports an error on mailer failure 
-    √ Constructs mailgun object on missing mailgun parameter 
-
-  Player Management Service Unit Tests
-    √ Should save a valid player to the data store 
-    √ Should be able to retrieve one player 
-    √ Should not be able to retrieve a player that does not exist 
-    √ Should throw an error when a player with the same first name, surname for a team already exists 
-    √ Should throw an error when adding valid player, except for DOB of 200/1/2001 
-    √ Should throw an error when adding valid player, except for DOB of 12 MMM 1930 
-    √ Should throw an error when adding valid player, except for DOB of aa BBB 2000 
-    √ Should throw an error when adding valid player, except for DOB of zzz 
-    √ Should throw an error when adding valid player, except for DOB of 12 Ded 1988 
-    √ Should throw an error when adding valid player, except for DOB of  
-    √ Should throw an error when adding valid player, except for DOB of sss 
-    √ Should allow adding valid player, with multiple valid date formats for dob 12 DEC 2000 
-    √ Should allow adding valid player, with multiple valid date formats for dob 12 Dec 2000 
-    √ Should allow adding valid player, with multiple valid date formats for dob 1 Dec 2000 
-    √ Should allow adding valid player, with multiple valid date formats for dob 1/1/2000 
-    √ Should allow adding valid player, with multiple valid date formats for dob 01/01/2000 
-    √ Should allow adding valid player, with multiple valid date formats for dob 01-01-2000 
-    √ Should allow adding valid player, with multiple valid date formats for dob 12-Dec-2000 
-    √ Should allow adding valid player, with multiple valid date formats for dob 1999-01-01 
-
-  Squad Management Service - Add Player to Squad Unit Tests
-    √ Can add a player to a squad 
-    √ Will not add a player to a squad when the player is too young 
-    √ Will not add a player to a squad when the player is too young - using a long past target year like 1999 
-    √ Will not add a player to a squad when the player is too old 
-    √ Will report error when asking for player details during eligibility checking 
-    √ Will report error when asking for squad details during eligibility checking 
-    √ Returns error squadname parameter is missing 
-    √ Returns error season parameter is missing 
-    √ Returns error player email parameter is missing 
-    √ Notification of invalid player email error 
-    √ Returns error if the same player is created within the same squad and season 
-    √ Returns error if checking for existance of the player in the squad fails because of db failure 
-    √ Returns error if when adding the new player to the squad fails to be saved to the database 
-
-  Squad Management Service - Create Squad Unit Tests
-    √ Can create a valid squad 
-    √ Returns error clubname parameter is missing 
-    √ Returns error cityname parameter is missing 
-    √ Returns error squadname parameter is missing 
-    √ Returns error season parameter is missing 
-    √ Returns error agelimit parameter is missing 
-    √ Returns error admin parameter is missing 
-    √ Notification of invalid email error 
-    √ Returns error if the same squad is created within the same key (club, city, season), this prevents multiple squad names appearing in the same club and season 
-    √ Returns error if checking for existance of the squad fails because of db failure 
-    √ Returns error if the new squad fails to be saved to the database 
-
-  User Management Service Confirm Registered User Unit Tests
-    √ Allows confirmation of a new user 
-    √ Notifies when the user has already been confirmed 
-    √ Notifies when then comparison with a stored token and passed in token fails 
-    √ Returns error when user no longer exists prior to confirming 
-    √ Returns error token when unique token comparison returns false 
-    √ Returns error when unique token comparison throws error 
-    √ Returns error on a general get failure prior to confirming 
-    √ Returns error on when saving the confirmed user fails 
-
-  User Management Service Login Unit Tests
-    √ Should validate login credentials 
-    √ An unconfirmed user should be prevented from logging in 
-    √ Valid login should return a result in a populated user object 
-    √ Should compare the password hash 
-    √ Should compare the password hash and notify of failure in the comparison 
-    √ When the password hash compare fails the caller should be notified 
-    √ Given the user is not registered, should return an error 
-
-  User Management Service Register User Unit Tests
-    √ Allows a new user to register 
-    √ Returns error if the registering user already exists 
-    √ Enacts the hash of the password prior to saving to the database 
-    √ Enacts the tokenizer to generate a token that is used to verify the user prior to saving to the database 
-    √ Notifies of an error when token generator fails 
-    √ Sends the verification email upon successfully saving 
-Send email simulation
-    √ Checking state (state based verification) of emailer after sending email 
-    √ Checking state (behaviour based verification) of emailer after sending email 
-    √ Notifies of an error enacting emailing of verification email 
-    √ Notifies of an error of the rollback of a user arising from failing to send the verification email 
-    √ Returns error upon hash failure 
-    √ Returns error if checking for existance of the user fails because of db failure 
-    √ Returns error if the registering user fails to be saved to the database 
-
-  Testing of expressjs route for adding a player to a club
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Add a valid player 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notifies via response when an error during call to addPlayer in service 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing club name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing city name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing suburb name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing first name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing last name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing date of birth error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing address error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing postcode error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing phone error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of missing email error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test addPlayer
-    √ Notification of invalid email error 
-
-  Testing of expressjs route for create a club
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test manageClub
-    √ Create a valid club 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createClub
-    √ Notifies via response when an error during call to createClub in service 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createClub
-    √ Notification of missing club name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createClub
-    √ Notification of missing city name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createClub
-    √ Notification of missing suburb name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createClub
-    √ Notification of missing field name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createClub
-    √ Notification of missing email error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createClub
-    √ Notification of invalid admin email error 
-
-  Testing of expressjs route for create a squad
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createSquad
-    √ Returns the user's managed clubs on a get 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test manageSquad
-    √ Create a valid squad 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createSquad
-    √ Notifies via response when an error during call to createSquad in service 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createSquad
-    √ Notification of missing club name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createSquad
-    √ Notification of missing city name error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createSquad
-    √ Notification of missing season error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createSquad
-    √ Notification of missing age limit error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createSquad
-    √ Notification of missing admin email error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test createSquad
-    √ Notification of invalid admin email error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test notClubAdmin
-    √ Shows the notClubAdmin view if not a club admin 
-
-  Testing of expressjs route for user confirmation: 
-This code for should not be executed in a unit test login
-    √ Confirm a valid user 
-This code for should not be executed in a unit test login
-    √ Reject blank query parameter - u 
-This code for should not be executed in a unit test login
-    √ Reject blank query parameter - t 
-This code for should not be executed in a unit test login
-    √ Notifies via response when an error during confirmation service occurs 
-    √ Post is not allowed, so throw an error 
-
-  Testing of expressjs route for user login
-This code for should not be executed in a unit test dashboard
-    √ Logs in a valid user 
-This code for should not be executed in a unit test login
-    √ Will not log a user with invalid credentials 
-This code for should not be executed in a unit test login
-    √ Reports an error on failure to login 
-This code for should not be executed in a unit test /addPlayer
-    √ Redirects to the originally requested url 
-
-  Testing of expressjs route for user register
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test login
-    √ Registers a valid user 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test register
-    √ Notifies via response when an error during registration service occurs 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test register
-    √ Notification of missing password error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test register
-    √ Notification of password being too short error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test register
-    √ Notification of missing email error 
-Unit Test Stub - Validation performed
-This code for should not be executed in a unit test register
-    √ Notification of invalid email error 
-
-
-  178 passing (1s)
-
