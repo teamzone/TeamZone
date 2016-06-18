@@ -10,7 +10,10 @@ module.exports = function(grunt) {
       },
       cibuild : {
         REDISTOGO_URL : 'redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750'
-      }
+      },
+      devbuild : {
+        REDISTOGO_URL : 'redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750'
+      }      
     },
     ts: {
       options: {
@@ -55,14 +58,13 @@ module.exports = function(grunt) {
       },
       devbuild: {
         options: {
-          reporter: 'spec',
-          captureFile: 'devbuild-test-results.txt', // Optionally capture the reporter output to a file
+          reporter: 'mocha-circleci-reporter',
           quiet: false, // Optionally suppress output to standard out (defaults to false)
           clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
           timeout: 3000,
           require: 'coverage/blanket'
         },
-        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js']
+        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js']
       },
       cibuild: {
         options: {

@@ -1,0 +1,107 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/app.js",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development",
+                "REDISTOGO_URL": "redis://redistogo:cdc1c4f5a4f9ea8429387f63eadbccdf@hoki.redistogo.com:10765/"
+            },
+            "externalConsole": false,
+            "sourceMaps": false,
+            "outDir": null
+        },
+        {
+            "name": "Launch Lazy",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/app.js",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--lazy"
+            ],
+            "env": {
+                "NODE_ENV": "development",
+                "REDISTOGO_URL": "redis://redistogo:cdc1c4f5a4f9ea8429387f63eadbccdf@hoki.redistogo.com:10765/"
+            },
+            "externalConsole": false,
+            "sourceMaps": false,
+            "outDir": null
+        },
+        {
+            "name": "Launch Mocha",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}\\node_modules\\mocha\\bin\\_mocha",
+            "stopOnEntry": false,
+            "args": [
+                //"${workspaceRoot}\\test\\appUnitTest.js"  
+                "${workspaceRoot}\\ui-test\\full\\steps\\testLoginWithEmail.js"        
+            ],
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "externalConsole": false,
+            "sourceMaps": false,
+            "outDir": null
+        },  
+        {
+            "name": "Launch UI-Test",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}\\node_modules\\mocha\\bin\\_mocha",
+            "stopOnEntry": false,
+            "args": [
+                //"${workspaceRoot}\\test\\appUnitTest.js" 
+                "${workspaceRoot}\\ui-test\\full\\steps\\testLoginWithEmail.js"        
+            ],
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development",
+                "REDISTOGO_URL": "redis://redistogo:cdc1c4f5a4f9ea8429387f63eadbccdf@hoki.redistogo.com:10765/",
+                "SAUCE_USERNAME": "teamzone",
+                "SAUCE_ACCESS_KEY": "90d72ec7-6bef-4d63-995d-f02343c866cb",
+                "TEAMZONE_URL": "http://localhost:3000/login"
+            },
+            "externalConsole": false,
+            "sourceMaps": false,
+            "outDir": null
+        },                      
+        {
+            "name": "Attach",
+            "type": "node",
+            "request": "attach",
+            "port": 5858,
+            "address": "localhost",
+            "restart": false,
+            "sourceMaps": false,
+            "outDir": null,
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": null
+        }
+    ]
+}

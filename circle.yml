@@ -1,4 +1,4 @@
-#cibuild circle.yml is the production configuration and should not be merged with other circle.yml from other branches
+#cibuild circle.yml is the configuration and should not be auto merged with other circle.yml from other branches. Be careful to manitain the configuration for each environment
 machine:
   node:
     version: 4.3.2
