@@ -74,10 +74,15 @@ module.exports = function(grunt) {
           timeout: 10000,
           require: 'coverage/blanket'
         },
-        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', 
-              '!feature-test/steps/testCreateClubs.js',
+        src: ['lib/test/*.js', 
+              'lib/ts/test/*.js', 
+              'routes/test/*.js', 
+              'feature-test/steps/common/test/*.js', 
+              'feature-test/steps/test*.js',
+              '!feature-test/steps/testAddPlayer.js',
+              'feature-test/steps/testRegisterWithEmail.js',
               '!feature-test/steps/testAddPlayersToSquad.js'
-]
+             ]
       },
       uitbuild: {
         options: {
