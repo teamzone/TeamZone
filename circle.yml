@@ -1,11 +1,20 @@
-#Master circle.yml is the production conficuration and should not be merged with other circle.yml from other branches
+#cibuild circle.yml is the configuration and should not be auto merged with other circle.yml from other branches. Be careful to manitain the configuration for each environment
 machine:
   node:
     version: 4.3.2
     
   environment:
-#Production Database Instance
-    REDISTOGO_URL: redis://rediscloud:H7t866JtqEfwwiEH@pub-redis-11492.us-east-1-4.3.ec2.garantiadata.com:11492
+# this REDIS Url is for the cibuild location
+    REDISTOGO_URL: redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750
+    UITEST_BROWSER: Chrome
+    UITEST_BROWSER_VERSION: 50
+    UITEST_OS: Windows
+    UITEST_OS_VERSION: 10
+    UITEST_RESOLUTION: 1680x1050
+    UITEST_SERVER: http://hub.browserstack.com/wd/hub
+    UITEST_LOCAL_TEST: false
+    UITEST_DEBUG: true 
+    TEAMZONE_URL: http://circleci-cibuild.herokuapp.com
 
 general:
   artifacts:
@@ -16,13 +25,13 @@ test:
     - npm install -g grunt-cli
     
   override:
-    - grunt prod
-# Run some automatic smoke tests     
-# TODO - set those up
+    - grunt cibuild 
+# get a copy of build results to the test reports folder for sfae keeping and uniqueness    
+    - cp test-results.xml $CIRCLE_TEST_REPORTS/cibuild-testResults.xml
+# Deploy to the heroku site so some ui-tests can run, not all just a sanity check.  They can be slow and another build will run the full suite
+    - git push git@heroku.com:circleci-cibuild.git $CIRCLE_SHA1:master --force
+#run mocha to test the UI Test
+    - node node_modules/mocha/bin/_mocha -t 20000 --reporter mocha-circleci-reporter ui-test/full/steps/testLoginWithEmail.js
+    - cp test-results.xml $CIRCLE_TEST_REPORTS/cibuild-uiTestResults.xml
 
-deployment:
-  master:
-    branch: master
-    heroku:
-      appname: teamzone-prod
- 
+#deployment:  none required from circleci
