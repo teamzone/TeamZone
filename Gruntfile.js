@@ -117,6 +117,7 @@ module.exports = function(grunt) {
         exclude: [
           //TODO: Remove these once refactored
           'lib/PlayerManagementService.js',
+          'routes/test/createClubTests.js',
           'feature-test/steps/testAddPlayer.js',
           'feature-test/steps/AddPlayer.js',
           'feature-test/steps/common/test/DbHelpersTests.js',
