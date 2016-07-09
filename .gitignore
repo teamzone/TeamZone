@@ -4,3 +4,5 @@ node_modules/**
 **/*.js.map
 logs/all-logs.log
 typings/*
+# Node.js Tools for Visual Studio
+.ntvs_analysis.dat

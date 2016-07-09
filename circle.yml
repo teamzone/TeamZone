@@ -1,9 +1,11 @@
+#Master circle.yml is the production conficuration and should not be merged with other circle.yml from other branches
 machine:
   node:
-    version: 0.10.30
+    version: 4.3.2
     
   environment:
-    REDISTOGO_URL: redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750
+#Production Database Instance
+    REDISTOGO_URL: redis://rediscloud:H7t866JtqEfwwiEH@pub-redis-11492.us-east-1-4.3.ec2.garantiadata.com:11492
 
 general:
   artifacts:
@@ -14,18 +16,12 @@ test:
     - npm install -g grunt-cli
     
   override:
-    - grunt cibuild 
+    - grunt prod
+# Run some automatic smoke tests     
+# TODO - set those up
 
 deployment:
-  dev:
+  master:
     branch: master
     heroku:
-      appname: circleci-cibuild
-  uit:
-    branch: UIT
-    heroku:
-      appname: circleci-cibuild
-  staging:
-      branch: staging
-      heroku:
-        appname: circleci-cibuild-staging      
+      appname: teamzone-prod

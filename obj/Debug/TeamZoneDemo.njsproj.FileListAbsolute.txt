@@ -1,0 +1,2 @@
+C:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\obj\Debug\TeamZoneDemo.njsprojResolveAssemblyReference.cache
+C:\Users\n_zdu\OneDrive\Agile Courses\Agile Programming\code\bin\Microsoft.NodejsTools.WebRole.dll
