@@ -39,26 +39,30 @@ describe("Testing of expressjs route for user confirmation: ", function () {
         umsResponse = { };
         stubConfirm.yields(null, umsResponse);
         outgoingExpressResponse = {
-            render: function (view) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', view); }
+            redirect: function (relativeUrl) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', relativeUrl); }
         };
-        outgoingExpressRenderSpy = sandbox.spy(outgoingExpressResponse, 'render');
+        outgoingExpressRenderSpy = sandbox.spy(outgoingExpressResponse, 'redirect');
 
         //this will be setup to be injected soon enough
         u = new user(ums);
     });
 
     function assertUserServiceConfirmed(redirectView, spy, alertType, message) {
-        spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
+        spy.should.have.been.calledWith(redirectView);
+        incomingExpressRequest.session.userConfirmation.should.deep.equal({ // TODO
             type: alertType,
             messages: [{ msg: message }]
-        }}));
+        });
     }
 
     function assertQueryParameterMissing() {
-        outgoingExpressRenderSpy.should.have.been.calledWith('login', sinon.match({ flash: {
+
+        outgoingExpressRenderSpy.should.have.been.calledWith('/login');
+        console.log(incomingExpressRequest.session.userConfirmation);
+        incomingExpressRequest.session.userConfirmation.should.deep.equal({
             type: 'alert-danger',
             messages: [{ msg: 'Invalid confirmation url' }]
-        }}));
+        });
     }
 
     //2. Module Exercise
@@ -69,7 +73,7 @@ describe("Testing of expressjs route for user confirmation: ", function () {
         u.get(incomingExpressRequest, outgoingExpressResponse);
 
         //3. verify
-        assertUserServiceConfirmed('login', outgoingExpressRenderSpy, 'alert-success', 'You have been successfully confirmed, please log in.');
+        assertUserServiceConfirmed('/login', outgoingExpressRenderSpy, 'alert-success', 'You have been successfully confirmed, please log in.');
 
         //4. teardown
         done();
@@ -119,7 +123,7 @@ describe("Testing of expressjs route for user confirmation: ", function () {
         u.get(incomingExpressRequest, outgoingExpressResponse);
 
         //3. verify
-        assertUserServiceConfirmed('login', outgoingExpressRenderSpy, 'alert-danger', expectedErrorMessage);
+        assertUserServiceConfirmed('/login', outgoingExpressRenderSpy, 'alert-danger', expectedErrorMessage);
 
         //4. teardown
         done();

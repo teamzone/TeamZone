@@ -39,7 +39,7 @@ var AddSquadPlayer = (function () {
         };
     }
     return AddSquadPlayer;
-})();
+}());
 exports.AddSquadPlayer = AddSquadPlayer;
 module.exports = AddSquadPlayer;
 //# sourceMappingURL=addSquadPlayer.js.map

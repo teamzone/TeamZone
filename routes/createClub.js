@@ -49,7 +49,7 @@ var CreateClub = (function () {
         };
     }
     return CreateClub;
-})();
+}());
 exports.CreateClub = CreateClub;
 module.exports = CreateClub;
 //# sourceMappingURL=createClub.js.map
