@@ -3,7 +3,7 @@
  */
 
 exports.index = function(req, res){
-  res.redirect('login');
+  res.redirect('/dashboard');
 };
 
 exports.dashboard = function(req, res) {
@@ -17,9 +17,12 @@ exports.dashboard = function(req, res) {
 exports.logout = function(req, res) {
 
   // clear the session object
-  req.session.destroy();
+  req.session.destroy(function(err) {
+    if(!err) {
+      res.redirect('login');
+    }
+  });
 
   // log the user out via via our API, but don't wait for it
 
-  res.redirect('login');
 };
