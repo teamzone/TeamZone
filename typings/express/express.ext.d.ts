@@ -4,10 +4,12 @@
 /*
 * Merge declarations so typescript can compile correctly
 */
+
 declare module Express {
     export interface Session {
         authenticated: boolean;
         user: { email: string };
+        userConfirmation: any;
     }
     
     export interface Request {

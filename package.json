@@ -1,11 +1,10 @@
 {
-  "name": "TeamZoneDemo",
+  "name": "TeamZone",
   "version": "0.0.0",
-  "description": "TeamZoneDemo",
+  "description": "An application to manage players at your sporting club",
   "main": "app.js",
-  "author": "nickz",
   "engines": {
-    "node": "0.10.30"
+    "node": "4.3.2"
   },
   "dependencies": {
     "bcrypt": "^0.8.5",
@@ -22,7 +21,7 @@
     "express-validator": "^2.7.0",
     "jade": "^1.9.2",
     "level-sublevel": "^6.4.6",
-    "leveldown": "^0.10.4",
+    "leveldown": "^1.4.6",
     "levelup": "^0.19.0",
     "mailgun": "^0.5.0",
     "memory-streams": "^0.1.0",
@@ -33,8 +32,8 @@
     "node-noop": "^1.0.0",
     "nodemailer": "^1.3.0",
     "pool-redis": "^0.1.2",
-    "redis": "^0.12.1",
     "redisdown": "^0.1.10",
+    "redis": "^2.6.1",
     "serve-favicon": "^2.1.7",
     "string-format": "^0.2.1",
     "stylus": "^0.50.0",
@@ -54,27 +53,20 @@
     "grunt-cli": "^0.1.13",
     "grunt-env": "^0.4.2",
     "grunt-jslint": "^1.1.14",
-    "grunt-mocha-test": "^0.12.6",
-    "grunt-ts": "^2.0.1",
+    "grunt-mocha-test": "^0.12.7",
+    "grunt-ts": "^5.5.1",
     "jshint": "^2.6.3",
     "level-cache": "^0.1.0",
-    "mocha": "^1.20.1",
+    "mocha": "^2.5.3",
+    "mocha-circleci-reporter": "0.0.1",
+    "mocha-junit-reporter": "^1.11.1",
     "mocha-sinon": "^1.1.4",
     "proxyquire": "^1.7.3",
-    "selenium-webdriver": "^2.45.1",
+    "selenium-webdriver": "^2.53.2",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
     "typescript": "^1.3.0",
-    "yadda": "^0.11.5"
-  },
-  "scripts": {
-    "test": "npm run test-unit && npm run test-unit-cov && npm run test-features",
-    "test-unit": "mocha -R spec ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceLoginTests.js ./lib/test/UserManagementServiceConfirmRegisterTests.js ./lib/test/UserManagementServiceRegisterTests.js ./routes/test/userConfirmTests.js ./routes/test/userRegisterTests.js ./routes/test/userLoginTests.js ./lib/test/MailGunAPIEmailVerifyServiceTests.js",
-    "test-unit-cov": "mocha -r blanket -R html-cov ./lib/test/PlayerManagementServiceTests.js ./lib/test/UserManagementServiceLoginTests.js ./lib/test/UserManagementServiceConfirmRegisterTests.js ./lib/test/UserManagementServiceRegisterTests.js ./routes/test/userConfirmTests.js ./routes/test/userRegisterTests.js ./routes/test/userLoginTests.js ./lib/test/MailGunAPIEmailVerifyServiceTests.js > Coverage.html",
-    "test-features": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js ./feature-test/steps/testLoginWithEmail.js ./feature-test/steps/testVerifyNewUserEmailAddress.js, ./feature-test/steps/testCreateSquadsForClubsForSeason.js",
-    "test-VerifyUserEmailAddress": "mocha -t 6000 -R spec ./feature-test/steps/testVerifyNewUserEmailAddress.js",
-    "test-AddPlayer": "mocha -t 6000 -R spec ./feature-test/steps/testAddPlayer.js",
-    "test-LoginWithEmail": "mocha -t 6000 -R spec ./feature-test/steps/testLoginWithEmail.js"
+    "yadda": "^0.17.10"
   },
   "config": {
     "blanket": {
@@ -86,8 +78,7 @@
     }
   },
   "repository": {
-    "type": "git",
-    "url": "https://teamzone.visualstudio.com/DefaultCollection/_git/TeamZone"
+    "type": "git"
   },
   "license": "ISC"
 }

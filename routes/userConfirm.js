@@ -15,19 +15,22 @@ var UserConfirm = (function () {
             if (_.isUndefined(email) || _.isUndefined(token)) {
                 flash.type = 'alert-danger';
                 flash.messages = [{ msg: 'Invalid confirmation url' }];
-                res.render('login', { flash: flash });
+                req.session.userConfirmation = flash;
+                res.redirect('/login');
                 return;
             }
             _this._ums.ConfirmRegisterUser(email, token, function (err, reslogin) {
                 if (err) {
                     flash.type = 'alert-danger';
                     flash.messages = [{ msg: err.message }];
-                    res.render('login', { flash: flash });
+                    req.session.userConfirmation = flash;
+                    res.redirect('/login');
                 }
                 else {
                     flash.type = 'alert-success';
                     flash.messages = [{ msg: 'You have been successfully confirmed, please log in.' }];
-                    res.render('login', { flash: flash });
+                    req.session.userConfirmation = flash;
+                    res.redirect('/login');
                 }
             });
         };
