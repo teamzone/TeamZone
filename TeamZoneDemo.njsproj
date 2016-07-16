@@ -5,6 +5,9 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>ExpressApp7</Name>
     <RootNamespace>ExpressApp7</RootNamespace>
+    <NodeExePath>C:\Program Files\nodejs\node.exe</NodeExePath>
+    <Environment>REDISTOGO_URL=redis://redistogo:cdc1c4f5a4f9ea8429387f63eadbccdf@hoki.redistogo.com:10765/
+</Environment>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -21,7 +24,7 @@
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
     <ProjectView>ShowAllFiles</ProjectView>
     <NodejsPort>1337</NodejsPort>
-    <StartWebBrowser>true</StartWebBrowser>
+    <StartWebBrowser>True</StartWebBrowser>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,15 +34,71 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="DiConfig.js" />
     <Compile Include="feature-test\steps\AddPlayer.js" />
     <Compile Include="feature-test\steps\testAddPlayer.js" />
     <Compile Include="feature-test\steps\testAll.js" />
-    <Compile Include="lib\PlayerManagementService - Copy.js" />
-    <Compile Include="lib\PlayerManagementService.js" />
+    <Compile Include="Gruntfile.js" />
+    <Compile Include="lib\ClubRepository.js" />
+    <Compile Include="lib\common\DatabaseFactory.js" />
+    <Compile Include="lib\common\jsInject.js" />
+    <Compile Include="lib\common\ServiceFactory.js" />
+    <Compile Include="lib\common\ServiceLocator.js" />
+    <Compile Include="lib\common\SettingsFactory.js" />
+    <Compile Include="lib\common\test\DatabaseFactoryTests.js" />
+    <Compile Include="lib\common\test\ServiceLocatorTests.js" />
+    <Compile Include="lib\CryptService.js" />
+    <Compile Include="lib\DependencyBinder.js" />
+    <Compile Include="lib\DependencyItemBuilder.js" />
+    <Compile Include="lib\PlayerRepository.js" />
+    <Compile Include="lib\SquadPlayerRepository.js" />
+    <Compile Include="lib\SquadRepository.js" />
+    <Compile Include="lib\TestDependencyInjector.js" />
     <Compile Include="lib\test\PlayerManagementServiceTests.js">
       <TestFramework>Default</TestFramework>
     </Compile>
     <Compile Include="lib\test\spike-require.js" />
+    <Compile Include="lib\TokenService.js" />
+    <Compile Include="lib\ts\ClubManagementService.js" />
+    <Compile Include="lib\ts\EmailVerifyService.js" />
+    <Compile Include="lib\ts\IClubManagementService.js" />
+    <Compile Include="lib\ts\IEmailVerifyService.js" />
+    <Compile Include="lib\ts\IPlayerManagementService.js" />
+    <Compile Include="lib\ts\ISquadManagementService.js" />
+    <Compile Include="lib\ts\ITeamManagementService.js" />
+    <Compile Include="lib\ts\IUserManagementService.js" />
+    <Compile Include="lib\ts\KeyFactory.js" />
+    <Compile Include="lib\ts\MailGunAPIEmailVerifyService.js" />
+    <Compile Include="lib\ts\PlayerManagementService.js" />
+    <Compile Include="lib\ts\ServiceBase.js" />
+    <Compile Include="lib\ts\SquadManagementService.js" />
+    <None Include="lib\ts\test\ClubManagementServiceTests.js">
+      <TestFramework>Mocha</TestFramework>
+    </None>
+    <None Include="lib\ts\test\MailGunAPIEmailVerifyServiceTests.js">
+      <TestFramework>Mocha</TestFramework>
+    </None>
+    <None Include="lib\ts\test\PlayerManagementServiceTests.js">
+      <TestFramework>Mocha</TestFramework>
+    </None>
+    <None Include="lib\ts\test\SquadManagementAddPlayerToSquadTests.js">
+      <TestFramework>Mocha</TestFramework>
+    </None>
+    <None Include="lib\ts\test\SquadManagementServiceCreateSquadTests.js">
+      <TestFramework>Mocha</TestFramework>
+    </None>
+    <None Include="lib\ts\test\UserManagementServiceConfirmRegisterTests.js">
+      <TestFramework>Mocha</TestFramework>
+    </None>
+    <None Include="lib\ts\test\UserManagementServiceLoginTests.js">
+      <TestFramework>Mocha</TestFramework>
+    </None>
+    <None Include="lib\ts\test\UserManagementServiceRegisterTests.js">
+      <TestFramework>Mocha</TestFramework>
+    </None>
+    <Compile Include="lib\ts\UserManagementService.js" />
+    <Compile Include="lib\UserRepository.js" />
+    <Compile Include="RouteConfig.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\test\indexTests.js" />
     <Compile Include="routes\user.js" />
@@ -49,11 +108,23 @@
     <Compile Include="ui-test\fakes\steps\fake\PlayerManagementService.js" />
     <Compile Include="ui-test\fakes\steps\testAddPlayer.js" />
     <Compile Include="ui-test\full\steps\AddPlayer.js" />
-    <Compile Include="ui-test\full\steps\testAddPlayer.js" />
+    <Compile Include="ui-test\full\steps\LoginWithEmail.js" />
+    <Compile Include="ui-test\full\steps\testAddPlayer.js">
+      <TestFramework>Mocha</TestFramework>
+    </Compile>
+    <None Include="ui-test\full\steps\testLoginWithEmail.js">
+      <TestFramework>Mocha</TestFramework>
+    </None>
+    <Compile Include="utils\authenticationMiddleware.js" />
+    <Compile Include="utils\logger.js" />
+    <Compile Include="utils\test\authenticationMiddlewareTests.js" />
+    <Content Include="circle.yml" />
+    <Content Include="di.config.json" />
     <Content Include="feature-test\features\AddPlayer.feature" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
+    <Content Include="route.config.json" />
     <Content Include="ui-test\DI\features\AddPlayer.feature" />
     <Content Include="ui-test\DI\steps\screenshots\and_the_form_should_appear_as_prior_to_the_submission_ready_for_the_user_to_try_again.png" />
     <Content Include="ui-test\DI\steps\screenshots\given_as_a_coach_or_administrator_who_wants_to_add_players_.png" />
@@ -74,7 +145,11 @@
     <Folder Include="feature-test\features\" />
     <Folder Include="feature-test\steps\" />
     <Folder Include="lib\" />
+    <Folder Include="lib\common\" />
+    <Folder Include="lib\common\test\" />
     <Folder Include="lib\test\" />
+    <Folder Include="lib\ts\" />
+    <Folder Include="lib\ts\test\" />
     <Folder Include="routes\test\" />
     <Folder Include="ui-test\" />
     <Folder Include="public\" />
@@ -95,7 +170,26 @@
     <Folder Include="ui-test\full\steps\" />
     <Folder Include="ui-test\full\steps\screenshots\" />
     <Folder Include="ui-test\DI\" />
+    <Folder Include="utils\" />
+    <Folder Include="utils\test\" />
     <Folder Include="views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="lib\ts\ClubManagementService.ts" />
+    <TypeScriptCompile Include="lib\ts\EmailVerifyService.ts" />
+    <TypeScriptCompile Include="lib\ts\IClubManagementService.ts" />
+    <TypeScriptCompile Include="lib\ts\IEmailVerifyService.ts" />
+    <TypeScriptCompile Include="lib\ts\IPlayerManagementService.ts" />
+    <TypeScriptCompile Include="lib\ts\ISquadManagementService.ts" />
+    <TypeScriptCompile Include="lib\ts\IUserManagementService.ts" />
+    <TypeScriptCompile Include="lib\ts\KeyFactory.ts" />
+    <TypeScriptCompile Include="lib\ts\MailGunAPIEmailVerifyService.ts" />
+    <TypeScriptCompile Include="lib\ts\PlayerManagementService.ts" />
+    <TypeScriptCompile Include="lib\ts\ServiceBase.ts" />
+    <TypeScriptCompile Include="lib\ts\SquadManagementService.ts" />
+    <TypeScriptCompile Include="lib\ts\UserManagementService.ts" />
+    <TypeScriptCompile Include="utils\authenticationMiddleware.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
   <ProjectExtensions>

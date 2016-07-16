@@ -10,7 +10,10 @@ module.exports = function(grunt) {
       },
       cibuild : {
         REDISTOGO_URL : 'redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750'
-      }
+      },
+      devbuild : {
+        REDISTOGO_URL : 'redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750'
+      }      
     },
     ts: {
       options: {
@@ -55,30 +58,31 @@ module.exports = function(grunt) {
       },
       devbuild: {
         options: {
-          reporter: 'spec',
-          captureFile: 'devbuild-test-results.txt', // Optionally capture the reporter output to a file
+          reporter: 'mocha-circleci-reporter',
           quiet: false, // Optionally suppress output to standard out (defaults to false)
           clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
-          timeout: 5200,
+          timeout: 3000,
           require: 'coverage/blanket'
         },
-        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js']
+        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js']
       },
       cibuild: {
         options: {
-          reporter: 'spec',
-          captureFile: process.env.CIRCLE_ARTIFACTS + 'cibuild-test-results.txt', // Optionally capture the reporter output to a file
+          reporter: 'mocha-circleci-reporter',
           quiet: false, // Optionally suppress output to standard out (defaults to false)
           clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
           timeout: 10000,
           require: 'coverage/blanket'
         },
-        src: ['lib/test/*.js', 'lib/ts/test/*.js', 'routes/test/*.js', 'feature-test/steps/common/test/*.js', 'feature-test/steps/test*.js', 
-              '!feature-test/steps/testAddPlayerToSquad.js',
-              '!feature-test/steps/testAddPlayersToSquads.js',
-              '!feature-test/steps/testCreateSquadsForClubsForSeason.js', 
-              '!feature-test/steps/testAddPlayersToSquads.NonFunc.js', 
-              '!lib/test/PlayerManagementServiceTests.js']
+        src: ['lib/test/*.js', 
+              'lib/ts/test/*.js', 
+              'routes/test/*.js', 
+              'feature-test/steps/common/test/*.js', 
+              'feature-test/steps/test*.js',
+              '!feature-test/steps/testAddPlayer.js',
+              'feature-test/steps/testRegisterWithEmail.js',
+              '!feature-test/steps/testAddPlayersToSquad.js'
+             ]
       },
       uitbuild: {
         options: {
@@ -117,6 +121,7 @@ module.exports = function(grunt) {
         exclude: [
           //TODO: Remove these once refactored
           'lib/PlayerManagementService.js',
+          'routes/test/createClubTests.js',
           'feature-test/steps/testAddPlayer.js',
           'feature-test/steps/AddPlayer.js',
           'feature-test/steps/common/test/DbHelpersTests.js',
@@ -161,5 +166,6 @@ module.exports = function(grunt) {
   grunt.registerTask('devbuild', ['env', 'ts', 'jslint', 'mochaTest:devbuild']);
   grunt.registerTask('cibuild', ['env:cibuild', 'ts', 'jslint', 'mochaTest:cibuild']);
   grunt.registerTask('uitbuild', ['env:cibuild', 'ts', 'mochaTest:uitbuild']);
+  grunt.registerTask('prod', ['env', 'ts']);
 
 };
