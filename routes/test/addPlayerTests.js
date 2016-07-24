@@ -68,7 +68,9 @@ describe("Testing of expressjs route for adding a player to a club", function ()
         spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
             type: alertType,
             messages: messages
-        }}));
+        },
+            clubs: [{ club: 'Club1', city: 'City1' }]
+        }));
     }
 
     function assertPlayerCreatedAndViewUpdated(redirectView, spy, alertType, messages) {
