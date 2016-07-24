@@ -56,7 +56,7 @@ var AddPlayer = (function () {
                 var flash = new Flash();
                 flash.type = 'alert-danger';
                 flash.messages = [{ msg: 'An unexpected error occurred. Detailed message was: ' + err.message }];
-                res.render('addPlayer', { flash: flash });
+                res.render('addPlayer', { flash: flash, clubs: [] });
             });
         };
     }
