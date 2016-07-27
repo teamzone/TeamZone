@@ -68,7 +68,9 @@ describe("Testing of expressjs route for adding a player to a club", function ()
         spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
             type: alertType,
             messages: messages
-        }}));
+        },
+            clubs: [{ club: 'Club1', city: 'City1' }]
+        }));
     }
 
     function assertPlayerCreatedAndViewUpdated(redirectView, spy, alertType, messages) {
@@ -241,7 +243,9 @@ describe("Testing of expressjs route for adding a player to a club", function ()
             flash: {
                 type: 'alert-danger',
                 messages: [{ msg: 'An unexpected error occurred. Detailed message was: ' + error.message }]
-            }
+            },
+            // Need at least an empty array here to prevent view error.
+            clubs: []
         }));
 
         // 4. teardown
