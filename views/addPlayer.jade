@@ -1,12 +1,8 @@
-doctype html
-html
-  head
-    title Dashboard :: Add Player
-    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.common.min.css')
-    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.bootstrap.min.css')
-    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
-    link(rel='stylesheet', href='stylesheets/style.css')
+extends dashboard
+
+block content
   body
+  
     .login.well
       h1 Player Details
       hr  
@@ -47,6 +43,3 @@ html
           .form-group
             button#Submit.btn.btn-default(name="Submit") Create
           include messages
-
-  script(src='//code.jquery.com/jquery-1.9.1.min.js')
-  script(src='//cdn.kendostatic.com/2013.3.1119/js/kendo.all.min.js')            

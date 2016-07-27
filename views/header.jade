@@ -1,10 +1,24 @@
-.navbar.navbar-static-top.navbar-default
-  .container
-    .navbar-header 
-      .navbar-brand Welcome #{user.email}
-    .navbar-right
-      a.btn.btn-default.navbar-btn#createClub(href="createClub") Create Club
-    .navbar-right
-      a.btn.btn-default.navbar-btn#manageClub(href="manageClub") Manage Club      
-    .navbar-right
-      a.btn.btn-default.navbar-btn#logout(href="logout") Log Out
+nav.navbar.navbar-inverse
+  .container-fluid
+    .navbar-header
+      a.navbar-brand(href='#') Team Zone
+    div
+      ul.nav.navbar-nav
+        li
+          a(href='createClub') Create Club
+        li.dropdown
+          a.dropdown-toggle(data-toggle='dropdown', href='#')
+            | Manage Club
+            span.caret
+          ul.dropdown-menu
+            li
+              a(href='manageClub') Club Details          
+            li
+              a(href='addPlayer') Add Player
+            li
+              a(href='createSquad') Create Squad
+      ul.nav.navbar-nav.navbar-right
+        li
+          a(href='logout')
+            span.glyphicon.glyphicon-log-out
+            |  Logout
