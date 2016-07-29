@@ -16,6 +16,8 @@
         { "route": "/addSquadPlayer", "method": "POST", "controller": "./routes/addSquadPlayer", "requireAuthenticated": true },
         { "route": "/addSquadPlayer", "method": "GET", "controller": "./routes/addSquadPlayer", "requireAuthenticated": true },
         { "route": "/addPlayer", "method": "POST", "controller": "./routes/addPlayer", "requireAuthenticated": true },
-        { "route": "/addPlayer", "method": "GET", "controller": "./routes/addPlayer", "requireAuthenticated": true }        
+        { "route": "/addPlayer", "method": "GET", "controller": "./routes/addPlayer", "requireAuthenticated": true },
+        { "route": "/dashboard", "method": "GET", "controller": "./routes/dashboard", "requireAuthenticated": true },
+        { "route": "/dashboard", "method": "POST", "controller": "./routes/dashboard", "requireAuthenticated": true }
     ]
 }

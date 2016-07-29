@@ -1,6 +1,7 @@
 'use strict';
 
 var authenticationMiddleware = require('./utils/authenticationMiddleware');
+var noCacheMiddleware = require('./utils/noCacheMiddleware');
 
 var RouteConfig = function(application) {
   this.application = application;
@@ -21,8 +22,6 @@ var registerRoutes = function() {
 
     registerRoute(this.application, Controller, route, method, requiresAuth);
   }
-
-  createConfigRoute(this.application);
 };
 
 var loadRouteConfig = function() {
@@ -98,7 +97,7 @@ var getRequiresAuth = function(routeItem) {
 var registerRoute = function(application, Controller, route, method, requiresAuth) {
   console.log("Registering route: " + route + " with method: " + method + " with requiresAuth = " + requiresAuth);
   if(requiresAuth) {
-    application.route(route)[method](authenticationMiddleware, invokeController);
+    application.route(route)[method](noCacheMiddleware, authenticationMiddleware, invokeController);
   } else {
     application.route(route)[method](invokeController);
   }
@@ -108,13 +107,6 @@ var registerRoute = function(application, Controller, route, method, requiresAut
     var controller = req.dependencyInjector.get(Controller);
     controller[method](req, res, next);
   }
-};
-
-var createConfigRoute = function(application) {
-    // TODO RM Note: Check if this is needed?
-//  application.route('/config').get(function(req, res, next) {
-//    res.status(200).json(settings);
-//  });
 };
 
 RouteConfig.prototype = {

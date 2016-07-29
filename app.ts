@@ -10,6 +10,8 @@
 /// <reference path='typings/method-override/method-override.d.ts' />
 
 var logger = require("./utils/logger");
+var authenticationMiddleware = require('./utils/authenticationMiddleware');
+var noCacheMiddleware = require('./utils/noCacheMiddleware');
 import http = require('http');
 import express = require('express');
 import path = require('path');
@@ -39,6 +41,7 @@ app.use(methodOverride('X-HTTP-Method'))          // Microsoft
 app.use(methodOverride('X-HTTP-Method-Override')) // Google/GData
 app.use(methodOverride('X-Method-Override'))      // IBM
 app.use(expressValidator([]));
+app.disable('etag');
 
 // add session support!
 app.use(cookieParser());
@@ -69,14 +72,13 @@ var RouteConfig = require('./RouteConfig');
 var routeConfig = new RouteConfig(app);
 routeConfig.registerRoutes();
 
+
 app.route('/')
-  .get(routes.index);
-  
-app.route('/dashboard')
-  .get(routes.dashboard);
+  .get(authenticationMiddleware, routes.index);
   
 app.route('/logout')
   .get(routes.logout);
+
 
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

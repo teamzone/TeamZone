@@ -16,36 +16,39 @@ var CreateSquad = (function () {
             var errors = req.validationErrors();
             var flash = new Flash();
             var sms = _this._sms;
-            if (errors && errors.length > 0) {
-                var errorCount = errors.length;
-                var msgs = [];
-                for (var i = 0; i < errorCount; i++) {
-                    msgs.push({ msg: errors[i].msg });
+            var cms = _this._cms;
+            cms.GetClubs(req.session.user.email, function (err, clubs) {
+                if (errors && errors.length > 0) {
+                    var errorCount = errors.length;
+                    var msgs = [];
+                    for (var i = 0; i < errorCount; i++) {
+                        msgs.push({ msg: errors[i].msg });
+                    }
+                    flash.type = 'alert-danger';
+                    flash.messages = msgs;
+                    res.render('createSquad', { flash: flash, clubs: clubs });
                 }
-                flash.type = 'alert-danger';
-                flash.messages = msgs;
-                res.render('createSquad', { flash: flash });
-            }
-            else {
-                var clubname = req.body.clubname;
-                var cityname = req.body.cityname;
-                var season = req.body.season;
-                var squadname = req.body.squadname;
-                var agelimit = req.body.agelimit;
-                var adminemail = req.body.adminemail;
-                sms.CreateSquad(clubname, cityname, squadname, season, agelimit, adminemail, function (err) {
-                    if (err) {
-                        flash.type = 'alert-danger';
-                        flash.messages = [{ msg: err.message }];
-                        res.render('createSquad', { flash: flash });
-                    }
-                    else {
-                        flash.type = 'alert-success';
-                        flash.messages = [{ msg: 'Squad has been successfully created.' }];
-                        res.render('manageSquad', { flash: flash });
-                    }
-                });
-            }
+                else {
+                    var clubname = req.body.clubname;
+                    var cityname = req.body.cityname;
+                    var season = req.body.season;
+                    var squadname = req.body.squadname;
+                    var agelimit = req.body.agelimit;
+                    var adminemail = req.body.adminemail;
+                    sms.CreateSquad(clubname, cityname, squadname, season, agelimit, adminemail, function (err) {
+                        if (err) {
+                            flash.type = 'alert-danger';
+                            flash.messages = [{ msg: err.message }];
+                            res.render('createSquad', { flash: flash, clubs: clubs });
+                        }
+                        else {
+                            flash.type = 'alert-success';
+                            flash.messages = [{ msg: 'Squad has been successfully created.' }];
+                            res.render('manageSquad', { flash: flash });
+                        }
+                    });
+                }
+            });
         };
         this.get = function (req, res) {
             _this._cms.GetClubs(req.session.user.email, function (err, clubs) {
@@ -63,7 +66,7 @@ var CreateSquad = (function () {
         };
     }
     return CreateSquad;
-})();
+}());
 exports.CreateSquad = CreateSquad;
 module.exports = CreateSquad;
 //# sourceMappingURL=createSquad.js.map

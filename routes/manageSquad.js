@@ -9,7 +9,7 @@ var ManageSquad = (function () {
         };
     }
     return ManageSquad;
-})();
+}());
 exports.ManageSquad = ManageSquad;
 module.exports = ManageSquad;
 //# sourceMappingURL=manageSquad.js.map

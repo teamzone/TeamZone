@@ -2,8 +2,8 @@ doctype html
 html
   head
     title Dashboard :: Register
-    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.common.min.css')
-    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.bootstrap.min.css')
+    link(rel='stylesheet', href='//kendo.cdn.telerik.com/2016.2.504/styles/kendo.common.min.css')
+    link(rel='stylesheet', href='//kendo.cdn.telerik.com/2016.2.504/styles/kendo.bootstrap.min.css')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
     link(rel='stylesheet', href='stylesheets/style.css')
   body
@@ -41,4 +41,23 @@ html
         include messages
 
   script(src='//code.jquery.com/jquery-1.9.1.min.js')
-  script(src='//cdn.kendostatic.com/2013.3.1119/js/kendo.all.min.js')
+  script(src='//kendo.cdn.telerik.com/2016.2.504/js/kendo.all.min.js')
+
+  script.
+    $('form').kendoValidator({
+            rules: {
+                matches: function(input) {
+                  var value = input.data("matches");
+                  if(!value) return true;
+                  
+                  var matchingInput = $(value);
+                  return input.val() == matchingInput.val();
+                }
+            },
+            messages: {
+                email: "That does not appear to be a valid email address",
+                matches: function (input) {
+                    return input.data("matchesMsg") || "Does not match";
+                }
+            }
+        });

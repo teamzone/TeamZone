@@ -1,11 +1,6 @@
-doctype html
-html
-  head
-    title Dashboard :: Create Squad
-    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.common.min.css')
-    link(rel='stylesheet', href='//cdn.kendostatic.com/2013.3.1119/styles/kendo.bootstrap.min.css')
-    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
-    link(rel='stylesheet', href='stylesheets/style.css')
+extends dashboard
+
+block content
   body
     .login.well
       h1  Create a new Squad for a Season
@@ -16,12 +11,13 @@ html
           input(type='text', name='clubname', class='form-control', 
             id='clubname', placeholder='Enter the name of the club',
             required data-required-msg='The club name is required',
-            readonly value=(clubs || [])[0])
+            readonly value=clubs[0].club)
         .form-group
           label(for='cityname') City 
           input(type='text', name='cityname', class='form-control', 
             id='cityname', placeholder='City Name',
-            required data-required-msg='Your club needs to be in a city')
+            required data-required-msg='Your club needs to be in a city',
+            readonly value=clubs[0].city)
         .form-group
           label(for='squadname') Squad 
           input(type='text', name='squadname', class='form-control', 
@@ -48,5 +44,3 @@ html
           button.btn.btn-default Create
         include messages
 
-  script(src='//code.jquery.com/jquery-1.9.1.min.js')
-  script(src='//cdn.kendostatic.com/2013.3.1119/js/kendo.all.min.js')
