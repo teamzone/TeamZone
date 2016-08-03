@@ -64,7 +64,13 @@ export class UserLogin implements webRequest.IWebRequest {
     * @param {express.Response} req - incoming response object furnished by Express
     **/  
     get = (req: express.Request, res: express.Response) => {
-        res.render('login');
+        if(req.session.userConfirmation) {
+            var flash: Flash = req.session.userConfirmation;
+            delete req.session.userConfirmation;
+            res.render('login', { flash: flash });
+        } else {
+            res.render('login');
+        }
     }
   }
 

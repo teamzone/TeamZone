@@ -3,6 +3,7 @@
 /*global before, beforeEach, afterEach, after, describe, it */
 /*jslint nomen: true */
 /*jshint expr: true*/
+/*jslint expr: true*/
 "use strict";
 
 var createclub = require('../createClub');
@@ -21,17 +22,24 @@ describe("Testing of expressjs route for create a club", function () {
     var cc,
         sandbox,
         stubCreateClub,
+        stubGetClubs,
         cms,
+        incomingGetRequest,
         incomingExpressRequest,
         outgoingExpressResponse,
-        outgoingExpressResponseSpy;
+        outgoingExpressResponseSpy,
+        outgoingExpressRedirectSpy;
 
     beforeEach(function () {
 
         cms = new clubmanagementservice(null);
+        var validSession = { authenticated: true, user: { email: 'nick@adomain.com' } };
+        incomingGetRequest = {
+            session: validSession
+        };
         incomingExpressRequest = {
             body: { clubname: 'Western Knights', cityname: 'Perth', suburbname: 'Mosman Park', fieldname: 'Nash Field', adminemail: 'mel.taylor-gainsford@wk.com.au' },
-            session: { authenticated: true, user: { } }
+            session: validSession
         };
         expressValidator(incomingExpressRequest, {}, function () {
             console.log('Unit Test Stub - Validation performed');
@@ -41,11 +49,14 @@ describe("Testing of expressjs route for create a club", function () {
         sandbox = sinon.sandbox.create();
         stubCreateClub = sandbox.stub(cms, 'CreateClub');
         stubCreateClub.yields(null);
+        stubGetClubs = sandbox.stub(cms, 'GetClubs');
+        stubGetClubs.withArgs('nick@adomain.com', sinon.match.func).yields({ notFound: true }, []);
         outgoingExpressResponse = {
             redirect: function (view) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', view); },
             render: function (view) { /* just a stub to be overridden by sinon */ console.log('This code for should not be executed in a unit test %s', view); }
         };
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
+        outgoingExpressRedirectSpy = sandbox.spy(outgoingExpressResponse, 'redirect');
 
         //this will be setup to be injected soon enough
         cc = new createclub(cms);
@@ -153,6 +164,33 @@ describe("Testing of expressjs route for create a club", function () {
         incomingExpressRequest.body.adminemail = '---';
         //2. exercise
         enactRequestBodyValidationTest(incomingExpressRequest, [{ msg: 'Administrator Email does not appear to be valid' }], done);
+    });
+
+    it("When user already has a club, create club sends them to manage club", function (done) {
+        //1. setup - changing the default behaviour
+        stubGetClubs.restore();
+        stubGetClubs = sandbox.stub(cms, 'GetClubs');
+        stubGetClubs.withArgs('nick@adomain.com', sinon.match.func).yields(null, [{ club: 'club1', city: 'city1'}]);
+        //2. exercise
+        cc.get(incomingGetRequest, outgoingExpressResponse);
+        //3. verify
+        outgoingExpressRedirectSpy.should.have.been.calledWith('/manageClub');
+        //4. teardown
+        done();
+    });
+
+    it("When user already has a club, even a valid post will send them to manage club and not change any data", function (done) {
+        //1. setup - changing the default behaviour
+        stubGetClubs.restore();
+        stubGetClubs = sandbox.stub(cms, 'GetClubs');
+        stubGetClubs.withArgs('nick@adomain.com', sinon.match.func).onCall(0).yields(null, [{ club: 'club1', city: 'city1'}]);
+        //2. exercise
+        cc.get(incomingExpressRequest, outgoingExpressResponse);
+        //3. verify
+        outgoingExpressRedirectSpy.should.have.been.calledWith('/manageClub');
+        stubCreateClub.should.not.have.been.called;
+        //4. teardown
+        done();
     });
 
     //3. Module Verify

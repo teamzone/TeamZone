@@ -59,17 +59,23 @@ describe("Testing of expressjs route for create a squad", function () {
         outgoingExpressResponseSpy = sandbox.spy(outgoingExpressResponse, 'render');
 
         stubGetClubs = sandbox.stub(clubms, 'GetClubs');
-        stubGetClubs.yields(null, ['Club1']);
+        stubGetClubs.yields(null, [{ club: 'Club1', city: 'City1' }]);
 
         //this will be setup to be injected soon enough
         cs = new createsquad(sms, clubms);
     });
 
-    function assertSquadCreatedAndViewUpdated(redirectView, spy, alertType, messages) {
-        spy.should.have.been.calledWith(redirectView, sinon.match({ flash: {
-            type: alertType,
-            messages: messages
-        }}));
+    function assertSquadCreatedAndViewUpdated(renderView, spy, alertType, messages) {
+        var match = {
+            flash: {
+                type: alertType,
+                messages: messages
+            }
+        };
+        if (renderView === 'createSquad') {
+            match.clubs = [{ club: 'Club1', city: 'City1'}];
+        }
+        spy.should.have.been.calledWith(renderView, sinon.match(match));
     }
 
     function enactRequestBodyValidationTest(incomingExpressRequest, expectedMessage, done) {
@@ -88,7 +94,7 @@ describe("Testing of expressjs route for create a squad", function () {
         cs.get(incomingGetRequest, outgoingExpressResponse);
 
         outgoingExpressResponseSpy.should.have.been.calledWith('createSquad', {
-            clubs: ['Club1']
+            clubs: [{ club: 'Club1', city: 'City1' }]
         });
 
         done();
