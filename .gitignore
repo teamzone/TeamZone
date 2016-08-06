@@ -6,3 +6,7 @@ logs/all-logs.log
 typings/*
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
+# Misc Log files
+devbuild-test-results.txt
+test-results.xml
+unit-test-results.txt
