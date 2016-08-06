@@ -12,7 +12,7 @@
     { "item": "./lib/ts/ClubManagementService", "dependencies": [ "./lib/ClubRepository"], "scope": "webrequest" },
     { "item": "./lib/ts/SquadManagementService", "dependencies": [ "./lib/SquadRepository", "./lib/PlayerRepository", "./lib/SquadPlayerRepository"], "scope": "webrequest" },
     { "item": "./lib/CryptService", "dependencies": [], "scope": "transient" },
-    { "item": "./lib/ts/MailGunAPIEmailVerifyService", "dependencies": [ "info@aboutagile.com", "https://teamzone-teamzone.c9.io/verifyReg", "key-39bb09ee565759dda760855ad27eada1" ], "scope": "webrequest" }
+    { "item": "./lib/ts/MailGunAPIEmailVerifyService", "dependencies": [ "info@aboutagile.com", "https://teamzone-prod.herokuapp.com/verifyReg", "key-39bb09ee565759dda760855ad27eada1" ], "scope": "webrequest" }
   ],
   "controllers": [
     { "item": "./routes/userLogin", "dependencies": [ "./lib/ts/UserManagementService" ], "scope": "webrequest" },
