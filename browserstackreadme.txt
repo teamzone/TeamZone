@@ -1,0 +1,9 @@
+- To assist with running Browser Stack tests locally in the Windows Environment
+- Ensure you have node and associated libraries installed.  Installing Visual Studio Code gives you node. 
+- Npm install in the project directory will install the required libraries contained in  package.json
+- You may need to use nvm to set node to the right version as set in package.json
+- There are three batch files that will assist in running the browserstack tests
+- startapp.bat  will start the application in node 
+- startbs.bat will start the proxy to browserstack.  You may need to install the BrowserStack.exe file from the BrowserStack website.  
+- startmochabrowserstack.bat will set up environment variables and run mocha with the name of the test file passed in on the command line
+- Best to create your own BrowserStack account and modify the fields in this file

@@ -72,7 +72,7 @@ export class CreateClub implements webRequest.IWebRequest {
               } else {
                 flash.type = 'alert-success';
                 flash.messages = [{ msg: 'Club has been successfully created.  You can now manage the club to add teams, squads and players and all the other functions needed to run the club.' }];
-                res.render('manageClub', { flash: flash });
+                res.render('manageClub', { flash: flash, user: req.session.user });
               }
             });
           }
@@ -93,7 +93,7 @@ export class CreateClub implements webRequest.IWebRequest {
       if(clubs && clubs.length > 0) {
         res.redirect('/manageClub');
       } else {
-        res.render('createClub');
+        res.render('createClub', { user: req.session.user });
       }
     });
   }
