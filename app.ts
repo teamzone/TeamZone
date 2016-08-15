@@ -76,9 +76,6 @@ routeConfig.registerRoutes();
 app.route('/')
   .get(authenticationMiddleware, routes.index);
   
-app.route('/dashboard')
-  .get(noCacheMiddleware, authenticationMiddleware, routes.dashboard);
-  
 app.route('/logout')
   .get(routes.logout);
 

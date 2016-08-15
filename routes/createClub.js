@@ -1,9 +1,30 @@
+/// <reference path='../typings/tsd.d.ts' />
+/// <reference path='../typings/express/express.d.ts' />
+/// <reference path='../typings/express-session/express-session.d.ts' />
+/// <reference path='../typings/express/express.ext.d.ts' />
+/// <reference path='../typings/node/node.d.ts' />
+/*jslint nomen: true */
 'use strict';
 var Flash = require("./flash");
+/*
+*  Handles web requests to manage creation of clubs
+*  @class
+**/
 var CreateClub = (function () {
+    /**
+    * Accepts the service component that will handle the creation of a new club in the database
+    * @constructor
+    * @param {ITeamManagementService} _tms - service to provide the ability to create a new club.
+    **/
     function CreateClub(_cms) {
         var _this = this;
         this._cms = _cms;
+        /**
+        * Handles the incoming request by validating the incoming data and then asking the team management service to create the club
+        * @constructor
+        * @param {express.Request} req - incoming request object furnished by Express
+        * @param {express.Response} req - incoming response object furnished by Express
+        **/
         this.post = function (req, res) {
             var cms = _this._cms;
             cms.GetClubs(req.session.user.email, function (err, clubs) {
@@ -51,13 +72,19 @@ var CreateClub = (function () {
                 }
             });
         };
+        /**
+        * Renders the create club page when requested by a user
+        * @constructor
+        * @param {express.Request} req - incoming request object furnished by Express
+        * @param {express.Response} req - incoming response object furnished by Express
+        **/
         this.get = function (req, res) {
             _this._cms.GetClubs(req.session.user.email, function (err, clubs) {
                 if (clubs && clubs.length > 0) {
                     res.redirect('/manageClub');
                 }
                 else {
-                    res.render('createClub');
+                    res.render('createClub', { user: req.session.user });
                 }
             });
         };

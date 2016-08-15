@@ -26,9 +26,6 @@ export class MailGunAPIEmailVerifyService implements email.IEmailVerifyService {
 	* @param {mailgun} mailGun - Optional can pass in the mailgun object especially for providing stubs for unit testing.
 	**/
 	constructor(private fromEmailAddress: string, private baseUrl: string, private mailGunApiKey: string, private mailgun?: any) {
-		// this.fromEmailAddress = fromEmailAddress;
-		// this.baseUrl = baseUrl;
-		// this.mailGunApiKey = mailGunApiKey;
 		if (!_.isEmpty(mailgun))
 			this.mailgun = mailgun;
 		else 

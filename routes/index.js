@@ -6,10 +6,6 @@ exports.index = function(req, res){
   res.redirect('/dashboard');
 };
 
-exports.dashboard = function(req, res) {
-  res.render('dashboard', { user: req.session.user });
-};
-
 /* 
  * GET logout
  */

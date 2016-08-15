@@ -6,42 +6,45 @@ var AddPlayer = (function () {
         this._pms = _pms;
         this._cms = _cms;
         this.post = function (req, res) {
-            req.checkBody('clubname', 'Club is required').notEmpty();
-            req.checkBody('cityname', 'City is required').notEmpty();
-            req.checkBody('firstname', 'First Name is required').notEmpty();
-            req.checkBody('lastname', 'Last Name is required').notEmpty();
-            req.checkBody('dob', 'Date of Birth is required').notEmpty();
-            req.checkBody('address', 'Address is required').notEmpty();
-            req.checkBody('suburb', 'Suburb is required').notEmpty();
-            req.checkBody('postcode', 'Postcode is required').notEmpty();
-            req.checkBody('phone', 'Phone is required').notEmpty();
-            req.checkBody('email', 'Email is required').notEmpty();
-            req.checkBody('email', 'Email does not appear to be valid').isEmail();
-            var flash = new Flash(), errors = req.validationErrors();
-            if (errors && errors.length > 0) {
-                var errorCount = errors.length;
-                var msgs = [];
-                for (var i = 0; i < errorCount; i++) {
-                    msgs.push({ msg: errors[i].msg });
+            var cms = _this._cms, pms = _this._pms;
+            cms.GetClubs(req.session.user.email, function (err, clubs) {
+                req.checkBody('clubname', 'Club is required').notEmpty();
+                req.checkBody('cityname', 'City is required').notEmpty();
+                req.checkBody('firstname', 'First Name is required').notEmpty();
+                req.checkBody('lastname', 'Last Name is required').notEmpty();
+                req.checkBody('dob', 'Date of Birth is required').notEmpty();
+                req.checkBody('address', 'Address is required').notEmpty();
+                req.checkBody('suburb', 'Suburb is required').notEmpty();
+                req.checkBody('postcode', 'Postcode is required').notEmpty();
+                req.checkBody('phone', 'Phone is required').notEmpty();
+                req.checkBody('email', 'Email is required').notEmpty();
+                req.checkBody('email', 'Email does not appear to be valid').isEmail();
+                var flash = new Flash(), errors = req.validationErrors();
+                if (errors && errors.length > 0) {
+                    var errorCount = errors.length;
+                    var msgs = [];
+                    for (var i = 0; i < errorCount; i++) {
+                        msgs.push({ msg: errors[i].msg });
+                    }
+                    flash.type = 'alert-danger';
+                    flash.messages = msgs;
+                    res.render('addPlayer', { flash: flash, clubs: clubs });
                 }
-                flash.type = 'alert-danger';
-                flash.messages = msgs;
-                res.render('addPlayer', { flash: flash });
-            }
-            else {
-                _this._pms.AddPlayer(req.body.clubname, req.body.cityname, req.body.firstname, req.body.lastname, req.body.dob, req.body.address, req.body.suburb, req.body.postcode, req.body.phone, req.body.email, function (err) {
-                    if (err) {
-                        flash.type = 'alert-danger';
-                        flash.messages = [{ msg: err.message }];
-                        res.render('addPlayer', { flash: flash });
-                    }
-                    else {
-                        flash.type = 'alert-success';
-                        flash.messages = [{ msg: 'Player has been successfully added.' }];
-                        res.render('addPlayer', { flash: flash });
-                    }
-                });
-            }
+                else {
+                    pms.AddPlayer(req.body.clubname, req.body.cityname, req.body.firstname, req.body.lastname, req.body.dob, req.body.address, req.body.suburb, req.body.postcode, req.body.phone, req.body.email, function (err) {
+                        if (err) {
+                            flash.type = 'alert-danger';
+                            flash.messages = [{ msg: err.message }];
+                            res.render('addPlayer', { flash: flash, clubs: clubs });
+                        }
+                        else {
+                            flash.type = 'alert-success';
+                            flash.messages = [{ msg: 'Player has been successfully added.' }];
+                            res.render('addPlayer', { flash: flash, clubs: clubs });
+                        }
+                    });
+                }
+            });
         };
         this.get = function (req, res) {
             _this._cms.GetClubs(req.session.user.email, function (err, clubs) {
@@ -56,7 +59,7 @@ var AddPlayer = (function () {
                 var flash = new Flash();
                 flash.type = 'alert-danger';
                 flash.messages = [{ msg: 'An unexpected error occurred. Detailed message was: ' + err.message }];
-                res.render('addPlayer', { flash: flash });
+                res.render('addPlayer', { flash: flash, clubs: [] });
             });
         };
     }

@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         REDISTOGO_URL: 'redis://redistogo:cdc1c4f5a4f9ea8429387f63eadbccdf@hoki.redistogo.com:10765/'
       },
       cibuild : {
-        REDISTOGO_URL : 'redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750'
+        REDISTOGO_URL : 'redis://rediscloud:SDDomI5fmpfdJHA1@redis-10330.c8.us-east-1-3.ec2.cloud.redislabs.com:10330'
       },
       devbuild : {
         REDISTOGO_URL : 'redis://rediscloud:c5DS4STm0sBTQNZS@pub-redis-14750.us-east-1-4.2.ec2.garantiadata.com:14750'
